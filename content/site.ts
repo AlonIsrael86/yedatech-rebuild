@@ -122,7 +122,7 @@ export const PRODUCT = {
   eyebrow: "הצצה למערכת",
   title: "המערכת שמאחורי הלמידה",
   subtitle:
-    "לוח בקרה אחד לניהול קורסים, מבחנים ולומדים — עם נתונים ברורים בזמן אמת. התצוגה להמחשה בלבד.",
+    "מסכים אמיתיים מתוך המערכת — מודולי תוכן HTML ווידאו אינטראקטיבי עם שאלות משובצות. התצוגה להמחשה בלבד.",
   // Coded conceptual dashboard (recreated from the Figma product frames).
   dashboard: {
     caption: "המחשה של ממשק המערכת",
@@ -188,6 +188,28 @@ export const AVATAR = {
       options: ["למידה בקצב אישי", "שילוב פורמטים ביחידה אחת", "הדפסת חוברת"],
       correctIndex: 1,
     },
+  },
+} as const;
+
+/**
+ * Two more real product surfaces (coded, labeled "המחשה"): an HTML learning
+ * module and a video player with an embedded question — both verified Yeda
+ * capabilities from the live site.
+ */
+export const SURFACES = {
+  html: {
+    caption: "מודול HTML אינטראקטיבי",
+    unit: "יחידה 2 · מבנה השיעור",
+    accordion: "לחצו להרחבת הנושא",
+    callout: "טיפ: אפשר לשלב טקסט, תמונה ותרגול באותו מסך.",
+  },
+  video: {
+    caption: "וידאו עם שאלה משובצת",
+    time: "02:14",
+    duration: "08:30",
+    question: "מה נלמד ביחידה זו?",
+    options: ["מבנה קורס דיגיטלי", "עריכת וידאו"],
+    cta: "המשך",
   },
 } as const;
 

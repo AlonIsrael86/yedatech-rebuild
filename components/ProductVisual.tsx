@@ -8,8 +8,11 @@ import {
   Play,
   UserRound,
   Check,
+  ChevronDown,
+  Lightbulb,
+  Code2,
 } from "lucide-react";
-import { PRODUCT, AVATAR } from "@/content/site";
+import { PRODUCT, AVATAR, SURFACES } from "@/content/site";
 import { Wordmark } from "@/components/Brand";
 
 const { dashboard } = PRODUCT;
@@ -215,6 +218,115 @@ export function AvatarModulePanel() {
             );
           })}
         </ul>
+      </div>
+    </div>
+  );
+}
+
+/** Conceptual HTML learning module (coded, labeled). */
+export function HtmlModulePanel() {
+  const s = SURFACES.html;
+  return (
+    <div
+      dir="rtl"
+      className="overflow-hidden rounded-[var(--radius-media)] bg-white shadow-[var(--shadow-pop)] ring-1 ring-line"
+    >
+      {/* window chrome */}
+      <div className="flex items-center gap-2 border-b border-line px-4 py-2.5">
+        <span className="flex gap-1.5">
+          <span className="size-2.5 rounded-full bg-line" />
+          <span className="size-2.5 rounded-full bg-line" />
+          <span className="size-2.5 rounded-full bg-line" />
+        </span>
+        <span className="ms-2 inline-flex items-center gap-1.5 text-[12px] font-medium text-slate">
+          <Code2 className="size-3.5 text-royal" aria-hidden />
+          HTML
+        </span>
+      </div>
+      <div className="p-4">
+        <div className="text-[13px] font-semibold text-navy">{s.unit}</div>
+        <div className="mt-2.5 space-y-1.5">
+          <div className="h-2.5 w-full rounded bg-line" />
+          <div className="h-2.5 w-5/6 rounded bg-line" />
+          <div className="h-2.5 w-2/3 rounded bg-line-soft" />
+        </div>
+        {/* interactive accordion row */}
+        <div className="mt-3 flex items-center justify-between rounded-[8px] border border-line bg-royal-50/50 px-3 py-2.5">
+          <span className="text-[13px] font-medium text-navy">{s.accordion}</span>
+          <ChevronDown className="size-4 text-royal" aria-hidden />
+        </div>
+        {/* media + text two-up */}
+        <div className="mt-3 grid grid-cols-[1fr_1.2fr] gap-2.5">
+          <div className="aspect-square rounded-[8px] bg-gradient-to-tl from-royal/20 to-royal-100" />
+          <div className="space-y-1.5 pt-1">
+            <div className="h-2 w-full rounded bg-line" />
+            <div className="h-2 w-11/12 rounded bg-line" />
+            <div className="h-2 w-3/4 rounded bg-line-soft" />
+            <div className="h-2 w-4/5 rounded bg-line-soft" />
+          </div>
+        </div>
+        {/* callout */}
+        <div className="mt-3 flex items-center gap-2 rounded-[8px] bg-sand-soft/60 px-3 py-2 text-[12.5px] text-navy">
+          <Lightbulb className="size-4 shrink-0 text-navy/70" aria-hidden />
+          {s.callout}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Conceptual video player with an embedded question (coded, labeled). */
+export function VideoQuizPanel() {
+  const s = SURFACES.video;
+  return (
+    <div
+      dir="rtl"
+      className="overflow-hidden rounded-[var(--radius-media)] bg-white shadow-[var(--shadow-pop)] ring-1 ring-line"
+    >
+      {/* video stage */}
+      <div className="relative aspect-video bg-gradient-to-tl from-royal/30 via-navy to-navy">
+        <span className="absolute inset-0 grid place-items-center">
+          <span className="grid size-12 place-items-center rounded-full bg-white/95 text-royal shadow-md">
+            <Play className="size-5 translate-x-[1px]" aria-hidden />
+          </span>
+        </span>
+        {/* progress bar */}
+        <div className="absolute inset-x-3 bottom-3">
+          <div className="flex items-center gap-2 text-[11px] font-medium text-white/90">
+            <span className="ltr">{s.time}</span>
+            <span className="relative h-1 flex-1 rounded-full bg-white/25">
+              <span className="absolute inset-y-0 right-0 w-1/4 rounded-full bg-white" />
+            </span>
+            <span className="ltr">{s.duration}</span>
+          </div>
+        </div>
+      </div>
+      {/* embedded question */}
+      <div className="p-4">
+        <span className="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] bg-royal-50 px-2.5 py-1 text-[11px] font-semibold text-royal">
+          <ClipboardCheck className="size-3.5" aria-hidden />
+          שאלה משובצת
+        </span>
+        <p className="mt-2.5 text-[14px] font-semibold text-navy">{s.question}</p>
+        <div className="mt-2.5 grid grid-cols-2 gap-2">
+          {s.options.map((opt, i) => (
+            <span
+              key={opt}
+              className={`rounded-[8px] border px-3 py-2 text-center text-[13px] ${
+                i === 0
+                  ? "border-royal bg-royal-50 font-medium text-royal"
+                  : "border-line text-ink-soft"
+              }`}
+            >
+              {opt}
+            </span>
+          ))}
+        </div>
+        <div className="mt-3 flex justify-start">
+          <span className="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] bg-royal px-4 py-1.5 text-[13px] font-semibold text-white">
+            {s.cta}
+          </span>
+        </div>
       </div>
     </div>
   );

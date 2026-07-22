@@ -1,13 +1,18 @@
 import * as Icons from "lucide-react";
 import { Container, Eyebrow, Button } from "@/components/ui";
 import { Reveal } from "@/components/Reveal";
-import { ProductDashboard, AvatarModulePanel } from "@/components/ProductVisual";
+import {
+  AvatarModulePanel,
+  HtmlModulePanel,
+  VideoQuizPanel,
+} from "@/components/ProductVisual";
 import {
   CREDIBILITY,
   AUDIENCES,
   CAPABILITIES,
   PRODUCT,
   AVATAR,
+  SURFACES,
   PRODUCTION,
   PROCESS,
   FAMILY,
@@ -174,46 +179,37 @@ export function AvatarLearning() {
   );
 }
 
-/* ── Product experience (coded dashboard + avatar module) ─────────────── */
+/* ── Product experience (distinct coded surfaces) ─────────────────────── */
 export function ProductExperience() {
   return (
-    <section className="bg-canvas py-16 sm:py-24">
-      <Container className="grid items-center gap-12 lg:grid-cols-2">
+    <section className="border-t border-line bg-white py-16 sm:py-24">
+      <Container>
         <Reveal>
-          <div className="max-w-lg">
-            <Eyebrow>{PRODUCT.eyebrow}</Eyebrow>
-            <h2 className="mt-3 text-3xl font-bold leading-tight text-navy sm:text-4xl">
-              {PRODUCT.title}
-            </h2>
-            <p className="mt-4 text-lg leading-relaxed text-slate">
-              {PRODUCT.subtitle}
-            </p>
-
-            <ul className="mt-8 space-y-3">
-              {[
-                "ניהול קורסים, מסלולים ולומדים",
-                "סטטיסטיקות מבחנים ודוחות ביצועים",
-                "בקרה ונתונים בזמן אמת",
-              ].map((t) => (
-                <li key={t} className="flex items-center gap-3 text-[15px] text-ink-soft">
-                  <span className="grid size-5 shrink-0 place-items-center rounded-full bg-royal-50 text-royal">
-                    <Icons.Check className="size-3.5" aria-hidden />
-                  </span>
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </div>
+          <SectionHead
+            eyebrow={PRODUCT.eyebrow}
+            title={PRODUCT.title}
+            subtitle={PRODUCT.subtitle}
+          />
         </Reveal>
-
-        <Reveal delay={0.12}>
-          <figure>
-            <ProductDashboard />
-            <figcaption className="mt-3 text-center text-[13px] text-slate">
-              {PRODUCT.dashboard.caption}
-            </figcaption>
-          </figure>
-        </Reveal>
+        {/* three distinct real surfaces — each reveals a different capability */}
+        <div className="mt-12 grid gap-6 lg:grid-cols-2">
+          <Reveal>
+            <figure>
+              <HtmlModulePanel />
+              <figcaption className="mt-3 text-center text-[13px] text-slate">
+                {SURFACES.html.caption}
+              </figcaption>
+            </figure>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <figure>
+              <VideoQuizPanel />
+              <figcaption className="mt-3 text-center text-[13px] text-slate">
+                {SURFACES.video.caption}
+              </figcaption>
+            </figure>
+          </Reveal>
+        </div>
       </Container>
     </section>
   );

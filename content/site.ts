@@ -150,6 +150,47 @@ export const PRODUCT = {
   },
 } as const;
 
+/**
+ * Avatar-based learning — the capability Alexey named as the headline. Copy
+ * describes the real feature (avatar presenter combined with slide, video and
+ * HTML content plus in-module practice). The quiz text is a clearly-labeled
+ * illustration ("המחשה"), not a claim about a specific course.
+ */
+export const AVATAR = {
+  eyebrow: "למידה מבוססת אווטאר",
+  title: "אווטאר, מצגת ותרגול — ביחידת למידה אחת",
+  subtitle:
+    "מודולים מבוססי אווטאר שמשלבים מנחה דיגיטלי, מצגת ותוכן אינטראקטיבי — חוויית למידה עשירה שנבנית כיחידה אחת שלמה.",
+  points: [
+    {
+      title: "מנחה אווטאר",
+      body: "מנחה דיגיטלי שמלווה את הלומד לאורך היחידה בקול ובתמונה.",
+      icon: "UserRound",
+    },
+    {
+      title: "שילוב פורמטים",
+      body: "מצגת, וידאו ומודולי HTML משולבים באותה יחידת למידה.",
+      icon: "Layers",
+    },
+    {
+      title: "תרגול בתוך המודול",
+      body: "שאלות ותרגול אינטראקטיבי משובצים ישירות בתוך הלמידה.",
+      icon: "ClipboardCheck",
+    },
+  ],
+  panel: {
+    caption: "המחשה של מודול אווטאר",
+    presenterTag: "מנחה אווטאר",
+    slideTitle: "יחידה 3 · עקרונות הלמידה הדיגיטלית",
+    quiz: {
+      tag: "תרגול",
+      question: "מהו היתרון המרכזי של מודול מבוסס אווטאר?",
+      options: ["למידה בקצב אישי", "שילוב פורמטים ביחידה אחת", "הדפסת חוברת"],
+      correctIndex: 1,
+    },
+  },
+} as const;
+
 export const PRODUCTION = {
   eyebrow: "אולפן ההפקה — Yeda Labs",
   title: "מרעיון לקורס מוכן",

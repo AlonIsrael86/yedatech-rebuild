@@ -5,8 +5,11 @@ import {
   Award,
   Settings,
   ClipboardCheck,
+  Play,
+  UserRound,
+  Check,
 } from "lucide-react";
-import { PRODUCT } from "@/content/site";
+import { PRODUCT, AVATAR } from "@/content/site";
 import { Wordmark } from "@/components/Brand";
 
 const { dashboard } = PRODUCT;
@@ -127,6 +130,91 @@ export function ProductDashboard() {
             ))}
           </ul>
         </aside>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Conceptual avatar-based learning module (coded, labeled). Shows the real
+ * capability Alexey emphasized: an avatar presenter combined with a slide and
+ * an in-module practice question — "avatars with other formats" in one unit.
+ */
+export function AvatarModulePanel() {
+  const { panel } = AVATAR;
+  return (
+    <div
+      dir="rtl"
+      className="overflow-hidden rounded-[var(--radius-media)] bg-white shadow-[var(--shadow-pop)] ring-1 ring-line"
+    >
+      {/* presenter + slide stage */}
+      <div className="relative aspect-[16/9] bg-gradient-to-tl from-royal/25 via-navy to-navy p-3">
+        {/* slide */}
+        <div className="absolute inset-3 rounded-[8px] bg-white/95 p-3 shadow-sm">
+          <div className="text-[12px] font-semibold text-navy">
+            {panel.slideTitle}
+          </div>
+          <div className="mt-2 space-y-1.5">
+            <div className="h-2 w-11/12 rounded bg-line" />
+            <div className="h-2 w-3/4 rounded bg-line" />
+            <div className="h-2 w-4/5 rounded bg-line-soft" />
+          </div>
+          <div className="mt-3 flex gap-1.5">
+            <div className="h-9 flex-1 rounded bg-royal-50" />
+            <div className="h-9 flex-1 rounded bg-royal-100" />
+            <div className="h-9 flex-1 rounded bg-sand-soft/70" />
+          </div>
+        </div>
+        {/* avatar presenter, bottom-start corner */}
+        <div className="absolute bottom-4 right-4 flex items-center gap-2">
+          <span className="grid size-14 place-items-center rounded-full bg-sand ring-4 ring-white/90">
+            <UserRound className="size-7 text-navy" aria-hidden />
+          </span>
+          <span className="rounded-[var(--radius-pill)] bg-white/95 px-2.5 py-1 text-[11px] font-semibold text-navy shadow-sm">
+            {panel.presenterTag}
+          </span>
+        </div>
+        {/* play control */}
+        <span className="absolute left-4 top-4 grid size-8 place-items-center rounded-full bg-white/95 text-royal shadow-sm">
+          <Play className="size-4 translate-x-[1px]" aria-hidden />
+        </span>
+      </div>
+
+      {/* in-module quiz */}
+      <div className="p-4">
+        <span className="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] bg-royal-50 px-2.5 py-1 text-[11px] font-semibold text-royal">
+          <ClipboardCheck className="size-3.5" aria-hidden />
+          {panel.quiz.tag}
+        </span>
+        <p className="mt-2.5 text-[14px] font-semibold text-navy">
+          {panel.quiz.question}
+        </p>
+        <ul className="mt-2.5 space-y-1.5">
+          {panel.quiz.options.map((opt, i) => {
+            const correct = i === panel.quiz.correctIndex;
+            return (
+              <li
+                key={opt}
+                className={`flex items-center justify-between gap-2 rounded-[8px] border px-3 py-2 text-[13px] ${
+                  correct
+                    ? "border-ok/40 bg-ok/[0.06] font-medium text-navy"
+                    : "border-line bg-white text-ink-soft"
+                }`}
+              >
+                <span className="flex items-center gap-2">
+                  <span
+                    className={`grid size-4 place-items-center rounded-full border ${
+                      correct ? "border-ok bg-ok text-white" : "border-line"
+                    }`}
+                  >
+                    {correct ? <Check className="size-3" aria-hidden /> : null}
+                  </span>
+                  {opt}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );

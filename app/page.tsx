@@ -4,6 +4,7 @@ import {
   Credibility,
   Audiences,
   Capabilities,
+  AvatarLearning,
   ProductExperience,
   Production,
   Process,
@@ -21,6 +22,7 @@ export default function Home() {
         <Credibility />
         <Audiences />
         <Capabilities />
+        <AvatarLearning />
         <ProductExperience />
         <Production />
         <Process />

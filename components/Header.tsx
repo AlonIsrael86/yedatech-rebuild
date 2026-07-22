@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Container, Button } from "@/components/ui";
@@ -9,8 +9,24 @@ import { Wordmark } from "@/components/Brand";
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  // Elevate the sticky header once the page scrolls past the hero's top edge.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-line/70 bg-white/85 backdrop-blur-md">
+    <header
+      className={`sticky top-0 z-50 bg-white/85 backdrop-blur-md transition-shadow duration-300 ${
+        scrolled
+          ? "border-b border-line shadow-[0_1px_16px_-6px_rgba(10,26,110,0.25)]"
+          : "border-b border-transparent"
+      }`}
+    >
       <Container className="flex h-16 items-center justify-between gap-4">
         <Link href="#top" aria-label="Yeda — לדף הבית" className="shrink-0">
           <Wordmark className="h-7 w-auto text-navy" />

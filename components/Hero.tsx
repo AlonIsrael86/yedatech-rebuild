@@ -92,12 +92,14 @@ export function Hero() {
         >
           <ProductDashboard />
 
-          {/* floating video-module card */}
-          <div className="absolute -top-5 -left-4 hidden w-52 rounded-[var(--radius-card)] bg-white p-2.5 shadow-[var(--shadow-pop)] ring-1 ring-line sm:block">
+          {/* floating video-module card — overhangs the TOP-LEFT corner into
+              the navy gutter, sitting above the panel so it never covers the
+              KPI tiles or the dashboard's own logo. */}
+          <div className="absolute -top-10 -left-6 hidden w-44 rounded-[var(--radius-card)] bg-white p-2.5 shadow-[var(--shadow-pop)] ring-1 ring-line lg:block">
             <div className="relative overflow-hidden rounded-[6px] bg-navy">
               <div className="aspect-video bg-gradient-to-tl from-royal/40 to-navy" />
               <span className="absolute inset-0 grid place-items-center">
-                <span className="grid size-9 place-items-center rounded-full bg-white/95 text-royal">
+                <span className="grid size-8 place-items-center rounded-full bg-white/95 text-royal">
                   <Play className="size-4 translate-x-[1px]" aria-hidden />
                 </span>
               </span>
@@ -108,8 +110,8 @@ export function Hero() {
             </div>
           </div>
 
-          {/* floating "record" pill (Figma's red accent) */}
-          <div className="absolute -bottom-3 right-6 hidden items-center gap-2 rounded-[var(--radius-pill)] bg-red px-3.5 py-2 text-[13px] font-semibold text-white shadow-[var(--shadow-pop)] sm:inline-flex">
+          {/* floating "record" pill (Figma's red accent), off the bottom edge */}
+          <div className="absolute -bottom-4 right-8 hidden items-center gap-2 rounded-[var(--radius-pill)] bg-red px-3.5 py-2 text-[13px] font-semibold text-white shadow-[var(--shadow-pop)] sm:inline-flex">
             <span className="size-2 rounded-full bg-white" />
             הקלטת וידאו
           </div>

@@ -19,7 +19,7 @@ export function Container({
 /** Eyebrow / section kicker. */
 export function Eyebrow({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-block text-[13px] font-semibold tracking-[0.02em] text-royal">
+    <span className="inline-block text-[14px] font-semibold tracking-[0.02em] text-royal">
       {children}
     </span>
   );
@@ -42,7 +42,7 @@ export function Button({
   withArrow = false,
 }: ButtonProps) {
   const base =
-    "inline-flex items-center justify-center gap-2 rounded-[var(--radius-pill)] px-6 py-3 text-[15px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2";
+    "inline-flex items-center justify-center gap-2 rounded-[var(--radius-pill)] px-6 py-3 text-[16px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2";
   const styles = {
     primary: "bg-royal text-white shadow-[var(--shadow-float)] hover:bg-royal-600",
     secondary:

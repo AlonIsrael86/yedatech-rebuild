@@ -56,7 +56,7 @@ export function Credibility() {
             {CREDIBILITY.statements.map((s) => (
               <li
                 key={s}
-                className="rounded-[var(--radius-pill)] border border-line bg-canvas px-5 py-2.5 text-[15px] font-medium text-navy"
+                className="rounded-[var(--radius-pill)] border border-line bg-canvas px-5 py-2.5 text-[16px] font-medium text-navy"
               >
                 {s}
               </li>
@@ -84,7 +84,7 @@ export function Audiences() {
                   <Icon name={a.icon} className="size-6" />
                 </span>
                 <h3 className="mt-5 text-lg font-bold text-navy">{a.title}</h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-slate">
+                <p className="mt-2 text-[16px] leading-relaxed text-slate">
                   {a.body}
                 </p>
               </article>
@@ -112,8 +112,8 @@ export function Capabilities() {
                   <Icon name={c.icon} className="size-5" />
                 </span>
                 <div>
-                  <h3 className="text-[17px] font-bold text-navy">{c.title}</h3>
-                  <p className="mt-1.5 text-[15px] leading-relaxed text-slate">
+                  <h3 className="text-[18px] font-bold text-navy">{c.title}</h3>
+                  <p className="mt-1.5 text-[16px] leading-relaxed text-slate">
                     {c.body}
                   </p>
                 </div>
@@ -133,7 +133,7 @@ export function Production() {
       <Container>
         <Reveal>
           <div className="max-w-2xl">
-            <span className="text-[13px] font-semibold text-sand">
+            <span className="text-[14px] font-semibold text-sand">
               {PRODUCTION.eyebrow}
             </span>
             <h2 className="mt-3 text-3xl font-bold leading-tight sm:text-4xl">
@@ -152,7 +152,7 @@ export function Production() {
                   <Icon name={s.icon} className="size-6" />
                 </span>
                 <h3 className="mt-5 text-lg font-bold">{s.title}</h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-white/70">
+                <p className="mt-2 text-[16px] leading-relaxed text-white/70">
                   {s.body}
                 </p>
               </div>
@@ -179,8 +179,8 @@ export function Process() {
                 <span className="ltr block text-3xl font-bold text-royal/25">
                   {s.n}
                 </span>
-                <h3 className="mt-2 text-[17px] font-bold text-navy">{s.title}</h3>
-                <p className="mt-1.5 text-[14px] leading-relaxed text-slate">
+                <h3 className="mt-2 text-[18px] font-bold text-navy">{s.title}</h3>
+                <p className="mt-1.5 text-[15px] leading-relaxed text-slate">
                   {s.body}
                 </p>
               </li>
@@ -208,8 +208,8 @@ export function Family() {
                   <Icon name={f.icon} className="size-5" />
                 </span>
                 <div>
-                  <h3 className="ltr text-[16px] font-bold text-navy">{f.name}</h3>
-                  <p className="text-[14px] text-slate">{f.body}</p>
+                  <h3 className="ltr text-[17px] font-bold text-navy">{f.name}</h3>
+                  <p className="text-[15px] text-slate">{f.body}</p>
                 </div>
               </div>
             </Reveal>

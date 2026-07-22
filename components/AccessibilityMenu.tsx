@@ -86,7 +86,7 @@ export function AccessibilityMenu() {
   }, [open]);
 
   const rowBtn =
-    "flex items-center gap-2.5 rounded-[8px] border px-3 py-2.5 text-[14px] font-medium transition-colors";
+    "flex items-center gap-2.5 rounded-[8px] border px-3 py-2.5 text-[15px] font-medium transition-colors";
   const active = "border-royal bg-royal-50 text-royal";
   const idle = "border-line bg-white text-ink-soft hover:bg-royal-50/50";
 
@@ -101,7 +101,7 @@ export function AccessibilityMenu() {
           className="absolute bottom-14 left-0 w-64 rounded-[12px] border border-line bg-white p-3 shadow-[var(--shadow-pop)]"
         >
           <div className="mb-2 flex items-center justify-between">
-            <span className="text-[14px] font-bold text-navy">נגישות</span>
+            <span className="text-[15px] font-bold text-navy">נגישות</span>
             <button
               onClick={() => setOpen(false)}
               aria-label="סגירה"
@@ -159,7 +159,7 @@ export function AccessibilityMenu() {
               <RotateCcw className="size-4" aria-hidden /> איפוס
             </button>
           </div>
-          <p className="mt-2 px-1 text-[10.5px] leading-snug text-slate">
+          <p className="mt-2 px-1 text-[11px] leading-snug text-slate">
             כלי נגישות בסיסי. הצהרת נגישות מלאה תתווסף בהמשך.
           </p>
         </div>

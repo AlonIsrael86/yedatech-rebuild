@@ -72,7 +72,7 @@ export function ProductDashboard() {
       <div className="flex items-center justify-between border-b border-line px-4 py-3">
         <div className="flex items-center gap-2">
           <span className="size-2.5 rounded-full bg-royal" />
-          <span className="text-[15px] font-semibold text-navy">{dashboard.title}</span>
+          <span className="text-[16px] font-semibold text-navy">{dashboard.title}</span>
         </div>
         <Wordmark className="h-5 w-auto text-royal" />
       </div>
@@ -85,19 +85,19 @@ export function ProductDashboard() {
             {dashboard.kpis.map((k) => (
               <div key={k.label} className="rounded-[var(--radius-card)] border border-line bg-white p-3">
                 <div className="ltr text-2xl font-bold text-navy">{k.value}</div>
-                <div className="mt-1 text-[11px] leading-tight text-slate">{k.label}</div>
+                <div className="mt-1 text-[12px] leading-tight text-slate">{k.label}</div>
               </div>
             ))}
           </div>
           {/* donut block */}
           <div className="mt-3 rounded-[var(--radius-card)] border border-line bg-royal-50/40 p-4">
-            <div className="mb-1 text-[13px] font-semibold text-navy">
+            <div className="mb-1 text-[14px] font-semibold text-navy">
               {dashboard.donut.title}
             </div>
             <div className="flex items-center justify-between gap-3">
               <ul className="space-y-2">
                 {dashboard.donut.legend.map((l) => (
-                  <li key={l.label} className="flex items-center gap-2 text-[12px] text-ink-soft">
+                  <li key={l.label} className="flex items-center gap-2 text-[13px] text-ink-soft">
                     <span className="size-2.5 rounded-full" style={{ background: l.color }} />
                     <span className="ltr font-semibold text-navy">{l.value}</span>
                     <span>{l.label}</span>
@@ -120,7 +120,7 @@ export function ProductDashboard() {
             {navItems.map((n) => (
               <li key={n.label}>
                 <span
-                  className={`flex items-center gap-2 rounded-[8px] px-2.5 py-2 text-[12px] ${
+                  className={`flex items-center gap-2 rounded-[8px] px-2.5 py-2 text-[13px] ${
                     n.active
                       ? "bg-royal-50 font-semibold text-royal"
                       : "text-slate"
@@ -154,7 +154,7 @@ export function AvatarModulePanel() {
       <div className="relative aspect-[16/9] bg-gradient-to-tl from-royal/25 via-navy to-navy p-3">
         {/* slide */}
         <div className="absolute inset-3 rounded-[8px] bg-white/95 p-3 shadow-sm">
-          <div className="text-[12px] font-semibold text-navy">
+          <div className="text-[13px] font-semibold text-navy">
             {panel.slideTitle}
           </div>
           <div className="mt-2 space-y-1.5">
@@ -173,7 +173,7 @@ export function AvatarModulePanel() {
           <span className="grid size-14 place-items-center rounded-full bg-sand ring-4 ring-white/90">
             <UserRound className="size-7 text-navy" aria-hidden />
           </span>
-          <span className="rounded-[var(--radius-pill)] bg-white/95 px-2.5 py-1 text-[11px] font-semibold text-navy shadow-sm">
+          <span className="rounded-[var(--radius-pill)] bg-white/95 px-2.5 py-1 text-[12px] font-semibold text-navy shadow-sm">
             {panel.presenterTag}
           </span>
         </div>
@@ -185,11 +185,11 @@ export function AvatarModulePanel() {
 
       {/* in-module quiz */}
       <div className="p-4">
-        <span className="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] bg-royal-50 px-2.5 py-1 text-[11px] font-semibold text-royal">
+        <span className="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] bg-royal-50 px-2.5 py-1 text-[12px] font-semibold text-royal">
           <ClipboardCheck className="size-3.5" aria-hidden />
           {panel.quiz.tag}
         </span>
-        <p className="mt-2.5 text-[14px] font-semibold text-navy">
+        <p className="mt-2.5 text-[15px] font-semibold text-navy">
           {panel.quiz.question}
         </p>
         <ul className="mt-2.5 space-y-1.5">
@@ -198,7 +198,7 @@ export function AvatarModulePanel() {
             return (
               <li
                 key={opt}
-                className={`flex items-center justify-between gap-2 rounded-[8px] border px-3 py-2 text-[13px] ${
+                className={`flex items-center justify-between gap-2 rounded-[8px] border px-3 py-2 text-[14px] ${
                   correct
                     ? "border-ok/40 bg-ok/[0.06] font-medium text-navy"
                     : "border-line bg-white text-ink-soft"
@@ -238,13 +238,13 @@ export function HtmlModulePanel() {
           <span className="size-2.5 rounded-full bg-line" />
           <span className="size-2.5 rounded-full bg-line" />
         </span>
-        <span className="ms-2 inline-flex items-center gap-1.5 text-[12px] font-medium text-slate">
+        <span className="ms-2 inline-flex items-center gap-1.5 text-[13px] font-medium text-slate">
           <Code2 className="size-3.5 text-royal" aria-hidden />
           HTML
         </span>
       </div>
       <div className="p-4">
-        <div className="text-[13px] font-semibold text-navy">{s.unit}</div>
+        <div className="text-[14px] font-semibold text-navy">{s.unit}</div>
         <div className="mt-2.5 space-y-1.5">
           <div className="h-2.5 w-full rounded bg-line" />
           <div className="h-2.5 w-5/6 rounded bg-line" />
@@ -252,7 +252,7 @@ export function HtmlModulePanel() {
         </div>
         {/* interactive accordion row */}
         <div className="mt-3 flex items-center justify-between rounded-[8px] border border-line bg-royal-50/50 px-3 py-2.5">
-          <span className="text-[13px] font-medium text-navy">{s.accordion}</span>
+          <span className="text-[14px] font-medium text-navy">{s.accordion}</span>
           <ChevronDown className="size-4 text-royal" aria-hidden />
         </div>
         {/* media + text two-up */}
@@ -266,7 +266,7 @@ export function HtmlModulePanel() {
           </div>
         </div>
         {/* callout */}
-        <div className="mt-3 flex items-center gap-2 rounded-[8px] bg-sand-soft/60 px-3 py-2 text-[12.5px] text-navy">
+        <div className="mt-3 flex items-center gap-2 rounded-[8px] bg-sand-soft/60 px-3 py-2 text-[13px] text-navy">
           <Lightbulb className="size-4 shrink-0 text-navy/70" aria-hidden />
           {s.callout}
         </div>
@@ -292,7 +292,7 @@ export function VideoQuizPanel() {
         </span>
         {/* progress bar */}
         <div className="absolute inset-x-3 bottom-3">
-          <div className="flex items-center gap-2 text-[11px] font-medium text-white/90">
+          <div className="flex items-center gap-2 text-[12px] font-medium text-white/90">
             <span className="ltr">{s.time}</span>
             <span className="relative h-1 flex-1 rounded-full bg-white/25">
               <span className="absolute inset-y-0 right-0 w-1/4 rounded-full bg-white" />
@@ -303,16 +303,16 @@ export function VideoQuizPanel() {
       </div>
       {/* embedded question */}
       <div className="p-4">
-        <span className="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] bg-royal-50 px-2.5 py-1 text-[11px] font-semibold text-royal">
+        <span className="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] bg-royal-50 px-2.5 py-1 text-[12px] font-semibold text-royal">
           <ClipboardCheck className="size-3.5" aria-hidden />
           שאלה משובצת
         </span>
-        <p className="mt-2.5 text-[14px] font-semibold text-navy">{s.question}</p>
+        <p className="mt-2.5 text-[15px] font-semibold text-navy">{s.question}</p>
         <div className="mt-2.5 grid grid-cols-2 gap-2">
           {s.options.map((opt, i) => (
             <span
               key={opt}
-              className={`rounded-[8px] border px-3 py-2 text-center text-[13px] ${
+              className={`rounded-[8px] border px-3 py-2 text-center text-[14px] ${
                 i === 0
                   ? "border-royal bg-royal-50 font-medium text-royal"
                   : "border-line text-ink-soft"
@@ -323,7 +323,7 @@ export function VideoQuizPanel() {
           ))}
         </div>
         <div className="mt-3 flex justify-start">
-          <span className="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] bg-royal px-4 py-1.5 text-[13px] font-semibold text-white">
+          <span className="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] bg-royal px-4 py-1.5 text-[14px] font-semibold text-white">
             {s.cta}
           </span>
         </div>

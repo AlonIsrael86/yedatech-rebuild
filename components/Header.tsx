@@ -38,7 +38,7 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="text-[15px] text-ink-soft transition-colors hover:text-royal"
+              className="text-[16px] text-ink-soft transition-colors hover:text-royal"
             >
               {item.label}
             </Link>
@@ -68,7 +68,7 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="rounded-[8px] px-3 py-2.5 text-[15px] text-ink-soft hover:bg-royal-50 hover:text-royal"
+                className="rounded-[8px] px-3 py-2.5 text-[16px] text-ink-soft hover:bg-royal-50 hover:text-royal"
               >
                 {item.label}
               </Link>

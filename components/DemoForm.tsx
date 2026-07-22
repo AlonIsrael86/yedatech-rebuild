@@ -155,7 +155,7 @@ export function DemoForm({
               </button>
               <Wordmark className="h-7 w-auto text-white" />
               {!submitted ? (
-                <p className="mt-3 max-w-[34ch] text-[14px] leading-relaxed text-white/90">
+                <p className="mt-3 max-w-[34ch] text-[15px] leading-relaxed text-white/90">
                   {DEMO_FORM.intro}
                 </p>
               ) : null}
@@ -174,7 +174,7 @@ export function DemoForm({
                   >
                     {DEMO_FORM.success.title}
                   </h2>
-                  <p className="mx-auto mt-2 max-w-[36ch] text-[15px] leading-relaxed text-slate">
+                  <p className="mx-auto mt-2 max-w-[36ch] text-[16px] leading-relaxed text-slate">
                     {DEMO_FORM.success.body}
                   </p>
                 </div>
@@ -203,7 +203,7 @@ export function DemoForm({
                             role="radio"
                             aria-checked={checked}
                             onClick={() => pick(key, opt)}
-                            className={`flex w-full items-center justify-between gap-3 rounded-[8px] border px-4 py-3 text-start text-[15px] transition-colors ${
+                            className={`flex w-full items-center justify-between gap-3 rounded-[8px] border px-4 py-3 text-start text-[16px] transition-colors ${
                               checked
                                 ? "border-royal bg-royal-50 font-medium text-navy"
                                 : "border-line bg-white text-ink-soft hover:border-royal/40 hover:bg-royal-50/40"
@@ -223,7 +223,7 @@ export function DemoForm({
                         );
                       })}
                       {showErrors && !stepValid ? (
-                        <p className="pt-1 text-[13px] text-error">{UI.pickOne}</p>
+                        <p className="pt-1 text-[14px] text-error">{UI.pickOne}</p>
                       ) : null}
                     </div>
                   ) : (
@@ -236,7 +236,7 @@ export function DemoForm({
                           showErrors && f.required && !val.trim();
                         return (
                           <label key={f.name} className="block">
-                            <span className="mb-1 block text-[13px] font-medium text-ink-soft">
+                            <span className="mb-1 block text-[14px] font-medium text-ink-soft">
                               {f.label}
                               {f.required ? (
                                 <span className="text-error"> *</span>
@@ -250,7 +250,7 @@ export function DemoForm({
                                 onChange={(e) =>
                                   setAnswers((a) => ({ ...a, [f.name]: e.target.value }))
                                 }
-                                className="w-full resize-none rounded-[8px] border border-line bg-white px-3 py-2.5 text-[15px] text-navy outline-none focus:border-royal"
+                                className="w-full resize-none rounded-[8px] border border-line bg-white px-3 py-2.5 text-[16px] text-navy outline-none focus:border-royal"
                               />
                             ) : (
                               <input
@@ -260,17 +260,17 @@ export function DemoForm({
                                 onChange={(e) =>
                                   setAnswers((a) => ({ ...a, [f.name]: e.target.value }))
                                 }
-                                className={`w-full rounded-[8px] border bg-white px-3 py-2.5 text-[15px] text-navy outline-none focus:border-royal ${
+                                className={`w-full rounded-[8px] border bg-white px-3 py-2.5 text-[16px] text-navy outline-none focus:border-royal ${
                                   emailBad || missing ? "border-error" : "border-line"
                                 }`}
                               />
                             )}
                             {missing ? (
-                              <span className="mt-1 block text-[12px] text-error">
+                              <span className="mt-1 block text-[13px] text-error">
                                 {UI.required}
                               </span>
                             ) : emailBad ? (
-                              <span className="mt-1 block text-[12px] text-error">
+                              <span className="mt-1 block text-[13px] text-error">
                                 {UI.invalidEmail}
                               </span>
                             ) : null}
@@ -288,7 +288,7 @@ export function DemoForm({
               <div className="border-t border-line px-6 py-4">
                 {/* progress */}
                 <div className="mb-3 flex items-center justify-between gap-4">
-                  <span className="text-[12px] font-medium text-slate">
+                  <span className="text-[13px] font-medium text-slate">
                     {UI.stepLabel(step + 1, total)}
                   </span>
                   <div className="flex flex-1 gap-1.5">
@@ -306,7 +306,7 @@ export function DemoForm({
                   <button
                     type="button"
                     onClick={next}
-                    className="inline-flex flex-1 items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-royal px-5 py-2.5 text-[15px] font-semibold text-white transition-colors hover:bg-royal-600"
+                    className="inline-flex flex-1 items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-royal px-5 py-2.5 text-[16px] font-semibold text-white transition-colors hover:bg-royal-600"
                   >
                     {isLast ? UI.submit : UI.next}
                     {!isLast ? <ArrowLeft className="size-[18px]" aria-hidden /> : null}
@@ -315,7 +315,7 @@ export function DemoForm({
                     <button
                       type="button"
                       onClick={prev}
-                      className="inline-flex items-center justify-center gap-1.5 rounded-[var(--radius-pill)] px-4 py-2.5 text-[15px] font-medium text-slate hover:text-navy"
+                      className="inline-flex items-center justify-center gap-1.5 rounded-[var(--radius-pill)] px-4 py-2.5 text-[16px] font-medium text-slate hover:text-navy"
                     >
                       <ArrowRight className="size-[18px]" aria-hidden />
                       {UI.prev}
@@ -328,7 +328,7 @@ export function DemoForm({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="inline-flex w-full items-center justify-center rounded-[var(--radius-pill)] bg-royal px-5 py-2.5 text-[15px] font-semibold text-white hover:bg-royal-600"
+                  className="inline-flex w-full items-center justify-center rounded-[var(--radius-pill)] bg-royal px-5 py-2.5 text-[16px] font-semibold text-white hover:bg-royal-600"
                 >
                   {UI.close}
                 </button>

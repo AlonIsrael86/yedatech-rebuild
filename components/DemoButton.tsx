@@ -19,7 +19,7 @@ export function DemoButton({
 }) {
   const { open } = useDemoForm();
   const base =
-    "inline-flex items-center justify-center gap-2 rounded-[var(--radius-pill)] px-6 py-3 text-[15px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2";
+    "inline-flex items-center justify-center gap-2 rounded-[var(--radius-pill)] px-6 py-3 text-[16px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2";
   const styles = {
     primary: "bg-royal text-white shadow-[var(--shadow-float)] hover:bg-royal-600",
     secondary: "bg-white text-navy ring-1 ring-inset ring-line hover:bg-royal-50",

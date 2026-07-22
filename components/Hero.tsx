@@ -34,7 +34,7 @@ export function Hero() {
         <div>
           <motion.span
             {...rise(0)}
-            className="inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-white/10 px-3.5 py-1.5 text-[13px] font-medium text-white ring-1 ring-inset ring-white/15"
+            className="inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-white/10 px-3.5 py-1.5 text-[14px] font-medium text-white ring-1 ring-inset ring-white/15"
           >
             <Sparkles className="size-4 text-sand" aria-hidden />
             {HERO.eyebrow}
@@ -72,7 +72,7 @@ export function Hero() {
             className="mt-8 flex flex-wrap gap-x-5 gap-y-2.5"
           >
             {HERO.chips.map((c) => (
-              <li key={c} className="flex items-center gap-2 text-[14px] text-white/80">
+              <li key={c} className="flex items-center gap-2 text-[15px] text-white/80">
                 <Check className="size-4 text-sand" aria-hidden />
                 {c}
               </li>
@@ -112,7 +112,7 @@ export function Hero() {
           </div>
 
           {/* floating "record" pill (Figma's red accent), off the bottom edge */}
-          <div className="absolute -bottom-4 right-8 hidden items-center gap-2 rounded-[var(--radius-pill)] bg-red px-3.5 py-2 text-[13px] font-semibold text-white shadow-[var(--shadow-pop)] sm:inline-flex">
+          <div className="absolute -bottom-4 right-8 hidden items-center gap-2 rounded-[var(--radius-pill)] bg-red px-3.5 py-2 text-[14px] font-semibold text-white shadow-[var(--shadow-pop)] sm:inline-flex">
             <span className="size-2 rounded-full bg-white" />
             הקלטת וידאו
           </div>

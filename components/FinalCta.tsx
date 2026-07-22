@@ -34,7 +34,7 @@ export function FinalCta() {
                   {FINAL_CTA.primaryCta}
                 </DemoButton>
               </div>
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[15px] text-white/90">
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[16px] text-white/90">
                 <a
                   href={`mailto:${CONTACT.email}`}
                   className="inline-flex items-center gap-2 hover:text-white"

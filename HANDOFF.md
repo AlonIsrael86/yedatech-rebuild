@@ -2,7 +2,7 @@
 
 ## Assignment
 
-Rebuild the Yedatech.io website from zero as a modern, visually exceptional Hebrew B2B education-technology experience. The existing site is old and no longer represents the quality, sophistication, or scale of the company.
+Build the new Yedatech.io codebase from zero as a modern, visually exceptional Hebrew B2B education-technology experience. The implementation starts from a clean repository, but the visual direction does not start from a blank canvas: use Alexey's Figma as the intended graphic language and elevate it to the requested premium standard.
 
 The first checkpoint is real project work, not a disposable mockup. However, it is intentionally capped at three hours so Alon can review the visual direction, frontend execution, and working process before authorizing more time.
 
@@ -40,6 +40,7 @@ The current site contains useful business material but has a dated visual system
 - Figma file: `https://www.figma.com/design/wOn70IJSQEuBjf342BYmmR/yedatech.io?node-id=3-2`
 - The file is legacy 2024 design work that Alexey is currently revising. It is not an approved 2026 content specification and must not be copied mechanically.
 - Use it as a reference for graphic language, composition, product presentation, and available editable assets.
+- Victor is not expected to invent an unrelated visual identity. He is expected to implement, adapt, modernize, and improve this visual language for the new homepage.
 - The most complete current reference frames are Home page 1.4 desktop (`199:14942`) and mobile (`282:4603`).
 - Agents may use Figma MCP to extract design context section-by-section. The complete canvas is too large for a reliable one-shot extraction.
 - Figma MCP asset URLs are temporary. Download any approved assets into the repository rather than leaving expiring remote URLs in production code.
@@ -59,7 +60,7 @@ Yedatech provides an end-to-end digital-learning ecosystem for colleges, univers
 
 - LMS and LCMS infrastructure.
 - Digital and frontal course management.
-- Interactive lessons, exercises, tests, presentations, and live broadcasts.
+- Interactive lessons, exercises, tests, HTML learning modules, avatar-based learning modules, and live learning experiences.
 - College and organizational learning management.
 - Employee recruitment, onboarding, and training.
 - Digital course production, studio filming, and educational content development.

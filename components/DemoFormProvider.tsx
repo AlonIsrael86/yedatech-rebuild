@@ -3,6 +3,7 @@
 import { createContext, useCallback, useContext, useState } from "react";
 import type { ReactNode } from "react";
 import { DemoForm } from "@/components/DemoForm";
+import { FloatingWidgets } from "@/components/FloatingWidgets";
 
 type Ctx = { open: () => void; close: () => void };
 const DemoFormContext = createContext<Ctx | null>(null);
@@ -21,6 +22,7 @@ export function DemoFormProvider({ children }: { children: ReactNode }) {
   return (
     <DemoFormContext.Provider value={{ open, close }}>
       {children}
+      <FloatingWidgets />
       <DemoForm isOpen={isOpen} onClose={close} />
     </DemoFormContext.Provider>
   );

@@ -74,6 +74,36 @@
   }
 }
 
+/* ── Accessibility menu (native, basic aids applied to <html>) ────────── */
+html[data-a11y-font="1"] {
+  font-size: 108%;
+}
+html[data-a11y-font="2"] {
+  font-size: 116%;
+}
+html[data-a11y-contrast] body {
+  --color-slate: #2a2d3a;
+  --color-ink-soft: #14151a;
+  --color-line: #b9bed1;
+  --color-line-soft: #b9bed1;
+}
+html[data-a11y-contrast] .text-white\/75,
+html[data-a11y-contrast] .text-white\/70,
+html[data-a11y-contrast] .text-white\/80,
+html[data-a11y-contrast] .text-white\/85,
+html[data-a11y-contrast] .text-white\/90 {
+  color: #fff !important;
+}
+html[data-a11y-links] a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+html[data-a11y-spacing] body {
+  line-height: 1.9;
+  letter-spacing: 0.02em;
+  word-spacing: 0.08em;
+}
+
 /* Section reveal (JS adds .in when scrolled into view). */
 @keyframes rise {
   from {

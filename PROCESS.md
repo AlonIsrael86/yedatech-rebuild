@@ -60,14 +60,26 @@ creation is intentionally *not* a headline capability.
 - **Zero** browser console errors.
 - Production build compiles clean (TypeScript strict).
 
+## Interactions added (this checkpoint)
+
+- **Demo-request form**: native multi-step wizard (role → interest → contact),
+  opened from the header/hero/final CTAs. No backend — submit opens a prefilled
+  `mailto:Info@Yedatech.io`, so nothing is silently captured.
+- **Floating widgets**: TikTok + WhatsApp buttons and a native accessibility
+  menu. **Social links are placeholders (`href="#"`)** — real destinations are
+  pending (see below); nothing points at a fabricated account.
+- **Accessibility menu**: native basic aids (text size, high contrast, highlight
+  links, readable spacing) persisted in `localStorage`. This is **not** a
+  certified IS-5568 solution — a starting aid only.
+
 ## Known unfinished / next 3–7 hours
 
-- Real photography and the official `yeda` logo SVG (currently product-led +
-  styled wordmark).
-- A working demo-request form (currently the CTA links to phone/email).
-- Second product panel (avatar-module interactive preview) and micro-interactions.
+- **Real TikTok/WhatsApp links** for the floating buttons (placeholders now).
+- **Certified accessibility solution** (IS-5568 / תקן 5568) + accessibility
+  statement — legal requirement before launch.
+- Real photography where it reveals the service.
 - Content review pass with Yeda on exact product-family scope wording.
-- Accessibility deepening (full keyboard audit, aria on the dashboard figure).
+- Wire the demo form to a real CRM/endpoint when one is available.
 
 ## Run locally
 

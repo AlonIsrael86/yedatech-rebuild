@@ -1,0 +1,226 @@
+/**
+ * Centralized Hebrew content for the Yedatech homepage.
+ *
+ * SOURCING RULE (from HANDOFF.md): every visible claim must be traceable to the
+ * live site (yedatech.io) or supplied Yeda materials. No invented statistics,
+ * testimonials, client logos, awards, pricing, or product functionality.
+ * Contact details are authoritative and must stay exact.
+ */
+
+export const CONTACT = {
+  email: "Info@Yedatech.io",
+  phone: "074-769-1066",
+  phoneHref: "tel:+972747691066",
+} as const;
+
+export const NAV = [
+  { label: "הפלטפורמה", href: "#platform" },
+  { label: "יכולות", href: "#capabilities" },
+  { label: "למי זה מתאים", href: "#audiences" },
+  { label: "הפקת תוכן", href: "#production" },
+  { label: "איך זה עובד", href: "#process" },
+] as const;
+
+export const HERO = {
+  eyebrow: "מערכת ניהול למידה והפקת תוכן דיגיטלי",
+  title: "הפלטפורמה המלאה ליצירה, ניהול והפצה של למידה דיגיטלית",
+  subtitle:
+    "Yeda מאחדת מערכת ניהול למידה מתקדמת עם אולפן הפקה ופיתוח תוכן — כדי שמכללות, ארגונים ויוצרי קורסים יבנו, ינהלו וירחיבו חוויות למידה במקום אחד.",
+  primaryCta: "לתיאום הדגמה",
+  secondaryCta: "הכירו את הפלטפורמה",
+  chips: [
+    "מודולי HTML ואווטאר",
+    "מבחנים אינטראקטיביים",
+    "ניהול מכללה וארגון",
+    "אולפן הפקת תוכן",
+  ],
+} as const;
+
+/** Verified capability statements used as the credibility layer (not metrics). */
+export const CREDIBILITY = {
+  title: "פתרון אחד לכל מסע הלמידה",
+  subtitle:
+    "מהקמת המערכת ועד הפקת התוכן וההפצה — Yeda מלווה את כל שלבי הלמידה הדיגיטלית תחת קורת גג אחת.",
+  statements: [
+    "מערכת LMS / LCMS מלאה",
+    "הפקת קורסים דיגיטליים",
+    "מבחנים, שאלונים ותעודות",
+    "מודולים מבוססי אווטאר",
+  ],
+} as const;
+
+export const AUDIENCES = {
+  title: "בנוי סביב מי שלומד ומי שמלמד",
+  subtitle: "כל קהל מוצא ב-Yeda את מה שהוא צריך — בלי להתפשר על השאר.",
+  items: [
+    {
+      key: "colleges",
+      title: "מכללות ואוניברסיטאות",
+      body: "ניהול קורסים דיגיטליים ופרונטליים, מבחנים, תעודות ובקרת נתונים — במערכת אחת.",
+      icon: "GraduationCap",
+    },
+    {
+      key: "hr",
+      title: "משאבי אנוש והדרכה",
+      body: "גיוס, קליטה והכשרת עובדים עם מסלולי למידה, מעקב התקדמות ודוחות.",
+      icon: "Users",
+    },
+    {
+      key: "orgs",
+      title: "ארגונים ויוצרי תוכן",
+      body: "הפקת קורסים דיגיטליים, מודולי HTML ואווטאר ותוכן אינטראקטיבי באיכות אולפן.",
+      icon: "Building2",
+    },
+    {
+      key: "creators",
+      title: "מומחים ומדריכים עצמאיים",
+      body: "בניית קורס, ניהול לומדים והפצה — מהרעיון ועד ההשקה והמכירה.",
+      icon: "UserRound",
+    },
+  ],
+} as const;
+
+export const CAPABILITIES = {
+  title: "מערכת אחת, יכולות מקצה לקצה",
+  subtitle:
+    "כל היכולות עובדות יחד — ניהול, יצירה, הערכה והפצה של תוכן לימודי במקום אחד.",
+  items: [
+    {
+      title: "ניהול למידה (LMS / LCMS)",
+      body: "ניהול קורסים, מסלולים, קטגוריות ומשתמשים במערכת מרכזית אחת.",
+      icon: "LayoutDashboard",
+    },
+    {
+      title: "יצירת תוכן לימודי",
+      body: "מודולי HTML, מודולים מבוססי אווטאר ושילוב פורמטים לחוויית למידה עשירה.",
+      icon: "Sparkles",
+    },
+    {
+      title: "מבחנים והערכה",
+      body: "מבחנים אינטראקטיביים, שאלונים, ציונים ותעודות אוטומטיות.",
+      icon: "ClipboardCheck",
+    },
+    {
+      title: "וידאו ולמידה חיה",
+      body: "שיעורים מוקלטים, נגן וידאו אינטראקטיבי ושידורים חיים.",
+      icon: "PlayCircle",
+    },
+    {
+      title: "ניהול לומדים",
+      body: "הרשמה, מעקב התקדמות ותפעול שוטף של קהל הלומדים.",
+      icon: "GraduationCap",
+    },
+    {
+      title: "נתונים ובקרה",
+      body: "לוח בקרה, סטטיסטיקות מבחנים ודוחות ביצועים בזמן אמת.",
+      icon: "BarChart3",
+    },
+  ],
+} as const;
+
+export const PRODUCT = {
+  eyebrow: "הצצה למערכת",
+  title: "המערכת שמאחורי הלמידה",
+  subtitle:
+    "לוח בקרה אחד לניהול קורסים, מבחנים ולומדים — עם נתונים ברורים בזמן אמת. התצוגה להמחשה בלבד.",
+  // Coded conceptual dashboard (recreated from the Figma product frames).
+  dashboard: {
+    caption: "המחשה של ממשק המערכת",
+    title: "לוח בקרה",
+    kpis: [
+      { label: "ס״כ המבחנים", value: "8" },
+      { label: "ס״כ השאלות", value: "156" },
+      { label: "מבחנים ממוצע לקורס", value: "3" },
+      { label: "שאלות ממוצע לקורס", value: "12" },
+    ],
+    donut: {
+      title: "סטודנטים שעברו את המבחנים",
+      total: "100",
+      legend: [
+        { label: "ציון גבוה", value: 60, color: "var(--color-ok)" },
+        { label: "ציון ממוצע", value: 30, color: "var(--color-warn)" },
+        { label: "נכשלו", value: 10, color: "var(--color-err)" },
+      ],
+    },
+  },
+  avatarModule: {
+    tag: "מודול מבוסס אווטאר",
+    title: "שיעור אינטראקטיבי",
+    body: "מודולי אווטאר שמשלבים הנחיה מצולמת, מצגת ותרגול — בתוך יחידת למידה אחת.",
+  },
+} as const;
+
+export const PRODUCTION = {
+  eyebrow: "אולפן ההפקה — Yeda Labs",
+  title: "מרעיון לקורס מוכן",
+  subtitle:
+    "צוות ההפקה של Yeda בונה את התוכן איתכם — מאפיון הלמידה ועד מודולים אינטראקטיביים מוכנים להשקה.",
+  steps: [
+    { title: "אפיון ועיצוב למידה", body: "בניית מבנה הקורס, יעדי הלמידה וחוויית הלומד.", icon: "PenTool" },
+    { title: "צילום והפקה באולפן", body: "צילום שיעורים, עריכה והפקת וידאו מקצועית.", icon: "Clapperboard" },
+    { title: "פיתוח מודולים", body: "מודולי HTML ואווטאר, תרגולים ומבחנים אינטראקטיביים.", icon: "Code2" },
+    { title: "ליווי השקה והפצה", body: "פרסום, הרשמה ותמיכה בהפצת הקורס לקהל.", icon: "Rocket" },
+  ],
+} as const;
+
+export const PROCESS = {
+  title: "איך מתחילים לעבוד עם Yeda",
+  subtitle: "תהליך ברור ומלווה — מהשיחה הראשונה ועד למדידה ושיפור מתמשך.",
+  steps: [
+    { n: "01", title: "אפיון", body: "הבנת הצרכים, הקהל והיעדים." },
+    { n: "02", title: "הקמה", body: "הגדרת המערכת, מסלולים והרשאות." },
+    { n: "03", title: "תוכן", body: "הפקת קורסים, מודולים ומבחנים." },
+    { n: "04", title: "השקה", body: "פרסום, הרשמה והפצה ללומדים." },
+    { n: "05", title: "מדידה ושיפור", body: "דוחות, בקרה ואופטימיזציה מתמשכת." },
+  ],
+} as const;
+
+/** Yeda product family — real product names from the current site. */
+export const FAMILY = {
+  title: "משפחת המוצרים של Yeda",
+  subtitle: "מערכת אחת, כמה נקודות מבט — לכל סוג ארגון וקהל.",
+  items: [
+    { name: "Yeda LMS", body: "מערכת ניהול למידה" },
+    { name: "Yeda College", body: "ניהול מכללות ואקדמיה" },
+    { name: "Yeda Org", body: "למידה והדרכה בארגונים" },
+    { name: "Yeda Labs", body: "הפקת תוכן וכלי AI" },
+    { name: "Yeda Tech", body: "תשתית וטכנולוגיה" },
+    { name: "Yeda Hub", body: "מרחב קורסים ותוכן" },
+  ],
+} as const;
+
+export const FINAL_CTA = {
+  title: "מוכנים לראות את Yeda בפעולה?",
+  subtitle: "נבנה יחד הדגמה שמתאימה בדיוק לצרכים שלכם.",
+  primaryCta: "לתיאום הדגמה",
+} as const;
+
+export const FOOTER = {
+  tagline: "פלטפורמה מלאה ליצירה, ניהול והפצה של למידה דיגיטלית.",
+  columns: [
+    {
+      title: "הפלטפורמה",
+      links: [
+        { label: "מערכת ניהול למידה", href: "#platform" },
+        { label: "יכולות המערכת", href: "#capabilities" },
+        { label: "הפקת תוכן", href: "#production" },
+        { label: "איך זה עובד", href: "#process" },
+      ],
+    },
+    {
+      title: "Yeda",
+      links: [
+        { label: "אודותינו", href: "#" },
+        { label: "צור קשר", href: "#contact" },
+        { label: "משפחת המוצרים", href: "#family" },
+      ],
+    },
+    {
+      title: "מידע",
+      links: [
+        { label: "תקנון ותנאי שימוש", href: "#" },
+        { label: "הצהרת נגישות", href: "#" },
+      ],
+    },
+  ],
+} as const;

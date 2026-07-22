@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+/*
+  Yedatech.io — design tokens
+  Palette extracted from Alexey's 2024 Figma (file wOn70IJSQEuBjf342BYmmR) and
+  modernized: deep-navy authority, one confident royal blue, a restrained red
+  used only for emphasis, and warm sand tints for human/AI accents. Rubik is
+  the Yeda brand typeface (confirmed in the Figma type styles).
+*/
+@theme {
+  /* Brand */
+  --color-navy: #000f61; /* hero ground, darkest headings */
+  --color-navy-700: #0a1a6e;
+  --color-royal: #0a59eb; /* primary action + brand blue */
+  --color-royal-600: #0b4fd6;
+  --color-royal-100: #e5eeff; /* tinted surfaces */
+  --color-royal-50: #eef3ff;
+  --color-red: #d01e25; /* emphasis only (record, alerts) */
+  --color-sand: #ffe1b9; /* warm accent (avatar / AI) */
+  --color-sand-soft: #ffe4c2;
+
+  /* Neutrals */
+  --color-ink: #14151a; /* body text */
+  --color-ink-soft: #3a3d4d;
+  --color-slate: #6a6f85; /* secondary text (Figma #8b8ea4 darkened for AA) */
+  --color-line: #e6e8f2;
+  --color-line-soft: #eef0f7;
+  --color-surface: #ffffff;
+  --color-canvas: #f6f7fc; /* page ground between white sections */
+  --color-lav: #e8eaf5; /* lavender section wash */
+
+  /* States (dashboard donuts, status) */
+  --color-ok: #16a34a;
+  --color-warn: #f4a723;
+  --color-err: #d01e25;
+
+  /* Type */
+  --font-sans: var(--font-rubik), "Segoe UI", system-ui, sans-serif;
+
+  /* Radius — HANDOFF caps UI cards at 8px; media panels may exceed as imagery. */
+  --radius-card: 8px;
+  --radius-media: 20px;
+  --radius-pill: 999px;
+
+  /* Elevation */
+  --shadow-card: 0 1px 2px rgba(16, 24, 64, 0.04), 0 8px 24px -12px rgba(16, 24, 64, 0.12);
+  --shadow-float: 0 12px 32px -12px rgba(10, 26, 110, 0.28);
+  --shadow-pop: 0 20px 50px -18px rgba(10, 26, 110, 0.35);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  /* Latin runs (brand name, email, phone) inside Hebrew RTL text. */
+  .ltr {
+    direction: ltr;
+    unicode-bidi: isolate;
+  }
+  ::selection {
+    background: rgba(10, 89, 235, 0.18);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-royal);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* Section reveal (JS adds .in when scrolled into view). */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

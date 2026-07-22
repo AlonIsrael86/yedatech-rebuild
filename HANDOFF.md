@@ -4,16 +4,15 @@
 
 Rebuild the Yedatech.io website from zero as a modern, visually exceptional Hebrew B2B education-technology experience. The existing site is old and no longer represents the quality, sophistication, or scale of the company.
 
-The first checkpoint is a real paid assignment, not a disposable mockup. However, it is intentionally capped at three hours so Alon can review the visual direction, frontend execution, and working process before authorizing more time.
+The first checkpoint is real project work, not a disposable mockup. However, it is intentionally capped at three hours so Alon can review the visual direction, frontend execution, and working process before authorizing more time.
 
-## Commercial And Time Boundary
+## Time Boundary
 
-- Rate: USD 15/hour.
 - Initial authorization: three hours maximum.
 - Track all work in Apploye project `Yedatech.io Rebuild - Victor` from the moment work begins.
 - Stop when Apploye reaches three hours, even if the page is incomplete.
 - Push the current state and submit the checkpoint package. Do not continue until Alon explicitly authorizes more hours.
-- No work performed before the explicit start message or after the three-hour checkpoint is approved for payment.
+- Do not begin before the explicit start message and do not continue after the three-hour checkpoint without written authorization.
 
 ## Access And Ownership
 
@@ -181,4 +180,3 @@ No URL migration, redirect plan, metadata replacement, analytics change, form re
 - No backend, CRM, payment, or LMS integration.
 - No unverified marketing claims.
 - No work beyond three tracked hours without written authorization.
-

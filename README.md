@@ -4,7 +4,7 @@ Owned rebuild workspace for [Yedatech.io](https://www.yedatech.io/).
 
 ## Current Assignment
 
-Victor Cecoltan is authorized for an initial paid three-hour checkpoint at USD 15/hour. He must stop when Apploye reaches three hours and submit the checkpoint package described in [HANDOFF.md](./HANDOFF.md). No additional time is authorized until Alon reviews the result in writing.
+Victor Cecoltan is authorized for an initial three-hour checkpoint. He must stop when Apploye reaches three hours and submit the checkpoint package described in [HANDOFF.md](./HANDOFF.md). No additional time is authorized until Alon reviews the result in writing.
 
 ## Repository Rules
 
@@ -19,4 +19,3 @@ Victor Cecoltan is authorized for an initial paid three-hour checkpoint at USD 1
 - Full assignment: [HANDOFF.md](./HANDOFF.md)
 - Current visual capture: [screenshots/current-homepage-2026-07-22.png](./screenshots/current-homepage-2026-07-22.png)
 - Initial status: [PROJECT_STATUS.md](./PROJECT_STATUS.md)
-

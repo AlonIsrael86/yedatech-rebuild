@@ -1,5 +1,6 @@
 import { Mail, Phone } from "lucide-react";
-import { Container, Button } from "@/components/ui";
+import { Container } from "@/components/ui";
+import { DemoButton } from "@/components/DemoButton";
 import { Reveal } from "@/components/Reveal";
 import { FINAL_CTA, CONTACT } from "@/content/site";
 
@@ -25,14 +26,13 @@ export function FinalCta() {
                 {FINAL_CTA.subtitle}
               </p>
               <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-                <Button
-                  href={CONTACT.phoneHref}
+                <DemoButton
                   variant="secondary"
                   className="bg-white text-royal hover:bg-white/90"
                   withArrow
                 >
                   {FINAL_CTA.primaryCta}
-                </Button>
+                </DemoButton>
               </div>
               <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[15px] text-white/90">
                 <a

@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import { Container, Button } from "@/components/ui";
+import { Container } from "@/components/ui";
+import { DemoButton } from "@/components/DemoButton";
 import { NAV, HERO } from "@/content/site";
 import { Wordmark } from "@/components/Brand";
 
@@ -45,9 +46,7 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <Button href="#contact" variant="primary">
-            {HERO.primaryCta}
-          </Button>
+          <DemoButton variant="primary">{HERO.primaryCta}</DemoButton>
         </div>
 
         <button
@@ -74,9 +73,9 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
-            <Button href="#contact" variant="primary" className="mt-2">
+            <DemoButton variant="primary" className="mt-2 w-full">
               {HERO.primaryCta}
-            </Button>
+            </DemoButton>
           </Container>
         </div>
       ) : null}

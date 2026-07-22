@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Check, Play, Sparkles } from "lucide-react";
 import { Container, Button } from "@/components/ui";
+import { DemoButton } from "@/components/DemoButton";
 import { HERO } from "@/content/site";
 import { ProductDashboard } from "@/components/ProductVisual";
 
@@ -54,9 +55,9 @@ export function Hero() {
           </motion.p>
 
           <motion.div {...rise(0.24)} className="mt-8 flex flex-wrap gap-3">
-            <Button href="#contact" variant="primary" withArrow>
+            <DemoButton variant="primary" withArrow>
               {HERO.primaryCta}
-            </Button>
+            </DemoButton>
             <Button
               href="#platform"
               variant="secondary"

@@ -252,6 +252,67 @@ export const FAMILY = {
   ],
 } as const;
 
+/**
+ * Native multi-step demo-request wizard (mirrors the pattern on the current
+ * site). No backend this checkpoint — submit opens a prefilled mailto to the
+ * real Yeda inbox, so nothing is silently captured. All options are verified
+ * audiences/capabilities.
+ */
+export const DEMO_FORM = {
+  intro: "מעוניינים בפתרון ליצירה וניהול של קורסים דיגיטליים? נשמח להראות לכם.",
+  steps: [
+    {
+      key: "role",
+      title: "מה העיסוק שלך?",
+      type: "single" as const,
+      options: [
+        "מורה עצמאי/ת",
+        "מכללה",
+        "אוניברסיטה",
+        "עסק",
+        "ארגון",
+      ],
+    },
+    {
+      key: "interest",
+      title: "מה מעניין אתכם?",
+      type: "single" as const,
+      options: [
+        "מערכת ניהול למידה (LMS)",
+        "הפקת קורסים דיגיטליים",
+        "מודולי אווטאר ו-HTML",
+        "הדרכת עובדים בארגון",
+      ],
+    },
+    {
+      key: "contact",
+      title: "פרטים ליצירת קשר",
+      type: "contact" as const,
+      fields: [
+        { name: "name", label: "שם מלא", inputType: "text", required: true },
+        { name: "email", label: "אימייל", inputType: "email", required: true },
+        { name: "phone", label: "טלפון", inputType: "tel", required: false },
+        { name: "note", label: "הודעה (לא חובה)", inputType: "textarea", required: false },
+      ],
+    },
+  ],
+  ui: {
+    next: "הבא",
+    prev: "הקודם",
+    submit: "שליחה",
+    stepLabel: (n: number, total: number) => `שלב ${n} מתוך ${total}`,
+    close: "סגירה",
+    required: "שדה חובה",
+    invalidEmail: "כתובת אימייל לא תקינה",
+    pickOne: "בחרו אפשרות אחת",
+  },
+  success: {
+    title: "תודה!",
+    body: "נפתח עבורכם מייל מוכן לשליחה לצוות Yeda. נשמח לחזור אליכם בהקדם.",
+  },
+  mailSubject: "בקשת הדגמה — Yeda",
+} as const;
+
 export const FINAL_CTA = {
   title: "מוכנים לראות את Yeda בפעולה?",
   subtitle: "נבנה יחד הדגמה שמתאימה בדיוק לצרכים שלכם.",

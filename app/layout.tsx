@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { DemoFormProvider } from "@/components/DemoFormProvider";
 
 // Rubik — the Yeda brand typeface. Vendored variable woff2 (Hebrew + Latin
 // glyph coverage) so the build never depends on a network fetch and Hebrew
@@ -35,7 +36,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="he" dir="rtl" className={`${rubik.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col bg-surface">{children}</body>
+      <body className="flex min-h-full flex-col bg-surface">
+        <DemoFormProvider>{children}</DemoFormProvider>
+      </body>
     </html>
   );
 }

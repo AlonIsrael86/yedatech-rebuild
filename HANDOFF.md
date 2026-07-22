@@ -35,6 +35,24 @@ The first checkpoint is real project work, not a disposable mockup. However, it 
 
 The current site contains useful business material but has a dated visual system, weak hierarchy, large empty areas, generic illustrations, inconsistent proof, and insufficient product storytelling. Preserve verified meaning and SEO assets, but do not reproduce its layout or style.
 
+## Figma Art Direction - Visual Reference Only
+
+- Figma file: `https://www.figma.com/design/wOn70IJSQEuBjf342BYmmR/yedatech.io?node-id=3-2`
+- The file is legacy 2024 design work that Alexey is currently revising. It is not an approved 2026 content specification and must not be copied mechanically.
+- Use it as a reference for graphic language, composition, product presentation, and available editable assets.
+- The most complete current reference frames are Home page 1.4 desktop (`199:14942`) and mobile (`282:4603`).
+- Agents may use Figma MCP to extract design context section-by-section. The complete canvas is too large for a reliable one-shot extraction.
+- Figma MCP asset URLs are temporary. Download any approved assets into the repository rather than leaving expiring remote URLs in production code.
+
+Alexey's explicit content correction:
+
+- Emphasize the real work performed by Yeda Tech, Yeda Labs, and Yeda LMS.
+- Relevant capability themes include HTML learning modules, avatar-based learning modules, learning experiences that combine avatars with other instructional formats, and other verified digital-learning production capabilities.
+- Do not make presentation creation a primary capability or repeat the old Figma's presentation-creation emphasis.
+- Treat every capability label as requiring verification from the existing sites or supplied Yeda materials. Do not invent product functionality to fill the design.
+
+The implementation goal is to preserve the strongest parts of the Figma's visual language while modernizing it to the requested premium standard and replacing outdated content with accurate Yeda offerings.
+
 ## Business Context
 
 Yedatech provides an end-to-end digital-learning ecosystem for colleges, universities, companies, organizations, and independent educators. Its offer combines:

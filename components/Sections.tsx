@@ -293,8 +293,8 @@ export function Family() {
           {FAMILY.items.map((f, i) => (
             <Reveal key={f.name} delay={(i % 3) * 0.06}>
               <div className="flex items-center gap-4 rounded-[var(--radius-card)] border border-line bg-white p-5 shadow-[var(--shadow-card)]">
-                <span className="ltr grid size-11 shrink-0 place-items-center rounded-[var(--radius-card)] bg-royal-50 text-[13px] font-bold text-royal">
-                  {f.name.replace("Yeda ", "")}
+                <span className="grid size-11 shrink-0 place-items-center rounded-[var(--radius-card)] bg-royal-50 text-royal">
+                  <Icon name={f.icon} className="size-5" />
                 </span>
                 <div>
                   <h3 className="ltr text-[16px] font-bold text-navy">{f.name}</h3>

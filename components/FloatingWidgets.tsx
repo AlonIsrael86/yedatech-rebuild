@@ -8,7 +8,7 @@ import { AccessibilityMenu } from "@/components/AccessibilityMenu";
 function TikTokIcon({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
-      <path d="M16.5 3c.3 2.1 1.6 3.6 3.5 3.9v2.6c-1.3.1-2.5-.3-3.5-1v6.1c0 3.4-2.6 5.9-5.9 5.9C7.4 20.5 5 18 5 14.9c0-3 2.3-5.5 5.3-5.6v2.7c-.3.1-.6.2-.9.4-1.2.6-1.8 2-1.4 3.3.3 1.2 1.5 2 2.7 1.8 1.2-.2 2-1.2 2-2.5V3h2.8z" />
+      <path d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z" />
     </svg>
   );
 }
@@ -27,7 +27,7 @@ export function FloatingWidgets() {
       <a
         href="#"
         aria-label="TikTok (בקרוב)"
-        className="grid size-11 place-items-center rounded-full bg-navy text-white shadow-[var(--shadow-float)] transition-transform hover:-translate-y-0.5"
+        className="grid size-11 place-items-center rounded-full bg-white text-[#010101] ring-1 ring-line shadow-[var(--shadow-float)] transition-transform hover:-translate-y-0.5"
       >
         <TikTokIcon className="size-5" />
       </a>

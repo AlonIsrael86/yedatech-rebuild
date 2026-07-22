@@ -243,12 +243,12 @@ export const FAMILY = {
   title: "משפחת המוצרים של Yeda",
   subtitle: "מערכת אחת, כמה נקודות מבט — לכל סוג ארגון וקהל.",
   items: [
-    { name: "Yeda LMS", body: "מערכת ניהול למידה" },
-    { name: "Yeda College", body: "ניהול מכללות ואקדמיה" },
-    { name: "Yeda Org", body: "למידה והדרכה בארגונים" },
-    { name: "Yeda Labs", body: "הפקת תוכן וכלי AI" },
-    { name: "Yeda Tech", body: "תשתית וטכנולוגיה" },
-    { name: "Yeda Hub", body: "מרחב קורסים ותוכן" },
+    { name: "Yeda LMS", body: "מערכת ניהול למידה", icon: "LayoutDashboard" },
+    { name: "Yeda College", body: "ניהול מכללות ואקדמיה", icon: "GraduationCap" },
+    { name: "Yeda Org", body: "למידה והדרכה בארגונים", icon: "Building2" },
+    { name: "Yeda Labs", body: "הפקת תוכן וכלי AI", icon: "FlaskConical" },
+    { name: "Yeda Tech", body: "תשתית וטכנולוגיה", icon: "Cpu" },
+    { name: "Yeda Hub", body: "מרחב קורסים ותוכן", icon: "LayoutGrid" },
   ],
 } as const;
 

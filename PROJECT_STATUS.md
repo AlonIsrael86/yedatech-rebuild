@@ -8,6 +8,8 @@
 - Victor's Apploye member account is active.
 - Apploye project `Yedatech.io Rebuild - Victor` exists, is assigned only to Victor, uses USD 15/hour, and has a three-hour budget.
 - GitHub repository is owned by `AlonIsrael86` and starts on `main`.
+- Victor's full-administrator GitHub invitation is pending acceptance.
+- Victor's uPress administrator invitation is pending acceptance and is inspection-only during this checkpoint.
 - Yedatech is confirmed as a uPress-hosted WordPress/Elementor/AIOSEO site.
 - Current homepage source, public content, and URL inventory were reviewed.
 
@@ -21,4 +23,3 @@
 ## Review Gate
 
 Alon reviews the public preview, repository, `DESIGN.md`, `PROCESS.md`, screenshots, and Apploye record before authorizing more work or any production integration.
-

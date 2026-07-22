@@ -19,7 +19,7 @@ The first checkpoint is real project work, not a disposable mockup. However, it 
 - GitHub owner: `AlonIsrael86`.
 - Repository: `https://github.com/AlonIsrael86/yedatech-rebuild`.
 - Work directly on `main` for this initial from-zero phase. A branch and pull-request workflow can be introduced after the foundation is accepted.
-- Victor has full repository access for this project.
+- A full-administrator repository invitation has been sent to Victor's verified GitHub account and must be accepted before work begins.
 - uPress access is supplied only so Victor can inspect the current WordPress site, content, media, and configuration.
 - Do not edit the live WordPress site, install or remove plugins, change Elementor pages, alter DNS, touch forms, or deploy the rebuild during this checkpoint.
 - Never place uPress, WordPress, API, form, analytics, or other credentials in GitHub, prompts, screenshots, or chat messages.

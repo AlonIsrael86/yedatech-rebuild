@@ -4,12 +4,11 @@ import {
   Credibility,
   Audiences,
   Capabilities,
-  AvatarLearning,
-  ProductExperience,
   Production,
   Process,
   Family,
 } from "@/components/Sections";
+import { FeatureBlocks } from "@/components/FeatureBlocks";
 import { FinalCta } from "@/components/FinalCta";
 import { Footer } from "@/components/Footer";
 
@@ -22,8 +21,7 @@ export default function Home() {
         <Credibility />
         <Audiences />
         <Capabilities />
-        <AvatarLearning />
-        <ProductExperience />
+        <FeatureBlocks />
         <Production />
         <Process />
         <Family />

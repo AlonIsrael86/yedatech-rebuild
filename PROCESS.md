@@ -38,6 +38,20 @@
 - **No image generation** was used in this checkpoint — the product is drawn in
   code and clearly labeled as an illustration.
 
+## Image sources
+
+Photos in the numbered feature blocks were extracted from **Alexey's Figma**
+(file `wOn70IJSQEuBjf342BYmmR`) via the Figma REST `/v1/images` endpoint and
+committed to `public/media/`:
+
+- `professional-laptop.png` — Figma node `199:15074`
+- `training-room.png` — Figma node `199:15236`
+- `learning.png` (transparent cutout) — Figma node `199:15497`
+
+These are the design's own assets (the HANDOFF authorizes downloading approved
+Figma assets into the repo). **Licensing note:** some may be licensed stock the
+client purchased — final license confirmation with Yeda is a pre-launch item.
+
 ## Content sourcing
 
 All copy traces to the live site (yedatech.io) and the HANDOFF business context.

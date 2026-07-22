@@ -80,6 +80,15 @@ structure are new.
   (`components/Brand.tsx` + `public/brand/yeda-logo.svg`) — navy on light
   grounds, white on dark.
 
+## Numbered feature blocks (Figma composition)
+
+The core capabilities are presented as the Figma's signature **numbered
+showcase** (`components/FeatureBlocks.tsx`): a large index numeral (01–04), a
+coded product surface, and a floating photo accent, alternating sides. This
+consolidates the earlier avatar + product sections into one cohesive rhythm and
+pairs each coded panel with a real photo from the Figma (see PROCESS.md → Image
+sources) — the panel shows the product, the photo grounds it in a human context.
+
 ## Assets to add before launch
 
 - **Photography**: the hero/production sections are intentionally product-led;

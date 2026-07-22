@@ -1,18 +1,10 @@
 import * as Icons from "lucide-react";
-import { Container, Eyebrow, Button } from "@/components/ui";
+import { Container, Eyebrow } from "@/components/ui";
 import { Reveal } from "@/components/Reveal";
-import {
-  AvatarModulePanel,
-  HtmlModulePanel,
-  VideoQuizPanel,
-} from "@/components/ProductVisual";
 import {
   CREDIBILITY,
   AUDIENCES,
   CAPABILITIES,
-  PRODUCT,
-  AVATAR,
-  SURFACES,
   PRODUCTION,
   PROCESS,
   FAMILY,
@@ -128,87 +120,6 @@ export function Capabilities() {
               </div>
             </Reveal>
           ))}
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-/* ── Avatar-based learning (headline capability) ─────────────────────── */
-export function AvatarLearning() {
-  return (
-    <section id="avatar" className="bg-canvas py-16 sm:py-24">
-      <Container className="grid items-center gap-12 lg:grid-cols-2">
-        <Reveal delay={0.12} className="order-2 lg:order-1">
-          <figure>
-            <AvatarModulePanel />
-            <figcaption className="mt-3 text-center text-[13px] text-slate">
-              {AVATAR.panel.caption}
-            </figcaption>
-          </figure>
-        </Reveal>
-
-        <Reveal className="order-1 lg:order-2">
-          <div className="max-w-lg">
-            <Eyebrow>{AVATAR.eyebrow}</Eyebrow>
-            <h2 className="mt-3 text-3xl font-bold leading-tight text-navy sm:text-4xl">
-              {AVATAR.title}
-            </h2>
-            <p className="mt-4 text-lg leading-relaxed text-slate">
-              {AVATAR.subtitle}
-            </p>
-            <ul className="mt-8 space-y-5">
-              {AVATAR.points.map((p) => (
-                <li key={p.title} className="flex gap-4">
-                  <span className="mt-0.5 inline-grid size-11 shrink-0 place-items-center rounded-[var(--radius-card)] bg-royal-50 text-royal">
-                    <Icon name={p.icon} className="size-5" />
-                  </span>
-                  <div>
-                    <h3 className="text-[17px] font-bold text-navy">{p.title}</h3>
-                    <p className="mt-1 text-[15px] leading-relaxed text-slate">
-                      {p.body}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Reveal>
-      </Container>
-    </section>
-  );
-}
-
-/* ── Product experience (distinct coded surfaces) ─────────────────────── */
-export function ProductExperience() {
-  return (
-    <section className="border-t border-line bg-white py-16 sm:py-24">
-      <Container>
-        <Reveal>
-          <SectionHead
-            eyebrow={PRODUCT.eyebrow}
-            title={PRODUCT.title}
-            subtitle={PRODUCT.subtitle}
-          />
-        </Reveal>
-        {/* three distinct real surfaces — each reveals a different capability */}
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          <Reveal>
-            <figure>
-              <HtmlModulePanel />
-              <figcaption className="mt-3 text-center text-[13px] text-slate">
-                {SURFACES.html.caption}
-              </figcaption>
-            </figure>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <figure>
-              <VideoQuizPanel />
-              <figcaption className="mt-3 text-center text-[13px] text-slate">
-                {SURFACES.video.caption}
-              </figcaption>
-            </figure>
-          </Reveal>
         </div>
       </Container>
     </section>

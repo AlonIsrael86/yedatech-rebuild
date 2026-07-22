@@ -213,6 +213,54 @@ export const SURFACES = {
   },
 } as const;
 
+/**
+ * Numbered feature showcase — the Figma's signature composition (big index +
+ * product panel with a floating photo accent, alternating sides). Each block
+ * pairs a coded product surface with a real photo from Alexey's Figma. Content
+ * is verified capability; no pricing/invented specifics.
+ */
+export const FEATURE_BLOCKS = {
+  eyebrow: "יכולות המערכת",
+  title: "כל מה שצריך כדי ללמד, לתרגל ולהעריך",
+  subtitle:
+    "ארבע יכולות ליבה שעובדות יחד — מניהול הלמידה ועד תוכן אינטראקטיבי, אווטאר, וידאו והערכה.",
+  blocks: [
+    {
+      n: "01",
+      title: "ניהול הלמידה במקום אחד",
+      body: "ניהול קורסים, מסלולים, לומדים ותעודות — עם נתונים ובקרה בזמן אמת.",
+      panel: "dashboard",
+      photo: "/media/professional-laptop.png",
+      alt: "איש מקצוע לומד מול מחשב נייד",
+    },
+    {
+      n: "02",
+      title: "תוכן אינטראקטיבי ומודולי HTML",
+      body: "יחידות למידה עשירות שמשלבות טקסט, מדיה ותרגול — הכול באותו מסך.",
+      panel: "html",
+      photo: "/media/training-room.png",
+      alt: "הדרכה ארגונית בחדר ישיבות",
+    },
+    {
+      n: "03",
+      title: "למידה מבוססת אווטאר",
+      body: "מנחה דיגיטלי שמשלב מצגת, וידאו ותרגול — ליחידת למידה אחת שלמה.",
+      panel: "avatar",
+      photo: "/media/learning.png",
+      alt: "יוצר תוכן דיגיטלי",
+      cutout: true,
+    },
+    {
+      n: "04",
+      title: "וידאו והערכה",
+      body: "שיעורי וידאו עם שאלות משובצות, מבחנים אינטראקטיביים ותעודות אוטומטיות.",
+      panel: "video",
+      photo: null,
+      alt: "",
+    },
+  ],
+} as const;
+
 export const PRODUCTION = {
   eyebrow: "אולפן ההפקה — Yeda Labs",
   title: "מרעיון לקורס מוכן",

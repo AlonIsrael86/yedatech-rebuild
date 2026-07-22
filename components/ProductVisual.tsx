@@ -74,7 +74,7 @@ export function ProductDashboard() {
           <span className="size-2.5 rounded-full bg-royal" />
           <span className="text-[15px] font-semibold text-navy">{dashboard.title}</span>
         </div>
-        <Wordmark className="text-royal" />
+        <Wordmark className="h-5 w-auto text-royal" />
       </div>
 
       <div className="grid grid-cols-[1fr_128px]">

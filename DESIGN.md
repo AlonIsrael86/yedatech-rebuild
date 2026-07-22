@@ -73,9 +73,14 @@ numbered-process treatment, and the token system are all original work built for
 this rebuild. The Figma provided the graphic language; the implementation and
 structure are new.
 
-## Assets to replace before launch
+## Assets
 
-- **Wordmark**: rendered as styled Rubik type (`components/Brand.tsx`); swap for
-  the official `yeda` logo SVG when supplied.
+- **Wordmark**: the real `yeda` logotype, extracted from the Figma (node
+  `199:15118`) as a single monochrome path and recolored via `currentColor`
+  (`components/Brand.tsx` + `public/brand/yeda-logo.svg`) — navy on light
+  grounds, white on dark.
+
+## Assets to add before launch
+
 - **Photography**: the hero/production sections are intentionally product-led;
   real Yeda studio/course photography can be added where it reveals the service.

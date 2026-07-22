@@ -9,7 +9,7 @@ export function Footer() {
     <footer className="border-t border-line bg-canvas">
       <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div className="max-w-xs">
-          <Wordmark className="text-navy" />
+          <Wordmark className="h-7 w-auto text-navy" />
           <p className="mt-4 text-[14px] leading-relaxed text-slate">
             {FOOTER.tagline}
           </p>

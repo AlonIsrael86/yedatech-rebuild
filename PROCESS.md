@@ -86,6 +86,18 @@ creation is intentionally *not* a headline capability.
   links, readable spacing) persisted in `localStorage`. This is **not** a
   certified IS-5568 solution — a starting aid only.
 
+## Accessibility hardening (WCAG 2.1 AA-oriented)
+
+Informed by a verified research pass on IS-5568 (Israeli law = WCAG 2.0 AA;
+2.1 AA targeted as best practice). Homepage-scoped, verified, no content changes:
+skip-to-content link, `<main id>` landmark, a `<nav aria-label>` on the mobile
+menu, semantic heading order (h1→h2→h3, audited: no skipped levels), accessible
+names on all icon-only controls, and a contrast pass. Audited with Playwright:
+0 images without alt, 0 controls without an accessible name, no heading gaps,
+first-Tab focus reaches the skip link. **Not yet compliant:** a full Hebrew
+accessibility statement + coordinator and a certified widget remain pre-launch
+legal items.
+
 ## Known unfinished / next 3–7 hours
 
 - **Real TikTok/WhatsApp links** for the floating buttons (placeholders now).

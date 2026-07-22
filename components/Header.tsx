@@ -61,7 +61,7 @@ export function Header() {
       </Container>
 
       {open ? (
-        <div className="border-t border-line bg-white lg:hidden">
+        <nav aria-label="ראשי (נייד)" className="border-t border-line bg-white lg:hidden">
           <Container className="flex flex-col gap-1 py-3">
             {NAV.map((item) => (
               <Link
@@ -77,7 +77,7 @@ export function Header() {
               {HERO.primaryCta}
             </DemoButton>
           </Container>
-        </div>
+        </nav>
       ) : null}
     </header>
   );

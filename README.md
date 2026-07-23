@@ -4,7 +4,7 @@ Owned rebuild workspace for [Yedatech.io](https://www.yedatech.io/).
 
 ## Current Assignment
 
-Victor Cecoltan is authorized for an initial three-hour checkpoint. He must stop when Apploye reaches three hours and submit the checkpoint package described in [HANDOFF.md](./HANDOFF.md). No additional time is authorized until Alon reviews the result in writing.
+Victor Cecoltan completed the initial three-hour checkpoint. The current authorized scope is planning and direct alignment with Alexey under [VICTOR_CONTINUATION_HANDOFF_2026-07-24.md](./VICTOR_CONTINUATION_HANDOFF_2026-07-24.md), logged in Apploye. No code changes or other implementation work are authorized until Alexey confirms the plan and Alon authorizes implementation hours in writing.
 
 ## Repository Rules
 
@@ -17,5 +17,6 @@ Victor Cecoltan is authorized for an initial three-hour checkpoint. He must stop
 ## Source Records
 
 - Full assignment: [HANDOFF.md](./HANDOFF.md)
+- Authoritative continuation brief: [VICTOR_CONTINUATION_HANDOFF_2026-07-24.md](./VICTOR_CONTINUATION_HANDOFF_2026-07-24.md)
 - Current visual capture: [screenshots/current-homepage-2026-07-22.png](./screenshots/current-homepage-2026-07-22.png)
 - Initial status: [PROJECT_STATUS.md](./PROJECT_STATUS.md)

@@ -45,7 +45,9 @@ function HeroCharacter({
       </div>
 
       <button type="button" onClick={() => setOpen((o) => !o)} aria-label={line} className="block">
-        <div className={isLeft ? "" : "[transform:scaleX(-1)]"}>
+        {/* Both cutouts are a mirrored pair (woman faces right, man faces left),
+            so neither is flipped — each already points inward toward the card. */}
+        <div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={img}

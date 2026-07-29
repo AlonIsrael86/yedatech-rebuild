@@ -29,11 +29,11 @@ export function Header() {
       }`}
     >
       <Container className="flex h-16 items-center justify-between gap-4">
-        <Link href="#top" aria-label="Yeda — לדף הבית" className="shrink-0">
+        <Link href="#top" aria-label="Yeda — home" className="shrink-0">
           <Wordmark className="h-7 w-auto text-navy" />
         </Link>
 
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="ראשי">
+        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
           {NAV.map((item) => (
             <Link
               key={item.href}
@@ -53,7 +53,7 @@ export function Header() {
           type="button"
           onClick={() => setOpen((v) => !v)}
           className="inline-flex size-10 items-center justify-center rounded-[8px] text-navy ring-1 ring-inset ring-line lg:hidden"
-          aria-label={open ? "סגירת תפריט" : "פתיחת תפריט"}
+          aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -61,7 +61,7 @@ export function Header() {
       </Container>
 
       {open ? (
-        <nav aria-label="ראשי (נייד)" className="border-t border-line bg-white lg:hidden">
+        <nav aria-label="Primary (mobile)" className="border-t border-line bg-white lg:hidden">
           <Container className="flex flex-col gap-1 py-3">
             {NAV.map((item) => (
               <Link

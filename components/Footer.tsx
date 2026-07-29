@@ -55,10 +55,10 @@ export function Footer() {
       <div className="border-t border-line">
         <Container className="flex flex-col items-center justify-between gap-2 py-5 text-[14px] text-slate sm:flex-row">
           <p>
-            <span className="ltr">© {new Date().getFullYear()} Yeda</span> — כל
-            הזכויות שמורות.
+            <span className="ltr">© {new Date().getFullYear()} Yeda</span> — All
+            rights reserved.
           </p>
-          <p>מערכת ניהול למידה והפקת תוכן דיגיטלי.</p>
+          <p>Learning management &amp; digital content production.</p>
         </Container>
       </div>
     </footer>

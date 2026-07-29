@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useDemoForm } from "@/components/DemoFormProvider";
 
 // Mirrors the visual variants of `ui.tsx` Button, but opens the demo dialog
@@ -27,7 +27,7 @@ export function DemoButton({
   return (
     <button type="button" onClick={open} className={`${base} ${styles} ${className}`}>
       {children}
-      {withArrow ? <ArrowLeft className="size-[18px]" aria-hidden /> : null}
+      {withArrow ? <ArrowRight className="size-[18px]" aria-hidden /> : null}
     </button>
   );
 }

@@ -56,16 +56,16 @@ function Donut() {
  */
 export function ProductDashboard() {
   const navItems = [
-    { icon: LayoutDashboard, label: "לוח בקרה", active: true },
-    { icon: FolderTree, label: "קטגוריות" },
-    { icon: PlaySquare, label: "קורסים" },
-    { icon: Award, label: "תעודות" },
-    { icon: ClipboardCheck, label: "מבחנים" },
-    { icon: Settings, label: "הגדרות" },
+    { icon: LayoutDashboard, label: "Dashboard", active: true },
+    { icon: FolderTree, label: "Categories" },
+    { icon: PlaySquare, label: "Courses" },
+    { icon: Award, label: "Certificates" },
+    { icon: ClipboardCheck, label: "Tests" },
+    { icon: Settings, label: "Settings" },
   ];
   return (
     <div
-      dir="rtl"
+      dir="ltr"
       className="overflow-hidden rounded-[var(--radius-media)] bg-white shadow-[var(--shadow-pop)] ring-1 ring-line"
     >
       {/* top bar */}
@@ -147,7 +147,7 @@ export function AvatarModulePanel() {
   const { panel } = AVATAR;
   return (
     <div
-      dir="rtl"
+      dir="ltr"
       className="overflow-hidden rounded-[var(--radius-media)] bg-white shadow-[var(--shadow-pop)] ring-1 ring-line"
     >
       {/* presenter + slide stage */}
@@ -228,7 +228,7 @@ export function HtmlModulePanel() {
   const s = SURFACES.html;
   return (
     <div
-      dir="rtl"
+      dir="ltr"
       className="overflow-hidden rounded-[var(--radius-media)] bg-white shadow-[var(--shadow-pop)] ring-1 ring-line"
     >
       {/* window chrome */}
@@ -280,7 +280,7 @@ export function VideoQuizPanel() {
   const s = SURFACES.video;
   return (
     <div
-      dir="rtl"
+      dir="ltr"
       className="overflow-hidden rounded-[var(--radius-media)] bg-white shadow-[var(--shadow-pop)] ring-1 ring-line"
     >
       {/* video stage */}
@@ -305,7 +305,7 @@ export function VideoQuizPanel() {
       <div className="p-4">
         <span className="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] bg-royal-50 px-2.5 py-1 text-[12px] font-semibold text-royal">
           <ClipboardCheck className="size-3.5" aria-hidden />
-          שאלה משובצת
+          Embedded question
         </span>
         <p className="mt-2.5 text-[15px] font-semibold text-navy">{s.question}</p>
         <div className="mt-2.5 grid grid-cols-2 gap-2">

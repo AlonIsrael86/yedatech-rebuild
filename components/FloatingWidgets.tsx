@@ -26,14 +26,14 @@ export function FloatingWidgets() {
       {/* Social — placeholder destinations (#) until real links are provided */}
       <a
         href="#"
-        aria-label="TikTok (בקרוב)"
+        aria-label="TikTok (coming soon)"
         className="grid size-11 place-items-center rounded-full bg-white text-[#010101] ring-1 ring-line shadow-[var(--shadow-float)] transition-transform hover:-translate-y-0.5"
       >
         <TikTokIcon className="size-5" />
       </a>
       <a
         href="#"
-        aria-label="WhatsApp (בקרוב)"
+        aria-label="WhatsApp (coming soon)"
         className="grid size-11 place-items-center rounded-full bg-[#25D366] text-white shadow-[var(--shadow-float)] transition-transform hover:-translate-y-0.5"
       >
         <WhatsAppIcon className="size-6" />

@@ -1,11 +1,65 @@
 "use client";
 
+import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Check, Play, Sparkles } from "lucide-react";
+import { Check, Sparkles } from "lucide-react";
 import { Container, Button } from "@/components/ui";
 import { DemoButton } from "@/components/DemoButton";
 import { HERO } from "@/content/site";
 import { ProductDashboard } from "@/components/ProductVisual";
+
+/**
+ * Man/woman presenter flanking the product. Desktop: hover raises the character
+ * and reveals a "speaking" bubble. Mobile / touch: tap toggles the bubble.
+ * Reduced motion: no transform, bubble still available on tap.
+ */
+function HeroCharacter({
+  img,
+  alt,
+  line,
+  side,
+  reduce,
+}: {
+  img: string;
+  alt: string;
+  line: string;
+  side: "left" | "right";
+  reduce: boolean | null;
+}) {
+  const [open, setOpen] = useState(false);
+  const isLeft = side === "left";
+  return (
+    <div className={`group absolute -bottom-6 z-20 ${isLeft ? "-left-3 sm:-left-7" : "-right-3 sm:-right-7"}`}>
+      {/* speaking bubble — hover (desktop) or tap (mobile) */}
+      <div
+        className={`pointer-events-none absolute bottom-full mb-3 w-max max-w-[10.5rem] rounded-2xl bg-white px-3.5 py-2 text-[13px] font-medium leading-snug text-navy shadow-[var(--shadow-pop)] transition duration-300 ${
+          isLeft ? "left-0" : "right-0"
+        } ${open ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"} group-hover:translate-y-0 group-hover:opacity-100`}
+      >
+        {line}
+        <span
+          className={`absolute top-full -mt-1.5 size-3 rotate-45 bg-white ${isLeft ? "left-6" : "right-6"}`}
+        />
+      </div>
+
+      <button type="button" onClick={() => setOpen((o) => !o)} aria-label={line} className="block">
+        <div className={isLeft ? "" : "[transform:scaleX(-1)]"}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={img}
+            alt={alt}
+            width={312}
+            height={652}
+            draggable={false}
+            className={`h-auto w-24 select-none drop-shadow-[0_12px_26px_rgba(0,6,40,0.4)] sm:w-28 lg:w-32 ${
+              reduce ? "" : "transition-transform duration-300 group-hover:-translate-y-2.5"
+            }`}
+          />
+        </div>
+      </button>
+    </div>
+  );
+}
 
 export function Hero() {
   const reduce = useReducedMotion();
@@ -20,7 +74,7 @@ export function Hero() {
 
   return (
     <section id="top" className="relative overflow-hidden bg-navy text-white">
-      {/* depth: soft royal glow + faint grid, no decorative blobs */}
+      {/* depth: soft royal glow */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
@@ -67,10 +121,7 @@ export function Hero() {
             </Button>
           </motion.div>
 
-          <motion.ul
-            {...rise(0.32)}
-            className="mt-8 flex flex-wrap gap-x-5 gap-y-2.5"
-          >
+          <motion.ul {...rise(0.32)} className="mt-8 flex flex-wrap gap-x-5 gap-y-2.5">
             {HERO.chips.map((c) => (
               <li key={c} className="flex items-center gap-2 text-[15px] text-white/80">
                 <Check className="size-4 text-sand" aria-hidden />
@@ -80,7 +131,7 @@ export function Hero() {
           </motion.ul>
         </div>
 
-        {/* product visual + floating cards */}
+        {/* product visual flanked by the man/woman presenters */}
         <motion.div
           {...(reduce
             ? {}
@@ -89,33 +140,25 @@ export function Hero() {
                 animate: { opacity: 1, y: 0 },
                 transition: { duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] },
               })}
-          className="relative"
+          className="relative mx-auto w-full max-w-[480px]"
         >
-          <ProductDashboard />
-
-          {/* floating video-module card — overhangs the TOP-LEFT corner into
-              the navy gutter, sitting above the panel so it never covers the
-              KPI tiles or the dashboard's own logo. */}
-          <div className="absolute -top-10 -left-6 hidden w-44 rounded-[var(--radius-card)] bg-white p-2.5 shadow-[var(--shadow-pop)] ring-1 ring-line lg:block">
-            <div className="relative overflow-hidden rounded-[6px] bg-navy">
-              <div className="aspect-video bg-gradient-to-tl from-royal/40 to-navy" />
-              <span className="absolute inset-0 grid place-items-center">
-                <span className="grid size-8 place-items-center rounded-full bg-white/95 text-royal">
-                  <Play className="size-4 translate-x-[1px]" aria-hidden />
-                </span>
-              </span>
-            </div>
-            <div className="px-1 pb-0.5 pt-2">
-              <div className="h-2 w-3/4 rounded bg-line" />
-              <div className="mt-1.5 h-2 w-1/2 rounded bg-line-soft" />
-            </div>
+          <div className="px-10 sm:px-16">
+            <ProductDashboard />
           </div>
-
-          {/* floating "record" pill (Figma's red accent), off the bottom edge */}
-          <div className="absolute -bottom-4 right-8 hidden items-center gap-2 rounded-[var(--radius-pill)] bg-red px-3.5 py-2 text-[14px] font-semibold text-white shadow-[var(--shadow-pop)] sm:inline-flex">
-            <span className="size-2 rounded-full bg-white" />
-            הקלטת וידאו
-          </div>
+          <HeroCharacter
+            side="left"
+            img={HERO.characters.woman.src}
+            alt={HERO.characters.woman.alt}
+            line={HERO.characters.woman.line}
+            reduce={reduce}
+          />
+          <HeroCharacter
+            side="right"
+            img={HERO.characters.man.src}
+            alt={HERO.characters.man.alt}
+            line={HERO.characters.man.line}
+            reduce={reduce}
+          />
         </motion.div>
       </Container>
     </section>

@@ -20,12 +20,12 @@ type Answers = {
 
 function buildMailto(a: Answers): string {
   const lines = [
-    `עיסוק: ${a.role ?? ""}`,
-    `תחום עניין: ${a.interest ?? ""}`,
-    `שם: ${a.name ?? ""}`,
-    `אימייל: ${a.email ?? ""}`,
-    `טלפון: ${a.phone ?? ""}`,
-    a.note ? `הודעה: ${a.note}` : "",
+    `Role: ${a.role ?? ""}`,
+    `Interest: ${a.interest ?? ""}`,
+    `Name: ${a.name ?? ""}`,
+    `Email: ${a.email ?? ""}`,
+    `Phone: ${a.phone ?? ""}`,
+    a.note ? `Message: ${a.note}` : "",
   ].filter(Boolean);
   const params = new URLSearchParams({
     subject: DEMO_FORM.mailSubject,
@@ -137,7 +137,7 @@ export function DemoForm({
             aria-modal="true"
             aria-labelledby="demo-form-title"
             tabIndex={-1}
-            dir="rtl"
+            dir="ltr"
             className="relative z-10 flex max-h-[92vh] w-full max-w-[440px] flex-col overflow-hidden rounded-t-3xl bg-white shadow-[var(--shadow-pop)] outline-none sm:rounded-3xl"
             initial={reduce ? {} : { y: 24, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -223,7 +223,7 @@ export function DemoForm({
                         );
                       })}
                       {showErrors && !stepValid ? (
-                        <p className="pt-1 text-[14px] text-error">{UI.pickOne}</p>
+                        <p className="pt-1 text-[14px] text-err">{UI.pickOne}</p>
                       ) : null}
                     </div>
                   ) : (
@@ -239,13 +239,13 @@ export function DemoForm({
                             <span className="mb-1 block text-[14px] font-medium text-ink-soft">
                               {f.label}
                               {f.required ? (
-                                <span className="text-error"> *</span>
+                                <span className="text-err"> *</span>
                               ) : null}
                             </span>
                             {f.inputType === "textarea" ? (
                               <textarea
                                 value={val}
-                                dir="rtl"
+                                dir="ltr"
                                 rows={3}
                                 onChange={(e) =>
                                   setAnswers((a) => ({ ...a, [f.name]: e.target.value }))
@@ -256,21 +256,21 @@ export function DemoForm({
                               <input
                                 type={f.inputType}
                                 value={val}
-                                dir={f.inputType === "email" || f.inputType === "tel" ? "ltr" : "rtl"}
+                                dir="ltr"
                                 onChange={(e) =>
                                   setAnswers((a) => ({ ...a, [f.name]: e.target.value }))
                                 }
                                 className={`w-full rounded-[8px] border bg-white px-3 py-2.5 text-[16px] text-navy outline-none focus:border-royal ${
-                                  emailBad || missing ? "border-error" : "border-line"
+                                  emailBad || missing ? "border-err" : "border-line"
                                 }`}
                               />
                             )}
                             {missing ? (
-                              <span className="mt-1 block text-[13px] text-error">
+                              <span className="mt-1 block text-[13px] text-err">
                                 {UI.required}
                               </span>
                             ) : emailBad ? (
-                              <span className="mt-1 block text-[13px] text-error">
+                              <span className="mt-1 block text-[13px] text-err">
                                 {UI.invalidEmail}
                               </span>
                             ) : null}
@@ -309,7 +309,7 @@ export function DemoForm({
                     className="inline-flex flex-1 items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-royal px-5 py-2.5 text-[16px] font-semibold text-white transition-colors hover:bg-royal-600"
                   >
                     {isLast ? UI.submit : UI.next}
-                    {!isLast ? <ArrowLeft className="size-[18px]" aria-hidden /> : null}
+                    {!isLast ? <ArrowRight className="size-[18px]" aria-hidden /> : null}
                   </button>
                   {step > 0 ? (
                     <button
@@ -317,7 +317,7 @@ export function DemoForm({
                       onClick={prev}
                       className="inline-flex items-center justify-center gap-1.5 rounded-[var(--radius-pill)] px-4 py-2.5 text-[16px] font-medium text-slate hover:text-navy"
                     >
-                      <ArrowRight className="size-[18px]" aria-hidden />
+                      <ArrowLeft className="size-[18px]" aria-hidden />
                       {UI.prev}
                     </button>
                   ) : null}

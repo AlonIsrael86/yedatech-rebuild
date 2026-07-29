@@ -17,14 +17,14 @@ const rubik = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.yedatech.io"),
-  title: "Yeda — פלטפורמה מלאה ליצירה, ניהול והפצה של למידה דיגיטלית",
+  title: "Yeda — the complete platform for organizational learning and training",
   description:
-    "Yeda היא מערכת למידה (LMS) והפקת תוכן דיגיטלי למכללות, ארגונים וגופי הדרכה: מודולי HTML, מודולים מבוססי אווטאר, מבחנים אינטראקטיביים, ניהול לומדים והפקת קורסים מקצה לקצה.",
+    "Yeda is a learning-management system (LMS) and digital content-production platform for organizations and educational institutions: HTML modules, avatar-based modules, interactive assessments, learner management, and end-to-end course production.",
   openGraph: {
-    title: "Yeda — פלטפורמה מלאה ללמידה דיגיטלית",
+    title: "Yeda — the complete platform for organizational learning",
     description:
-      "מערכת LMS והפקת תוכן דיגיטלי למכללות, ארגונים וגופי הדרכה.",
-    locale: "he_IL",
+      "An LMS and digital content-production platform for organizations and educational institutions.",
+    locale: "en_US",
     type: "website",
   },
 };
@@ -35,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="he" dir="rtl" className={`${rubik.variable} h-full antialiased`}>
+    <html lang="en" dir="ltr" className={`${rubik.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-surface">
         <DemoFormProvider>{children}</DemoFormProvider>
       </body>

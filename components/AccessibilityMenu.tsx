@@ -96,15 +96,14 @@ export function AccessibilityMenu() {
         <div
           ref={panelRef}
           role="dialog"
-          aria-label="הגדרות נגישות"
-          dir="rtl"
+          aria-label="Accessibility settings"
           className="absolute bottom-14 left-0 w-64 rounded-[12px] border border-line bg-white p-3 shadow-[var(--shadow-pop)]"
         >
           <div className="mb-2 flex items-center justify-between">
-            <span className="text-[15px] font-bold text-navy">נגישות</span>
+            <span className="text-[15px] font-bold text-navy">Accessibility</span>
             <button
               onClick={() => setOpen(false)}
-              aria-label="סגירה"
+              aria-label="Close"
               className="grid size-7 place-items-center rounded-full text-slate hover:bg-line-soft"
             >
               <X className="size-4" aria-hidden />
@@ -117,16 +116,16 @@ export function AccessibilityMenu() {
               <button
                 onClick={() => update({ font: Math.min(2, s.font + 1) as 0 | 1 | 2 })}
                 className={`${rowBtn} ${idle} flex-1 justify-center`}
-                aria-label="הגדלת טקסט"
+                aria-label="Increase text size"
               >
-                <AArrowUp className="size-4" aria-hidden /> טקסט גדול
+                <AArrowUp className="size-4" aria-hidden /> Larger text
               </button>
               <button
                 onClick={() => update({ font: Math.max(0, s.font - 1) as 0 | 1 | 2 })}
                 className={`${rowBtn} ${idle} flex-1 justify-center`}
-                aria-label="הקטנת טקסט"
+                aria-label="Decrease text size"
               >
-                <AArrowDown className="size-4" aria-hidden /> טקסט קטן
+                <AArrowDown className="size-4" aria-hidden /> Smaller text
               </button>
             </div>
 
@@ -135,32 +134,32 @@ export function AccessibilityMenu() {
               aria-pressed={s.contrast}
               className={`${rowBtn} w-full ${s.contrast ? active : idle}`}
             >
-              <Contrast className="size-4" aria-hidden /> ניגודיות גבוהה
+              <Contrast className="size-4" aria-hidden /> High contrast
             </button>
             <button
               onClick={() => update({ links: !s.links })}
               aria-pressed={s.links}
               className={`${rowBtn} w-full ${s.links ? active : idle}`}
             >
-              <Link2 className="size-4" aria-hidden /> הדגשת קישורים
+              <Link2 className="size-4" aria-hidden /> Highlight links
             </button>
             <button
               onClick={() => update({ spacing: !s.spacing })}
               aria-pressed={s.spacing}
               className={`${rowBtn} w-full ${s.spacing ? active : idle}`}
             >
-              <AlignJustify className="size-4" aria-hidden /> מרווח קריא
+              <AlignJustify className="size-4" aria-hidden /> Readable spacing
             </button>
 
             <button
               onClick={reset}
               className={`${rowBtn} w-full justify-center border-transparent text-slate hover:text-navy`}
             >
-              <RotateCcw className="size-4" aria-hidden /> איפוס
+              <RotateCcw className="size-4" aria-hidden /> Reset
             </button>
           </div>
           <p className="mt-2 px-1 text-[11px] leading-snug text-slate">
-            כלי נגישות בסיסי. הצהרת נגישות מלאה תתווסף בהמשך.
+            Basic accessibility aids. A full accessibility statement will be added later.
           </p>
         </div>
       ) : null}
@@ -169,7 +168,7 @@ export function AccessibilityMenu() {
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="dialog"
         aria-expanded={open}
-        aria-label="פתיחת תפריט נגישות"
+        aria-label="Open accessibility menu"
         className="grid size-12 place-items-center rounded-full bg-royal text-white shadow-[var(--shadow-float)] transition-colors hover:bg-royal-600"
       >
         <Accessibility className="size-6" aria-hidden />

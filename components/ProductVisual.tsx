@@ -25,7 +25,7 @@ function Donut() {
   const C = 2 * Math.PI * R;
   let offset = 0;
   return (
-    <svg viewBox="0 0 120 120" className="size-[132px] -rotate-90" aria-hidden>
+    <svg viewBox="0 0 120 120" className="size-[112px] -rotate-90" aria-hidden>
       <circle cx="60" cy="60" r={R} fill="none" stroke="var(--color-line)" strokeWidth="14" />
       {segs.map((s, i) => {
         const len = (s.value / total) * C;
@@ -77,11 +77,11 @@ export function ProductDashboard() {
         <Wordmark className="h-5 w-auto text-royal" />
       </div>
 
-      <div className="grid grid-cols-[1fr_128px]">
-        {/* main */}
-        <div className="min-w-0 p-4">
-          {/* KPI tiles */}
-          <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+      <div className="grid grid-cols-[148px_1fr]">
+        {/* main (right of the nav in LTR) */}
+        <div className="col-start-2 min-w-0 p-4">
+          {/* KPI tiles — 2×2 so labels never truncate in the narrow card */}
+          <div className="grid grid-cols-2 gap-2.5">
             {dashboard.kpis.map((k) => (
               <div key={k.label} className="rounded-[var(--radius-card)] border border-line bg-white p-3">
                 <div className="ltr text-2xl font-bold text-navy">{k.value}</div>
@@ -94,7 +94,7 @@ export function ProductDashboard() {
             <div className="mb-1 text-[14px] font-semibold text-navy">
               {dashboard.donut.title}
             </div>
-            <div className="flex items-center justify-between gap-3">
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between lg:gap-2">
               <ul className="space-y-2">
                 {dashboard.donut.legend.map((l) => (
                   <li key={l.label} className="flex items-center gap-2 text-[13px] text-ink-soft">
@@ -114,8 +114,8 @@ export function ProductDashboard() {
           </div>
         </div>
 
-        {/* side nav */}
-        <aside className="border-r border-line bg-white p-2">
+        {/* side nav — left side for English/LTR; border-r divides it from content */}
+        <aside className="col-start-1 row-start-1 border-r border-line bg-white p-2">
           <ul className="space-y-1">
             {navItems.map((n) => (
               <li key={n.label}>

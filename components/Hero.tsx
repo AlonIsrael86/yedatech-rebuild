@@ -28,8 +28,10 @@ function HeroCharacter({
 }) {
   const [open, setOpen] = useState(false);
   const isLeft = side === "left";
+  // Characters flank the card only where the 2-column layout leaves room; below
+  // lg the card is full-width, so hide them to keep the mock legible.
   return (
-    <div className={`group absolute -bottom-6 z-20 ${isLeft ? "-left-3 sm:-left-7" : "-right-3 sm:-right-7"}`}>
+    <div className={`group absolute hidden -bottom-6 z-20 lg:block ${isLeft ? "lg:-left-10" : "lg:-right-10"}`}>
       {/* speaking bubble — hover (desktop) or tap (mobile) */}
       <div
         className={`pointer-events-none absolute bottom-full mb-3 w-max max-w-[10.5rem] rounded-2xl bg-white px-3.5 py-2 text-[13px] font-medium leading-snug text-navy shadow-[var(--shadow-pop)] transition duration-300 ${
@@ -140,9 +142,11 @@ export function Hero() {
                 animate: { opacity: 1, y: 0 },
                 transition: { duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] },
               })}
-          className="relative mx-auto w-full max-w-[480px]"
+          className="relative mx-auto w-full max-w-[560px]"
         >
-          <div className="px-10 sm:px-16">
+          {/* small horizontal inset only — characters overlap the card's outer
+              edges (decorative), so the dashboard itself stays large */}
+          <div className="px-4 sm:px-7">
             <ProductDashboard />
           </div>
           <HeroCharacter

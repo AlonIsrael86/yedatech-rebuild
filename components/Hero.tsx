@@ -4,7 +4,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Check, Sparkles } from "lucide-react";
 import { Container, Button } from "@/components/ui";
 import { DemoButton } from "@/components/DemoButton";
-import { Presenter } from "@/components/Presenters";
 import { HERO } from "@/content/site";
 import { ProductDashboard } from "@/components/ProductVisual";
 
@@ -78,7 +77,7 @@ export function Hero() {
           </motion.ul>
         </div>
 
-        {/* product visual flanked by the man/woman presenters */}
+        {/* product visual */}
         <motion.div
           {...(reduce
             ? {}
@@ -89,23 +88,7 @@ export function Hero() {
               })}
           className="relative mx-auto w-full max-w-[640px]"
         >
-          {/* small horizontal inset only — characters overlap the card's outer
-              edges (decorative), so the dashboard itself stays large */}
-          <div className="px-1 sm:px-3">
-            <ProductDashboard />
-          </div>
-          <Presenter
-            side="left"
-            img={HERO.characters.woman.src}
-            alt={HERO.characters.woman.alt}
-            line={HERO.characters.woman.line}
-          />
-          <Presenter
-            side="right"
-            img={HERO.characters.man.src}
-            alt={HERO.characters.man.alt}
-            line={HERO.characters.man.line}
-          />
+          <ProductDashboard />
         </motion.div>
       </Container>
     </section>

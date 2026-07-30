@@ -27,7 +27,7 @@ export const NAV = [
 
 export const HERO = {
   eyebrow: "Learning management & digital content platform",
-  title: "The complete platform for organizational learning and training",
+  title: "The complete enterprise learning and knowledge platform",
   subtitle:
     "Yeda unites an advanced learning-management system with a content-production studio — so organizations and educational institutions can build, manage, and scale learning in one place.",
   primaryCta: "Book a demo",
@@ -401,17 +401,16 @@ export const FEATURE_BLOCKS = {
       title: "Avatar-based learning",
       body: "A digital presenter that combines slides, video, and practice — into one complete learning unit.",
       panel: "avatar",
-      photo: "/media/learning.png",
-      alt: "Creating digital learning content",
-      cutout: true,
+      photo: null,
+      alt: "",
     },
     {
       n: "04",
       title: "Simulations & interactive",
       body: "Hands-on simulations and interactive modules that turn learning into real practice.",
       panel: "html",
-      photo: "/media/training-room.png",
-      alt: "Organizational training in a meeting room",
+      photo: null,
+      alt: "",
     },
     {
       n: "05",

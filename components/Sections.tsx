@@ -1,8 +1,10 @@
 import * as Icons from "lucide-react";
 import { Container, Eyebrow, Button } from "@/components/ui";
 import { Reveal } from "@/components/Reveal";
+import { Presenter } from "@/components/Presenters";
 import { AiAgentPanel } from "@/components/ProductVisual";
 import {
+  HERO,
   CREDIBILITY,
   AUDIENCES,
   CAPABILITIES,
@@ -30,20 +32,28 @@ function SectionHead({
   title,
   subtitle,
   center = true,
+  nowrap = false,
 }: {
   eyebrow?: string;
   title: string;
   subtitle?: string;
   center?: boolean;
+  nowrap?: boolean;
 }) {
   return (
-    <div className={`max-w-2xl ${center ? "mx-auto text-center" : ""}`}>
+    <div className={`${nowrap ? "max-w-none" : "max-w-2xl"} ${center ? "mx-auto text-center" : ""}`}>
       {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
-      <h2 className="mt-3 text-3xl font-bold leading-tight text-navy sm:text-4xl">
+      <h2
+        className={`mt-3 text-3xl font-bold leading-tight text-navy sm:text-4xl ${
+          nowrap ? "lg:whitespace-nowrap" : ""
+        }`}
+      >
         {title}
       </h2>
       {subtitle ? (
-        <p className="mt-4 text-lg leading-relaxed text-slate">{subtitle}</p>
+        <p className={`mt-4 text-lg leading-relaxed text-slate ${nowrap ? "mx-auto max-w-2xl" : ""}`}>
+          {subtitle}
+        </p>
       ) : null}
     </div>
   );
@@ -58,16 +68,33 @@ export function Credibility() {
           <SectionHead title={CREDIBILITY.title} subtitle={CREDIBILITY.subtitle} />
         </Reveal>
         <Reveal delay={0.1}>
-          <ul className="mx-auto mt-10 flex max-w-4xl flex-wrap items-center justify-center gap-3">
-            {CREDIBILITY.statements.map((s) => (
-              <li
-                key={s}
-                className="rounded-[var(--radius-pill)] border border-line bg-canvas px-5 py-2.5 text-[16px] font-medium text-navy"
-              >
-                {s}
-              </li>
-            ))}
-          </ul>
+          <div className="relative mx-auto mt-12 max-w-2xl">
+            <ul className="grid grid-cols-2 gap-3 sm:gap-4">
+              {CREDIBILITY.statements.map((s) => (
+                <li
+                  key={s}
+                  className="flex items-center justify-center rounded-[var(--radius-card)] border border-line bg-canvas px-5 py-5 text-center text-[16px] font-semibold text-navy"
+                >
+                  {s}
+                </li>
+              ))}
+            </ul>
+            {/* woman-left / man-right presenters flanking the 2x2 */}
+            <Presenter
+              side="left"
+              offset="lg:-left-24"
+              img={HERO.characters.woman.src}
+              alt={HERO.characters.woman.alt}
+              line={HERO.characters.woman.line}
+            />
+            <Presenter
+              side="right"
+              offset="lg:-right-24"
+              img={HERO.characters.man.src}
+              alt={HERO.characters.man.alt}
+              line={HERO.characters.man.line}
+            />
+          </div>
         </Reveal>
       </Container>
     </section>
@@ -80,7 +107,7 @@ export function Audiences() {
     <section id="audiences" className="bg-canvas py-16 sm:py-24">
       <Container>
         <Reveal>
-          <SectionHead title={AUDIENCES.title} subtitle={AUDIENCES.subtitle} />
+          <SectionHead nowrap title={AUDIENCES.title} subtitle={AUDIENCES.subtitle} />
         </Reveal>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {AUDIENCES.items.map((a, i) => (

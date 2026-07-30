@@ -6,7 +6,6 @@ import {
   Settings,
   ClipboardCheck,
   Play,
-  UserRound,
   Check,
   ChevronDown,
   Lightbulb,
@@ -153,36 +152,18 @@ export function AvatarModulePanel() {
       dir="ltr"
       className="overflow-hidden rounded-[var(--radius-media)] bg-white shadow-[var(--shadow-pop)] ring-1 ring-line"
     >
-      {/* presenter + slide stage */}
-      <div className="relative aspect-[16/9] bg-gradient-to-tl from-royal/25 via-navy to-navy p-3">
-        {/* slide */}
-        <div className="absolute inset-3 rounded-[8px] bg-white/95 p-3 shadow-sm">
-          <div className="text-[13px] font-semibold text-navy">
-            {panel.slideTitle}
-          </div>
-          <div className="mt-2 space-y-1.5">
-            <div className="h-2 w-11/12 rounded bg-line" />
-            <div className="h-2 w-3/4 rounded bg-line" />
-            <div className="h-2 w-4/5 rounded bg-line-soft" />
-          </div>
-          <div className="mt-3 flex gap-1.5">
-            <div className="h-9 flex-1 rounded bg-royal-50" />
-            <div className="h-9 flex-1 rounded bg-royal-100" />
-            <div className="h-9 flex-1 rounded bg-sand-soft/70" />
-          </div>
-        </div>
-        {/* avatar presenter, bottom-start corner */}
-        <div className="absolute bottom-4 right-4 flex items-center gap-2">
-          <span className="grid size-14 place-items-center rounded-full bg-sand ring-4 ring-white/90">
-            <UserRound className="size-7 text-navy" aria-hidden />
+      {/* presenter video stage — a real presenter photo (Figma) drops in here;
+          for now a gradient placeholder with a big, centered play button */}
+      <div className="relative aspect-[16/9] bg-gradient-to-tl from-royal/30 via-navy to-navy">
+        {/* big centered play */}
+        <span className="absolute inset-0 grid place-items-center">
+          <span className="grid size-16 place-items-center rounded-full bg-white/95 text-royal shadow-md">
+            <Play className="size-7 translate-x-[2px]" aria-hidden />
           </span>
-          <span className="rounded-[var(--radius-pill)] bg-white/95 px-2.5 py-1 text-[12px] font-semibold text-navy shadow-sm">
-            {panel.presenterTag}
-          </span>
-        </div>
-        {/* play control */}
-        <span className="absolute left-4 top-4 grid size-8 place-items-center rounded-full bg-white/95 text-royal shadow-sm">
-          <Play className="size-4 translate-x-[1px]" aria-hidden />
+        </span>
+        {/* presenter label */}
+        <span className="absolute left-4 top-4 rounded-[var(--radius-pill)] bg-white/95 px-2.5 py-1 text-[12px] font-semibold text-navy shadow-sm">
+          {panel.presenterTag}
         </span>
       </div>
 

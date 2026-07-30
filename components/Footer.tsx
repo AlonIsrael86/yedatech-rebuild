@@ -2,13 +2,13 @@ import Link from "next/link";
 import { Mail, Phone } from "lucide-react";
 import { Container } from "@/components/ui";
 import { Wordmark } from "@/components/Brand";
-import { FOOTER, CONTACT } from "@/content/site";
+import { FOOTER, CONTACT, TOPBAR } from "@/content/site";
 
 export function Footer() {
   return (
     <footer className="border-t border-line bg-canvas">
-      <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="max-w-xs">
+      <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-6">
+        <div className="max-w-xs sm:col-span-2">
           <Wordmark className="h-7 w-auto text-navy" />
           <p className="mt-4 text-[15px] leading-relaxed text-slate">
             {FOOTER.tagline}
@@ -53,12 +53,35 @@ export function Footer() {
       </Container>
 
       <div className="border-t border-line">
-        <Container className="flex flex-col items-center justify-between gap-2 py-5 text-[14px] text-slate sm:flex-row">
-          <p>
-            <span className="ltr">© {new Date().getFullYear()} Yeda</span> — All
-            rights reserved.
-          </p>
-          <p>Learning management &amp; digital content production.</p>
+        <Container className="flex flex-col gap-4 py-5 text-[14px] text-slate sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <p>
+              <span className="ltr">© {new Date().getFullYear()} Yeda</span> — All
+              rights reserved.
+            </p>
+            {FOOTER.legal.map((l) => (
+              <Link key={l.label} href={l.href} className="transition-colors hover:text-royal">
+                {l.label}
+              </Link>
+            ))}
+          </div>
+          <div className="flex items-center gap-2" role="group" aria-label="Language">
+            {TOPBAR.languages.map((l) => (
+              <Link
+                key={l.code}
+                href={l.href}
+                title={l.label}
+                aria-current={l.active ? "true" : undefined}
+                className={
+                  l.active
+                    ? "font-semibold text-navy"
+                    : "text-slate transition-colors hover:text-royal"
+                }
+              >
+                {l.code}
+              </Link>
+            ))}
+          </div>
         </Container>
       </div>
     </footer>

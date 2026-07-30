@@ -4,8 +4,11 @@ import {
   Credibility,
   Audiences,
   Capabilities,
-  Production,
-  Process,
+  AiLearning,
+  Integrations,
+  CustomSolutions,
+  CaseStudy,
+  Resources,
   Family,
 } from "@/components/Sections";
 import { FeatureBlocks } from "@/components/FeatureBlocks";
@@ -23,14 +26,21 @@ export default function Home() {
       </a>
       <Header />
       <main id="main-content" className="flex-1">
+        {/* Approved structure (English): hero → credibility → two audiences →
+            platform overview → product showcase → AI → integrations → custom
+            solutions → [case study] → company → [resources] → final CTA.
+            CaseStudy and Resources render only when real content exists. */}
         <Hero />
         <Credibility />
         <Audiences />
         <Capabilities />
         <FeatureBlocks />
-        <Production />
-        <Process />
+        <AiLearning />
+        <Integrations />
+        <CustomSolutions />
+        <CaseStudy />
         <Family />
+        <Resources />
         <FinalCta />
       </main>
       <Footer />

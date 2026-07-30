@@ -5,8 +5,34 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Container } from "@/components/ui";
 import { DemoButton } from "@/components/DemoButton";
-import { NAV, HERO } from "@/content/site";
+import { NAV, TOPBAR, HERO } from "@/content/site";
 import { Wordmark } from "@/components/Brand";
+
+/** EN / HE selector — Phase-2 stub. HE is shown but inactive (English-first). */
+function LangSelector() {
+  return (
+    <div
+      className="flex items-center rounded-[var(--radius-pill)] border border-line p-0.5 text-[13px] font-semibold"
+      role="group"
+      aria-label="Language"
+    >
+      {TOPBAR.languages.map((l) => (
+        <span
+          key={l.code}
+          title={l.label}
+          aria-current={l.active ? "true" : undefined}
+          className={
+            l.active
+              ? "rounded-[var(--radius-pill)] bg-royal px-2.5 py-1 text-white"
+              : "px-2.5 py-1 text-slate"
+          }
+        >
+          {l.code}
+        </span>
+      ))}
+    </div>
+  );
+}
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -45,7 +71,14 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden items-center gap-4 lg:flex">
+          <LangSelector />
+          <Link
+            href={TOPBAR.login.href}
+            className="text-[16px] font-medium text-ink-soft transition-colors hover:text-royal"
+          >
+            {TOPBAR.login.label}
+          </Link>
           <DemoButton variant="primary">{HERO.primaryCta}</DemoButton>
         </div>
 
@@ -73,6 +106,17 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
+            <Link
+              href={TOPBAR.login.href}
+              onClick={() => setOpen(false)}
+              className="rounded-[8px] px-3 py-2.5 text-[16px] font-medium text-ink-soft hover:bg-royal-50 hover:text-royal"
+            >
+              {TOPBAR.login.label}
+            </Link>
+            <div className="flex items-center justify-between px-3 py-2.5">
+              <span className="text-[14px] text-slate">Language</span>
+              <LangSelector />
+            </div>
             <DemoButton variant="primary" className="mt-2 w-full">
               {HERO.primaryCta}
             </DemoButton>

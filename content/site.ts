@@ -19,34 +19,31 @@ export const CONTACT = {
 
 export const NAV = [
   { label: "Platform", href: "#platform" },
-  { label: "Capabilities", href: "#capabilities" },
-  { label: "Solutions", href: "#audiences" },
-  { label: "Content", href: "#production" },
-  { label: "How it works", href: "#process" },
+  { label: "Solutions", href: "#solutions" },
+  { label: "AI Learning", href: "#ai" },
+  { label: "Integrations", href: "#integrations" },
+  { label: "Company", href: "#company" },
+  // "Resources" is added once the resource center has real content.
 ] as const;
+
+// Top-bar actions. Login URL is a placeholder until Yeda confirms the real
+// LMS login endpoint; the language selector is a Phase-2 stub (English-first).
+export const TOPBAR = {
+  login: { label: "Log in", href: "#" },
+  languages: [
+    { code: "EN", label: "English", active: true, href: "#" },
+    { code: "HE", label: "Hebrew — coming in Phase 2", active: false, href: "#" },
+  ],
+} as const;
 
 export const HERO = {
   eyebrow: "Learning management & digital content platform",
   title: "The complete platform for organizational learning and training",
   subtitle:
     "Yeda unites an advanced learning-management system with a content-production studio — so organizations and educational institutions can build, manage, and scale learning in one place.",
-  primaryCta: "Book a demo",
-  secondaryCta: "Explore the platform",
+  primaryCta: "Request a Demo",
+  secondaryCta: "Explore the Platform",
   recordLabel: "Video recording",
-  // Man/woman presenter characters flanking the hero product (real transparent
-  // cutouts exported from Alexey's Figma). Lines are verified value-prop, not claims.
-  characters: {
-    woman: {
-      src: "/media/character-woman.png",
-      alt: "Illustration of a presenter",
-      line: "Build and manage learning in one place.",
-    },
-    man: {
-      src: "/media/character-man.png",
-      alt: "Illustration of a presenter",
-      line: "Train employees, partners, and customers.",
-    },
-  },
   chips: [
     "HTML & avatar modules",
     "Interactive assessments",
@@ -69,73 +66,194 @@ export const CREDIBILITY = {
 } as const;
 
 export const AUDIENCES = {
-  title: "Built for organizations and institutions",
-  subtitle: "Every organization gets what it needs — without compromising on the rest.",
-  items: [
+  eyebrow: "Two audiences, one platform",
+  title: "Built for organizations and educational institutions",
+  subtitle:
+    "Every organization and institution gets what it needs — without compromising on the rest.",
+  // Two prominent pathway cards, each routing into an audience-specific page
+  // (internal pages arrive later; CTAs point to the demo/contact for now).
+  paths: [
     {
-      key: "enterprises",
-      title: "Enterprises & companies",
-      body: "Employee, supplier, and customer training with learning paths, progress tracking, and reporting.",
+      key: "organizations",
+      title: "For Organizations",
+      body: "Companies, enterprises, government, and public-sector teams.",
       icon: "Building2",
+      points: [
+        "Employee onboarding and training",
+        "Supplier and partner training",
+        "Customer education",
+        "Compliance and professional development",
+        "Internal knowledge management",
+        "Organizational portals",
+      ],
+      cta: "Explore Solutions for Organizations",
+      href: "#contact",
     },
     {
-      key: "government",
-      title: "Government & public sector",
-      body: "Structured training and knowledge management for public-sector teams and programs.",
-      icon: "Landmark",
-    },
-    {
-      key: "higher-ed",
-      title: "Universities & colleges",
-      body: "Manage digital and in-person courses, assessments, certificates, and analytics in one system.",
+      key: "education",
+      title: "For Educational Institutions",
+      body: "Universities, colleges, and schools.",
       icon: "GraduationCap",
-    },
-    {
-      key: "schools",
-      title: "Schools",
-      body: "Digital learning, interactive content, and assessments for schools and their teachers.",
-      icon: "School",
+      points: [
+        "Academic and professional programs",
+        "Student and faculty learning",
+        "Course and content management",
+        "Schedules and live instruction",
+        "Institutional portals",
+        "Training-program administration",
+      ],
+      cta: "Explore Solutions for Education",
+      href: "#contact",
     },
   ],
 } as const;
 
 export const CAPABILITIES = {
-  title: "One system, end-to-end capabilities",
+  eyebrow: "The complete platform",
+  title: "One connected platform, end to end",
   subtitle:
-    "Everything works together — manage, create, assess, and deliver learning content in one place.",
+    "Not a collection of separate tools — manage, create, deliver, and measure learning in a single system.",
+  cta: "View Platform Capabilities",
   items: [
     {
-      title: "Learning management (LMS / LXP / LCMS)",
-      body: "Manage courses, learning paths, categories, and users in one central system.",
+      title: "Learning management",
+      body: "LMS administration, enrollment, tracking, assessment, certification, and reporting.",
       icon: "LayoutDashboard",
     },
     {
-      title: "Learning content creation",
-      body: "HTML modules, avatar-based modules, and mixed formats for a rich learning experience.",
+      title: "Learning experience",
+      body: "Personalized portals, content discovery, and learner engagement.",
       icon: "Sparkles",
     },
     {
-      title: "Assessment & evaluation",
-      body: "Interactive tests, quizzes, grading, and automatic certificates.",
-      icon: "ClipboardCheck",
+      title: "Content management",
+      body: "LCMS creation, reuse, governance, and publishing of learning content.",
+      icon: "FolderTree",
     },
     {
-      title: "Video & live learning",
-      body: "Recorded lessons, an interactive video player, and live sessions.",
+      title: "Knowledge management",
+      body: "Centralize organizational knowledge and surface it inside learning workflows.",
+      icon: "Library",
+    },
+    {
+      title: "Program management",
+      body: "Schedules, cohorts, instructors, resources, and structured training programs.",
+      icon: "CalendarDays",
+    },
+    {
+      title: "Live and blended learning",
+      body: "Virtual sessions, classroom learning, and on-demand content in one flow.",
       icon: "PlayCircle",
-    },
-    {
-      title: "Learner management",
-      body: "Enrollment, progress tracking, and day-to-day management of your learners.",
-      icon: "GraduationCap",
-    },
-    {
-      title: "Data & analytics",
-      body: "Dashboards, assessment statistics, and real-time performance reports.",
-      icon: "BarChart3",
     },
   ],
 } as const;
+
+/**
+ * AI-powered learning — concrete applications only (no vague "AI-powered"
+ * claims). Whether each item is live vs. roadmap is confirmed with Alexey; copy
+ * stays capability-level, never metric or customer claims.
+ */
+export const AI_LEARNING = {
+  eyebrow: "AI-powered learning",
+  title: "AI that supports learning at the moment of need",
+  subtitle:
+    "Practical AI across the learning workflow — from authoring content to guiding people through software and surfacing the right knowledge in the flow of work.",
+  features: [
+    {
+      title: "AI learning agents",
+      body: "Guide users through software and business processes, step by step.",
+      icon: "Bot",
+    },
+    {
+      title: "AI-assisted authoring",
+      body: "Draft and assemble learning modules faster, with AI support.",
+      icon: "Wand2",
+    },
+    {
+      title: "Learning avatars",
+      body: "Digital presenters that deliver lessons in voice and vision.",
+      icon: "UserRound",
+    },
+    {
+      title: "Contextual guidance",
+      body: "Surface the right knowledge and support exactly when it's needed.",
+      icon: "Compass",
+    },
+  ],
+  cta: "Explore AI Learning",
+} as const;
+
+/**
+ * Integrations — ONLY vendors confirmed in Yeda materials are named (Zoom,
+ * Microsoft Teams, Google, CRM). Remaining categories are shown generically with
+ * no invented vendor logos until the client supplies the verified list.
+ */
+export const INTEGRATIONS = {
+  eyebrow: "Integrations",
+  title: "Works with the tools your teams already use",
+  subtitle: "Connect learning to your existing stack — no rip-and-replace.",
+  note: "Showing confirmed integrations. The full list lives on the integrations page.",
+  groups: [
+    { title: "Video conferencing", items: ["Zoom", "Microsoft Teams", "Google Meet"], confirmed: true },
+    { title: "CRM", items: ["CRM synchronization"], confirmed: true },
+    { title: "Productivity & collaboration", items: ["Google Workspace"], confirmed: true },
+    { title: "Identity & user management", items: ["Single sign-on & user provisioning"], confirmed: false },
+    { title: "Enterprise systems", items: ["HR & enterprise system connections"], confirmed: false },
+  ],
+  cta: "View All Integrations",
+} as const;
+
+/**
+ * Custom solutions & services — capability-level services story. Reuses the
+ * PRODUCTION (Yeda Labs studio) steps as the "our team builds it with you" detail.
+ */
+export const CUSTOM_SOLUTIONS = {
+  eyebrow: "Custom solutions & services",
+  title: "Built around your organization — not the other way around",
+  subtitle:
+    "For complex institutional and organizational requirements, Yeda's team designs, builds, and rolls the solution out with you.",
+  items: [
+    { title: "Custom learning environments", icon: "Boxes" },
+    { title: "Branded organizational portals", icon: "Palette" },
+    { title: "Custom integrations", icon: "Plug" },
+    { title: "Specialized learning workflows", icon: "Workflow" },
+    { title: "Simulations & interactive modules", icon: "MousePointerClick" },
+    { title: "Implementation & professional services", icon: "Handshake" },
+  ],
+  cta: "Discuss Your Requirements",
+} as const;
+
+/**
+ * Resource center — DEFERRED. Real articles arrive later; the section renders
+ * only when `items` is non-empty, so nothing is fabricated in the meantime.
+ */
+export const RESOURCES = {
+  eyebrow: "Resources",
+  title: "Insights on organizational learning and knowledge",
+  subtitle:
+    "Guides and articles on organizational learning, education technology, and AI-driven knowledge management.",
+  cta: "Visit the Resource Center",
+  items: [] as ReadonlyArray<{
+    title: string;
+    kind: string;
+    href: string;
+    excerpt?: string;
+  }>,
+} as const;
+
+/**
+ * Customer success story — DEFERRED. Needs a real, named customer + verified
+ * result + quote. Stays `null` (section hidden) until the client supplies one.
+ */
+export const CASE_STUDY: {
+  customerType: string;
+  challenge: string;
+  solution: string;
+  result: string;
+  quote: string;
+  attribution: string;
+  href: string;
+} | null = null;
 
 export const PRODUCT = {
   eyebrow: "A look inside",
@@ -380,9 +498,11 @@ export const DEMO_FORM = {
 } as const;
 
 export const FINAL_CTA = {
-  title: "Ready to see Yeda in action?",
-  subtitle: "We'll build a demo tailored exactly to your needs.",
-  primaryCta: "Book a demo",
+  title: "See how Yeda can support your learning ecosystem",
+  subtitle:
+    "Discuss your audiences, programs, systems, integrations, and knowledge-management requirements with our team.",
+  primaryCta: "Request a Demo",
+  secondaryCta: "Contact Yeda",
 } as const;
 
 export const FOOTER = {
@@ -391,26 +511,39 @@ export const FOOTER = {
     {
       title: "Platform",
       links: [
-        { label: "Learning management", href: "#platform" },
-        { label: "Capabilities", href: "#capabilities" },
-        { label: "Content production", href: "#production" },
-        { label: "How it works", href: "#process" },
+        { label: "Platform overview", href: "#platform" },
+        { label: "AI Learning", href: "#ai" },
+        { label: "Integrations", href: "#integrations" },
+        { label: "Custom solutions", href: "#custom" },
       ],
     },
     {
-      title: "Yeda",
+      title: "Solutions",
       links: [
-        { label: "About", href: "#" },
+        { label: "For Organizations", href: "#solutions" },
+        { label: "For Education", href: "#solutions" },
+      ],
+    },
+    {
+      title: "Company",
+      links: [
+        { label: "About", href: "#company" },
+        { label: "Product family", href: "#company" },
         { label: "Contact", href: "#contact" },
-        { label: "Product family", href: "#family" },
       ],
     },
     {
-      title: "Information",
+      title: "Resources",
       links: [
-        { label: "Terms of use", href: "#" },
-        { label: "Accessibility statement", href: "#" },
+        { label: "Resource center", href: "#" },
+        { label: "Support / Login", href: "#" },
       ],
     },
+  ],
+  // Legal / compliance row. Accessibility statement is required (IS 5568).
+  legal: [
+    { label: "Privacy Policy", href: "#" },
+    { label: "Terms", href: "#" },
+    { label: "Accessibility statement", href: "#" },
   ],
 } as const;

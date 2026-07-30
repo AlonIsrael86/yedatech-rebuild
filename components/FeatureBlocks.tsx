@@ -6,6 +6,7 @@ import {
   HtmlModulePanel,
   AvatarModulePanel,
   VideoQuizPanel,
+  AiAgentPanel,
 } from "@/components/ProductVisual";
 import { FEATURE_BLOCKS } from "@/content/site";
 
@@ -14,6 +15,7 @@ const PANELS = {
   html: HtmlModulePanel,
   avatar: AvatarModulePanel,
   video: VideoQuizPanel,
+  aiagent: AiAgentPanel,
 } as const;
 
 type Block = (typeof FEATURE_BLOCKS.blocks)[number];
@@ -59,7 +61,7 @@ function BlockMedia({ block }: { block: Block }) {
 
 export function FeatureBlocks() {
   return (
-    <section className="border-t border-line bg-white py-16 sm:py-24">
+    <section id="product" className="border-t border-line bg-white py-16 sm:py-24">
       <Container>
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">

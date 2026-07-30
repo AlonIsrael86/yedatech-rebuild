@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Mail, Phone } from "lucide-react";
 import { Container } from "@/components/ui";
 import { Wordmark } from "@/components/Brand";
-import { FOOTER, CONTACT, TOPBAR } from "@/content/site";
+import { FOOTER, CONTACT } from "@/content/site";
 
 export function Footer() {
   return (
@@ -54,31 +54,14 @@ export function Footer() {
 
       <div className="border-t border-line">
         <Container className="flex flex-col gap-4 py-5 text-[14px] text-slate sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            <span className="ltr">© {new Date().getFullYear()} Yeda</span> — All
+            rights reserved.
+          </p>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <p>
-              <span className="ltr">© {new Date().getFullYear()} Yeda</span> — All
-              rights reserved.
-            </p>
             {FOOTER.legal.map((l) => (
               <Link key={l.label} href={l.href} className="transition-colors hover:text-royal">
                 {l.label}
-              </Link>
-            ))}
-          </div>
-          <div className="flex items-center gap-2" role="group" aria-label="Language">
-            {TOPBAR.languages.map((l) => (
-              <Link
-                key={l.code}
-                href={l.href}
-                title={l.label}
-                aria-current={l.active ? "true" : undefined}
-                className={
-                  l.active
-                    ? "font-semibold text-navy"
-                    : "text-slate transition-colors hover:text-royal"
-                }
-              >
-                {l.code}
               </Link>
             ))}
           </div>

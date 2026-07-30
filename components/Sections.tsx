@@ -1,7 +1,7 @@
 import * as Icons from "lucide-react";
 import { Container, Eyebrow, Button } from "@/components/ui";
 import { Reveal } from "@/components/Reveal";
-import { AvatarModulePanel } from "@/components/ProductVisual";
+import { AiAgentPanel } from "@/components/ProductVisual";
 import {
   CREDIBILITY,
   AUDIENCES,
@@ -52,7 +52,7 @@ function SectionHead({
 /* ── Credibility strip ───────────────────────────────────────────────── */
 export function Credibility() {
   return (
-    <section id="credibility" className="border-b border-line bg-white py-16 sm:py-20">
+    <section id="platform" className="border-b border-line bg-white py-16 sm:py-20">
       <Container>
         <Reveal>
           <SectionHead title={CREDIBILITY.title} subtitle={CREDIBILITY.subtitle} />
@@ -74,44 +74,23 @@ export function Credibility() {
   );
 }
 
-/* ── Audience pathways (two cards) ───────────────────────────────────── */
+/* ── Audiences (four cards) ──────────────────────────────────────────── */
 export function Audiences() {
   return (
-    <section id="solutions" className="bg-canvas py-16 sm:py-24">
+    <section id="audiences" className="bg-canvas py-16 sm:py-24">
       <Container>
         <Reveal>
-          <SectionHead
-            eyebrow={AUDIENCES.eyebrow}
-            title={AUDIENCES.title}
-            subtitle={AUDIENCES.subtitle}
-          />
+          <SectionHead title={AUDIENCES.title} subtitle={AUDIENCES.subtitle} />
         </Reveal>
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          {AUDIENCES.paths.map((p, i) => (
-            <Reveal key={p.key} delay={i * 0.08}>
-              <article className="flex h-full flex-col rounded-[var(--radius-media)] border border-line bg-white p-8 shadow-[var(--shadow-card)] transition-shadow hover:shadow-[var(--shadow-float)]">
-                <div className="flex items-center gap-3">
-                  <span className="inline-grid size-12 shrink-0 place-items-center rounded-[var(--radius-card)] bg-royal-50 text-royal">
-                    <Icon name={p.icon} className="size-6" />
-                  </span>
-                  <div>
-                    <h3 className="text-xl font-bold text-navy">{p.title}</h3>
-                    <p className="text-[15px] text-slate">{p.body}</p>
-                  </div>
-                </div>
-                <ul className="mt-6 grid gap-2.5 sm:grid-cols-2">
-                  {p.points.map((pt) => (
-                    <li key={pt} className="flex items-start gap-2 text-[15px] text-ink-soft">
-                      <Icons.Check className="mt-0.5 size-4 shrink-0 text-royal" aria-hidden />
-                      {pt}
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-auto pt-7">
-                  <Button href={p.href} variant="secondary" withArrow>
-                    {p.cta}
-                  </Button>
-                </div>
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {AUDIENCES.items.map((a, i) => (
+            <Reveal key={a.key} delay={i * 0.06}>
+              <article className="group h-full rounded-[var(--radius-card)] border border-line bg-white p-6 shadow-[var(--shadow-card)] transition-shadow hover:shadow-[var(--shadow-float)]">
+                <span className="inline-grid size-12 place-items-center rounded-[var(--radius-card)] bg-royal-50 text-royal">
+                  <Icon name={a.icon} className="size-6" />
+                </span>
+                <h3 className="mt-5 text-lg font-bold text-navy">{a.title}</h3>
+                <p className="mt-2 text-[16px] leading-relaxed text-slate">{a.body}</p>
               </article>
             </Reveal>
           ))}
@@ -124,7 +103,7 @@ export function Audiences() {
 /* ── Platform overview (capabilities) ────────────────────────────────── */
 export function Capabilities() {
   return (
-    <section id="platform" className="border-y border-line bg-white py-16 sm:py-24">
+    <section id="capabilities" className="border-y border-line bg-white py-16 sm:py-24">
       <Container>
         <Reveal>
           <SectionHead
@@ -150,13 +129,6 @@ export function Capabilities() {
             </Reveal>
           ))}
         </div>
-        <Reveal>
-          <div className="mt-12 flex justify-center">
-            <Button href="#contact" variant="secondary" withArrow>
-              {CAPABILITIES.cta}
-            </Button>
-          </div>
-        </Reveal>
       </Container>
     </section>
   );
@@ -208,7 +180,7 @@ export function AiLearning() {
           </Reveal>
           <Reveal delay={0.1}>
             <div className="mx-auto w-full max-w-[440px]">
-              <AvatarModulePanel />
+              <AiAgentPanel />
             </div>
           </Reveal>
         </div>
@@ -376,9 +348,9 @@ export function CaseStudy() {
   );
 }
 
-/* ── Resources — hidden until real articles exist ────────────────────── */
+/* ── Resources — honest teaser (topics now, articles when supplied) ──── */
 export function Resources() {
-  if (RESOURCES.items.length === 0) return null;
+  const hasArticles = RESOURCES.items.length > 0;
   return (
     <section id="resources" className="border-t border-line bg-white py-16 sm:py-24">
       <Container>
@@ -390,24 +362,36 @@ export function Resources() {
           />
         </Reveal>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {RESOURCES.items.map((r, i) => (
-            <Reveal key={r.title} delay={(i % 3) * 0.06}>
-              <a
-                href={r.href}
-                className="group flex h-full flex-col rounded-[var(--radius-media)] border border-line bg-canvas p-6 transition-shadow hover:shadow-[var(--shadow-float)]"
-              >
-                <span className="text-[13px] font-semibold uppercase tracking-wide text-royal">
-                  {r.kind}
-                </span>
-                <h3 className="mt-2 text-lg font-bold leading-snug text-navy group-hover:text-royal">
-                  {r.title}
-                </h3>
-                {r.excerpt ? (
-                  <p className="mt-2 text-[15px] leading-relaxed text-slate">{r.excerpt}</p>
-                ) : null}
-              </a>
-            </Reveal>
-          ))}
+          {hasArticles
+            ? RESOURCES.items.map((r, i) => (
+                <Reveal key={r.title} delay={(i % 3) * 0.06}>
+                  <a
+                    href={r.href}
+                    className="group flex h-full flex-col rounded-[var(--radius-media)] border border-line bg-canvas p-6 transition-shadow hover:shadow-[var(--shadow-float)]"
+                  >
+                    <span className="text-[13px] font-semibold uppercase tracking-wide text-royal">
+                      {r.kind}
+                    </span>
+                    <h3 className="mt-2 text-lg font-bold leading-snug text-navy group-hover:text-royal">
+                      {r.title}
+                    </h3>
+                    {r.excerpt ? (
+                      <p className="mt-2 text-[15px] leading-relaxed text-slate">{r.excerpt}</p>
+                    ) : null}
+                  </a>
+                </Reveal>
+              ))
+            : RESOURCES.topics.map((t, i) => (
+                <Reveal key={t.title} delay={(i % 3) * 0.06}>
+                  <div className="h-full rounded-[var(--radius-media)] border border-line bg-canvas p-6">
+                    <span className="inline-grid size-11 place-items-center rounded-[var(--radius-card)] bg-royal-50 text-royal">
+                      <Icon name={t.icon} className="size-5" />
+                    </span>
+                    <h3 className="mt-4 text-lg font-bold text-navy">{t.title}</h3>
+                    <p className="mt-2 text-[15px] leading-relaxed text-slate">{t.body}</p>
+                  </div>
+                </Reveal>
+              ))}
         </div>
         <Reveal>
           <div className="mt-10 flex justify-center">
@@ -490,7 +474,7 @@ export function Process() {
 /* ── Company / product family ────────────────────────────────────────── */
 export function Family() {
   return (
-    <section id="company" className="border-t border-line bg-canvas py-16 sm:py-24">
+    <section id="family" className="border-t border-line bg-canvas py-16 sm:py-24">
       <Container>
         <Reveal>
           <SectionHead title={FAMILY.title} subtitle={FAMILY.subtitle} />

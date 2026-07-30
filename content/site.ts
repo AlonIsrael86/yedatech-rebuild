@@ -19,31 +19,34 @@ export const CONTACT = {
 
 export const NAV = [
   { label: "Platform", href: "#platform" },
-  { label: "Solutions", href: "#solutions" },
-  { label: "AI Learning", href: "#ai" },
-  { label: "Integrations", href: "#integrations" },
-  { label: "Company", href: "#company" },
-  // "Resources" is added once the resource center has real content.
+  { label: "Capabilities", href: "#capabilities" },
+  { label: "Solutions", href: "#audiences" },
+  { label: "Product", href: "#product" },
+  { label: "Resources", href: "#resources" },
 ] as const;
-
-// Top-bar actions. Login URL is a placeholder until Yeda confirms the real
-// LMS login endpoint; the language selector is a Phase-2 stub (English-first).
-export const TOPBAR = {
-  login: { label: "Log in", href: "#" },
-  languages: [
-    { code: "EN", label: "English", active: true, href: "#" },
-    { code: "HE", label: "Hebrew — coming in Phase 2", active: false, href: "#" },
-  ],
-} as const;
 
 export const HERO = {
   eyebrow: "Learning management & digital content platform",
   title: "The complete platform for organizational learning and training",
   subtitle:
     "Yeda unites an advanced learning-management system with a content-production studio — so organizations and educational institutions can build, manage, and scale learning in one place.",
-  primaryCta: "Request a Demo",
-  secondaryCta: "Explore the Platform",
+  primaryCta: "Book a demo",
+  secondaryCta: "Explore the platform",
   recordLabel: "Video recording",
+  // Man/woman presenter characters flanking the hero product (real transparent
+  // cutouts exported from Alexey's Figma). Lines are verified value-prop, not claims.
+  characters: {
+    woman: {
+      src: "/media/character-woman.png",
+      alt: "Illustration of a presenter",
+      line: "Build and manage learning in one place.",
+    },
+    man: {
+      src: "/media/character-man.png",
+      alt: "Illustration of a presenter",
+      line: "Train employees, partners, and customers.",
+    },
+  },
   chips: [
     "HTML & avatar modules",
     "Interactive assessments",
@@ -66,84 +69,81 @@ export const CREDIBILITY = {
 } as const;
 
 export const AUDIENCES = {
-  eyebrow: "Two audiences, one platform",
-  title: "Built for organizations and educational institutions",
-  subtitle:
-    "Every organization and institution gets what it needs — without compromising on the rest.",
-  // Two prominent pathway cards, each routing into an audience-specific page
-  // (internal pages arrive later; CTAs point to the demo/contact for now).
-  paths: [
+  title: "Built for organizations and institutions",
+  subtitle: "Every organization gets what it needs — without compromising on the rest.",
+  items: [
     {
-      key: "organizations",
-      title: "For Organizations",
-      body: "Companies, enterprises, government, and public-sector teams.",
+      key: "enterprises",
+      title: "Enterprises & companies",
+      body: "Employee, supplier, and customer training with learning paths, progress tracking, and reporting.",
       icon: "Building2",
-      points: [
-        "Employee onboarding and training",
-        "Supplier and partner training",
-        "Customer education",
-        "Compliance and professional development",
-        "Internal knowledge management",
-        "Organizational portals",
-      ],
-      cta: "Explore Solutions for Organizations",
-      href: "#contact",
     },
     {
-      key: "education",
-      title: "For Educational Institutions",
-      body: "Universities, colleges, and schools.",
+      key: "government",
+      title: "Government & public sector",
+      body: "Structured training and knowledge management for public-sector teams and programs.",
+      icon: "Landmark",
+    },
+    {
+      key: "higher-ed",
+      title: "Universities & colleges",
+      body: "Manage digital and in-person courses, assessments, certificates, and analytics in one system.",
       icon: "GraduationCap",
-      points: [
-        "Academic and professional programs",
-        "Student and faculty learning",
-        "Course and content management",
-        "Schedules and live instruction",
-        "Institutional portals",
-        "Training-program administration",
-      ],
-      cta: "Explore Solutions for Education",
-      href: "#contact",
+    },
+    {
+      key: "schools",
+      title: "Schools",
+      body: "Digital learning, interactive content, and assessments for schools and their teachers.",
+      icon: "School",
     },
   ],
 } as const;
 
 export const CAPABILITIES = {
-  eyebrow: "The complete platform",
-  title: "One connected platform, end to end",
+  eyebrow: "One system",
+  title: "One system, end-to-end capabilities",
   subtitle:
-    "Not a collection of separate tools — manage, create, deliver, and measure learning in a single system.",
-  cta: "View Platform Capabilities",
+    "Everything works together — manage, create, deliver, assess, and measure learning in one place.",
   items: [
     {
-      title: "Learning management",
-      body: "LMS administration, enrollment, tracking, assessment, certification, and reporting.",
+      title: "LMS / LXP / LCMS",
+      body: "Manage courses, learning paths, categories, and users in one central system.",
       icon: "LayoutDashboard",
     },
     {
-      title: "Learning experience",
-      body: "Personalized portals, content discovery, and learner engagement.",
-      icon: "Sparkles",
+      title: "AI learning agents",
+      body: "Agents that guide learners through software and business processes, step by step.",
+      icon: "Bot",
     },
     {
-      title: "Content management",
-      body: "LCMS creation, reuse, governance, and publishing of learning content.",
-      icon: "FolderTree",
+      title: "Avatar learning",
+      body: "Digital presenters that deliver lessons in voice and vision inside a learning unit.",
+      icon: "UserRound",
     },
     {
-      title: "Knowledge management",
-      body: "Centralize organizational knowledge and surface it inside learning workflows.",
-      icon: "Library",
+      title: "Simulations & interactive",
+      body: "Hands-on simulations and interactive modules that turn learning into practice.",
+      icon: "MousePointerClick",
     },
     {
-      title: "Program management",
-      body: "Schedules, cohorts, instructors, resources, and structured training programs.",
+      title: "Live learning & schedules",
+      body: "Virtual and classroom sessions, cohorts, instructors, and structured schedules.",
       icon: "CalendarDays",
     },
     {
-      title: "Live and blended learning",
-      body: "Virtual sessions, classroom learning, and on-demand content in one flow.",
-      icon: "PlayCircle",
+      title: "Assessment",
+      body: "Interactive tests, quizzes, grading, and automatic certificates.",
+      icon: "ClipboardCheck",
+    },
+    {
+      title: "Analytics",
+      body: "Dashboards, assessment statistics, and real-time performance reports.",
+      icon: "BarChart3",
+    },
+    {
+      title: "Integrations",
+      body: "Zoom, Microsoft Teams, and Google sync plus CRM and enterprise-system connections.",
+      icon: "Plug",
     },
   ],
 } as const;
@@ -233,6 +233,24 @@ export const RESOURCES = {
   subtitle:
     "Guides and articles on organizational learning, education technology, and AI-driven knowledge management.",
   cta: "Visit the Resource Center",
+  // Honest topic areas shown until real articles are published (no fake titles).
+  topics: [
+    {
+      title: "Organizational learning",
+      body: "Guides on building, managing, and scaling learning across teams.",
+      icon: "Building2",
+    },
+    {
+      title: "Education technology",
+      body: "How institutions run digital, blended, and live learning programs.",
+      icon: "GraduationCap",
+    },
+    {
+      title: "AI & knowledge management",
+      body: "Putting AI agents and organizational knowledge to work in learning.",
+      icon: "Bot",
+    },
+  ],
   items: [] as ReadonlyArray<{
     title: string;
     kind: string;
@@ -357,14 +375,14 @@ export const SURFACES = {
  * is verified capability; no pricing/invented specifics.
  */
 export const FEATURE_BLOCKS = {
-  eyebrow: "Platform capabilities",
-  title: "Everything you need to teach, practice, and assess",
+  eyebrow: "Platform in action",
+  title: "See the platform at work",
   subtitle:
-    "Four core capabilities that work together — from learning management to interactive content, avatar, video, and assessment.",
+    "Five core experiences that work together — from the LMS dashboard to AI agents, avatars, simulations, and live learning.",
   blocks: [
     {
       n: "01",
-      title: "Learning management in one place",
+      title: "LMS / LXP dashboard",
       body: "Manage courses, paths, learners, and certificates — with real-time data and analytics.",
       panel: "dashboard",
       photo: "/media/professional-laptop.png",
@@ -372,11 +390,11 @@ export const FEATURE_BLOCKS = {
     },
     {
       n: "02",
-      title: "Interactive content & HTML modules",
-      body: "Rich learning units that combine text, media, and practice — all on the same screen.",
-      panel: "html",
-      photo: "/media/training-room.png",
-      alt: "Organizational training in a meeting room",
+      title: "AI learning agent",
+      body: "A Yeda Labs AI agent that guides people through software and business processes, in the flow of work.",
+      panel: "aiagent",
+      photo: null,
+      alt: "",
     },
     {
       n: "03",
@@ -389,8 +407,16 @@ export const FEATURE_BLOCKS = {
     },
     {
       n: "04",
-      title: "Video & assessment",
-      body: "Video lessons with embedded questions, interactive tests, and automatic certificates.",
+      title: "Simulations & interactive",
+      body: "Hands-on simulations and interactive modules that turn learning into real practice.",
+      panel: "html",
+      photo: "/media/training-room.png",
+      alt: "Organizational training in a meeting room",
+    },
+    {
+      n: "05",
+      title: "Live learning",
+      body: "Live virtual and classroom sessions with schedules, plus recorded lessons on demand.",
       panel: "video",
       photo: null,
       alt: "",
@@ -501,7 +527,7 @@ export const FINAL_CTA = {
   title: "See how Yeda can support your learning ecosystem",
   subtitle:
     "Discuss your audiences, programs, systems, integrations, and knowledge-management requirements with our team.",
-  primaryCta: "Request a Demo",
+  primaryCta: "Book a demo",
   secondaryCta: "Contact Yeda",
 } as const;
 
@@ -511,32 +537,34 @@ export const FOOTER = {
     {
       title: "Platform",
       links: [
-        { label: "Platform overview", href: "#platform" },
-        { label: "AI Learning", href: "#ai" },
+        { label: "Capabilities", href: "#capabilities" },
+        { label: "AI learning agents", href: "#ai" },
         { label: "Integrations", href: "#integrations" },
-        { label: "Custom solutions", href: "#custom" },
+        { label: "Content production", href: "#production" },
       ],
     },
     {
       title: "Solutions",
       links: [
-        { label: "For Organizations", href: "#solutions" },
-        { label: "For Education", href: "#solutions" },
+        { label: "Enterprises & companies", href: "#audiences" },
+        { label: "Government", href: "#audiences" },
+        { label: "Universities & colleges", href: "#audiences" },
+        { label: "Schools", href: "#audiences" },
+      ],
+    },
+    {
+      title: "Product",
+      links: [
+        { label: "Platform in action", href: "#product" },
+        { label: "Yeda product family", href: "#family" },
       ],
     },
     {
       title: "Company",
       links: [
-        { label: "About", href: "#company" },
-        { label: "Product family", href: "#company" },
+        { label: "About", href: "#" },
+        { label: "Resources", href: "#resources" },
         { label: "Contact", href: "#contact" },
-      ],
-    },
-    {
-      title: "Resources",
-      links: [
-        { label: "Resource center", href: "#" },
-        { label: "Support / Login", href: "#" },
       ],
     },
   ],

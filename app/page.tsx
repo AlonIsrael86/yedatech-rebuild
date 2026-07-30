@@ -6,10 +6,10 @@ import {
   Capabilities,
   AiLearning,
   Integrations,
-  CustomSolutions,
-  CaseStudy,
-  Resources,
+  Production,
+  Process,
   Family,
+  Resources,
 } from "@/components/Sections";
 import { FeatureBlocks } from "@/components/FeatureBlocks";
 import { FinalCta } from "@/components/FinalCta";
@@ -26,19 +26,19 @@ export default function Home() {
       </a>
       <Header />
       <main id="main-content" className="flex-1">
-        {/* Approved structure (English): hero → credibility → two audiences →
-            platform overview → product showcase → AI → integrations → custom
-            solutions → [case study] → company → [resources] → final CTA.
-            CaseStudy and Resources render only when real content exists. */}
+        {/* Victor's "old plan" (English): hero (presenters) -> credibility ->
+            4 audiences -> platform capabilities -> feature showcase -> AI
+            learning agents -> content production -> integrations -> process ->
+            product family -> resources -> final CTA. */}
         <Hero />
         <Credibility />
         <Audiences />
         <Capabilities />
         <FeatureBlocks />
         <AiLearning />
+        <Production />
         <Integrations />
-        <CustomSolutions />
-        <CaseStudy />
+        <Process />
         <Family />
         <Resources />
         <FinalCta />

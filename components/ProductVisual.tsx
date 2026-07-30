@@ -11,6 +11,9 @@ import {
   ChevronDown,
   Lightbulb,
   Code2,
+  Bot,
+  MousePointerClick,
+  Sparkles,
 } from "lucide-react";
 import { PRODUCT, AVATAR, SURFACES } from "@/content/site";
 import { Wordmark } from "@/components/Brand";
@@ -218,6 +221,68 @@ export function AvatarModulePanel() {
             );
           })}
         </ul>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Conceptual AI learning agent (coded, labeled placeholder). Shows the Yeda Labs
+ * capability Alexey emphasized: an agent that guides a user through software
+ * step by step. Swap for a real Yeda Labs product screen when supplied.
+ */
+export function AiAgentPanel() {
+  return (
+    <div
+      dir="ltr"
+      className="overflow-hidden rounded-[var(--radius-media)] bg-white shadow-[var(--shadow-pop)] ring-1 ring-line"
+    >
+      {/* window chrome */}
+      <div className="flex items-center gap-2 border-b border-line px-4 py-2.5">
+        <span className="flex gap-1.5">
+          <span className="size-2.5 rounded-full bg-line" />
+          <span className="size-2.5 rounded-full bg-line" />
+          <span className="size-2.5 rounded-full bg-line" />
+        </span>
+        <span className="ms-2 inline-flex items-center gap-1.5 text-[13px] font-medium text-slate">
+          <Sparkles className="size-3.5 text-royal" aria-hidden />
+          Yeda Labs · AI agent
+        </span>
+      </div>
+      {/* mock app with a highlighted target + agent guidance */}
+      <div className="relative grid grid-cols-[64px_1fr]">
+        <aside className="space-y-1.5 border-r border-line bg-canvas p-2">
+          <div className="h-6 rounded bg-line" />
+          <div className="h-6 rounded bg-royal-100" />
+          <div className="h-6 rounded bg-line" />
+          <div className="h-6 rounded bg-line" />
+        </aside>
+        <div className="p-4">
+          <div className="space-y-2">
+            <div className="h-2.5 w-2/3 rounded bg-line" />
+            <div className="h-2.5 w-1/2 rounded bg-line-soft" />
+          </div>
+          {/* highlighted target the agent points to */}
+          <div className="mt-4 inline-flex items-center gap-2 rounded-[8px] bg-royal px-3 py-2 text-[13px] font-semibold text-white shadow-[var(--shadow-float)] ring-4 ring-royal/20">
+            <MousePointerClick className="size-4" aria-hidden />
+            New course
+          </div>
+          <div className="mt-3 grid grid-cols-3 gap-2">
+            <div className="h-12 rounded bg-royal-50" />
+            <div className="h-12 rounded bg-line-soft" />
+            <div className="h-12 rounded bg-line-soft" />
+          </div>
+        </div>
+        {/* agent bubble */}
+        <div className="absolute bottom-3 right-3 flex max-w-[15rem] items-start gap-2 rounded-2xl bg-navy px-3 py-2.5 text-white shadow-[var(--shadow-pop)]">
+          <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-sand text-navy">
+            <Bot className="size-3.5" aria-hidden />
+          </span>
+          <p className="text-[12px] leading-snug">
+            Click <span className="font-semibold text-sand">New course</span> — I&apos;ll walk you
+            through each step.
+          </p>
+        </div>
       </div>
     </div>
   );

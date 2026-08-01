@@ -44,9 +44,9 @@ function SectionHead({
     <div className={`${nowrap ? "max-w-none" : "max-w-2xl"} ${center ? "mx-auto text-center" : ""}`}>
       {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
       <h2
-        className={`mt-3 text-3xl font-bold leading-tight text-navy sm:text-4xl ${
-          nowrap ? "lg:whitespace-nowrap" : ""
-        }`}
+        className={`text-3xl font-bold leading-tight text-navy sm:text-4xl ${
+          eyebrow ? "mt-3" : ""
+        } ${nowrap ? "lg:whitespace-nowrap" : ""}`}
       >
         {title}
       </h2>
@@ -134,7 +134,6 @@ export function Capabilities() {
       <Container>
         <Reveal>
           <SectionHead
-            eyebrow={CAPABILITIES.eyebrow}
             title={CAPABILITIES.title}
             subtitle={CAPABILITIES.subtitle}
           />
@@ -169,10 +168,7 @@ export function AiLearning() {
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>
             <div>
-              <span className="text-[14px] font-semibold tracking-[0.02em] text-sand">
-                {AI_LEARNING.eyebrow}
-              </span>
-              <h2 className="mt-3 text-3xl font-bold leading-tight sm:text-4xl">
+              <h2 className="text-3xl font-bold leading-tight sm:text-4xl">
                 {AI_LEARNING.title}
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-white/75">
@@ -263,7 +259,6 @@ export function Integrations() {
       <Container>
         <Reveal>
           <SectionHead
-            eyebrow={INTEGRATIONS.eyebrow}
             title={INTEGRATIONS.title}
             subtitle={INTEGRATIONS.subtitle}
           />
@@ -424,7 +419,6 @@ export function Resources() {
       <Container>
         <Reveal>
           <SectionHead
-            eyebrow={RESOURCES.eyebrow}
             title={RESOURCES.title}
             subtitle={RESOURCES.subtitle}
           />
@@ -480,10 +474,7 @@ export function Production() {
       <Container>
         <Reveal>
           <div className="max-w-2xl">
-            <span className="text-[14px] font-semibold text-sand">
-              {PRODUCTION.eyebrow}
-            </span>
-            <h2 className="mt-3 text-3xl font-bold leading-tight sm:text-4xl">
+            <h2 className="text-3xl font-bold leading-tight sm:text-4xl">
               {PRODUCTION.title}
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-white/75">

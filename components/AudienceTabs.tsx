@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { ArrowRight, Building2, GraduationCap } from "lucide-react";
 import { useReducedMotion } from "framer-motion";
-import { Container, Eyebrow } from "@/components/ui";
+import { Container } from "@/components/ui";
 import { Reveal } from "@/components/Reveal";
 import { Presenter } from "@/components/Presenters";
 import { AUDIENCE_TABS } from "@/content/site";
@@ -107,8 +107,7 @@ export function AudienceTabs() {
       <Container>
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">
-            <Eyebrow>{AUDIENCE_TABS.eyebrow}</Eyebrow>
-            <h2 className="mx-auto mt-3 max-w-none text-balance text-3xl font-bold leading-tight text-navy sm:text-4xl lg:whitespace-nowrap">
+            <h2 className="mx-auto max-w-none text-balance text-3xl font-bold leading-tight text-navy sm:text-4xl lg:whitespace-nowrap">
               {AUDIENCE_TABS.title}
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-slate">

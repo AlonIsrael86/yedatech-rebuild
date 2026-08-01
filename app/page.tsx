@@ -11,7 +11,7 @@ import {
 } from "@/components/Sections";
 import { AudienceTabs } from "@/components/AudienceTabs";
 import { FeatureBlocks } from "@/components/FeatureBlocks";
-import { FinalCta } from "@/components/FinalCta";
+import { ContactForm } from "@/components/ContactForm";
 import { Footer } from "@/components/Footer";
 
 export default function Home() {
@@ -39,7 +39,7 @@ export default function Home() {
         <Process />
         <Family />
         <Resources />
-        <FinalCta />
+        <ContactForm />
       </main>
       <Footer />
     </>

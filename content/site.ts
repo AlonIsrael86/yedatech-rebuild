@@ -600,6 +600,44 @@ export const FINAL_CTA = {
   secondaryCta: "Contact Yeda",
 } as const;
 
+/**
+ * Bottom contact form (replaces the FinalCta band). Adapted from the Yeda Figma
+ * "דברו איתנו" section. UI + validation only this checkpoint — submit shows a
+ * success state; no transport yet (wire an API route / email service later).
+ */
+export const CONTACT_FORM = {
+  title: "Contact us",
+  subtitle: "Leave a request and we'll get back to you shortly.",
+  image: { src: "/media/banner/labs.png", alt: "A Yeda specialist ready to help" },
+  fields: {
+    name: "Full name",
+    email: "Email",
+    phone: "Phone",
+    role: "Role",
+    interest: "I'm interested in…",
+  },
+  roleOptions: [
+    "Company / enterprise",
+    "Government",
+    "University / college",
+    "School",
+    "Other organization",
+  ],
+  interestOptions: [
+    "Learning management (LMS)",
+    "Digital course production",
+    "Avatar & HTML modules",
+    "Employee training",
+  ],
+  submit: "Send",
+  required: "Required field",
+  invalidEmail: "Invalid email address",
+  success: {
+    title: "Thanks!",
+    body: "Your request has been received — a member of the Yeda team will be in touch shortly.",
+  },
+} as const;
+
 export const FOOTER = {
   tagline: "The complete platform for organizational learning and knowledge.",
   columns: [

@@ -151,8 +151,8 @@ export const AUDIENCE_TABS = {
       heading: "The leading system for colleges and educational institutions",
       body: "Built on deep market research and aligned with Israeli Ministry of Education and Ministry of Labor requirements, Yeda gives institutions a complete solution for managing digital content of every kind — video, presentations, assessments, interactive modules, and more.",
       photos: [
-        { src: "/media/builtfor/edu-1.webp", alt: "A learner, with Ministry of Education and Ministry of Labor alignment" },
-        { src: "/media/builtfor/edu-2.webp", alt: "Learner scores and analytics in Yeda for institutions" },
+        { src: "/media/builtfor/edu-1.webp", alt: "A learner alongside Israeli Ministry of Education and Ministry of Labor accreditation badges" },
+        { src: "/media/builtfor/edu-2.webp", alt: "Student test scores and learning analytics in Yeda for institutions" },
       ],
     },
   ],
@@ -165,7 +165,7 @@ export const AUDIENCE_TABS = {
         title: "Author your course",
         body: "Plan, build, and shape every course in one place. Modern AI tools and a friendly interface let content creators produce high-quality learning, precisely tailored to the audience.",
         img: "/media/builtfor/step-1.webp",
-        alt: "Course builder — structuring a course from a video lesson",
+        alt: "A creator authoring course content in the Yeda studio",
       },
       {
         n: 2,
@@ -179,7 +179,7 @@ export const AUDIENCE_TABS = {
         title: "Record & edit",
         body: "A built-in recording and editing studio, made for lecturers and creators, produces polished lessons with simple tools — all stored securely in the cloud and available anywhere.",
         img: "/media/builtfor/step-3.webp",
-        alt: "Recording and editing studio for lessons",
+        alt: "Recording and editing studio previewing and trimming a recorded lesson",
       },
       {
         n: 4,

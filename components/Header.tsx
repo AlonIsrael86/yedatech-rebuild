@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronLeft } from "lucide-react";
 import { Container } from "@/components/ui";
 import { DemoButton } from "@/components/DemoButton";
 import { NAV, HERO } from "@/content/site";
@@ -29,9 +29,19 @@ export function Header() {
       }`}
     >
       <Container className="flex h-16 items-center justify-between gap-4">
-        <Link href="#top" aria-label="Yeda — home" className="shrink-0">
-          <Wordmark className="h-7 w-auto text-navy" />
-        </Link>
+        <div className="flex items-center gap-3 sm:gap-4">
+          <Link href="#top" aria-label="Yeda — home" className="shrink-0">
+            <Wordmark className="h-7 w-auto text-navy" />
+          </Link>
+          {/* "To home page" back-link (Figma node 213-8616) — left side of the header */}
+          <Link
+            href="#top"
+            className="hidden items-center gap-1.5 rounded-[12px] border border-line bg-white px-3.5 py-2 text-[14px] font-semibold text-navy shadow-[0_2px_10px_-3px_rgba(1,15,96,0.15)] transition-colors hover:border-royal/40 hover:text-royal sm:inline-flex"
+          >
+            <ChevronLeft className="size-[18px]" aria-hidden />
+            To home page
+          </Link>
+        </div>
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
           {NAV.map((item) => (

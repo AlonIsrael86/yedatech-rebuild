@@ -638,40 +638,29 @@ export const CONTACT_FORM = {
   },
 } as const;
 
+// Footer reworked to the Yeda Figma footer (node 36:1671): navy band, white
+// wordmark + social, contact, and two link columns. Accessibility statement is
+// required (IS 5568), so the legal row is kept even though the Figma is minimal.
 export const FOOTER = {
   tagline: "The complete platform for organizational learning and knowledge.",
+  social: [
+    { label: "TikTok", href: "#" },
+    { label: "WhatsApp", href: "#" },
+  ],
   columns: [
     {
-      title: "Platform",
+      title: "Company",
       links: [
-        { label: "Capabilities", href: "#capabilities" },
-        { label: "AI learning agents", href: "#ai" },
-        { label: "Integrations", href: "#integrations" },
-        { label: "Content production", href: "#production" },
-      ],
-    },
-    {
-      title: "Solutions",
-      links: [
-        { label: "Enterprises & companies", href: "#audiences" },
-        { label: "Government", href: "#audiences" },
-        { label: "Universities & colleges", href: "#audiences" },
-        { label: "Schools", href: "#audiences" },
+        { label: "About", href: "#" },
+        { label: "Contact", href: "#contact" },
       ],
     },
     {
       title: "Product",
       links: [
-        { label: "Platform in action", href: "#product" },
-        { label: "Yeda product family", href: "#family" },
-      ],
-    },
-    {
-      title: "Company",
-      links: [
-        { label: "About", href: "#" },
-        { label: "Resources", href: "#resources" },
-        { label: "Contact", href: "#contact" },
+        { label: "Terms of use", href: "#" },
+        { label: "Learning management system", href: "#platform" },
+        { label: "Yeda Studio", href: "#production" },
       ],
     },
   ],

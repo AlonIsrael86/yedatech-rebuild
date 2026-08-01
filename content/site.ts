@@ -21,7 +21,6 @@ export const NAV = [
   { label: "Platform", href: "#platform" },
   { label: "Capabilities", href: "#capabilities" },
   { label: "Solutions", href: "#audiences" },
-  { label: "Product", href: "#product" },
   { label: "Resources", href: "#resources" },
 ] as const;
 
@@ -468,61 +467,6 @@ export const SURFACES = {
     options: ["Digital course structure", "Video editing"],
     cta: "Continue",
   },
-} as const;
-
-/**
- * Numbered feature showcase — the Figma's signature composition (big index +
- * product panel with a floating photo accent, alternating sides). Each block
- * pairs a coded product surface with a real photo from Alexey's Figma. Content
- * is verified capability; no pricing/invented specifics.
- */
-export const FEATURE_BLOCKS = {
-  eyebrow: "Platform in action",
-  title: "See the platform at work",
-  subtitle:
-    "Five core experiences that work together — from the LMS dashboard to AI agents, avatars, simulations, and live learning.",
-  blocks: [
-    {
-      n: "01",
-      title: "LMS / LXP dashboard",
-      body: "Manage courses, paths, learners, and certificates — with real-time data and analytics.",
-      panel: "dashboard",
-      photo: "/media/professional-laptop.png",
-      alt: "A professional learning on a laptop",
-    },
-    {
-      n: "02",
-      title: "AI learning agent",
-      body: "A Yeda Labs AI agent that guides people through software and business processes, in the flow of work.",
-      panel: "aiagent",
-      photo: null,
-      alt: "",
-    },
-    {
-      n: "03",
-      title: "Avatar-based learning",
-      body: "A digital presenter that combines slides, video, and practice — into one complete learning unit.",
-      panel: "avatar",
-      photo: null,
-      alt: "",
-    },
-    {
-      n: "04",
-      title: "Simulations & interactive",
-      body: "Hands-on simulations and interactive modules that turn learning into real practice.",
-      panel: "html",
-      photo: null,
-      alt: "",
-    },
-    {
-      n: "05",
-      title: "Live learning",
-      body: "Live virtual and classroom sessions with schedules, plus recorded lessons on demand.",
-      panel: "video",
-      photo: null,
-      alt: "",
-    },
-  ],
 } as const;
 
 export const PRODUCTION = {

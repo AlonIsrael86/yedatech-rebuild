@@ -10,7 +10,6 @@ import {
   Resources,
 } from "@/components/Sections";
 import { AudienceTabs } from "@/components/AudienceTabs";
-import { FeatureBlocks } from "@/components/FeatureBlocks";
 import { ContactForm } from "@/components/ContactForm";
 import { Footer } from "@/components/Footer";
 
@@ -31,7 +30,6 @@ export default function Home() {
             product family -> resources -> final CTA. */}
         <Hero />
         <AudienceTabs />
-        <FeatureBlocks />
         <Capabilities />
         <AiLearning />
         <Production />

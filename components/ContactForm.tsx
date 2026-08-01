@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { ArrowRight, Check, Mail, Phone } from "lucide-react";
 import { Container } from "@/components/ui";
 import { Reveal } from "@/components/Reveal";
@@ -43,18 +42,7 @@ export function ContactForm() {
     <section id="contact" className="bg-royal-50 py-16 sm:py-24">
       <Container>
         <Reveal>
-          <div className="grid items-center gap-10 lg:grid-cols-2">
-            {/* visual */}
-            <div className="relative mx-auto hidden aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[var(--radius-media)] shadow-[var(--shadow-pop)] ring-1 ring-line lg:block">
-              <Image
-                src={CONTACT_FORM.image.src}
-                alt={CONTACT_FORM.image.alt}
-                fill
-                sizes="384px"
-                className="object-cover"
-              />
-            </div>
-
+          <div className="mx-auto max-w-2xl">
             {/* copy + form */}
             <div>
               <h2 className="text-3xl font-bold leading-tight text-navy sm:text-4xl">

@@ -1,8 +1,6 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import {
-  Credibility,
-  Audiences,
   Capabilities,
   AiLearning,
   Integrations,
@@ -11,6 +9,7 @@ import {
   Family,
   Resources,
 } from "@/components/Sections";
+import { AudienceTabs } from "@/components/AudienceTabs";
 import { FeatureBlocks } from "@/components/FeatureBlocks";
 import { FinalCta } from "@/components/FinalCta";
 import { Footer } from "@/components/Footer";
@@ -31,8 +30,7 @@ export default function Home() {
             learning agents -> content production -> integrations -> process ->
             product family -> resources -> final CTA. */}
         <Hero />
-        <Credibility />
-        <Audiences />
+        <AudienceTabs />
         <FeatureBlocks />
         <Capabilities />
         <AiLearning />

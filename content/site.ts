@@ -110,6 +110,65 @@ export const AUDIENCES = {
   ],
 } as const;
 
+/**
+ * Audience-tabs section ("Built for organizations and institutions") — replaces
+ * the old Credibility + Audiences bands. Two tabs (Organizations / Educational
+ * institutions) with the woman/man presenters flanking. Copy adapted to English
+ * from the Yeda Figma "Yeda Org" / "Yeda College" panels; lead photos reuse the
+ * banner set; presenter figures reuse the existing character cutouts.
+ */
+export const AUDIENCE_TABS = {
+  eyebrow: "Solutions",
+  title: "Built for organizations and institutions",
+  subtitle: "One platform, two tailored experiences — choose the world that fits you.",
+  presenters: {
+    woman: {
+      src: "/media/character-woman.png",
+      alt: "Illustration of a presenter",
+      line: "Build and manage learning in one place.",
+    },
+    man: {
+      src: "/media/character-man.png",
+      alt: "Illustration of a presenter",
+      line: "Train employees, partners, and customers.",
+    },
+  },
+  tabs: [
+    {
+      key: "organizations",
+      label: "Organizations",
+      lead: {
+        img: "/media/banner/org.png",
+        alt: "A team collaborating across an organization",
+        heading: "The complete platform for organizational training",
+        body: "Yeda Org is a comprehensive, modern-yet-simple solution for internal and external organizational training. Manage organizational knowledge with custom admin permissions, department-based learning tracks, and interactive modules.",
+      },
+      flowTitle: "See the platform at work",
+      steps: [
+        { n: 1, title: "Set up your academy", body: "Launch a branded learning environment with roles and permissions per department." },
+        { n: 2, title: "Build and produce content", body: "Create courses, HTML and avatar modules, video, and assessments in the studio." },
+        { n: 3, title: "Deliver, track & measure", body: "Assign learning paths, follow progress, and report on results across the organization." },
+      ],
+    },
+    {
+      key: "institutions",
+      label: "Educational institutions",
+      lead: {
+        img: "/media/banner/college.png",
+        alt: "Learners studying at a college",
+        heading: "The leading system for colleges and educational institutions",
+        body: "Built on deep market research and aligned with Israeli Ministry of Education and Ministry of Labor requirements, Yeda gives institutions a complete solution for managing digital content of every kind — video, presentations, assessments, interactive modules, and more.",
+      },
+      flowTitle: "See the platform at work",
+      steps: [
+        { n: 1, title: "Manage courses & cohorts", body: "Run digital and in-person courses, categories, and cohorts in one system." },
+        { n: 2, title: "Assess & certify", body: "Build quizzes, exams, and certificates that fit institutional requirements." },
+        { n: 3, title: "Track outcomes", body: "Follow learner progress and outcomes with analytics and reporting." },
+      ],
+    },
+  ],
+} as const;
+
 export const CAPABILITIES = {
   eyebrow: "One system",
   title: "One system, end-to-end capabilities",

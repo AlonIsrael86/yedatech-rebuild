@@ -39,16 +39,16 @@ export function ContactForm() {
   }
 
   return (
-    <section id="contact" className="bg-royal-50 py-16 sm:py-24">
+    <section id="contact" className="bg-royal-50 py-12 sm:py-16">
       <Container>
         <Reveal>
-          <div className="mx-auto max-w-2xl">
+          <div className="mx-auto max-w-xl">
             {/* copy + form */}
             <div>
               <h2 className="text-3xl font-bold leading-tight text-navy sm:text-4xl">
                 {CONTACT_FORM.title}
               </h2>
-              <p className="mt-3 text-lg leading-relaxed text-slate">{CONTACT_FORM.subtitle}</p>
+              <p className="mt-2 text-lg leading-relaxed text-slate">{CONTACT_FORM.subtitle}</p>
 
               {sent ? (
                 <div className="mt-8 rounded-[var(--radius-media)] border border-line bg-white p-8 text-center shadow-[var(--shadow-card)]">
@@ -59,7 +59,7 @@ export function ContactForm() {
                   <p className="mt-2 text-slate">{CONTACT_FORM.success.body}</p>
                 </div>
               ) : (
-                <form onSubmit={submit} noValidate className="mt-8">
+                <form onSubmit={submit} noValidate className="mt-6">
                   <div className="grid gap-4 sm:grid-cols-2">
                     <label className="block">
                       <span className="mb-1.5 block text-[14px] font-medium text-ink-soft">

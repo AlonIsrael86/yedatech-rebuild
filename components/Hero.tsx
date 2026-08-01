@@ -1,9 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { Check, Sparkles } from "lucide-react";
-import { Container, Button } from "@/components/ui";
-import { DemoButton } from "@/components/DemoButton";
+import { Container } from "@/components/ui";
 import { HERO } from "@/content/site";
 import { BannerCarousel } from "@/components/BannerCarousel";
 
@@ -46,14 +44,6 @@ export function Hero() {
 
         {/* copy (right) */}
         <div>
-          <motion.span
-            {...rise(0)}
-            className="inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-white/10 px-3.5 py-1.5 text-[14px] font-medium text-white ring-1 ring-inset ring-white/15"
-          >
-            <Sparkles className="size-4 text-sand" aria-hidden />
-            {HERO.eyebrow}
-          </motion.span>
-
           <motion.h1
             {...rise(0.08)}
             className="mt-5 text-balance text-4xl font-bold leading-[1.12] sm:text-5xl lg:text-[3.4rem]"
@@ -67,28 +57,6 @@ export function Hero() {
           >
             {HERO.subtitle}
           </motion.p>
-
-          <motion.div {...rise(0.24)} className="mt-8 flex flex-wrap gap-3">
-            <DemoButton variant="primary" withArrow>
-              {HERO.primaryCta}
-            </DemoButton>
-            <Button
-              href="#platform"
-              variant="secondary"
-              className="bg-white/10 text-white ring-white/20 hover:bg-white/15"
-            >
-              {HERO.secondaryCta}
-            </Button>
-          </motion.div>
-
-          <motion.ul {...rise(0.32)} className="mt-8 flex flex-wrap gap-x-5 gap-y-2.5">
-            {HERO.chips.map((c) => (
-              <li key={c} className="flex items-center gap-2 text-[15px] text-white/80">
-                <Check className="size-4 text-sand" aria-hidden />
-                {c}
-              </li>
-            ))}
-          </motion.ul>
         </div>
       </Container>
     </section>

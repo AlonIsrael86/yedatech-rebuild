@@ -55,7 +55,6 @@ export const HERO = {
     slides: [
       { src: "/media/banner/org.png", alt: "A team using Yeda across an organization", flip: false },
       { src: "/media/banner/college.png", alt: "A student learning with Yeda at a college", flip: false },
-      { src: "/media/banner/xxiter.png", alt: "A professional working with Yeda on a laptop", flip: true },
       { src: "/media/banner/labs.png", alt: "Yeda Labs content production", flip: false },
     ],
   },

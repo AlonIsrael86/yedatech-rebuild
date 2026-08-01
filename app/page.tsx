@@ -33,8 +33,8 @@ export default function Home() {
         <Hero />
         <Credibility />
         <Audiences />
-        <Capabilities />
         <FeatureBlocks />
+        <Capabilities />
         <AiLearning />
         <Production />
         <Integrations />

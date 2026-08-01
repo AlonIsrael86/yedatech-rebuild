@@ -118,7 +118,7 @@ export function AudienceTabs() {
         </Reveal>
 
         {/* tab bar + flanking presenters + panel (description → carousel) */}
-        <div className="relative mx-auto mt-10 max-w-4xl">
+        <div className="relative mx-auto mt-10 max-w-2xl">
           <div role="tablist" aria-label="Audiences" className="mx-auto flex max-w-xl border-b border-line">
             {tabs.map((t, i) => {
               const Icon = TAB_ICONS[t.icon];
@@ -158,21 +158,21 @@ export function AudienceTabs() {
             </div>
 
             {/* photos (carousel of two) below the description */}
-            <div className="mx-auto mt-8 max-w-2xl">
+            <div className="mx-auto mt-8 max-w-md">
               <TabCarousel key={tab.key} photos={tab.photos} />
             </div>
           </div>
 
           <Presenter
             side="left"
-            offset="lg:-left-28"
+            offset="lg:-left-6"
             img={presenters.woman.src}
             alt={presenters.woman.alt}
             line={presenters.woman.line}
           />
           <Presenter
             side="right"
-            offset="lg:-right-28"
+            offset="lg:-right-6"
             img={presenters.man.src}
             alt={presenters.man.alt}
             line={presenters.man.line}

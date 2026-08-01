@@ -53,9 +53,9 @@ export const HERO = {
   // shot facing outward. Never flip a photo that contains readable text.
   banner: {
     slides: [
-      { src: "/media/banner/org.png", alt: "A team using Yeda across an organization", flip: false },
+      { src: "/media/banner/org.png", alt: "A team using Yeda across an organization", flip: true },
       { src: "/media/banner/college.png", alt: "A student learning with Yeda at a college", flip: false },
-      { src: "/media/banner/labs.png", alt: "Yeda Labs content production", flip: false },
+      { src: "/media/banner/labs.png", alt: "Yeda Labs content production", flip: true },
     ],
   },
   chips: [

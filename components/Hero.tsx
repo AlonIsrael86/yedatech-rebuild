@@ -5,7 +5,7 @@ import { Check, Sparkles } from "lucide-react";
 import { Container, Button } from "@/components/ui";
 import { DemoButton } from "@/components/DemoButton";
 import { HERO } from "@/content/site";
-import { ProductDashboard } from "@/components/ProductVisual";
+import { BannerCarousel } from "@/components/BannerCarousel";
 
 export function Hero() {
   const reduce = useReducedMotion();
@@ -29,8 +29,22 @@ export function Hero() {
             "radial-gradient(1100px 520px at 85% -8%, rgba(10,89,235,0.42), transparent 60%), radial-gradient(760px 420px at 5% 110%, rgba(10,89,235,0.20), transparent 60%)",
         }}
       />
-      <Container className="relative grid items-center gap-12 py-16 lg:grid-cols-[1fr_1.05fr] lg:py-24">
-        {/* copy */}
+      <Container className="relative grid items-center gap-12 py-16 lg:grid-cols-[1.05fr_1fr] lg:py-24">
+        {/* banner photo carousel (left) */}
+        <motion.div
+          {...(reduce
+            ? {}
+            : {
+                initial: { opacity: 0, y: 28 },
+                animate: { opacity: 1, y: 0 },
+                transition: { duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] },
+              })}
+          className="relative mx-auto w-full max-w-[560px]"
+        >
+          <BannerCarousel slides={HERO.banner.slides} />
+        </motion.div>
+
+        {/* copy (right) */}
         <div>
           <motion.span
             {...rise(0)}
@@ -76,20 +90,6 @@ export function Hero() {
             ))}
           </motion.ul>
         </div>
-
-        {/* product visual */}
-        <motion.div
-          {...(reduce
-            ? {}
-            : {
-                initial: { opacity: 0, y: 28 },
-                animate: { opacity: 1, y: 0 },
-                transition: { duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] },
-              })}
-          className="relative mx-auto w-full max-w-[640px]"
-        >
-          <ProductDashboard />
-        </motion.div>
       </Container>
     </section>
   );

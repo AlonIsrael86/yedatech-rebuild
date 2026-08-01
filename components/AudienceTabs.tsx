@@ -93,8 +93,8 @@ function TabCarousel({ photos }: { photos: readonly Photo[] }) {
  * Educational institutions) with the woman/man presenters flanking. Each tab
  * shows its description directly under the tab bar and a 2-photo carousel below.
  * A single shared "See the platform at work" flow (alternating image + copy)
- * follows, tab-independent. Keeps both legacy anchors: id="platform" (NAV
- * "Platform") on the section, id="audiences" (NAV "Solutions" + footer) inside.
+ * follows, tab-independent. Anchors: id="platform" on the section (footer
+ * "Learning management system" link) and id="solutions" inside (NAV "Solutions").
  */
 export function AudienceTabs() {
   const [active, setActive] = useState(0);
@@ -103,7 +103,7 @@ export function AudienceTabs() {
 
   return (
     <section id="platform" className="border-y border-line bg-canvas py-16 sm:py-24">
-      <span id="audiences" aria-hidden className="block scroll-mt-24" />
+      <span id="solutions" aria-hidden className="block scroll-mt-24" />
       <Container>
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">

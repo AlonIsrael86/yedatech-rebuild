@@ -18,9 +18,8 @@ export const CONTACT = {
 } as const;
 
 export const NAV = [
-  { label: "Platform", href: "#platform" },
+  { label: "Solutions", href: "#solutions" },
   { label: "Capabilities", href: "#capabilities" },
-  { label: "Solutions", href: "#audiences" },
   { label: "Resources", href: "#resources" },
 ] as const;
 

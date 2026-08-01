@@ -133,40 +133,72 @@ export const AUDIENCE_TABS = {
       line: "Train employees, partners, and customers.",
     },
   },
+  ctaLabel: "Get started",
   tabs: [
     {
       key: "organizations",
       label: "Organizations",
-      lead: {
-        img: "/media/banner/org.png",
-        alt: "A team collaborating across an organization",
-        heading: "The complete platform for organizational training",
-        body: "Yeda Org is a comprehensive, modern-yet-simple solution for internal and external organizational training. Manage organizational knowledge with custom admin permissions, department-based learning tracks, and interactive modules.",
-      },
-      flowTitle: "See the platform at work",
-      steps: [
-        { n: 1, title: "Set up your academy", body: "Launch a branded learning environment with roles and permissions per department." },
-        { n: 2, title: "Build and produce content", body: "Create courses, HTML and avatar modules, video, and assessments in the studio." },
-        { n: 3, title: "Deliver, track & measure", body: "Assign learning paths, follow progress, and report on results across the organization." },
+      icon: "Building2",
+      heading: "The complete platform for organizational training",
+      body: "Yeda Org is a comprehensive, modern-yet-simple solution for internal and external organizational training. Manage organizational knowledge with custom admin permissions, department-based learning tracks, and interactive modules.",
+      photos: [
+        { src: "/media/builtfor/org-1.webp", alt: "Yeda Org course library with a manager reviewing training" },
+        { src: "/media/builtfor/org-2.webp", alt: "A team reviewing organizational training on Yeda Org" },
       ],
     },
     {
       key: "institutions",
       label: "Educational institutions",
-      lead: {
-        img: "/media/banner/college.png",
-        alt: "Learners studying at a college",
-        heading: "The leading system for colleges and educational institutions",
-        body: "Built on deep market research and aligned with Israeli Ministry of Education and Ministry of Labor requirements, Yeda gives institutions a complete solution for managing digital content of every kind — video, presentations, assessments, interactive modules, and more.",
-      },
-      flowTitle: "See the platform at work",
-      steps: [
-        { n: 1, title: "Manage courses & cohorts", body: "Run digital and in-person courses, categories, and cohorts in one system." },
-        { n: 2, title: "Assess & certify", body: "Build quizzes, exams, and certificates that fit institutional requirements." },
-        { n: 3, title: "Track outcomes", body: "Follow learner progress and outcomes with analytics and reporting." },
+      icon: "GraduationCap",
+      heading: "The leading system for colleges and educational institutions",
+      body: "Built on deep market research and aligned with Israeli Ministry of Education and Ministry of Labor requirements, Yeda gives institutions a complete solution for managing digital content of every kind — video, presentations, assessments, interactive modules, and more.",
+      photos: [
+        { src: "/media/builtfor/edu-1.webp", alt: "A learner, with Ministry of Education and Ministry of Labor alignment" },
+        { src: "/media/builtfor/edu-2.webp", alt: "Learner scores and analytics in Yeda for institutions" },
       ],
     },
   ],
+  flow: {
+    title: "Turn your knowledge into a living digital asset",
+    subtitle: "From authoring to analytics — produce, publish, and grow digital courses in one place.",
+    steps: [
+      {
+        n: 1,
+        title: "Author your course",
+        body: "Plan, build, and shape every course in one place. Modern AI tools and a friendly interface let content creators produce high-quality learning, precisely tailored to the audience.",
+        img: "/media/builtfor/step-1.webp",
+        alt: "Course builder — structuring a course from a video lesson",
+      },
+      {
+        n: 2,
+        title: "Design like a pro",
+        body: "AI helps you create focused, on-brand content, while intuitive design tools and a rich template library turn ideas into professional presentations, fast.",
+        img: "/media/builtfor/step-2.webp",
+        alt: "Presentation templates and design tools",
+      },
+      {
+        n: 3,
+        title: "Record & edit",
+        body: "A built-in recording and editing studio, made for lecturers and creators, produces polished lessons with simple tools — all stored securely in the cloud and available anywhere.",
+        img: "/media/builtfor/step-3.webp",
+        alt: "Recording and editing studio for lessons",
+      },
+      {
+        n: 4,
+        title: "Deliver through the LMS",
+        body: "Feed finished courses into Yeda's LMS and get a full set of tools to assign learning, track progress, and measure outcomes.",
+        img: "/media/builtfor/step-4.webp",
+        alt: "Analytics dashboard tracking learning and revenue",
+      },
+      {
+        n: 5,
+        title: "Publish & convert",
+        body: "Build beautifully designed, personalized landing pages that lift conversion, attract new learners, and keep navigation simple and accessible.",
+        img: "/media/builtfor/step-5.webp",
+        alt: "Landing-page builder for a course",
+      },
+    ],
+  },
 } as const;
 
 export const CAPABILITIES = {

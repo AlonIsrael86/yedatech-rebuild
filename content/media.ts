@@ -10,14 +10,20 @@
  *  - Many images, spanning far more categories than "courses", scrolling
  *    left-to-right.
  *
- * STAGE RULE: no Figma assets yet. Every shot is tagged with `source`, so the
- * later swap to approved Figma frames is a filter on `source !== "figma"`
- * rather than an archaeology exercise. Shots with `file: null` render as a
- * labelled placeholder at the real dimensions, so composition can be judged
- * now and the asset dropped in 1:1 later.
+ * FIGMA SLOTS. Alexey reviewed the preview on 2026-08-03 and asked for more
+ * images from Figma, so the twenty slots below mirror `FIGMA_IMAGE_LIST.md`
+ * one-for-one. Each renders a labelled placeholder at the real aspect ratio
+ * until Victor exports the frame, so the composition can be judged and the gaps
+ * are visible rather than silently absent.
  *
- * Real screens below come from Yeda's own published site yedalabs.ai — actual
- * product, not stock.
+ * FILENAME CONVENTION: a pending slot's `id` is exactly its export filename
+ * stem. Slot `assessment-exam-question-bank` becomes
+ * `/media/platform/yeda-assessment-exam-question-bank.png`. Filling a slot is
+ * therefore mechanical — flip `file: null` to `` `${P}/yeda-${id}.png` `` — and
+ * a typo cannot silently point at the wrong screen.
+ *
+ * Real screens below come from Yeda's own published sites yedalabs.ai and
+ * yedalabs.io — actual product, not stock.
  */
 
 import type { Sector } from "@/content/routes";
@@ -29,8 +35,12 @@ export type ShotCategory =
   | "settings"
   | "avatar-module"
   | "html-module"
+  | "assessment"
+  | "knowledge"
+  | "ai-agent"
   | "live-session"
   | "integrations"
+  | "industry"
   | "mobile"
   | "concept";
 
@@ -165,13 +175,13 @@ const conceptKnowledge: Shot = {
 
 /* ── Real platform screens (yedalabs.io) ─────────────────────────────────
    Harvested from Yeda's own published site, which runs its own numbered 01–05
-   flow with one real screenshot per step. Permitted at this stage: reference
-   sites yes, Figma no.
+   flow with one real screenshot per step.
 
    These show the platform's Hebrew interface, because that is the interface
-   Yeda has published. Flagged for Alexey — an English-first marketing site
-   showing a Hebrew UI is his call, not ours, and we are not going to fake an
-   English build of a screen that does not exist. */
+   Yeda has published, and at 710×490 they are also too small for the enlarged
+   carousel. Both defects are exactly what the Figma exports fix — flagged to
+   Alexey, and we are not going to fake an English build of a screen that does
+   not exist. */
 
 const courseModules: Shot = {
   id: "course-modules",
@@ -243,10 +253,19 @@ const contentLibrary: Shot = {
   figmaFrame: null,
 };
 
-/* ── Awaiting approved Figma frames ──────────────────────────────────────
-   Real slots with real captions and real dimensions. Each renders a labelled
-   placeholder until Victor supplies the frame. Categories here are exactly the
-   spread Alexey asked for — "more categories than just courses". */
+/* ── The twenty Figma slots ──────────────────────────────────────────────
+   One per row of FIGMA_IMAGE_LIST.md, in the same order, with the same ids as
+   the export filenames. Real captions and real dimensions, so each renders as
+   a correctly-sized labelled placeholder until the frame lands.
+
+   16:10 (1200×750) for every desktop frame; #5 is the only portrait one. That
+   ratio is not decoration — mixed ratios survive at a 420px slide and look
+   broken at 880px, which is the width the carousel now runs at.
+
+   ⚠️ CLEARANCE-GATED: liveSessionSync, aiAgentScreenWatch and integrationsSync
+   will almost certainly carry Zoom / Teams / Salesforce marks. The repo is
+   public. Alexey approves those three before the frames are exported — the
+   placeholders below carry no third-party content and are safe to ship. */
 
 const pending = (
   id: string,
@@ -269,84 +288,175 @@ const pending = (
   figmaFrame: null,
 });
 
-const adminDashboard = pending(
-  "admin-dashboard",
-  "Yeda LMS administrator dashboard with course and learner overview",
-  "The administrator dashboard — courses, learners and completion at a glance.",
-  "dashboard",
-);
+/* Learner-facing — what a person actually receives */
 
-const courseBuilderFlow = pending(
-  "course-builder-flow",
-  "Yeda course builder flow from source material to published module",
-  "The build flow, step by step: source material in, structured module out.",
-  "flow",
-);
-
-const avatarModule = pending(
-  "avatar-module",
-  "Yeda avatar-based learning module with digital presenter and slides",
-  "An avatar module — digital presenter, slides and practice in one unit.",
-  "avatar-module",
-);
-
-const liveSession = pending(
-  "live-session",
-  "Yeda live learning session synchronised with Zoom and Microsoft Teams",
-  "A live session, synchronised with the meeting platform the organization already uses.",
-  "live-session",
-);
-
-const integrationsSettings = pending(
-  "integrations-settings",
-  "Yeda integration settings for CRM and meeting platform synchronisation",
-  "Integration settings — where CRM and meeting-platform synchronisation is configured.",
-  "integrations",
-);
-
-const platformSettings = pending(
-  "platform-settings",
-  "Yeda platform settings for roles, permissions and learning paths",
-  "Settings — roles, permissions and how learning paths are assigned.",
-  "settings",
-);
-
-const studentView = pending(
-  "student-view",
-  "Yeda student course view for colleges and universities",
-  "The student's view of a course — what a learner in a college or university sees.",
-  "dashboard",
-  "education",
-);
-
-const employeePortal = pending(
-  "employee-portal",
-  "Yeda organizational learning portal for employee training",
-  "An organizational portal — each employee's assigned training in one place.",
+const employeeTrainingPortal = pending(
+  "organizations-employee-training-portal",
+  "Yeda organizational learning portal showing an employee's assigned training",
+  "Each employee's own portal — what has been assigned, what is due and what is already done, without asking anyone.",
   "dashboard",
   "organizations",
 );
 
-const mobileLearning = pending(
-  "mobile-learning",
-  "Yeda mobile learning view for training on a phone",
-  "The mobile view — the same programme, completed on a phone.",
-  "mobile",
-  "both",
-  600,
-  1000,
+const studentCourseView = pending(
+  "education-student-course-view",
+  "Yeda student course view with lessons, materials and the next session",
+  "A student's course page — lessons, materials and the next session in one view, so nothing depends on remembering an email.",
+  "dashboard",
+  "education",
 );
 
-const softwareTrainingAgent = pending(
-  "software-training-agent",
-  "Yeda AI agent training a user on software by watching the screen",
-  "The software-training agent watches the screen and guides the user through the program itself.",
+const courseCatalogue = pending(
+  "course-catalogue-browse-and-enrol",
+  "Yeda course catalogue with search, browse and self-enrolment",
+  "The catalogue — learners find a course and enrol themselves, which is what stops administrators becoming the bottleneck.",
+  "dashboard",
+);
+
+const learningPathSchedule = pending(
+  "learning-path-training-programme-schedule",
+  "Yeda learning path and training programme schedule over time",
+  "A programme laid out over time rather than as a single course — the difference between assigning training and running it.",
   "flow",
+);
+
+const mobileLesson = pending(
+  "mobile-learning-lesson-on-phone",
+  "Yeda mobile learning with a lesson in progress on a phone",
+  "The same lesson on a phone — training that reaches people who do not sit at a desk.",
+  "mobile",
+  "both",
+  720,
+  1560,
+);
+
+/* Inside a learning unit */
+
+const avatarModule = pending(
+  "avatar-learning-module-presenter-and-slides",
+  "Yeda avatar-based learning module with a digital presenter beside the slides",
+  "An avatar module — a digital presenter delivers the material beside the slide, so a course does not need a studio booking to exist.",
+  "avatar-module",
+);
+
+const simulationModule = pending(
+  "online-simulation-practice-module",
+  "Yeda online simulation module being worked through by a learner",
+  "A simulation being worked through — practising the task itself rather than reading about it.",
+  "html-module",
+);
+
+const assessmentQuestionBank = pending(
+  "assessment-exam-question-bank",
+  "Yeda assessment question bank and exam builder",
+  "The question bank and test builder — where an assessment is assembled and reused, rather than rewritten for every cohort.",
+  "assessment",
+);
+
+const certificationResults = pending(
+  "certification-results-and-certificate",
+  "Yeda assessment results with the certificate issued from the score",
+  "A result and the certificate issued from it — the proof of completion an employer or regulator actually asks for.",
+  "assessment",
+);
+
+const liveSessionSync = pending(
+  "live-session-zoom-teams-sync",
+  "Yeda live learning session synchronised with the organization's meeting platform",
+  "A live session tied to the meeting platform already in use — Yeda synchronises with it rather than replacing it.",
+  "live-session",
+);
+
+/* AI and knowledge — the differentiators */
+
+const aiAgentScreenWatch = pending(
+  "ai-agent-software-training-screen-watch",
+  "Yeda AI agent training a user on software by watching the screen",
+  "The agent watches the screen and guides someone through another program — software training that happens inside the software.",
+  "ai-agent",
+);
+
+const knowledgeBaseSearch = pending(
+  "organizational-knowledge-base-search",
+  "Yeda organizational knowledge base search returning an answer",
+  "Organizational knowledge searched and found — what the company already knows, kept findable instead of trapped in people.",
+  "knowledge",
+);
+
+/* Measurement */
+
+const adminDashboard = pending(
+  "admin-dashboard-courses-learners-overview",
+  "Yeda administrator dashboard with courses, learners and completion rates",
+  "The administrator's home — courses, learners and completion at a glance, which is the view that answers 'is this working'.",
+  "dashboard",
+);
+
+const managerTeamReport = pending(
+  "manager-report-team-training-progress",
+  "Yeda manager report showing a team's training progress",
+  "A manager drilling into their own team's progress — accountability sits with the manager, not only with HR.",
+  "analytics",
+  "organizations",
+);
+
+const academicCohortReport = pending(
+  "academic-report-cohort-results",
+  "Yeda academic report showing cohort and semester results",
+  "Cohort and semester results for an academic director — the institutional view rather than the individual one.",
+  "analytics",
+  "education",
+);
+
+/* Running the platform */
+
+const integrationsSync = pending(
+  "integrations-crm-and-meeting-platform-sync",
+  "Yeda integrations list for CRM and meeting platform synchronisation",
+  "The connector list — CRMs and meeting platforms kept in sync, so learning data does not become another silo.",
+  "integrations",
+);
+
+const platformSettings = pending(
+  "platform-settings-roles-and-permissions",
+  "Yeda platform settings for roles, permissions and assignment",
+  "Roles and permissions — who can see what, and who is allowed to assign it.",
+  "settings",
+);
+
+const assignToDepartment = pending(
+  "assign-training-to-department-cohort",
+  "Yeda assignment of a training programme to a department or cohort",
+  "Assigning a programme to a whole department or cohort and notifying them — the step that turns content into training.",
+  "settings",
+);
+
+const publicApiReference = pending(
+  "public-api-developer-reference",
+  "Yeda public API developer reference documentation",
+  "The public API — the platform is addressable by other systems, not only by its own interface.",
+  "integrations",
+);
+
+/* Industry */
+
+const insuranceProgramme = pending(
+  "insurance-industry-training-programme",
+  "Yeda insurance industry training and certification programme",
+  "An insurance training programme — Alexey's own example of a regulated industry where certification is the point.",
+  "industry",
+  "organizations",
 );
 
 /* ── Galleries ───────────────────────────────────────────────────────────
    Referenced by `gallery` on route entries in routes.ts. Flow shots sit next
-   to each other so the sequence reads, per Alexey. */
+   to each other so the sequence reads, per Alexey.
+
+   The two homepage galleries used to share only one shot, which kept the tab
+   switch obvious. With twenty slots that rule cannot hold — most screens are
+   genuinely relevant to both sectors. So the guarantee is preserved a different
+   way: each gallery OPENS with its sector-only screens, so the first thing that
+   changes on a tab switch is the first thing you see. */
 
 export const GALLERIES: Record<string, Gallery> = {
   /* Kept for inner pages that ask for a general tour. NOT used on the homepage
@@ -358,39 +468,62 @@ export const GALLERIES: Record<string, Gallery> = {
     subtitle:
       "Every screen below is part of one platform — authoring, delivery, assessment and the data that comes back.",
     shots: [
-      courseBuilderFlow,
       adminDashboard,
+      courseCatalogue,
       avatarModule,
-      liveSession,
-      integrationsSettings,
-      mobileLearning,
+      assessmentQuestionBank,
+      liveSessionSync,
+      integrationsSync,
+      mobileLesson,
     ],
   },
-  /* The two homepage galleries. They deliberately share only one shot, so
-     flipping the tab visibly changes the carousel rather than reordering it.
-     Nothing here repeats an image used elsewhere in the same sector's view. */
   "organizations-platform": {
     id: "organizations-platform",
     title: "The platform, for organizations",
     subtitle:
-      "Employee, supplier and customer training managed from one place.",
+      "Employee, supplier and customer training managed from one place — browse left to right.",
     shots: [
-      employeePortal,
-      conceptDelivery,
+      employeeTrainingPortal,
+      managerTeamReport,
+      insuranceProgramme,
+      assignToDepartment,
       adminDashboard,
+      courseCatalogue,
+      learningPathSchedule,
+      avatarModule,
+      simulationModule,
+      assessmentQuestionBank,
+      certificationResults,
+      knowledgeBaseSearch,
+      integrationsSync,
+      publicApiReference,
       platformSettings,
+      mobileLesson,
+      interactiveModule,
       videoEditing,
     ],
   },
   "education-platform": {
     id: "education-platform",
     title: "The platform, for institutions",
-    subtitle: "Students, courses, examination and certification in one system.",
+    subtitle:
+      "Students, courses, examination and certification in one system — browse left to right.",
     shots: [
-      studentView,
-      conceptAssessment,
+      studentCourseView,
+      academicCohortReport,
+      courseCatalogue,
+      learningPathSchedule,
+      assessmentQuestionBank,
+      certificationResults,
       avatarModule,
-      mobileLearning,
+      simulationModule,
+      liveSessionSync,
+      aiAgentScreenWatch,
+      knowledgeBaseSearch,
+      adminDashboard,
+      platformSettings,
+      mobileLesson,
+      interactiveModule,
       videoEditing,
     ],
   },
@@ -400,10 +533,11 @@ export const GALLERIES: Record<string, Gallery> = {
     subtitle:
       "From existing material to a finished interactive unit — read the flow left to right.",
     shots: [
-      courseBuilderFlow,
       conceptAuthoring,
       avatarModule,
       interactiveModule,
+      simulationModule,
+      assessmentQuestionBank,
       conceptAssessment,
     ],
   },
@@ -416,10 +550,10 @@ export const GALLERIES: Record<string, Gallery> = {
     subtitle:
       "Answering from source material, and training people on software by watching the screen.",
     shots: [
-      softwareTrainingAgent,
+      aiAgentScreenWatch,
+      knowledgeBaseSearch,
       conceptKnowledge,
       avatarModule,
-      integrationsSettings,
     ],
   },
   "integrations-and-live": {
@@ -427,7 +561,13 @@ export const GALLERIES: Record<string, Gallery> = {
     title: "Synchronisation and live learning",
     subtitle:
       "Yeda syncs with the CRMs and meeting platforms already in use, and exposes an API.",
-    shots: [integrationsSettings, liveSession, conceptDelivery, platformSettings],
+    shots: [
+      integrationsSync,
+      liveSessionSync,
+      publicApiReference,
+      conceptDelivery,
+      platformSettings,
+    ],
   },
 };
 

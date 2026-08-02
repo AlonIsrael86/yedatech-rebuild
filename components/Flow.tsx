@@ -19,6 +19,10 @@ import type { Sector } from "@/content/routes";
  *  - A real <ol>, so the sequence is a sequence to a screen reader too.
  *  - The oversized numeral is decorative; the accessible number lives in the
  *    small solid badge beside the heading, so it is announced once, not twice.
+ *  - No connecting rail between steps. There was one, and it was wrong twice
+ *    over: pinned to the left while the badge alternates sides, so it lined up
+ *    with only half the steps, and its segments abutted across the list gap into
+ *    one unbroken stripe down the section. The numerals carry the sequence.
  *  - Steps alternate sides at lg. Below that everything is one column with the
  *    copy first, because a phone reading order should not zig-zag.
  *  - Every screen is a <figure> with a <figcaption>. `Shot.caption` is
@@ -28,11 +32,9 @@ import type { Sector } from "@/content/routes";
 function Step({
   step,
   index,
-  last,
 }: {
   step: { n: string; shot: string; title: string; body: string };
   index: number;
-  last: boolean;
 }) {
   const shot = FLOW_SHOTS[step.shot];
   if (!shot) return null;
@@ -41,16 +43,7 @@ function Step({
   const flip = index % 2 === 1;
 
   return (
-    <li className="relative">
-      {/* Connecting rail. Stops at the last step so the sequence has an end. */}
-      {!last ? (
-        <span
-          aria-hidden
-          className="absolute left-[27px] top-14 hidden w-px bg-gradient-to-b from-royal/30 to-royal-100 lg:block"
-          style={{ bottom: "-3.5rem" }}
-        />
-      ) : null}
-
+    <li>
       <Reveal>
         <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
           <div className={flip ? "lg:order-2" : ""}>
@@ -114,12 +107,7 @@ export function Flow({ sector }: { sector: Sector }) {
 
         <ol className="mt-14 space-y-14">
           {f.steps.map((step, i) => (
-            <Step
-              key={step.n}
-              step={step}
-              index={i}
-              last={i === f.steps.length - 1}
-            />
+            <Step key={step.n} step={step} index={i} />
           ))}
         </ol>
       </Container>

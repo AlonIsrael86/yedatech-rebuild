@@ -88,9 +88,11 @@ export function Header() {
           </Link>
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden items-center gap-4 lg:flex">
           <SectorTabs />
-          <DemoButton variant="primary">{HERO_CTA.primary}</DemoButton>
+          <DemoButton variant="primary" size="sm">
+            {HERO_CTA.primary}
+          </DemoButton>
         </div>
 
         <button

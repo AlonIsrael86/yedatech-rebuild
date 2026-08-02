@@ -9,6 +9,7 @@ import {
   Family,
 } from "@/components/Sections";
 import { MediaCarousel } from "@/components/MediaCarousel";
+import { PresenterStage } from "@/components/PresenterStage";
 import { FinalCta } from "@/components/FinalCta";
 import { Footer } from "@/components/Footer";
 import { SectorPanel } from "@/components/SectorProvider";
@@ -46,9 +47,18 @@ export default function Home() {
       <Header />
       <main id="main-content" className="flex-1">
         {SECTOR_KEYS.map((sector) => (
-          <SectorPanel key={sector} sector={sector}>
+          <SectorPanel key={`top-${sector}`} sector={sector}>
             <Hero sector={sector} />
             <CapabilityBento sector={sector} />
+          </SectorPanel>
+        ))}
+
+        {/* Shared: the composition reads the same for both sectors, so it is
+            rendered once between the two sector blocks rather than duplicated. */}
+        <PresenterStage />
+
+        {SECTOR_KEYS.map((sector) => (
+          <SectorPanel key={`aud-${sector}`} sector={sector}>
             <Audiences sector={sector} />
           </SectorPanel>
         ))}

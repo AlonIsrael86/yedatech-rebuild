@@ -334,6 +334,26 @@ export const GALLERIES: Record<string, Gallery> = {
   },
 };
 
+/**
+ * Presenter composition figures — keyed by POSITION, not by gender.
+ *
+ * Alon's brief says woman-left / man-right, but these are vector illustrations
+ * and the SVG paths do not tell us which is which. Keying by position means
+ * swapping them is a one-line change once Alexey confirms, and means we are not
+ * asserting something we cannot verify.
+ *
+ * Both are Yeda's own published illustrations from yedalabs.ai — interim art
+ * for a slot the agent/widget platform will eventually fill. We do not author
+ * the characters (see the standard).
+ */
+export const PRESENTER_FIGURES: { left: Shot; right: Shot } = {
+  left: conceptAuthoring,
+  right: conceptKnowledge,
+};
+
+/** The product interface that sits between them. */
+export const PRESENTER_SCREEN: Shot = analyticsInsights;
+
 export const getGallery = (id?: string): Gallery | null =>
   id ? (GALLERIES[id] ?? null) : null;
 

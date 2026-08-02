@@ -38,10 +38,16 @@ export const SECTORS: { key: Sector; tab: string; aria: string }[] = [
   },
   {
     key: "education",
-    tab: "Educational institutions",
+    // "Education" rather than "Educational institutions": two single words
+    // balance against "Organizations" and fit 375px without wrapping. The
+    // Sector key stays `education`, so nothing downstream changes.
+    tab: "Education",
     aria: "Show the site for universities, colleges and schools",
   },
 ];
+
+/** Lead-in shown beside the sector tabs. */
+export const SECTOR_PROMPT = "I'm a";
 
 export const DEFAULT_SECTOR: Sector = "organizations";
 
@@ -270,6 +276,27 @@ export const CAPABILITIES: BySector<{
     ],
   },
 };
+
+/* ── Presenter composition ───────────────────────────────────────────────
+   Alon's message 4 and the handoff both require the woman-left / man-right
+   arrangement around the product interface. The COMPOSITION and the
+   interaction are ours to build; the FIGURES are slots, because Alexey's
+   widget/agent platform supplies the characters and we must not author them.
+
+   Nothing here invents media, voice, play behaviour or a backend — the
+   handoff is explicit that those are Alexey's to define. `attach` labels
+   where the agent will bind, without pretending it already does. */
+export const PRESENTER = {
+  eyebrow: "Learning agents",
+  title: "Guided from both sides of the screen",
+  lede: "Yeda's learning agents sit alongside the interface, guiding a learner through the platform and answering from the material the organization already has.",
+  attach: "Agent attaches here",
+  band: {
+    title: "Innovation that brings measurable value",
+    body: "The same platform that delivers the training reports on what it achieved.",
+    cta: "Book a demo",
+  },
+} as const;
 
 /* ── Capability bento ────────────────────────────────────────────────────
    Replaces the checkpoint's even 4-up card row and its numbered feature

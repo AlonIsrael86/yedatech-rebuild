@@ -8,24 +8,31 @@ import { Container, Eyebrow } from "@/components/ui";
 import type { Gallery, Shot } from "@/content/media";
 
 /**
- * Alexey: there should be many more images, they must be MUCH BIGGER, and they
- * must page left to right — "imagine you have to explain the platform through
- * the pictures. Each picture has its explanation."
+ * Alexey: there should be many MORE images, spanning more categories than just
+ * courses, and they must page left to right — "imagine you have to explain the
+ * platform through the pictures. Each picture has its explanation."
+ *
+ * MORE, NOT BIGGER. His «картинок должно быть намного больше» is the Russian
+ * quantity construction — genitive plural + impersonal neuter «должно быть» —
+ * so it reads "there should be many more pictures". Size would need «картинки
+ * должны быть». An earlier pass mistranslated «больше» as "bigger" and blew the
+ * slides up to 880px; that is reverted here. It also fought the actual request:
+ * a 1440px viewport shows ~3 slides at 420px and ~1.5 at 880px, so the smaller
+ * slide puts more of the variety on screen at once, which is the whole point.
  *
  * So:
- *  - Slides run to 880px, not the 420px they used to. That is the width the
- *    2400×1500 export spec in FIGMA_IMAGE_LIST.md is sized for.
+ *  - Slides sit at 420px, as they always did.
  *  - The arrows page by exactly one slide rather than nudging by a fixed
  *    number of pixels, and the position counter makes the size of the set
  *    visible — the whole point being that there are many images now.
  *  - The caption is a real <figcaption>, not a tooltip, and `caption` is
  *    non-optional in content/media.ts so a slot cannot exist without one.
  *
- * UNIFORM HEIGHT, DERIVED WIDTH — not the other way round. Setting a common
- * width breaks the moment a portrait frame appears: the phone shot is 720×1560,
- * which at 880px wide would render ~1900px tall and wreck the row. Fixing the
- * height instead gives a tidy band of cards (landscape 880×550, the phone
- * 254×550) and lets a mixed-orientation set sit in one track.
+ * UNIFORM HEIGHT, DERIVED WIDTH — not the other way round. This is not part of
+ * the reverted enlargement; it is what lets a mixed-orientation set share one
+ * track at all. A common width breaks the moment a portrait frame appears: the
+ * phone frame is 720×1560, which even at 420px wide renders 910px tall beside a
+ * 262px landscape card. Fixing the height instead gives a tidy band.
  *
  * Slots with `file: null` are awaiting an approved Figma frame and render a
  * labelled placeholder at the correct aspect ratio, so composition can be
@@ -83,7 +90,7 @@ function Slide({ shot }: { shot: Shot }) {
     <figure
       data-slide
       className="group shrink-0 snap-start"
-      style={{ width: `max(320px, calc(${media} + 1rem))` }}
+      style={{ width: `max(260px, calc(${media} + 1rem))` }}
     >
       <div className="overflow-hidden rounded-[var(--radius-media)] bg-white p-2 shadow-[var(--shadow-lift)] ring-1 ring-inset ring-line-soft transition-shadow duration-300 group-hover:shadow-[var(--shadow-hero)]">
         {/* Uniform height across the track; width follows the frame's ratio.
@@ -97,7 +104,7 @@ function Slide({ shot }: { shot: Shot }) {
               src={shot.file}
               alt={shot.alt}
               fill
-              sizes="(max-width: 640px) 384px, (max-width: 1024px) 608px, 880px"
+              sizes="(max-width: 640px) 240px, (max-width: 1024px) 320px, 420px"
               className="object-cover object-top"
             />
           ) : (
@@ -258,7 +265,7 @@ export function MediaCarousel({ gallery }: { gallery: Gallery }) {
         role="group"
         onKeyDown={onKeyDown}
         aria-label={`${gallery.title} — ${total} images, scrollable gallery`}
-        className="mt-8 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-5 pb-2 [--slide-h:240px] focus-visible:outline-2 focus-visible:outline-offset-4 sm:px-8 sm:[--slide-h:380px] lg:[--slide-h:550px] [scrollbar-width:thin]"
+        className="mt-8 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-5 pb-2 [--slide-h:150px] focus-visible:outline-2 focus-visible:outline-offset-4 sm:px-8 sm:[--slide-h:200px] lg:[--slide-h:262px] [scrollbar-width:thin]"
       >
         {gallery.shots.map((shot) => (
           <Slide key={`${gallery.id}-${shot.id}`} shot={shot} />

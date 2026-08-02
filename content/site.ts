@@ -366,18 +366,99 @@ export const PRODUCTION = {
   ],
 } as const;
 
-export const PROCESS = {
-  title: "How working with Yeda starts",
-  subtitle:
-    "A clear, supported process — from the first conversation through to measurement and improvement.",
-  steps: [
-    { n: "01", title: "Discovery", body: "Understanding the needs, the audience and the goals." },
-    { n: "02", title: "Setup", body: "Configuring the system, learning paths and permissions." },
-    { n: "03", title: "Content", body: "Producing courses, modules and assessments." },
-    { n: "04", title: "Launch", body: "Publishing, enrolment and distribution to learners." },
-    { n: "05", title: "Measure", body: "Reporting, oversight and continuous improvement." },
-  ],
-} as const;
+/* ── The numbered product flow ───────────────────────────────────────────
+   Modelled on yedalabs.io's 01–05 sequence, and on Alexey's instruction that
+   the flow screens should sit next to each other so a person can understand
+   the platform from the pictures alone.
+
+   This REPLACES the old PROCESS block, which described the sales engagement
+   (discovery → setup → launch) rather than the product. Two five-step numbered
+   sequences on one page compete, and PRODUCTION already carries the "we help
+   you build it" story.
+
+   `shot` keys index FLOW_SHOTS in content/media.ts. The media is shared between
+   sectors; only the words change, which is the two-registers rule Alexey set. */
+export const FLOW: BySector<{
+  eyebrow: string;
+  title: string;
+  lede: string;
+  steps: readonly { n: string; shot: string; title: string; body: string }[];
+}> = {
+  organizations: {
+    eyebrow: "How it works",
+    title: "From the documents you already have to people who can do the job",
+    lede: "Five steps, one platform. Nothing here needs a separate authoring tool, a separate video editor or a separate reporting stack.",
+    steps: [
+      {
+        n: "01",
+        shot: "ingest",
+        title: "Bring the material you already have",
+        body: "Procedures, presentations, PDFs, Word files, a recorded session — even a YouTube video, which the platform reads through speech-to-text.",
+      },
+      {
+        n: "02",
+        shot: "build",
+        title: "Yeda builds the plan and the modules",
+        body: "It produces the training plan for the role or the department, and the learning material that goes with it — not just an outline.",
+      },
+      {
+        n: "03",
+        shot: "shape",
+        title: "Shape it the way your organization works",
+        body: "Adjust the wording, the slides and the media, add practice and interaction, and record a presenter against the material.",
+      },
+      {
+        n: "04",
+        shot: "publish",
+        title: "Publish it to the people who need it",
+        body: "Employees, suppliers and customers, assigned by role, department or cohort, and reachable on desktop or on a phone.",
+      },
+      {
+        n: "05",
+        shot: "measure",
+        title: "See what actually landed",
+        body: "Completion, results and the questions people genuinely asked — so the next version is corrected on evidence, not on a hunch.",
+      },
+    ],
+  },
+  education: {
+    eyebrow: "How it works",
+    title: "From the material lecturers already have to students who can show what they know",
+    lede: "Five steps, one platform. Course structure, materials, examination and results stop living in four different systems.",
+    steps: [
+      {
+        n: "01",
+        shot: "ingest",
+        title: "Start from the material lecturers already have",
+        body: "Syllabi, lecture slides, PDFs, a recorded lesson — even a YouTube video, which the platform reads through speech-to-text.",
+      },
+      {
+        n: "02",
+        shot: "build",
+        title: "Yeda builds the course plan and the modules",
+        body: "It produces the structure for the module or the semester, and the learning material that goes with it — not just an outline.",
+      },
+      {
+        n: "03",
+        shot: "shape",
+        title: "Shape it the way you teach",
+        body: "Adjust the wording, the slides and the media, add practice and interaction, and record a lecturer against the material.",
+      },
+      {
+        n: "04",
+        shot: "publish",
+        title: "Publish it to your students",
+        body: "Students and pupils reach their courses in one place, on desktop or on a phone, with examinations and certificates attached.",
+      },
+      {
+        n: "05",
+        shot: "measure",
+        title: "See how the cohort is doing",
+        body: "Progress, results and the questions students genuinely asked — so a lecturer can see where a cohort is stuck while it still matters.",
+      },
+    ],
+  },
+};
 
 /** Real product names from the current site. */
 export const FAMILY = {
@@ -453,11 +534,26 @@ export const DEMO_FORM = {
   mailSubject: "Demo request — Yeda",
 } as const;
 
+/**
+ * The closing CTA varies by sector on the homepage and stays neutral on the 21
+ * inner pages, which render through PageShell without a sector.
+ */
 export const FINAL_CTA = {
   title: "Ready to see Yeda in action?",
   subtitle: "We will build a demo around what you actually need to teach.",
   primaryCta: "Book a demo",
 } as const;
+
+export const FINAL_CTA_BY_SECTOR: BySector<{ subtitle: string }> = {
+  organizations: {
+    subtitle:
+      "Bring one procedure or one existing deck, and we will show you the training your people would actually receive.",
+  },
+  education: {
+    subtitle:
+      "Bring one syllabus or one recorded lecture, and we will show you the course your students would actually see.",
+  },
+};
 
 export const FOOTER = {
   tagline:

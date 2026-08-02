@@ -13,7 +13,6 @@ import {
   BENTO,
   CAPABILITY_LIBRARY,
   PRODUCTION,
-  PROCESS,
   FAMILY,
 } from "@/content/site";
 import type { Sector } from "@/content/routes";
@@ -179,35 +178,8 @@ export function Production() {
   );
 }
 
-/* ── Process ─────────────────────────────────────────────────────────────
-   A connected rail rather than five equal boxes. */
-export function Process() {
-  return (
-    <SectionShell id="process" ground="canvas" title={PROCESS.title} lede={PROCESS.subtitle}>
-      <ol className="relative grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-        <span
-          aria-hidden
-          className="absolute inset-x-8 top-9 hidden h-px bg-gradient-to-r from-royal-100 via-royal/30 to-royal-100 lg:block"
-        />
-        {PROCESS.steps.map((s, i) => (
-          <Reveal key={s.n} delay={i * 0.05}>
-            <li className="relative h-full">
-              <GlowCard tone="ambient" className="h-full p-5">
-                <span className="inline-grid size-9 place-items-center rounded-full bg-royal text-[14px] font-bold text-white shadow-[0_8px_24px_rgba(10,89,235,0.35)]">
-                  {s.n}
-                </span>
-                <h3 className="mt-4 text-[17px] font-bold text-navy">{s.title}</h3>
-                <p className="mt-1.5 text-[14px] leading-relaxed text-slate">
-                  {s.body}
-                </p>
-              </GlowCard>
-            </li>
-          </Reveal>
-        ))}
-      </ol>
-    </SectionShell>
-  );
-}
+/* Process lived here. It described the sales engagement, not the product, and
+   competed with the new numbered Flow — see components/Flow.tsx. */
 
 /* ── Product family ──────────────────────────────────────────────────── */
 export function Family() {

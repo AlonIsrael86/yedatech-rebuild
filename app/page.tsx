@@ -5,11 +5,12 @@ import {
   Audiences,
   CapabilityBento,
   Production,
-  Process,
   Family,
 } from "@/components/Sections";
+import { Flow } from "@/components/Flow";
 import { MediaCarousel } from "@/components/MediaCarousel";
 import { PresenterStage } from "@/components/PresenterStage";
+import { LogoStrip } from "@/components/LogoStrip";
 import { FinalCta } from "@/components/FinalCta";
 import { Footer } from "@/components/Footer";
 import { SectorPanel } from "@/components/SectorProvider";
@@ -25,15 +26,25 @@ export const metadata: Metadata = {
  * Sector-varying sections render once per sector and CSS reveals the active
  * one — a crawler receives both, and switching tabs never navigates.
  *
- * Order rebuilt for the new design. The checkpoint's
- * Hero → Credibility → Audiences → Capabilities → FeatureBlocks rhythm is gone;
- * the bento now carries the capability story that Credibility, Capabilities and
- * FeatureBlocks used to split between them.
+ * SIX of the nine sections now change with the tab: Hero, CapabilityBento,
+ * Audiences, Flow, MediaCarousel and FinalCta. It used to be three, all of them
+ * above the fold, which is why clicking a tab lower down the page looked like
+ * it did nothing. The cross-fade that makes the change legible lives in
+ * globals.css, keyed off data-sector-switched.
  *
- * Not mounted yet: the client-logo strip. The four logos on yedalabs.ai are
- * verified as Yeda's own, but they need Alexey's yes before appearing here.
+ * The carousel now points at the per-sector galleries that already existed in
+ * content/media.ts — the employee portal for organizations, the student view
+ * for institutions — rather than one shared gallery.
+ *
+ * Not mounted yet: client logos. LogoStrip is mounted but returns null until
+ * Alexey approves the twelve organizations in content/clients.ts.
  */
 const SECTOR_KEYS: Sector[] = ["organizations", "education"];
+
+const SECTOR_GALLERY: Record<Sector, string> = {
+  organizations: "organizations-platform",
+  education: "education-platform",
+};
 
 export default function Home() {
   return (
@@ -58,17 +69,22 @@ export default function Home() {
         <PresenterStage />
 
         {SECTOR_KEYS.map((sector) => (
-          <SectorPanel key={`aud-${sector}`} sector={sector}>
+          <SectorPanel key={`mid-${sector}`} sector={sector}>
             <Audiences sector={sector} />
+            <Flow sector={sector} />
+            <MediaCarousel gallery={GALLERIES[SECTOR_GALLERY[sector]]} />
           </SectorPanel>
         ))}
 
-        <MediaCarousel gallery={GALLERIES.homepage} />
-
+        <LogoStrip />
         <Production />
-        <Process />
         <Family />
-        <FinalCta />
+
+        {SECTOR_KEYS.map((sector) => (
+          <SectorPanel key={`cta-${sector}`} sector={sector}>
+            <FinalCta sector={sector} />
+          </SectorPanel>
+        ))}
       </main>
       <Footer />
     </>

@@ -2,14 +2,23 @@ import { Mail, Phone } from "lucide-react";
 import { Container } from "@/components/ui";
 import { DemoButton } from "@/components/DemoButton";
 import { Reveal } from "@/components/Reveal";
-import { FINAL_CTA, CONTACT } from "@/content/site";
+import { FINAL_CTA, FINAL_CTA_BY_SECTOR, CONTACT } from "@/content/site";
+import type { Sector } from "@/content/routes";
 
 /**
  * Rewritten for the new design: a navy panel floating on a sky-tinted wash and
  * lifted by a royal glow, rather than the checkpoint's flat royal slab sitting
  * flush on white.
+ *
+ * `sector` is optional on purpose. The homepage passes it so the closing line
+ * changes with the tab; PageShell renders the same component on all 21 inner
+ * pages with no sector, and those keep the neutral line.
  */
-export function FinalCta() {
+export function FinalCta({ sector }: { sector?: Sector }) {
+  const subtitle = sector
+    ? FINAL_CTA_BY_SECTOR[sector].subtitle
+    : FINAL_CTA.subtitle;
+
   return (
     <section id="contact" className="bg-white py-16 sm:py-24">
       <Container>
@@ -37,7 +46,7 @@ export function FinalCta() {
                   {FINAL_CTA.title}
                 </h2>
                 <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-white/75">
-                  {FINAL_CTA.subtitle}
+                  {subtitle}
                 </p>
                 <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
                   <DemoButton

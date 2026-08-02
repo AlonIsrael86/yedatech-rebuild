@@ -95,15 +95,26 @@ export function MediaCarousel({ gallery }: { gallery: Gallery }) {
     setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 4);
   }, []);
 
+  /*
+   * A ResizeObserver rather than a window resize listener.
+   *
+   * The homepage renders one carousel per sector and hides the inactive one
+   * with display:none, so that copy measures 0x0, computes atEnd = true, and
+   * would come back from a tab switch with its next arrow stuck disabled — no
+   * resize event ever fires for a display change. ResizeObserver does report
+   * none -> displayed, which is exactly the missing signal, and it still covers
+   * ordinary viewport resizes.
+   */
   useEffect(() => {
-    sync();
     const el = trackRef.current;
     if (!el) return;
+    sync();
     el.addEventListener("scroll", sync, { passive: true });
-    window.addEventListener("resize", sync);
+    const ro = new ResizeObserver(sync);
+    ro.observe(el);
     return () => {
       el.removeEventListener("scroll", sync);
-      window.removeEventListener("resize", sync);
+      ro.disconnect();
     };
   }, [sync]);
 

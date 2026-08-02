@@ -37,6 +37,13 @@ const isSector = (v: unknown): v is Sector =>
 let cached: Sector | null = null;
 const listeners = new Set<() => void>();
 
+/**
+ * True once the visitor has clicked a tab. Drives `data-sector-switched`, which
+ * is what turns the cross-fade in globals.css on — so the animation plays on a
+ * real switch but not on first paint.
+ */
+let switched = false;
+
 /** Resolve once per page load: ?sector= wins, then localStorage, then default. */
 function readSector(): Sector {
   if (cached) return cached;
@@ -59,7 +66,9 @@ function readSector(): Sector {
 }
 
 function writeSector(next: Sector) {
+  if (cached === next) return;
   cached = next;
+  switched = true;
   try {
     window.localStorage.setItem(STORAGE_KEY, next);
   } catch {
@@ -77,6 +86,12 @@ function subscribe(onChange: () => void) {
 
 const serverSector = () => DEFAULT_SECTOR;
 
+/* Read as its own snapshot rather than bundled with the sector into an object:
+   getSnapshot must return a referentially stable value, and a fresh object
+   every call would re-render forever. */
+const readSwitched = () => switched;
+const serverSwitched = () => false;
+
 type SectorContextValue = {
   sector: Sector;
   setSector: (s: Sector) => void;
@@ -91,11 +106,20 @@ export const useSector = () => useContext(SectorContext);
 
 export function SectorProvider({ children }: { children: ReactNode }) {
   const sector = useSyncExternalStore(subscribe, readSector, serverSector);
+  const hasSwitched = useSyncExternalStore(
+    subscribe,
+    readSwitched,
+    serverSwitched,
+  );
   const setSector = useCallback((next: Sector) => writeSector(next), []);
 
   return (
     <SectorContext.Provider value={{ sector, setSector }}>
-      <div data-sector={sector} className="contents">
+      <div
+        data-sector={sector}
+        data-sector-switched={hasSwitched ? "" : undefined}
+        className="contents"
+      >
         {children}
       </div>
     </SectorContext.Provider>

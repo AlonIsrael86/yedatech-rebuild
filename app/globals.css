@@ -99,6 +99,21 @@
   [data-sector="education"] [data-sector-panel="organizations"] {
     display: none;
   }
+  /*
+   * An element with display:none has no running animation; when it becomes
+   * displayed the animation starts fresh. So this one rule gives the incoming
+   * panel a cross-fade on every switch with no JavaScript driving it.
+   *
+   * Gated on data-sector-switched — written by SectorProvider only after the
+   * first click — so panels do NOT fade in on first paint, where this would
+   * collide with Reveal's own scroll animation.
+   *
+   * prefers-reduced-motion is handled by the global rule further down, which
+   * collapses every animation-duration to 0.001ms.
+   */
+  [data-sector-switched] [data-sector-panel] {
+    animation: sector-in 340ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
   ::selection {
     background: rgba(10, 89, 235, 0.18);
   }
@@ -149,6 +164,39 @@ html[data-a11y-spacing] body {
     opacity: 1;
     transform: none;
   }
+}
+
+/* Sector panel arriving after a tab switch. */
+@keyframes sector-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/*
+ * Client-logo marquee — Alexey's "логотипы, которые катаются" from yedalms.io.
+ * The track holds the list twice and shifts by exactly half its width, so the
+ * loop is seamless. Paused on hover, and effectively stopped under
+ * prefers-reduced-motion by the duration override below.
+ */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 42s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
 }
 @media (prefers-reduced-motion: reduce) {
   html {

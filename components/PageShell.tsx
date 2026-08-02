@@ -4,10 +4,11 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FinalCta } from "@/components/FinalCta";
 import { MediaCarousel } from "@/components/MediaCarousel";
-import { CapabilityGrid, Process } from "@/components/Sections";
+import { CapabilityGrid } from "@/components/Sections";
+import { Flow } from "@/components/Flow";
 import { Container, Button, SectionShell, GlowCard } from "@/components/ui";
 import { DemoButton } from "@/components/DemoButton";
-import { UI, HERO_CTA } from "@/content/site";
+import { UI, HERO_CTA, DEFAULT_SECTOR } from "@/content/site";
 import { getGallery } from "@/content/media";
 import { SOLUTIONS, INDUSTRIES, PRODUCTS, type RouteEntry } from "@/content/routes";
 
@@ -118,6 +119,11 @@ function RelatedPages({ route }: { route: RouteEntry }) {
 export function PageShell({ route }: { route: RouteEntry }) {
   const gallery = getGallery(route.gallery);
 
+  /* Inner pages replace the old engagement rail with the numbered product flow.
+     They are not wrapped in SectorPanel, so they show one fixed register: the
+     page's own sector, or the default where a page serves both. */
+  const flowSector = route.sector === "both" ? DEFAULT_SECTOR : route.sector;
+
   return (
     <>
       <a
@@ -172,7 +178,7 @@ export function PageShell({ route }: { route: RouteEntry }) {
 
         {gallery ? <MediaCarousel gallery={gallery} /> : null}
 
-        <Process />
+        <Flow sector={flowSector} />
         <RelatedPages route={route} />
         <FinalCta />
       </main>

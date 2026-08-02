@@ -46,9 +46,6 @@ export const SECTORS: { key: Sector; tab: string; aria: string }[] = [
   },
 ];
 
-/** Lead-in shown beside the sector tabs. */
-export const SECTOR_PROMPT = "I'm a";
-
 export const DEFAULT_SECTOR: Sector = "organizations";
 
 export const HERO: BySector<{

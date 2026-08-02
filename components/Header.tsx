@@ -137,11 +137,13 @@ export function Header() {
       {/* Mobile */}
       {mobileOpen ? (
         <nav aria-label={UI.mobileNav} className="border-t border-line-soft bg-white lg:hidden">
-          <Container className="flex flex-col gap-4 py-4">
-            <SectorTabs className="self-start" />
+          {/* Centred rather than left-aligned — the drawer reads as a menu
+              rather than a stray sidebar on a narrow screen. */}
+          <Container className="flex flex-col items-center gap-4 py-4 text-center">
+            <SectorTabs />
             {GROUPS.map((g) => (
-              <div key={g.id}>
-                <p className="px-1 text-[13px] font-bold uppercase tracking-wide text-navy">
+              <div key={g.id} className="w-full">
+                <p className="text-[13px] font-bold uppercase tracking-wide text-navy">
                   {g.label}
                 </p>
                 <ul className="mt-1.5">
@@ -150,7 +152,7 @@ export function Header() {
                       <Link
                         href={r.path}
                         onClick={() => setMobileOpen(false)}
-                        className="block rounded-[8px] px-3 py-2 text-[15px] text-ink-soft hover:bg-royal-50 hover:text-royal"
+                        className="block rounded-[12px] px-3 py-2 text-[15px] text-ink-soft transition-colors hover:bg-royal-50 hover:text-royal"
                       >
                         {r.label}
                       </Link>

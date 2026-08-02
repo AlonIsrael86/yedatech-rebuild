@@ -53,7 +53,7 @@ export function Header() {
     <header
       className={`sticky top-0 z-50 bg-white/85 backdrop-blur-md transition-shadow duration-300 ${
         scrolled
-          ? "border-b border-line shadow-[0_1px_16px_-6px_rgba(10,26,110,0.25)]"
+          ? "border-b border-line-soft shadow-[0_8px_28px_rgba(0,15,97,0.08)]"
           : "border-b border-transparent"
       }`}
       onMouseLeave={() => setOpenGroup(null)}
@@ -96,7 +96,7 @@ export function Header() {
         <button
           type="button"
           onClick={() => setMobileOpen((v) => !v)}
-          className="inline-flex size-10 items-center justify-center rounded-[8px] text-navy ring-1 ring-inset ring-line lg:hidden"
+          className="inline-flex size-10 items-center justify-center rounded-[12px] text-navy ring-1 ring-inset ring-line lg:hidden"
           aria-label={mobileOpen ? UI.closeMenu : UI.openMenu}
           aria-expanded={mobileOpen}
         >
@@ -106,7 +106,7 @@ export function Header() {
 
       {/* Desktop dropdown panel */}
       {openGroup ? (
-        <div className="hidden border-t border-line bg-white shadow-[0_18px_30px_-22px_rgba(10,26,110,0.45)] lg:block">
+        <div className="hidden border-t border-line-soft bg-white shadow-[var(--shadow-ambient)] lg:block">
           <Container className="py-6">
             <ul className="grid gap-x-8 gap-y-1 sm:grid-cols-2 lg:grid-cols-3">
               {visible(
@@ -116,7 +116,7 @@ export function Header() {
                   <Link
                     href={r.path}
                     onClick={() => setOpenGroup(null)}
-                    className="block rounded-[8px] px-3 py-2.5 hover:bg-royal-50"
+                    className="block rounded-[12px] px-3 py-2.5 transition-colors hover:bg-royal-50"
                   >
                     <span className="block text-[15px] font-semibold text-navy">
                       {r.label}
@@ -134,7 +134,7 @@ export function Header() {
 
       {/* Mobile */}
       {mobileOpen ? (
-        <nav aria-label={UI.mobileNav} className="border-t border-line bg-white lg:hidden">
+        <nav aria-label={UI.mobileNav} className="border-t border-line-soft bg-white lg:hidden">
           <Container className="flex flex-col gap-4 py-4">
             <SectorTabs className="self-start" />
             {GROUPS.map((g) => (

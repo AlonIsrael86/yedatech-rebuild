@@ -2,14 +2,12 @@ import type { Metadata } from "next";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import {
-  Credibility,
   Audiences,
-  Capabilities,
+  CapabilityBento,
   Production,
   Process,
   Family,
 } from "@/components/Sections";
-import { FeatureBlocks } from "@/components/FeatureBlocks";
 import { MediaCarousel } from "@/components/MediaCarousel";
 import { FinalCta } from "@/components/FinalCta";
 import { Footer } from "@/components/Footer";
@@ -23,9 +21,16 @@ export const metadata: Metadata = {
 };
 
 /**
- * Sector-varying sections are rendered once per sector and CSS reveals the
- * active one — so a crawler receives both, and switching tabs never navigates.
- * Sections that read the same for both sectors are rendered once.
+ * Sector-varying sections render once per sector and CSS reveals the active
+ * one — a crawler receives both, and switching tabs never navigates.
+ *
+ * Order rebuilt for the new design. The checkpoint's
+ * Hero → Credibility → Audiences → Capabilities → FeatureBlocks rhythm is gone;
+ * the bento now carries the capability story that Credibility, Capabilities and
+ * FeatureBlocks used to split between them.
+ *
+ * Not mounted yet: the client-logo strip. The four logos on yedalabs.ai are
+ * verified as Yeda's own, but they need Alexey's yes before appearing here.
  */
 const SECTOR_KEYS: Sector[] = ["organizations", "education"];
 
@@ -43,10 +48,8 @@ export default function Home() {
         {SECTOR_KEYS.map((sector) => (
           <SectorPanel key={sector} sector={sector}>
             <Hero sector={sector} />
-            <Credibility sector={sector} />
+            <CapabilityBento sector={sector} />
             <Audiences sector={sector} />
-            <Capabilities sector={sector} />
-            <FeatureBlocks sector={sector} />
           </SectorPanel>
         ))}
 

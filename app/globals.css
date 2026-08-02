@@ -29,6 +29,11 @@
   --color-canvas: #f6f7fc; /* page ground between white sections */
   --color-lav: #e8eaf5; /* lavender section wash */
 
+  /* Tints confirmed against yedalabs.ai — Yeda's current-generation site,
+     which uses the same #000F61 / #0A59EB / Rubik core as the Figma. */
+  --color-periwinkle: #99bbff; /* almost only used AS a shadow colour */
+  --color-sky: #c4d8fd; /* light blue wash */
+
   /* States (dashboard donuts, status) */
   --color-ok: #16a34a;
   --color-warn: #f4a723;
@@ -37,15 +42,27 @@
   /* Type */
   --font-sans: var(--font-rubik), "Segoe UI", system-ui, sans-serif;
 
-  /* Radius — HANDOFF caps UI cards at 8px; media panels may exceed as imagery. */
-  --radius-card: 8px;
-  --radius-media: 20px;
+  /* Radius.
+     The old HANDOFF capped UI cards at 8px. That cap is checkpoint-era and
+     contradicts Yeda's own current site, which runs 1rem–1.5rem, so it is
+     deliberately set aside. Flagged to Alexey as a written constraint dropped. */
+  --radius-card: 16px;
+  --radius-media: 24px;
   --radius-pill: 999px;
 
-  /* Elevation */
-  --shadow-card: 0 1px 2px rgba(16, 24, 64, 0.04), 0 8px 24px -12px rgba(16, 24, 64, 0.12);
-  --shadow-float: 0 12px 32px -12px rgba(10, 26, 110, 0.28);
-  --shadow-pop: 0 20px 50px -18px rgba(10, 26, 110, 0.35);
+  /* Elevation.
+     Built on brand colour rather than grey — the signature of yedalabs.ai.
+     Nothing here is a neutral drop shadow. */
+  --shadow-ambient: 0 8px 36px rgba(0, 15, 97, 0.08);
+  --shadow-lift: 0 16px 30px 0 rgba(153, 187, 255, 0.22);
+  --shadow-glow: 0 0 28px 0 rgba(10, 89, 235, 0.28);
+  --shadow-hero: 0 24px 50px 0 rgba(10, 89, 235, 0.35);
+  --shadow-wash: 0 16px 52px rgba(196, 216, 253, 0.5);
+
+  /* Retained aliases so restyled components keep compiling during the pass. */
+  --shadow-card: var(--shadow-ambient);
+  --shadow-float: var(--shadow-lift);
+  --shadow-pop: var(--shadow-hero);
 }
 
 @layer base {

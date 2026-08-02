@@ -4,9 +4,8 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FinalCta } from "@/components/FinalCta";
 import { MediaCarousel } from "@/components/MediaCarousel";
-import { CapabilityGrid, SectionHead, Process } from "@/components/Sections";
-import { Container, Button } from "@/components/ui";
-import { Reveal } from "@/components/Reveal";
+import { CapabilityGrid, Process } from "@/components/Sections";
+import { Container, Button, SectionShell, GlowCard } from "@/components/ui";
 import { DemoButton } from "@/components/DemoButton";
 import { UI, HERO_CTA } from "@/content/site";
 import { getGallery } from "@/content/media";
@@ -90,31 +89,24 @@ function RelatedPages({ route }: { route: RouteEntry }) {
   if (siblings.length === 0) return null;
 
   return (
-    <section className="border-t border-line bg-canvas py-16 sm:py-20">
-      <Container>
-        <SectionHead
-          title={`More ${GROUP_LABEL[route.group].toLowerCase()}`}
-          center={false}
-        />
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {siblings.map((r) => (
-            <li key={r.path}>
-              <Link
-                href={r.path}
-                className="block h-full rounded-[var(--radius-card)] border border-line bg-white p-5 shadow-[var(--shadow-card)] transition-shadow hover:shadow-[var(--shadow-float)]"
-              >
+    <SectionShell align="start" title={`More ${GROUP_LABEL[route.group].toLowerCase()}`}>
+      <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {siblings.map((r) => (
+          <li key={r.path}>
+            <Link href={r.path} className="block h-full">
+              <GlowCard tone="lift" interactive className="h-full p-5">
                 <span className="block text-[17px] font-bold text-navy">
                   {r.label}
                 </span>
                 <span className="mt-1.5 block text-[15px] leading-relaxed text-slate">
                   {r.description}
                 </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </Container>
-    </section>
+              </GlowCard>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </SectionShell>
   );
 }
 
@@ -142,7 +134,7 @@ export function PageShell({ route }: { route: RouteEntry }) {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(1000px 480px at 80% -10%, rgba(10,89,235,0.40), transparent 60%)",
+                "radial-gradient(900px 460px at 82% -14%, rgba(10,89,235,0.62), transparent 62%)",
             }}
           />
           <Container className="relative py-14 sm:py-20">
@@ -168,20 +160,15 @@ export function PageShell({ route }: { route: RouteEntry }) {
           </Container>
         </section>
 
-        <section className="bg-white py-16 sm:py-24">
-          <Container>
-            <Reveal>
-              <SectionHead
-                title="What this includes"
-                subtitle="Every capability below is part of the same platform."
-                center={false}
-              />
-            </Reveal>
-            <div className="mt-10">
-              <CapabilityGrid keys={route.capabilities} />
-            </div>
-          </Container>
-        </section>
+        <SectionShell
+          ground="canvas"
+          align="start"
+          eyebrow="Capabilities"
+          title="What this includes"
+          lede="Every capability below is part of the same platform."
+        >
+          <CapabilityGrid keys={route.capabilities} />
+        </SectionShell>
 
         {gallery ? <MediaCarousel gallery={gallery} /> : null}
 

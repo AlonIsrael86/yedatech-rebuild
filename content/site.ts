@@ -82,35 +82,6 @@ export const HERO_CTA = {
   secondary: "See the platform",
 } as const;
 
-export const CREDIBILITY: BySector<{
-  title: string;
-  subtitle: string;
-  statements: readonly string[];
-}> = {
-  organizations: {
-    title: "The whole training process, in one place",
-    subtitle:
-      "From the source material to the finished programme to the reporting — Yeda covers every stage rather than one slice of it.",
-    statements: [
-      "LMS, LXP and LCMS",
-      "AI-assisted module creation",
-      "Organizational portals",
-      "Reporting and certification",
-    ],
-  },
-  education: {
-    title: "The whole learning journey, in one place",
-    subtitle:
-      "Course delivery, interactive content, examination and certification — managed centrally instead of across separate tools.",
-    statements: [
-      "Course and student management",
-      "Interactive and avatar modules",
-      "Examinations and certificates",
-      "Progress and results reporting",
-    ],
-  },
-};
-
 /* ── Audience — exactly two ──────────────────────────────────────────────
    The creator / independent-instructor audience is deliberately absent:
    removed by Alon (messages 4, 5, 7 and the handoff) and by Alexey. */
@@ -300,156 +271,46 @@ export const CAPABILITIES: BySector<{
   },
 };
 
-/* ── Numbered feature showcase ───────────────────────────────────────────
-   The Figma's signature composition: big index + product panel, alternating
-   sides. Photo accents are gone — Alexey rejected the stock imagery and the
-   side characters are his own widget platform, not ours to build. */
-export const FEATURE_BLOCKS: BySector<{
+/* ── Capability bento ────────────────────────────────────────────────────
+   Replaces the checkpoint's even 4-up card row and its numbered feature
+   blocks. Spans sum to 6 per row, so one wide feature tile can lead and the
+   supporting capabilities sit beside it. The lead tile is content ingestion —
+   the capability Alexey described at length and every written brief omitted. */
+export const BENTO: BySector<{
   eyebrow: string;
   title: string;
-  subtitle: string;
-  blocks: readonly {
-    n: string;
-    title: string;
-    body: string;
-    panel: "dashboard" | "html" | "avatar" | "video";
-  }[];
+  lede: string;
+  tiles: readonly { key: string; span: 2 | 3 | 4 | 6 }[];
 }> = {
   organizations: {
-    eyebrow: "How it works",
-    title: "From the documents you have to the training you need",
-    subtitle:
-      "Four capabilities that work as one process, not four separate tools.",
-    blocks: [
-      {
-        n: "01",
-        title: "Turn existing material into a programme",
-        body: "PDFs, Word files, internal documents and video go in. A structured training plan and the learning materials come out.",
-        panel: "dashboard",
-      },
-      {
-        n: "02",
-        title: "Interactive modules, not slide decks",
-        body: "Units that combine text, media and practice on the same screen, so people do the task instead of reading about it.",
-        panel: "html",
-      },
-      {
-        n: "03",
-        title: "Agents that teach your software",
-        body: "An AI agent watches the screen and guides people through the program and the business process behind it.",
-        panel: "avatar",
-      },
-      {
-        n: "04",
-        title: "Assessment and evidence",
-        body: "Embedded questions, tests and automatic certificates — with reporting that shows what actually landed.",
-        panel: "video",
-      },
+    eyebrow: "The platform",
+    title: "Everything the organization needs to teach, in one system",
+    lede: "Start from the documents you already have. Finish with people who can demonstrably do the job.",
+    tiles: [
+      { key: "ingestion", span: 4 },
+      { key: "agents", span: 2 },
+      { key: "software-training", span: 2 },
+      { key: "integrations", span: 2 },
+      { key: "assessment", span: 2 },
+      { key: "portals", span: 3 },
+      { key: "reporting", span: 3 },
     ],
   },
   education: {
-    eyebrow: "How it works",
-    title: "From course material to examined, certified students",
-    subtitle:
-      "Four capabilities that work as one process, not four separate tools.",
-    blocks: [
-      {
-        n: "01",
-        title: "Manage courses and students centrally",
-        body: "Courses, cohorts, enrolment and results in one system rather than spread across separate tools.",
-        panel: "dashboard",
-      },
-      {
-        n: "02",
-        title: "Interactive learning units",
-        body: "Modules that combine text, media and practice on the same screen, so students work through the material actively.",
-        panel: "html",
-      },
-      {
-        n: "03",
-        title: "Avatar-led lessons",
-        body: "A digital presenter carries the lesson alongside slides and practice, built as one complete unit.",
-        panel: "avatar",
-      },
-      {
-        n: "04",
-        title: "Examination and certification",
-        body: "Interactive examinations with embedded questions, automatic scoring and certificates.",
-        panel: "video",
-      },
+    eyebrow: "The platform",
+    title: "Everything an institution needs to teach and examine",
+    lede: "Course delivery, interactive material and certification, managed centrally rather than across separate tools.",
+    tiles: [
+      { key: "lms", span: 4 },
+      { key: "students", span: 2 },
+      { key: "html-modules", span: 2 },
+      { key: "avatars", span: 2 },
+      { key: "assessment", span: 2 },
+      { key: "ingestion", span: 3 },
+      { key: "reporting", span: 3 },
     ],
   },
 };
-
-/* ── Coded product surfaces ──────────────────────────────────────────────
-   These are CODED recreations, not screenshots, and are clearly labelled as
-   illustrations. They are interim: Alexey wants real platform screens here,
-   so they stay only until he confirms which Figma frames to use. */
-export const PRODUCT = {
-  dashboard: {
-    caption: "Illustration of the platform interface",
-    title: "Dashboard",
-    kpis: [
-      { label: "Total tests", value: "8" },
-      { label: "Total questions", value: "156" },
-      { label: "Avg. tests per course", value: "3" },
-      { label: "Avg. questions per course", value: "12" },
-    ],
-    donut: {
-      title: "Learners who passed",
-      total: "100",
-      legend: [
-        { label: "High score", value: 60, color: "var(--color-ok)" },
-        { label: "Average score", value: 30, color: "var(--color-warn)" },
-        { label: "Did not pass", value: 10, color: "var(--color-err)" },
-      ],
-    },
-    nav: [
-      "Dashboard",
-      "Categories",
-      "Courses",
-      "Certificates",
-      "Tests",
-      "Settings",
-    ],
-  },
-} as const;
-
-export const AVATAR = {
-  panel: {
-    caption: "Illustration of an avatar module",
-    presenterTag: "Avatar presenter",
-    slideTitle: "Unit 3 · Principles of digital learning",
-    quiz: {
-      tag: "Practice",
-      question: "What is the main advantage of an avatar-based module?",
-      options: [
-        "Learning at your own pace",
-        "Several formats combined in one unit",
-        "Printing a workbook",
-      ],
-      correctIndex: 1,
-    },
-  },
-} as const;
-
-export const SURFACES = {
-  html: {
-    caption: "Interactive HTML module",
-    unit: "Unit 2 · Structure of the lesson",
-    accordion: "Select to expand this topic",
-    callout: "Tip: text, media and practice can share one screen.",
-  },
-  video: {
-    caption: "Video with an embedded question",
-    tag: "Embedded question",
-    time: "02:14",
-    duration: "08:30",
-    question: "What does this unit cover?",
-    options: ["Structuring a digital course", "Video editing"],
-    cta: "Continue",
-  },
-} as const;
 
 /* ── Yeda Labs — content production ──────────────────────────────────── */
 export const PRODUCTION = {

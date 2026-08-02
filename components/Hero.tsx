@@ -1,117 +1,128 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import { Check, Play, Sparkles } from "lucide-react";
+import { Check } from "lucide-react";
 import { Container, Button } from "@/components/ui";
 import { DemoButton } from "@/components/DemoButton";
 import { HERO, HERO_CTA } from "@/content/site";
-import { ProductDashboard } from "@/components/ProductVisual";
 import type { Sector } from "@/content/routes";
 
+/**
+ * Rebuilt from zero for the yedalabs.ai-anchored design.
+ *
+ * Gone: the navy slab with a coded fake dashboard bolted to the right. Alexey
+ * rejected invented product imagery, so the hero now carries a REAL platform
+ * screen in a glass frame lifted by a royal glow — the elevation signature of
+ * Yeda's current site — on a light ground rather than a dark one.
+ */
 export function Hero({ sector }: { sector: Sector }) {
   const copy = HERO[sector];
   const reduce = useReducedMotion();
+
   const rise = (delay: number) =>
     reduce
       ? {}
       : {
-          initial: { opacity: 0, y: 20 },
+          initial: { opacity: 0, y: 18 },
           animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] as const },
+          transition: { duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] as const },
         };
 
   return (
-    <section id="top" className="relative overflow-hidden bg-navy text-white">
-      {/* depth: soft royal glow, no decorative blobs */}
+    <section id="top" className="relative overflow-hidden bg-white">
+      {/* Ambient brand light rather than a solid navy block. */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(1100px 520px at 85% -8%, rgba(10,89,235,0.42), transparent 60%), radial-gradient(760px 420px at 5% 110%, rgba(10,89,235,0.20), transparent 60%)",
+            "radial-gradient(900px 460px at 70% -12%, rgba(10,89,235,0.16), transparent 62%), radial-gradient(620px 380px at 0% 8%, rgba(196,216,253,0.42), transparent 60%)",
         }}
       />
-      <Container className="relative grid items-center gap-12 py-16 lg:grid-cols-[1.05fr_1fr] lg:py-24">
+
+      <Container className="relative grid items-center gap-14 py-16 lg:grid-cols-[1.02fr_1fr] lg:py-24">
         <div>
           <motion.span
             {...rise(0)}
-            className="inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-white/10 px-3.5 py-1.5 text-[14px] font-medium text-white ring-1 ring-inset ring-white/15"
+            className="inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-royal-50 px-3.5 py-1.5 text-[13px] font-semibold text-royal ring-1 ring-inset ring-royal-100"
           >
-            <Sparkles className="size-4 text-sand" aria-hidden />
+            <span className="size-1.5 rounded-full bg-royal" aria-hidden />
             {copy.eyebrow}
           </motion.span>
 
           <motion.h1
-            {...rise(0.08)}
-            className="mt-5 text-balance text-4xl font-bold leading-[1.12] sm:text-5xl lg:text-[3.4rem]"
+            {...rise(0.07)}
+            className="mt-6 text-balance text-4xl font-bold leading-[1.08] text-navy sm:text-5xl lg:text-[3.5rem]"
           >
             {copy.title}
           </motion.h1>
 
           <motion.p
-            {...rise(0.16)}
-            className="mt-5 max-w-xl text-lg leading-relaxed text-white/75"
+            {...rise(0.14)}
+            className="mt-6 max-w-xl text-lg leading-relaxed text-slate"
           >
             {copy.subtitle}
           </motion.p>
 
-          <motion.div {...rise(0.24)} className="mt-8 flex flex-wrap gap-3">
+          <motion.div {...rise(0.21)} className="mt-9 flex flex-wrap gap-3">
             <DemoButton variant="primary" withArrow>
               {HERO_CTA.primary}
             </DemoButton>
-            <Button
-              href="#platform"
-              variant="secondary"
-              className="bg-white/10 text-white ring-white/20 hover:bg-white/15"
-            >
+            <Button href="#platform" variant="secondary">
               {HERO_CTA.secondary}
             </Button>
           </motion.div>
 
-          <motion.ul {...rise(0.32)} className="mt-8 flex flex-wrap gap-x-5 gap-y-2.5">
+          <motion.ul
+            {...rise(0.28)}
+            className="mt-9 grid gap-x-6 gap-y-2.5 sm:grid-cols-2"
+          >
             {copy.chips.map((c) => (
-              <li key={c} className="flex items-center gap-2 text-[15px] text-white/80">
-                <Check className="size-4 text-sand" aria-hidden />
+              <li key={c} className="flex items-start gap-2 text-[15px] text-ink-soft">
+                <Check className="mt-0.5 size-4 shrink-0 text-royal" aria-hidden />
                 {c}
               </li>
             ))}
           </motion.ul>
         </div>
 
-        {/* Interim coded product surface. Alexey wants real platform screens
-            here; this stays until he confirms the Figma frames. */}
-        <motion.div
+        {/* Real platform screen — yedalabs.ai, not an invented panel. */}
+        <motion.figure
           {...(reduce
             ? {}
             : {
-                initial: { opacity: 0, y: 28 },
+                initial: { opacity: 0, y: 26 },
                 animate: { opacity: 1, y: 0 },
-                transition: { duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] },
+                transition: { duration: 0.7, delay: 0.18, ease: [0.22, 1, 0.36, 1] },
               })}
           className="relative"
         >
-          <ProductDashboard />
-
-          <div className="absolute -top-10 -right-6 hidden w-44 rounded-[var(--radius-card)] bg-white p-2.5 shadow-[var(--shadow-pop)] ring-1 ring-line lg:block">
-            <div className="relative overflow-hidden rounded-[6px] bg-navy">
-              <div className="aspect-video bg-gradient-to-tl from-royal/40 to-navy" />
-              <span className="absolute inset-0 grid place-items-center">
-                <span className="grid size-8 place-items-center rounded-full bg-white/95 text-royal">
-                  <Play className="size-4 translate-x-[1px]" aria-hidden />
-                </span>
-              </span>
-            </div>
-            <div className="px-1 pb-0.5 pt-2">
-              <div className="h-2 w-3/4 rounded bg-line" />
-              <div className="mt-1.5 h-2 w-1/2 rounded bg-line-soft" />
+          <div
+            aria-hidden
+            className="absolute -inset-6 -z-10 rounded-[36px]"
+            style={{
+              background:
+                "radial-gradient(closest-side, rgba(10,89,235,0.20), transparent 78%)",
+            }}
+          />
+          <div className="overflow-hidden rounded-[var(--radius-media)] bg-white/70 p-2 shadow-[var(--shadow-hero)] ring-1 ring-inset ring-white/60 backdrop-blur-xl">
+            <div className="relative aspect-[1191/678] w-full overflow-hidden rounded-[16px] ring-1 ring-line-soft">
+              <Image
+                src="/media/platform/yeda-interactive-module-drag-and-drop.png"
+                alt="Yeda interactive HTML learning module with a drag-and-drop exercise"
+                fill
+                priority
+                sizes="(max-width: 1024px) 92vw, 560px"
+                className="object-cover object-top"
+              />
             </div>
           </div>
-
-          <div className="absolute -bottom-4 left-8 hidden items-center gap-2 rounded-[var(--radius-pill)] bg-red px-3.5 py-2 text-[14px] font-semibold text-white shadow-[var(--shadow-pop)] sm:inline-flex">
-            <span className="size-2 rounded-full bg-white" />
-            Recording
-          </div>
-        </motion.div>
+          <figcaption className="mt-4 text-[14px] leading-relaxed text-slate">
+            An interactive module with practice built into the learning unit —
+            not bolted on afterwards.
+          </figcaption>
+        </motion.figure>
       </Container>
     </section>
   );

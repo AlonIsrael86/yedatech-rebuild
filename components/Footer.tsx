@@ -18,7 +18,7 @@ const COLUMNS = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-line bg-canvas">
+    <footer className="border-t border-line-soft bg-canvas">
       <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div className="max-w-xs">
           <Wordmark className="h-7 w-auto text-navy" />
@@ -64,7 +64,7 @@ export function Footer() {
         ))}
       </Container>
 
-      <div className="border-t border-line">
+      <div className="border-t border-line-soft">
         <Container className="flex flex-col items-center justify-between gap-2 py-5 text-[14px] text-slate sm:flex-row">
           <p>
             © {new Date().getFullYear()} Yeda — {FOOTER.legal}

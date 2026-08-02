@@ -36,7 +36,7 @@ const CATEGORY_LABEL: Record<Shot["category"], string> = {
 function Placeholder({ shot }: { shot: Shot }) {
   return (
     <div
-      className="grid h-full w-full place-items-center bg-gradient-to-tl from-royal-100/70 to-lav/60"
+      className="grid h-full w-full place-items-center bg-gradient-to-tl from-sky/50 to-royal-50"
       style={{ aspectRatio: `${shot.width} / ${shot.height}` }}
     >
       <div className="px-5 text-center">
@@ -54,10 +54,10 @@ function Placeholder({ shot }: { shot: Shot }) {
 
 function Slide({ shot }: { shot: Shot }) {
   return (
-    <figure className="w-[80vw] max-w-[420px] shrink-0 snap-start sm:w-[420px]">
-      <div className="overflow-hidden rounded-[var(--radius-media)] border border-line bg-white shadow-[var(--shadow-card)]">
+    <figure className="group w-[80vw] max-w-[420px] shrink-0 snap-start sm:w-[420px]">
+      <div className="overflow-hidden rounded-[var(--radius-media)] bg-white p-2 shadow-[var(--shadow-lift)] ring-1 ring-inset ring-line-soft transition-shadow duration-300 group-hover:shadow-[var(--shadow-hero)]">
         <div
-          className="relative w-full"
+          className="relative w-full overflow-hidden rounded-[14px]"
           style={{ aspectRatio: `${shot.width} / ${shot.height}` }}
         >
           {shot.file ? (
@@ -114,7 +114,7 @@ export function MediaCarousel({ gallery }: { gallery: Gallery }) {
   };
 
   return (
-    <section className="border-y border-line bg-canvas py-16 sm:py-20">
+    <section className="bg-white py-16 sm:py-20">
       <Container>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div className="max-w-2xl">
@@ -129,7 +129,7 @@ export function MediaCarousel({ gallery }: { gallery: Gallery }) {
               onClick={() => nudge(-1)}
               disabled={atStart}
               aria-label="Previous images"
-              className="grid size-10 place-items-center rounded-full bg-white text-navy ring-1 ring-inset ring-line transition-opacity hover:bg-royal-50 disabled:opacity-35"
+              className="grid size-10 place-items-center rounded-full bg-white text-navy shadow-[var(--shadow-ambient)] ring-1 ring-inset ring-line-soft transition-all hover:bg-royal-50 hover:shadow-[var(--shadow-lift)] disabled:opacity-35"
             >
               <ChevronLeft className="size-5" aria-hidden />
             </button>
@@ -138,7 +138,7 @@ export function MediaCarousel({ gallery }: { gallery: Gallery }) {
               onClick={() => nudge(1)}
               disabled={atEnd}
               aria-label="Next images"
-              className="grid size-10 place-items-center rounded-full bg-white text-navy ring-1 ring-inset ring-line transition-opacity hover:bg-royal-50 disabled:opacity-35"
+              className="grid size-10 place-items-center rounded-full bg-white text-navy shadow-[var(--shadow-ambient)] ring-1 ring-inset ring-line-soft transition-all hover:bg-royal-50 hover:shadow-[var(--shadow-lift)] disabled:opacity-35"
             >
               <ChevronRight className="size-5" aria-hidden />
             </button>

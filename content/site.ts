@@ -1,11 +1,25 @@
 /**
- * Centralized Hebrew content for the Yedatech homepage.
+ * Centralized English content for the Yedatech site.
  *
- * SOURCING RULE (from HANDOFF.md): every visible claim must be traceable to the
- * live site (yedatech.io) or supplied Yeda materials. No invented statistics,
- * testimonials, client logos, awards, pricing, or product functionality.
- * Contact details are authoritative and must stay exact.
+ * SOURCING RULE: every visible claim must be traceable to the live site
+ * (yedatech.io / yedalabs.ai), Alon's written brief, or Alexey's direction.
+ * No invented statistics, testimonials, client logos, awards, pricing or
+ * product functionality. Contact details are authoritative and stay exact.
+ *
+ * ALEXEY'S CORRECTIONS applied here:
+ *  - Zoom / Teams / Google / CRM are SYNCHRONISATION + API, not content
+ *    creation.
+ *  - Content ingestion is a headline capability: the platform builds the
+ *    training plan AND the materials from PDFs, Word files, arbitrary uploads
+ *    and YouTube video via speech-to-text.
+ *  - Software training: the agent watches the screen.
+ *  - Exactly two audiences, with genuinely different vocabulary. Education
+ *    says "students"; organizations says "employees, suppliers, customers".
+ *  - No creator / marketplace / course-resale positioning. No testimonials.
+ *  - No pricing until Alexey confirms figures from the current Yeda LMS offer.
  */
+
+import type { BySector, Sector } from "@/content/routes";
 
 export const CONTACT = {
   email: "Info@Yedatech.io",
@@ -13,386 +27,566 @@ export const CONTACT = {
   phoneHref: "tel:+972747691066",
 } as const;
 
-export const NAV = [
-  { label: "הפלטפורמה", href: "#platform" },
-  { label: "יכולות", href: "#capabilities" },
-  { label: "למי זה מתאים", href: "#audiences" },
-  { label: "הפקת תוכן", href: "#production" },
-  { label: "איך זה עובד", href: "#process" },
-] as const;
+/* ── The two sectors ─────────────────────────────────────────────────────
+   Alexey: "you can treat it as two platforms" — one for corporations, one
+   for teaching students. The tab switches the whole site. */
+export const SECTORS: { key: Sector; tab: string; aria: string }[] = [
+  {
+    key: "organizations",
+    tab: "Organizations",
+    aria: "Show the site for organizations and enterprises",
+  },
+  {
+    key: "education",
+    tab: "Educational institutions",
+    aria: "Show the site for universities, colleges and schools",
+  },
+];
 
-export const HERO = {
-  eyebrow: "מערכת ניהול למידה והפקת תוכן דיגיטלי",
-  title: "הפלטפורמה המלאה ליצירה, ניהול והפצה של למידה דיגיטלית",
-  subtitle:
-    "Yeda מאחדת מערכת ניהול למידה מתקדמת עם אולפן הפקה ופיתוח תוכן — כדי שמכללות, ארגונים ויוצרי קורסים יבנו, ינהלו וירחיבו חוויות למידה במקום אחד.",
-  primaryCta: "לתיאום הדגמה",
-  secondaryCta: "הכירו את הפלטפורמה",
-  chips: [
-    "מודולי HTML ואווטאר",
-    "מבחנים אינטראקטיביים",
-    "ניהול מכללה וארגון",
-    "אולפן הפקת תוכן",
-  ],
+export const DEFAULT_SECTOR: Sector = "organizations";
+
+export const HERO: BySector<{
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  chips: readonly string[];
+}> = {
+  organizations: {
+    eyebrow: "Organizational learning and knowledge management",
+    title: "One platform for everything your organization needs to teach",
+    subtitle:
+      "Yeda builds the training plan and the learning materials from the documents you already have — then delivers them to employees, suppliers and customers, and shows you what actually landed.",
+    chips: [
+      "Employee, supplier and customer training",
+      "AI learning agents",
+      "CRM and meeting-platform sync",
+      "Knowledge management",
+    ],
+  },
+  education: {
+    eyebrow: "Learning management for institutions",
+    title: "One platform for teaching, examining and certifying students",
+    subtitle:
+      "Yeda gives universities, colleges and schools a single system for courses, students, examination and certification — with interactive modules built from the material lecturers already have.",
+    chips: [
+      "Course and student management",
+      "Interactive and avatar modules",
+      "Examinations and certificates",
+      "Progress reporting",
+    ],
+  },
+};
+
+export const HERO_CTA = {
+  primary: "Book a demo",
+  secondary: "See the platform",
 } as const;
 
-/** Verified capability statements used as the credibility layer (not metrics). */
-export const CREDIBILITY = {
-  title: "פתרון אחד לכל מסע הלמידה",
-  subtitle:
-    "מהקמת המערכת ועד הפקת התוכן וההפצה — Yeda מלווה את כל שלבי הלמידה הדיגיטלית תחת קורת גג אחת.",
-  statements: [
-    "מערכת LMS / LCMS מלאה",
-    "הפקת קורסים דיגיטליים",
-    "מבחנים, שאלונים ותעודות",
-    "מודולים מבוססי אווטאר",
-  ],
-} as const;
+export const CREDIBILITY: BySector<{
+  title: string;
+  subtitle: string;
+  statements: readonly string[];
+}> = {
+  organizations: {
+    title: "The whole training process, in one place",
+    subtitle:
+      "From the source material to the finished programme to the reporting — Yeda covers every stage rather than one slice of it.",
+    statements: [
+      "LMS, LXP and LCMS",
+      "AI-assisted module creation",
+      "Organizational portals",
+      "Reporting and certification",
+    ],
+  },
+  education: {
+    title: "The whole learning journey, in one place",
+    subtitle:
+      "Course delivery, interactive content, examination and certification — managed centrally instead of across separate tools.",
+    statements: [
+      "Course and student management",
+      "Interactive and avatar modules",
+      "Examinations and certificates",
+      "Progress and results reporting",
+    ],
+  },
+};
 
-export const AUDIENCES = {
-  title: "בנוי סביב מי שלומד ומי שמלמד",
-  subtitle: "כל קהל מוצא ב-Yeda את מה שהוא צריך — בלי להתפשר על השאר.",
-  items: [
-    {
-      key: "colleges",
-      title: "מכללות ואוניברסיטאות",
-      body: "ניהול קורסים דיגיטליים ופרונטליים, מבחנים, תעודות ובקרת נתונים — במערכת אחת.",
-      icon: "GraduationCap",
-    },
-    {
-      key: "hr",
-      title: "משאבי אנוש והדרכה",
-      body: "גיוס, קליטה והכשרת עובדים עם מסלולי למידה, מעקב התקדמות ודוחות.",
-      icon: "Users",
-    },
-    {
-      key: "orgs",
-      title: "ארגונים ויוצרי תוכן",
-      body: "הפקת קורסים דיגיטליים, מודולי HTML ואווטאר ותוכן אינטראקטיבי באיכות אולפן.",
-      icon: "Building2",
-    },
-    {
-      key: "creators",
-      title: "מומחים ומדריכים עצמאיים",
-      body: "בניית קורס, ניהול לומדים והפצה — מהרעיון ועד ההשקה והמכירה.",
-      icon: "UserRound",
-    },
-  ],
-} as const;
+/* ── Audience — exactly two ──────────────────────────────────────────────
+   The creator / independent-instructor audience is deliberately absent:
+   removed by Alon (messages 4, 5, 7 and the handoff) and by Alexey. */
+export const AUDIENCES: BySector<{
+  title: string;
+  subtitle: string;
+  items: readonly { key: string; title: string; body: string; icon: string }[];
+}> = {
+  organizations: {
+    title: "Built for organizations that have to train people",
+    subtitle:
+      "Companies, enterprises, corporations and government bodies — and everyone connected to them.",
+    items: [
+      {
+        key: "employees",
+        title: "Employees",
+        body: "Onboarding and role-based training, assigned automatically and tracked to completion.",
+        icon: "Users",
+      },
+      {
+        key: "suppliers",
+        title: "Suppliers and partners",
+        body: "Bring the people outside your payroll up to the same standard as the people inside it.",
+        icon: "Handshake",
+      },
+      {
+        key: "customers",
+        title: "Customers",
+        body: "Teach the people who buy your product how to use it, through the same platform.",
+        icon: "UserRound",
+      },
+      {
+        key: "government",
+        title: "Government organizations",
+        body: "Structured programmes with organizational portals, permissions and reporting.",
+        icon: "Building2",
+      },
+    ],
+  },
+  education: {
+    title: "Built for the institutions that teach students",
+    subtitle:
+      "Universities, colleges and schools running real course loads for real student bodies.",
+    items: [
+      {
+        key: "universities",
+        title: "Universities",
+        body: "Course delivery, examination and certification managed across faculties in one system.",
+        icon: "GraduationCap",
+      },
+      {
+        key: "colleges",
+        title: "Colleges",
+        body: "Digital and in-person course management, student tracking and results in one place.",
+        icon: "School",
+      },
+      {
+        key: "schools",
+        title: "Schools",
+        body: "Structured lessons, interactive practice and progress reporting for pupils.",
+        icon: "BookOpen",
+      },
+      {
+        key: "students",
+        title: "Students",
+        body: "One place to find their courses, work through modules and see their results.",
+        icon: "Users",
+      },
+    ],
+  },
+};
 
-export const CAPABILITIES = {
-  title: "מערכת אחת, יכולות מקצה לקצה",
-  subtitle:
-    "כל היכולות עובדות יחד — ניהול, יצירה, הערכה והפצה של תוכן לימודי במקום אחד.",
-  items: [
-    {
-      title: "ניהול למידה (LMS / LCMS)",
-      body: "ניהול קורסים, מסלולים, קטגוריות ומשתמשים במערכת מרכזית אחת.",
-      icon: "LayoutDashboard",
-    },
-    {
-      title: "יצירת תוכן לימודי",
-      body: "מודולי HTML, מודולים מבוססי אווטאר ושילוב פורמטים לחוויית למידה עשירה.",
-      icon: "Sparkles",
-    },
-    {
-      title: "מבחנים והערכה",
-      body: "מבחנים אינטראקטיביים, שאלונים, ציונים ותעודות אוטומטיות.",
-      icon: "ClipboardCheck",
-    },
-    {
-      title: "וידאו ולמידה חיה",
-      body: "שיעורים מוקלטים, נגן וידאו אינטראקטיבי ושידורים חיים.",
-      icon: "PlayCircle",
-    },
-    {
-      title: "ניהול לומדים",
-      body: "הרשמה, מעקב התקדמות ותפעול שוטף של קהל הלומדים.",
-      icon: "GraduationCap",
-    },
-    {
-      title: "נתונים ובקרה",
-      body: "לוח בקרה, סטטיסטיקות מבחנים ודוחות ביצועים בזמן אמת.",
-      icon: "BarChart3",
-    },
-  ],
-} as const;
+/* ── Capability library ──────────────────────────────────────────────────
+   Keyed so route entries in routes.ts can select the relevant subset. Every
+   entry is a verified capability from Alon's brief, the handoff, or Alexey. */
+export const CAPABILITY_LIBRARY: Record<
+  string,
+  { title: string; body: string; icon: string }
+> = {
+  lms: {
+    title: "LMS, LXP and LCMS",
+    body: "Courses, learning paths, categories and users managed from one central system.",
+    icon: "LayoutDashboard",
+  },
+  ingestion: {
+    title: "Builds the plan and the materials",
+    body: "Feed it PDFs, Word files, existing documents — even a YouTube video, which it reads through speech-to-text — and it produces both the training plan and the learning materials.",
+    icon: "FileStack",
+  },
+  agents: {
+    title: "AI learning agents",
+    body: "Agents that guide people through business processes and answer their questions from the source material.",
+    icon: "Bot",
+  },
+  "software-training": {
+    title: "Software training",
+    body: "To teach a program, the agent watches the screen and walks the user through it.",
+    icon: "MonitorPlay",
+  },
+  avatars: {
+    title: "Avatar-based learning",
+    body: "A digital presenter combined with slides, video and practice, built as one complete learning unit.",
+    icon: "UserRound",
+  },
+  "html-modules": {
+    title: "Interactive HTML modules",
+    body: "Rich units that combine text, media and practice on the same screen.",
+    icon: "Sparkles",
+  },
+  simulations: {
+    title: "Online simulations",
+    body: "Interactive scenarios where people practise the task rather than read about it.",
+    icon: "Boxes",
+  },
+  assessment: {
+    title: "Assessment and certification",
+    body: "Interactive tests, questionnaires, scoring and automatic certificates.",
+    icon: "ClipboardCheck",
+  },
+  paths: {
+    title: "Learning paths",
+    body: "Sequenced programmes assigned by role, department or cohort.",
+    icon: "Route",
+  },
+  schedules: {
+    title: "Schedules and programme management",
+    body: "Plan training calendars and manage programmes across groups.",
+    icon: "CalendarDays",
+  },
+  live: {
+    title: "Live learning",
+    body: "Live sessions alongside recorded content, in the same programme.",
+    icon: "Radio",
+  },
+  integrations: {
+    title: "Synchronisation and API",
+    body: "Yeda synchronises with CRMs and with live-meeting platforms including Zoom, Microsoft Teams and Google — and exposes an API to work with them directly.",
+    icon: "Workflow",
+  },
+  portals: {
+    title: "Organizational portals",
+    body: "A branded space where each audience finds the learning assigned to it.",
+    icon: "LayoutGrid",
+  },
+  students: {
+    title: "Student management",
+    body: "Enrolment, progress tracking and day-to-day management of the student body.",
+    icon: "GraduationCap",
+  },
+  reporting: {
+    title: "Reporting and analytics",
+    body: "Dashboards, results and completion data in real time.",
+    icon: "BarChart3",
+  },
+};
 
+export const CAPABILITIES: BySector<{
+  title: string;
+  subtitle: string;
+  keys: readonly string[];
+}> = {
+  organizations: {
+    title: "One system, end to end",
+    subtitle:
+      "Everything works together — building the content, delivering it, assessing it, and reporting on it.",
+    keys: [
+      "ingestion",
+      "agents",
+      "software-training",
+      "lms",
+      "integrations",
+      "reporting",
+    ],
+  },
+  education: {
+    title: "One system, end to end",
+    subtitle:
+      "Course delivery, interactive content, examination and reporting in a single platform.",
+    keys: [
+      "lms",
+      "students",
+      "html-modules",
+      "avatars",
+      "assessment",
+      "reporting",
+    ],
+  },
+};
+
+/* ── Numbered feature showcase ───────────────────────────────────────────
+   The Figma's signature composition: big index + product panel, alternating
+   sides. Photo accents are gone — Alexey rejected the stock imagery and the
+   side characters are his own widget platform, not ours to build. */
+export const FEATURE_BLOCKS: BySector<{
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  blocks: readonly {
+    n: string;
+    title: string;
+    body: string;
+    panel: "dashboard" | "html" | "avatar" | "video";
+  }[];
+}> = {
+  organizations: {
+    eyebrow: "How it works",
+    title: "From the documents you have to the training you need",
+    subtitle:
+      "Four capabilities that work as one process, not four separate tools.",
+    blocks: [
+      {
+        n: "01",
+        title: "Turn existing material into a programme",
+        body: "PDFs, Word files, internal documents and video go in. A structured training plan and the learning materials come out.",
+        panel: "dashboard",
+      },
+      {
+        n: "02",
+        title: "Interactive modules, not slide decks",
+        body: "Units that combine text, media and practice on the same screen, so people do the task instead of reading about it.",
+        panel: "html",
+      },
+      {
+        n: "03",
+        title: "Agents that teach your software",
+        body: "An AI agent watches the screen and guides people through the program and the business process behind it.",
+        panel: "avatar",
+      },
+      {
+        n: "04",
+        title: "Assessment and evidence",
+        body: "Embedded questions, tests and automatic certificates — with reporting that shows what actually landed.",
+        panel: "video",
+      },
+    ],
+  },
+  education: {
+    eyebrow: "How it works",
+    title: "From course material to examined, certified students",
+    subtitle:
+      "Four capabilities that work as one process, not four separate tools.",
+    blocks: [
+      {
+        n: "01",
+        title: "Manage courses and students centrally",
+        body: "Courses, cohorts, enrolment and results in one system rather than spread across separate tools.",
+        panel: "dashboard",
+      },
+      {
+        n: "02",
+        title: "Interactive learning units",
+        body: "Modules that combine text, media and practice on the same screen, so students work through the material actively.",
+        panel: "html",
+      },
+      {
+        n: "03",
+        title: "Avatar-led lessons",
+        body: "A digital presenter carries the lesson alongside slides and practice, built as one complete unit.",
+        panel: "avatar",
+      },
+      {
+        n: "04",
+        title: "Examination and certification",
+        body: "Interactive examinations with embedded questions, automatic scoring and certificates.",
+        panel: "video",
+      },
+    ],
+  },
+};
+
+/* ── Coded product surfaces ──────────────────────────────────────────────
+   These are CODED recreations, not screenshots, and are clearly labelled as
+   illustrations. They are interim: Alexey wants real platform screens here,
+   so they stay only until he confirms which Figma frames to use. */
 export const PRODUCT = {
-  eyebrow: "הצצה למערכת",
-  title: "המערכת שמאחורי הלמידה",
-  subtitle:
-    "מסכים אמיתיים מתוך המערכת — מודולי תוכן HTML ווידאו אינטראקטיבי עם שאלות משובצות. התצוגה להמחשה בלבד.",
-  // Coded conceptual dashboard (recreated from the Figma product frames).
   dashboard: {
-    caption: "המחשה של ממשק המערכת",
-    title: "לוח בקרה",
+    caption: "Illustration of the platform interface",
+    title: "Dashboard",
     kpis: [
-      { label: "ס״כ המבחנים", value: "8" },
-      { label: "ס״כ השאלות", value: "156" },
-      { label: "מבחנים ממוצע לקורס", value: "3" },
-      { label: "שאלות ממוצע לקורס", value: "12" },
+      { label: "Total tests", value: "8" },
+      { label: "Total questions", value: "156" },
+      { label: "Avg. tests per course", value: "3" },
+      { label: "Avg. questions per course", value: "12" },
     ],
     donut: {
-      title: "סטודנטים שעברו את המבחנים",
+      title: "Learners who passed",
       total: "100",
       legend: [
-        { label: "ציון גבוה", value: 60, color: "var(--color-ok)" },
-        { label: "ציון ממוצע", value: 30, color: "var(--color-warn)" },
-        { label: "נכשלו", value: 10, color: "var(--color-err)" },
+        { label: "High score", value: 60, color: "var(--color-ok)" },
+        { label: "Average score", value: 30, color: "var(--color-warn)" },
+        { label: "Did not pass", value: 10, color: "var(--color-err)" },
       ],
     },
-  },
-  avatarModule: {
-    tag: "מודול מבוסס אווטאר",
-    title: "שיעור אינטראקטיבי",
-    body: "מודולי אווטאר שמשלבים הנחיה מצולמת, מצגת ותרגול — בתוך יחידת למידה אחת.",
+    nav: [
+      "Dashboard",
+      "Categories",
+      "Courses",
+      "Certificates",
+      "Tests",
+      "Settings",
+    ],
   },
 } as const;
 
-/**
- * Avatar-based learning — the capability Alexey named as the headline. Copy
- * describes the real feature (avatar presenter combined with slide, video and
- * HTML content plus in-module practice). The quiz text is a clearly-labeled
- * illustration ("המחשה"), not a claim about a specific course.
- */
 export const AVATAR = {
-  eyebrow: "למידה מבוססת אווטאר",
-  title: "אווטאר, מצגת ותרגול — ביחידת למידה אחת",
-  subtitle:
-    "מודולים מבוססי אווטאר שמשלבים מנחה דיגיטלי, מצגת ותוכן אינטראקטיבי — חוויית למידה עשירה שנבנית כיחידה אחת שלמה.",
-  points: [
-    {
-      title: "מנחה אווטאר",
-      body: "מנחה דיגיטלי שמלווה את הלומד לאורך היחידה בקול ובתמונה.",
-      icon: "UserRound",
-    },
-    {
-      title: "שילוב פורמטים",
-      body: "מצגת, וידאו ומודולי HTML משולבים באותה יחידת למידה.",
-      icon: "Layers",
-    },
-    {
-      title: "תרגול בתוך המודול",
-      body: "שאלות ותרגול אינטראקטיבי משובצים ישירות בתוך הלמידה.",
-      icon: "ClipboardCheck",
-    },
-  ],
   panel: {
-    caption: "המחשה של מודול אווטאר",
-    presenterTag: "מנחה אווטאר",
-    slideTitle: "יחידה 3 · עקרונות הלמידה הדיגיטלית",
+    caption: "Illustration of an avatar module",
+    presenterTag: "Avatar presenter",
+    slideTitle: "Unit 3 · Principles of digital learning",
     quiz: {
-      tag: "תרגול",
-      question: "מהו היתרון המרכזי של מודול מבוסס אווטאר?",
-      options: ["למידה בקצב אישי", "שילוב פורמטים ביחידה אחת", "הדפסת חוברת"],
+      tag: "Practice",
+      question: "What is the main advantage of an avatar-based module?",
+      options: [
+        "Learning at your own pace",
+        "Several formats combined in one unit",
+        "Printing a workbook",
+      ],
       correctIndex: 1,
     },
   },
 } as const;
 
-/**
- * Two more real product surfaces (coded, labeled "המחשה"): an HTML learning
- * module and a video player with an embedded question — both verified Yeda
- * capabilities from the live site.
- */
 export const SURFACES = {
   html: {
-    caption: "מודול HTML אינטראקטיבי",
-    unit: "יחידה 2 · מבנה השיעור",
-    accordion: "לחצו להרחבת הנושא",
-    callout: "טיפ: אפשר לשלב טקסט, תמונה ותרגול באותו מסך.",
+    caption: "Interactive HTML module",
+    unit: "Unit 2 · Structure of the lesson",
+    accordion: "Select to expand this topic",
+    callout: "Tip: text, media and practice can share one screen.",
   },
   video: {
-    caption: "וידאו עם שאלה משובצת",
+    caption: "Video with an embedded question",
+    tag: "Embedded question",
     time: "02:14",
     duration: "08:30",
-    question: "מה נלמד ביחידה זו?",
-    options: ["מבנה קורס דיגיטלי", "עריכת וידאו"],
-    cta: "המשך",
+    question: "What does this unit cover?",
+    options: ["Structuring a digital course", "Video editing"],
+    cta: "Continue",
   },
 } as const;
 
-/**
- * Numbered feature showcase — the Figma's signature composition (big index +
- * product panel with a floating photo accent, alternating sides). Each block
- * pairs a coded product surface with a real photo from Alexey's Figma. Content
- * is verified capability; no pricing/invented specifics.
- */
-export const FEATURE_BLOCKS = {
-  eyebrow: "יכולות המערכת",
-  title: "כל מה שצריך כדי ללמד, לתרגל ולהעריך",
-  subtitle:
-    "ארבע יכולות ליבה שעובדות יחד — מניהול הלמידה ועד תוכן אינטראקטיבי, אווטאר, וידאו והערכה.",
-  blocks: [
-    {
-      n: "01",
-      title: "ניהול הלמידה במקום אחד",
-      body: "ניהול קורסים, מסלולים, לומדים ותעודות — עם נתונים ובקרה בזמן אמת.",
-      panel: "dashboard",
-      photo: "/media/professional-laptop.png",
-      alt: "איש מקצוע לומד מול מחשב נייד",
-    },
-    {
-      n: "02",
-      title: "תוכן אינטראקטיבי ומודולי HTML",
-      body: "יחידות למידה עשירות שמשלבות טקסט, מדיה ותרגול — הכול באותו מסך.",
-      panel: "html",
-      photo: "/media/training-room.png",
-      alt: "הדרכה ארגונית בחדר ישיבות",
-    },
-    {
-      n: "03",
-      title: "למידה מבוססת אווטאר",
-      body: "מנחה דיגיטלי שמשלב מצגת, וידאו ותרגול — ליחידת למידה אחת שלמה.",
-      panel: "avatar",
-      photo: "/media/learning.png",
-      alt: "יוצר תוכן דיגיטלי",
-      cutout: true,
-    },
-    {
-      n: "04",
-      title: "וידאו והערכה",
-      body: "שיעורי וידאו עם שאלות משובצות, מבחנים אינטראקטיביים ותעודות אוטומטיות.",
-      panel: "video",
-      photo: null,
-      alt: "",
-    },
-  ],
-} as const;
-
+/* ── Yeda Labs — content production ──────────────────────────────────── */
 export const PRODUCTION = {
-  eyebrow: "אולפן ההפקה — Yeda Labs",
-  title: "מרעיון לקורס מוכן",
+  eyebrow: "Yeda Labs — the production studio",
+  title: "From an idea to a finished course",
   subtitle:
-    "צוות ההפקה של Yeda בונה את התוכן איתכם — מאפיון הלמידה ועד מודולים אינטראקטיביים מוכנים להשקה.",
+    "Yeda's production team builds the content with you — from learning design through to interactive modules ready to launch.",
   steps: [
-    { title: "אפיון ועיצוב למידה", body: "בניית מבנה הקורס, יעדי הלמידה וחוויית הלומד.", icon: "PenTool" },
-    { title: "צילום והפקה באולפן", body: "צילום שיעורים, עריכה והפקת וידאו מקצועית.", icon: "Clapperboard" },
-    { title: "פיתוח מודולים", body: "מודולי HTML ואווטאר, תרגולים ומבחנים אינטראקטיביים.", icon: "Code2" },
-    { title: "ליווי השקה והפצה", body: "פרסום, הרשמה ותמיכה בהפצת הקורס לקהל.", icon: "Rocket" },
+    {
+      title: "Learning design",
+      body: "Course structure, learning objectives and the learner's experience.",
+      icon: "PenTool",
+    },
+    {
+      title: "Studio production",
+      body: "Filming lessons, editing and professional video production.",
+      icon: "Clapperboard",
+    },
+    {
+      title: "Module development",
+      body: "HTML and avatar modules, practice exercises and interactive tests.",
+      icon: "Code2",
+    },
+    {
+      title: "Launch support",
+      body: "Publishing, enrolment and support in getting the course to its audience.",
+      icon: "Rocket",
+    },
   ],
 } as const;
 
 export const PROCESS = {
-  title: "איך מתחילים לעבוד עם Yeda",
-  subtitle: "תהליך ברור ומלווה — מהשיחה הראשונה ועד למדידה ושיפור מתמשך.",
+  title: "How working with Yeda starts",
+  subtitle:
+    "A clear, supported process — from the first conversation through to measurement and improvement.",
   steps: [
-    { n: "01", title: "אפיון", body: "הבנת הצרכים, הקהל והיעדים." },
-    { n: "02", title: "הקמה", body: "הגדרת המערכת, מסלולים והרשאות." },
-    { n: "03", title: "תוכן", body: "הפקת קורסים, מודולים ומבחנים." },
-    { n: "04", title: "השקה", body: "פרסום, הרשמה והפצה ללומדים." },
-    { n: "05", title: "מדידה ושיפור", body: "דוחות, בקרה ואופטימיזציה מתמשכת." },
+    { n: "01", title: "Discovery", body: "Understanding the needs, the audience and the goals." },
+    { n: "02", title: "Setup", body: "Configuring the system, learning paths and permissions." },
+    { n: "03", title: "Content", body: "Producing courses, modules and assessments." },
+    { n: "04", title: "Launch", body: "Publishing, enrolment and distribution to learners." },
+    { n: "05", title: "Measure", body: "Reporting, oversight and continuous improvement." },
   ],
 } as const;
 
-/** Yeda product family — real product names from the current site. */
+/** Real product names from the current site. */
 export const FAMILY = {
-  title: "משפחת המוצרים של Yeda",
-  subtitle: "מערכת אחת, כמה נקודות מבט — לכל סוג ארגון וקהל.",
+  title: "The Yeda product family",
+  subtitle: "One platform, several perspectives — one for each kind of organization and audience.",
   items: [
-    { name: "Yeda LMS", body: "מערכת ניהול למידה", icon: "LayoutDashboard" },
-    { name: "Yeda College", body: "ניהול מכללות ואקדמיה", icon: "GraduationCap" },
-    { name: "Yeda Org", body: "למידה והדרכה בארגונים", icon: "Building2" },
-    { name: "Yeda Labs", body: "הפקת תוכן וכלי AI", icon: "FlaskConical" },
-    { name: "Yeda Tech", body: "תשתית וטכנולוגיה", icon: "Cpu" },
-    { name: "Yeda Hub", body: "מרחב קורסים ותוכן", icon: "LayoutGrid" },
+    { name: "Yeda LMS", body: "The learning management platform", icon: "LayoutDashboard", href: null },
+    { name: "Yeda College", body: "Course and student management", icon: "GraduationCap", href: "/yeda-college/" },
+    { name: "Yeda Org", body: "Learning and training in organizations", icon: "Building2", href: "/yeda-org/" },
+    { name: "Yeda Labs", body: "Content production and AI tooling", icon: "FlaskConical", href: "/yedalabs/" },
+    { name: "Yeda Tech", body: "Infrastructure and integrations", icon: "Cpu", href: "/yeda-tech/" },
+    { name: "Yeda Hub", body: "A shared space for courses and content", icon: "LayoutGrid", href: "/yeda-hub/" },
   ],
 } as const;
 
 /**
- * Native multi-step demo-request wizard (mirrors the pattern on the current
- * site). No backend this checkpoint — submit opens a prefilled mailto to the
- * real Yeda inbox, so nothing is silently captured. All options are verified
- * audiences/capabilities.
+ * Native multi-step demo-request wizard. No backend — submit opens a prefilled
+ * mailto to the real Yeda inbox, so nothing is silently captured.
+ * The "independent teacher" role option is gone with the creator audience.
  */
 export const DEMO_FORM = {
-  intro: "מעוניינים בפתרון ליצירה וניהול של קורסים דיגיטליים? נשמח להראות לכם.",
+  intro:
+    "Looking for a platform to build and run digital learning? We would be glad to show you.",
   steps: [
     {
       key: "role",
-      title: "מה העיסוק שלך?",
+      title: "What kind of organization are you?",
       type: "single" as const,
       options: [
-        "מורה עצמאי/ת",
-        "מכללה",
-        "אוניברסיטה",
-        "עסק",
-        "ארגון",
+        "Company or enterprise",
+        "Government organization",
+        "University or college",
+        "School",
       ],
     },
     {
       key: "interest",
-      title: "מה מעניין אתכם?",
+      title: "What are you interested in?",
       type: "single" as const,
       options: [
-        "מערכת ניהול למידה (LMS)",
-        "הפקת קורסים דיגיטליים",
-        "מודולי אווטאר ו-HTML",
-        "הדרכת עובדים בארגון",
+        "Learning management platform",
+        "Building learning content from our material",
+        "AI learning agents and software training",
+        "Employee, supplier or customer training",
       ],
     },
     {
       key: "contact",
-      title: "פרטים ליצירת קשר",
+      title: "How can we reach you?",
       type: "contact" as const,
       fields: [
-        { name: "name", label: "שם מלא", inputType: "text", required: true },
-        { name: "email", label: "אימייל", inputType: "email", required: true },
-        { name: "phone", label: "טלפון", inputType: "tel", required: false },
-        { name: "note", label: "הודעה (לא חובה)", inputType: "textarea", required: false },
+        { name: "name", label: "Full name", inputType: "text", required: true },
+        { name: "email", label: "Email", inputType: "email", required: true },
+        { name: "phone", label: "Phone", inputType: "tel", required: false },
+        { name: "note", label: "Message (optional)", inputType: "textarea", required: false },
       ],
     },
   ],
   ui: {
-    next: "הבא",
-    prev: "הקודם",
-    submit: "שליחה",
-    stepLabel: (n: number, total: number) => `שלב ${n} מתוך ${total}`,
-    close: "סגירה",
-    required: "שדה חובה",
-    invalidEmail: "כתובת אימייל לא תקינה",
-    pickOne: "בחרו אפשרות אחת",
+    next: "Next",
+    prev: "Back",
+    submit: "Send",
+    stepLabel: (n: number, total: number) => `Step ${n} of ${total}`,
+    close: "Close",
+    required: "This field is required",
+    invalidEmail: "That email address is not valid",
+    pickOne: "Choose one option",
   },
   success: {
-    title: "תודה!",
-    body: "נפתח עבורכם מייל מוכן לשליחה לצוות Yeda. נשמח לחזור אליכם בהקדם.",
+    title: "Thank you",
+    body: "We have opened an email ready to send to the Yeda team. We will get back to you shortly.",
   },
-  mailSubject: "בקשת הדגמה — Yeda",
+  mailSubject: "Demo request — Yeda",
 } as const;
 
 export const FINAL_CTA = {
-  title: "מוכנים לראות את Yeda בפעולה?",
-  subtitle: "נבנה יחד הדגמה שמתאימה בדיוק לצרכים שלכם.",
-  primaryCta: "לתיאום הדגמה",
+  title: "Ready to see Yeda in action?",
+  subtitle: "We will build a demo around what you actually need to teach.",
+  primaryCta: "Book a demo",
 } as const;
 
 export const FOOTER = {
-  tagline: "פלטפורמה מלאה ליצירה, ניהול והפצה של למידה דיגיטלית.",
-  columns: [
-    {
-      title: "הפלטפורמה",
-      links: [
-        { label: "מערכת ניהול למידה", href: "#platform" },
-        { label: "יכולות המערכת", href: "#capabilities" },
-        { label: "הפקת תוכן", href: "#production" },
-        { label: "איך זה עובד", href: "#process" },
-      ],
-    },
-    {
-      title: "Yeda",
-      links: [
-        { label: "אודותינו", href: "#" },
-        { label: "צור קשר", href: "#contact" },
-        { label: "משפחת המוצרים", href: "#family" },
-      ],
-    },
-    {
-      title: "מידע",
-      links: [
-        { label: "תקנון ותנאי שימוש", href: "#" },
-        { label: "הצהרת נגישות", href: "#" },
-      ],
-    },
-  ],
+  tagline:
+    "A complete platform for creating, managing and delivering digital learning.",
+  legal: "All rights reserved.",
+  strapline: "Learning management and digital content production.",
+} as const;
+
+/** Skip-link and other shared UI strings. */
+export const UI = {
+  skipToContent: "Skip to content",
+  homeAriaLabel: "Yeda — go to homepage",
+  primaryNav: "Primary",
+  mobileNav: "Primary (mobile)",
+  openMenu: "Open menu",
+  closeMenu: "Close menu",
 } as const;

@@ -20,12 +20,12 @@ type Answers = {
 
 function buildMailto(a: Answers): string {
   const lines = [
-    `עיסוק: ${a.role ?? ""}`,
-    `תחום עניין: ${a.interest ?? ""}`,
-    `שם: ${a.name ?? ""}`,
-    `אימייל: ${a.email ?? ""}`,
-    `טלפון: ${a.phone ?? ""}`,
-    a.note ? `הודעה: ${a.note}` : "",
+    `Organization type: ${a.role ?? ""}`,
+    `Interest: ${a.interest ?? ""}`,
+    `Name: ${a.name ?? ""}`,
+    `Email: ${a.email ?? ""}`,
+    `Phone: ${a.phone ?? ""}`,
+    a.note ? `Message: ${a.note}` : "",
   ].filter(Boolean);
   const params = new URLSearchParams({
     subject: DEMO_FORM.mailSubject,
@@ -53,14 +53,21 @@ export function DemoForm({
   const current = STEPS[step];
 
   // Reset to a clean state whenever the dialog is (re)opened.
-  useEffect(() => {
+  //
+  // Adjusted during render rather than in an effect — React's documented
+  // "adjusting state when a prop changes" pattern. Doing it in an effect
+  // renders the stale form once before clearing it, and trips
+  // react-hooks/set-state-in-effect.
+  const [wasOpen, setWasOpen] = useState(isOpen);
+  if (isOpen !== wasOpen) {
+    setWasOpen(isOpen);
     if (isOpen) {
       setStep(0);
       setAnswers({});
       setSubmitted(false);
       setShowErrors(false);
     }
-  }, [isOpen]);
+  }
 
   // Body scroll lock while open.
   useEffect(() => {

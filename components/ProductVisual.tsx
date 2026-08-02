@@ -23,29 +23,37 @@ function Donut() {
   const total = segs.reduce((s, x) => s + x.value, 0);
   const R = 42;
   const C = 2 * Math.PI * R;
-  let offset = 0;
+
+  // Precompute each arc's length and start offset. Accumulating into a `let`
+  // inside the map body reassigns after render has begun, which React 19 flags
+  // (react-hooks/immutability) — deriving the values up front avoids it.
+  const arcs = segs.reduce<{ len: number; offset: number; color: string }[]>(
+    (acc, s) => {
+      const prev = acc[acc.length - 1];
+      const offset = prev ? prev.offset + prev.len : 0;
+      acc.push({ len: (s.value / total) * C, offset, color: s.color });
+      return acc;
+    },
+    [],
+  );
+
   return (
     <svg viewBox="0 0 120 120" className="size-[132px] -rotate-90" aria-hidden>
       <circle cx="60" cy="60" r={R} fill="none" stroke="var(--color-line)" strokeWidth="14" />
-      {segs.map((s, i) => {
-        const len = (s.value / total) * C;
-        const el = (
-          <circle
-            key={i}
-            cx="60"
-            cy="60"
-            r={R}
-            fill="none"
-            stroke={s.color}
-            strokeWidth="14"
-            strokeDasharray={`${len} ${C - len}`}
-            strokeDashoffset={-offset}
-            strokeLinecap="butt"
-          />
-        );
-        offset += len;
-        return el;
-      })}
+      {arcs.map((a, i) => (
+        <circle
+          key={i}
+          cx="60"
+          cy="60"
+          r={R}
+          fill="none"
+          stroke={a.color}
+          strokeWidth="14"
+          strokeDasharray={`${a.len} ${C - a.len}`}
+          strokeDashoffset={-a.offset}
+          strokeLinecap="butt"
+        />
+      ))}
     </svg>
   );
 }
@@ -55,19 +63,21 @@ function Donut() {
  * Recreates the product frame from Alexey's Figma with the design tokens.
  */
 export function ProductDashboard() {
-  const navItems = [
-    { icon: LayoutDashboard, label: "לוח בקרה", active: true },
-    { icon: FolderTree, label: "קטגוריות" },
-    { icon: PlaySquare, label: "קורסים" },
-    { icon: Award, label: "תעודות" },
-    { icon: ClipboardCheck, label: "מבחנים" },
-    { icon: Settings, label: "הגדרות" },
+  const icons = [
+    LayoutDashboard,
+    FolderTree,
+    PlaySquare,
+    Award,
+    ClipboardCheck,
+    Settings,
   ];
+  const navItems = dashboard.nav.map((label, i) => ({
+    icon: icons[i] ?? LayoutDashboard,
+    label,
+    active: i === 0,
+  }));
   return (
-    <div
-      dir="rtl"
-      className="overflow-hidden rounded-[var(--radius-media)] bg-white shadow-[var(--shadow-pop)] ring-1 ring-line"
-    >
+    <div className="overflow-hidden rounded-[var(--radius-media)] bg-white shadow-[var(--shadow-pop)] ring-1 ring-line">
       {/* top bar */}
       <div className="flex items-center justify-between border-b border-line px-4 py-3">
         <div className="flex items-center gap-2">
@@ -84,7 +94,7 @@ export function ProductDashboard() {
           <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
             {dashboard.kpis.map((k) => (
               <div key={k.label} className="rounded-[var(--radius-card)] border border-line bg-white p-3">
-                <div className="ltr text-2xl font-bold text-navy">{k.value}</div>
+                <div className="text-2xl font-bold text-navy">{k.value}</div>
                 <div className="mt-1 text-[12px] leading-tight text-slate">{k.label}</div>
               </div>
             ))}
@@ -99,14 +109,14 @@ export function ProductDashboard() {
                 {dashboard.donut.legend.map((l) => (
                   <li key={l.label} className="flex items-center gap-2 text-[13px] text-ink-soft">
                     <span className="size-2.5 rounded-full" style={{ background: l.color }} />
-                    <span className="ltr font-semibold text-navy">{l.value}</span>
+                    <span className="font-semibold text-navy">{l.value}</span>
                     <span>{l.label}</span>
                   </li>
                 ))}
               </ul>
               <div className="relative grid place-items-center">
                 <Donut />
-                <span className="ltr absolute text-xl font-bold text-navy">
+                <span className="absolute text-xl font-bold text-navy">
                   {dashboard.donut.total}
                 </span>
               </div>
@@ -115,7 +125,7 @@ export function ProductDashboard() {
         </div>
 
         {/* side nav */}
-        <aside className="border-r border-line bg-white p-2">
+        <aside className="border-l border-line bg-white p-2">
           <ul className="space-y-1">
             {navItems.map((n) => (
               <li key={n.label}>
@@ -146,10 +156,7 @@ export function ProductDashboard() {
 export function AvatarModulePanel() {
   const { panel } = AVATAR;
   return (
-    <div
-      dir="rtl"
-      className="overflow-hidden rounded-[var(--radius-media)] bg-white shadow-[var(--shadow-pop)] ring-1 ring-line"
-    >
+    <div className="overflow-hidden rounded-[var(--radius-media)] bg-white shadow-[var(--shadow-pop)] ring-1 ring-line">
       {/* presenter + slide stage */}
       <div className="relative aspect-[16/9] bg-gradient-to-tl from-royal/25 via-navy to-navy p-3">
         {/* slide */}
@@ -169,7 +176,7 @@ export function AvatarModulePanel() {
           </div>
         </div>
         {/* avatar presenter, bottom-start corner */}
-        <div className="absolute bottom-4 right-4 flex items-center gap-2">
+        <div className="absolute bottom-4 left-4 flex items-center gap-2">
           <span className="grid size-14 place-items-center rounded-full bg-sand ring-4 ring-white/90">
             <UserRound className="size-7 text-navy" aria-hidden />
           </span>
@@ -178,7 +185,7 @@ export function AvatarModulePanel() {
           </span>
         </div>
         {/* play control */}
-        <span className="absolute left-4 top-4 grid size-8 place-items-center rounded-full bg-white/95 text-royal shadow-sm">
+        <span className="absolute right-4 top-4 grid size-8 place-items-center rounded-full bg-white/95 text-royal shadow-sm">
           <Play className="size-4 translate-x-[1px]" aria-hidden />
         </span>
       </div>
@@ -227,10 +234,7 @@ export function AvatarModulePanel() {
 export function HtmlModulePanel() {
   const s = SURFACES.html;
   return (
-    <div
-      dir="rtl"
-      className="overflow-hidden rounded-[var(--radius-media)] bg-white shadow-[var(--shadow-pop)] ring-1 ring-line"
-    >
+    <div className="overflow-hidden rounded-[var(--radius-media)] bg-white shadow-[var(--shadow-pop)] ring-1 ring-line">
       {/* window chrome */}
       <div className="flex items-center gap-2 border-b border-line px-4 py-2.5">
         <span className="flex gap-1.5">
@@ -279,10 +283,7 @@ export function HtmlModulePanel() {
 export function VideoQuizPanel() {
   const s = SURFACES.video;
   return (
-    <div
-      dir="rtl"
-      className="overflow-hidden rounded-[var(--radius-media)] bg-white shadow-[var(--shadow-pop)] ring-1 ring-line"
-    >
+    <div className="overflow-hidden rounded-[var(--radius-media)] bg-white shadow-[var(--shadow-pop)] ring-1 ring-line">
       {/* video stage */}
       <div className="relative aspect-video bg-gradient-to-tl from-royal/30 via-navy to-navy">
         <span className="absolute inset-0 grid place-items-center">
@@ -293,11 +294,11 @@ export function VideoQuizPanel() {
         {/* progress bar */}
         <div className="absolute inset-x-3 bottom-3">
           <div className="flex items-center gap-2 text-[12px] font-medium text-white/90">
-            <span className="ltr">{s.time}</span>
+            <span>{s.time}</span>
             <span className="relative h-1 flex-1 rounded-full bg-white/25">
-              <span className="absolute inset-y-0 right-0 w-1/4 rounded-full bg-white" />
+              <span className="absolute inset-y-0 left-0 w-1/4 rounded-full bg-white" />
             </span>
-            <span className="ltr">{s.duration}</span>
+            <span>{s.duration}</span>
           </div>
         </div>
       </div>
@@ -305,7 +306,7 @@ export function VideoQuizPanel() {
       <div className="p-4">
         <span className="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] bg-royal-50 px-2.5 py-1 text-[12px] font-semibold text-royal">
           <ClipboardCheck className="size-3.5" aria-hidden />
-          שאלה משובצת
+          {s.tag}
         </span>
         <p className="mt-2.5 text-[15px] font-semibold text-navy">{s.question}</p>
         <div className="mt-2.5 grid grid-cols-2 gap-2">
@@ -322,7 +323,7 @@ export function VideoQuizPanel() {
             </span>
           ))}
         </div>
-        <div className="mt-3 flex justify-start">
+        <div className="mt-3 flex justify-end">
           <span className="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] bg-royal px-4 py-1.5 text-[14px] font-semibold text-white">
             {s.cta}
           </span>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 
 export function Container({
@@ -33,7 +33,8 @@ type ButtonProps = {
   withArrow?: boolean;
 };
 
-// RTL note: the arrow points left (ArrowLeft) — the forward direction in Hebrew.
+// LTR: the arrow points right — the forward direction in English. Flip back to
+// ArrowLeft if/when the Hebrew Yeda LMS build reuses this primitive.
 export function Button({
   href,
   children,
@@ -52,7 +53,7 @@ export function Button({
   return (
     <Link href={href} className={`${base} ${styles} ${className}`}>
       {children}
-      {withArrow ? <ArrowLeft className="size-[18px]" aria-hidden /> : null}
+      {withArrow ? <ArrowRight className="size-[18px]" aria-hidden /> : null}
     </Link>
   );
 }

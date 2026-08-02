@@ -4,10 +4,12 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Check, Play, Sparkles } from "lucide-react";
 import { Container, Button } from "@/components/ui";
 import { DemoButton } from "@/components/DemoButton";
-import { HERO } from "@/content/site";
+import { HERO, HERO_CTA } from "@/content/site";
 import { ProductDashboard } from "@/components/ProductVisual";
+import type { Sector } from "@/content/routes";
 
-export function Hero() {
+export function Hero({ sector }: { sector: Sector }) {
+  const copy = HERO[sector];
   const reduce = useReducedMotion();
   const rise = (delay: number) =>
     reduce
@@ -20,7 +22,7 @@ export function Hero() {
 
   return (
     <section id="top" className="relative overflow-hidden bg-navy text-white">
-      {/* depth: soft royal glow + faint grid, no decorative blobs */}
+      {/* depth: soft royal glow, no decorative blobs */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
@@ -30,48 +32,44 @@ export function Hero() {
         }}
       />
       <Container className="relative grid items-center gap-12 py-16 lg:grid-cols-[1.05fr_1fr] lg:py-24">
-        {/* copy */}
         <div>
           <motion.span
             {...rise(0)}
             className="inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-white/10 px-3.5 py-1.5 text-[14px] font-medium text-white ring-1 ring-inset ring-white/15"
           >
             <Sparkles className="size-4 text-sand" aria-hidden />
-            {HERO.eyebrow}
+            {copy.eyebrow}
           </motion.span>
 
           <motion.h1
             {...rise(0.08)}
             className="mt-5 text-balance text-4xl font-bold leading-[1.12] sm:text-5xl lg:text-[3.4rem]"
           >
-            {HERO.title}
+            {copy.title}
           </motion.h1>
 
           <motion.p
             {...rise(0.16)}
             className="mt-5 max-w-xl text-lg leading-relaxed text-white/75"
           >
-            {HERO.subtitle}
+            {copy.subtitle}
           </motion.p>
 
           <motion.div {...rise(0.24)} className="mt-8 flex flex-wrap gap-3">
             <DemoButton variant="primary" withArrow>
-              {HERO.primaryCta}
+              {HERO_CTA.primary}
             </DemoButton>
             <Button
               href="#platform"
               variant="secondary"
               className="bg-white/10 text-white ring-white/20 hover:bg-white/15"
             >
-              {HERO.secondaryCta}
+              {HERO_CTA.secondary}
             </Button>
           </motion.div>
 
-          <motion.ul
-            {...rise(0.32)}
-            className="mt-8 flex flex-wrap gap-x-5 gap-y-2.5"
-          >
-            {HERO.chips.map((c) => (
+          <motion.ul {...rise(0.32)} className="mt-8 flex flex-wrap gap-x-5 gap-y-2.5">
+            {copy.chips.map((c) => (
               <li key={c} className="flex items-center gap-2 text-[15px] text-white/80">
                 <Check className="size-4 text-sand" aria-hidden />
                 {c}
@@ -80,7 +78,8 @@ export function Hero() {
           </motion.ul>
         </div>
 
-        {/* product visual + floating cards */}
+        {/* Interim coded product surface. Alexey wants real platform screens
+            here; this stays until he confirms the Figma frames. */}
         <motion.div
           {...(reduce
             ? {}
@@ -93,10 +92,7 @@ export function Hero() {
         >
           <ProductDashboard />
 
-          {/* floating video-module card — overhangs the TOP-LEFT corner into
-              the navy gutter, sitting above the panel so it never covers the
-              KPI tiles or the dashboard's own logo. */}
-          <div className="absolute -top-10 -left-6 hidden w-44 rounded-[var(--radius-card)] bg-white p-2.5 shadow-[var(--shadow-pop)] ring-1 ring-line lg:block">
+          <div className="absolute -top-10 -right-6 hidden w-44 rounded-[var(--radius-card)] bg-white p-2.5 shadow-[var(--shadow-pop)] ring-1 ring-line lg:block">
             <div className="relative overflow-hidden rounded-[6px] bg-navy">
               <div className="aspect-video bg-gradient-to-tl from-royal/40 to-navy" />
               <span className="absolute inset-0 grid place-items-center">
@@ -111,10 +107,9 @@ export function Hero() {
             </div>
           </div>
 
-          {/* floating "record" pill (Figma's red accent), off the bottom edge */}
-          <div className="absolute -bottom-4 right-8 hidden items-center gap-2 rounded-[var(--radius-pill)] bg-red px-3.5 py-2 text-[14px] font-semibold text-white shadow-[var(--shadow-pop)] sm:inline-flex">
+          <div className="absolute -bottom-4 left-8 hidden items-center gap-2 rounded-[var(--radius-pill)] bg-red px-3.5 py-2 text-[14px] font-semibold text-white shadow-[var(--shadow-pop)] sm:inline-flex">
             <span className="size-2 rounded-full bg-white" />
-            הקלטת וידאו
+            Recording
           </div>
         </motion.div>
       </Container>

@@ -1,14 +1,17 @@
 import * as Icons from "lucide-react";
+import Link from "next/link";
 import { Container, Eyebrow } from "@/components/ui";
 import { Reveal } from "@/components/Reveal";
 import {
   CREDIBILITY,
   AUDIENCES,
   CAPABILITIES,
+  CAPABILITY_LIBRARY,
   PRODUCTION,
   PROCESS,
   FAMILY,
 } from "@/content/site";
+import type { Sector } from "@/content/routes";
 
 type IconName = keyof typeof Icons;
 function Icon({ name, className }: { name: string; className?: string }) {
@@ -19,7 +22,7 @@ function Icon({ name, className }: { name: string; className?: string }) {
   return <C className={className} aria-hidden />;
 }
 
-function SectionHead({
+export function SectionHead({
   eyebrow,
   title,
   subtitle,
@@ -44,16 +47,17 @@ function SectionHead({
 }
 
 /* ── Credibility ─────────────────────────────────────────────────────── */
-export function Credibility() {
+export function Credibility({ sector }: { sector: Sector }) {
+  const c = CREDIBILITY[sector];
   return (
-    <section id="platform" className="border-b border-line bg-white py-16 sm:py-20">
+    <section className="border-b border-line bg-white py-16 sm:py-20">
       <Container>
         <Reveal>
-          <SectionHead title={CREDIBILITY.title} subtitle={CREDIBILITY.subtitle} />
+          <SectionHead title={c.title} subtitle={c.subtitle} />
         </Reveal>
         <Reveal delay={0.1}>
           <ul className="mx-auto mt-10 flex max-w-4xl flex-wrap items-center justify-center gap-3">
-            {CREDIBILITY.statements.map((s) => (
+            {c.statements.map((s) => (
               <li
                 key={s}
                 className="rounded-[var(--radius-pill)] border border-line bg-canvas px-5 py-2.5 text-[16px] font-medium text-navy"
@@ -69,23 +73,24 @@ export function Credibility() {
 }
 
 /* ── Audiences ───────────────────────────────────────────────────────── */
-export function Audiences() {
+export function Audiences({ sector }: { sector: Sector }) {
+  const a = AUDIENCES[sector];
   return (
-    <section id="audiences" className="bg-canvas py-16 sm:py-24">
+    <section id="solutions" className="bg-canvas py-16 sm:py-24">
       <Container>
         <Reveal>
-          <SectionHead title={AUDIENCES.title} subtitle={AUDIENCES.subtitle} />
+          <SectionHead title={a.title} subtitle={a.subtitle} />
         </Reveal>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {AUDIENCES.items.map((a, i) => (
-            <Reveal key={a.key} delay={i * 0.06}>
-              <article className="group h-full rounded-[var(--radius-card)] border border-line bg-white p-6 shadow-[var(--shadow-card)] transition-shadow hover:shadow-[var(--shadow-float)]">
+          {a.items.map((item, i) => (
+            <Reveal key={item.key} delay={i * 0.06}>
+              <article className="h-full rounded-[var(--radius-card)] border border-line bg-white p-6 shadow-[var(--shadow-card)] transition-shadow hover:shadow-[var(--shadow-float)]">
                 <span className="inline-grid size-12 place-items-center rounded-[var(--radius-card)] bg-royal-50 text-royal">
-                  <Icon name={a.icon} className="size-6" />
+                  <Icon name={item.icon} className="size-6" />
                 </span>
-                <h3 className="mt-5 text-lg font-bold text-navy">{a.title}</h3>
+                <h3 className="mt-5 text-lg font-bold text-navy">{item.title}</h3>
                 <p className="mt-2 text-[16px] leading-relaxed text-slate">
-                  {a.body}
+                  {item.body}
                 </p>
               </article>
             </Reveal>
@@ -97,32 +102,64 @@ export function Audiences() {
 }
 
 /* ── Capabilities ────────────────────────────────────────────────────── */
-export function Capabilities() {
+export function Capabilities({ sector }: { sector: Sector }) {
+  const c = CAPABILITIES[sector];
   return (
-    <section id="capabilities" className="border-y border-line bg-white py-16 sm:py-24">
+    <section id="platform" className="border-y border-line bg-white py-16 sm:py-24">
       <Container>
         <Reveal>
-          <SectionHead title={CAPABILITIES.title} subtitle={CAPABILITIES.subtitle} />
+          <SectionHead title={c.title} subtitle={c.subtitle} />
         </Reveal>
         <div className="mt-12 grid gap-x-8 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
-          {CAPABILITIES.items.map((c, i) => (
-            <Reveal key={c.title} delay={(i % 3) * 0.06}>
-              <div className="flex gap-4">
-                <span className="mt-0.5 inline-grid size-11 shrink-0 place-items-center rounded-[var(--radius-card)] bg-navy text-white">
-                  <Icon name={c.icon} className="size-5" />
-                </span>
-                <div>
-                  <h3 className="text-[18px] font-bold text-navy">{c.title}</h3>
-                  <p className="mt-1.5 text-[16px] leading-relaxed text-slate">
-                    {c.body}
-                  </p>
+          {c.keys.map((key, i) => {
+            const cap = CAPABILITY_LIBRARY[key];
+            if (!cap) return null;
+            return (
+              <Reveal key={key} delay={(i % 3) * 0.06}>
+                <div className="flex gap-4">
+                  <span className="mt-0.5 inline-grid size-11 shrink-0 place-items-center rounded-[var(--radius-card)] bg-navy text-white">
+                    <Icon name={cap.icon} className="size-5" />
+                  </span>
+                  <div>
+                    <h3 className="text-[18px] font-bold text-navy">{cap.title}</h3>
+                    <p className="mt-1.5 text-[16px] leading-relaxed text-slate">
+                      {cap.body}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </Reveal>
-          ))}
+              </Reveal>
+            );
+          })}
         </div>
       </Container>
     </section>
+  );
+}
+
+/** Capability grid reused by solution / industry / product pages. */
+export function CapabilityGrid({ keys }: { keys: readonly string[] }) {
+  return (
+    <div className="grid gap-x-8 gap-y-9 sm:grid-cols-2">
+      {keys.map((key, i) => {
+        const cap = CAPABILITY_LIBRARY[key];
+        if (!cap) return null;
+        return (
+          <Reveal key={key} delay={(i % 2) * 0.06}>
+            <div className="flex gap-4">
+              <span className="mt-0.5 inline-grid size-11 shrink-0 place-items-center rounded-[var(--radius-card)] bg-navy text-white">
+                <Icon name={cap.icon} className="size-5" />
+              </span>
+              <div>
+                <h3 className="text-[18px] font-bold text-navy">{cap.title}</h3>
+                <p className="mt-1.5 text-[16px] leading-relaxed text-slate">
+                  {cap.body}
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        );
+      })}
+    </div>
   );
 }
 
@@ -175,10 +212,8 @@ export function Process() {
         <ol className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
           {PROCESS.steps.map((s, i) => (
             <Reveal key={s.n} delay={i * 0.05}>
-              <li className="relative h-full rounded-[var(--radius-card)] border border-line bg-canvas p-5">
-                <span className="ltr block text-3xl font-bold text-royal/25">
-                  {s.n}
-                </span>
+              <li className="h-full rounded-[var(--radius-card)] border border-line bg-canvas p-5">
+                <span className="block text-3xl font-bold text-royal/25">{s.n}</span>
                 <h3 className="mt-2 text-[18px] font-bold text-navy">{s.title}</h3>
                 <p className="mt-1.5 text-[15px] leading-relaxed text-slate">
                   {s.body}
@@ -195,25 +230,41 @@ export function Process() {
 /* ── Product family ──────────────────────────────────────────────────── */
 export function Family() {
   return (
-    <section id="family" className="border-t border-line bg-canvas py-16 sm:py-24">
+    <section id="products" className="border-t border-line bg-canvas py-16 sm:py-24">
       <Container>
         <Reveal>
           <SectionHead title={FAMILY.title} subtitle={FAMILY.subtitle} />
         </Reveal>
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {FAMILY.items.map((f, i) => (
-            <Reveal key={f.name} delay={(i % 3) * 0.06}>
-              <div className="flex items-center gap-4 rounded-[var(--radius-card)] border border-line bg-white p-5 shadow-[var(--shadow-card)]">
+          {FAMILY.items.map((f, i) => {
+            const body = (
+              <>
                 <span className="grid size-11 shrink-0 place-items-center rounded-[var(--radius-card)] bg-royal-50 text-royal">
                   <Icon name={f.icon} className="size-5" />
                 </span>
                 <div>
-                  <h3 className="ltr text-[17px] font-bold text-navy">{f.name}</h3>
+                  <h3 className="text-[17px] font-bold text-navy">{f.name}</h3>
                   <p className="text-[15px] text-slate">{f.body}</p>
                 </div>
-              </div>
-            </Reveal>
-          ))}
+              </>
+            );
+            const shell =
+              "flex items-center gap-4 rounded-[var(--radius-card)] border border-line bg-white p-5 shadow-[var(--shadow-card)]";
+            return (
+              <Reveal key={f.name} delay={(i % 3) * 0.06}>
+                {f.href ? (
+                  <Link
+                    href={f.href}
+                    className={`${shell} transition-shadow hover:shadow-[var(--shadow-float)]`}
+                  >
+                    {body}
+                  </Link>
+                ) : (
+                  <div className={shell}>{body}</div>
+                )}
+              </Reveal>
+            );
+          })}
         </div>
       </Container>
     </section>

@@ -3,6 +3,18 @@ import { Mail, Phone } from "lucide-react";
 import { Container } from "@/components/ui";
 import { Wordmark } from "@/components/Brand";
 import { FOOTER, CONTACT } from "@/content/site";
+import { SOLUTIONS, INDUSTRIES, PRODUCTS } from "@/content/routes";
+
+/**
+ * The footer lists every route unfiltered by sector — this is the guarantee
+ * that no page is orphaned from the link graph, whichever tab a crawler
+ * happens to land on.
+ */
+const COLUMNS = [
+  { title: "Solutions", routes: SOLUTIONS },
+  { title: "Industries", routes: INDUSTRIES },
+  { title: "Products", routes: PRODUCTS },
+];
 
 export function Footer() {
   return (
@@ -19,31 +31,31 @@ export function Footer() {
               className="inline-flex items-center gap-2 text-ink-soft hover:text-royal"
             >
               <Mail className="size-4" aria-hidden />
-              <span className="ltr">{CONTACT.email}</span>
+              {CONTACT.email}
             </a>
             <a
               href={CONTACT.phoneHref}
               className="flex items-center gap-2 text-ink-soft hover:text-royal"
             >
               <Phone className="size-4" aria-hidden />
-              <span className="ltr" dir="ltr">{CONTACT.phone}</span>
+              {CONTACT.phone}
             </a>
           </div>
         </div>
 
-        {FOOTER.columns.map((col) => (
+        {COLUMNS.map((col) => (
           <nav key={col.title} aria-label={col.title}>
             <h3 className="text-[14px] font-bold uppercase tracking-wide text-navy">
               {col.title}
             </h3>
             <ul className="mt-4 space-y-2.5">
-              {col.links.map((l) => (
-                <li key={l.label}>
+              {col.routes.map((r) => (
+                <li key={r.path}>
                   <Link
-                    href={l.href}
+                    href={r.path}
                     className="text-[15px] text-slate transition-colors hover:text-royal"
                   >
-                    {l.label}
+                    {r.label}
                   </Link>
                 </li>
               ))}
@@ -55,10 +67,9 @@ export function Footer() {
       <div className="border-t border-line">
         <Container className="flex flex-col items-center justify-between gap-2 py-5 text-[14px] text-slate sm:flex-row">
           <p>
-            <span className="ltr">© {new Date().getFullYear()} Yeda</span> — כל
-            הזכויות שמורות.
+            © {new Date().getFullYear()} Yeda — {FOOTER.legal}
           </p>
-          <p>מערכת ניהול למידה והפקת תוכן דיגיטלי.</p>
+          <p>{FOOTER.strapline}</p>
         </Container>
       </div>
     </footer>

@@ -59,10 +59,28 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
-  /* Latin runs (brand name, email, phone) inside Hebrew RTL text. */
+  /* Isolates a bidi run (kept for the Hebrew article pages still to migrate). */
   .ltr {
     direction: ltr;
     unicode-bidi: isolate;
+  }
+
+  /*
+   * Sector switching.
+   *
+   * Alexey wants one tab to flip the whole site between "organizations" and
+   * "education" WITHOUT changing the page. Both sectors are therefore rendered
+   * server-side and one is hidden here, so crawlers and JS-disabled visitors
+   * still receive both — Alon's message 7 requires the site stay readable to
+   * search engines and AI systems.
+   *
+   * The provider server-renders data-sector at the default, so the initial
+   * HTML carries both sectors' copy with one visually hidden. Switching only
+   * rewrites that attribute — no refetch, no navigation.
+   */
+  [data-sector="organizations"] [data-sector-panel="education"],
+  [data-sector="education"] [data-sector-panel="organizations"] {
+    display: none;
   }
   ::selection {
     background: rgba(10, 89, 235, 0.18);

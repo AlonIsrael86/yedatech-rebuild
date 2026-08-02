@@ -154,16 +154,6 @@ html[data-a11y-spacing] body {
   word-spacing: 0.08em;
 }
 
-/* The flow numerals are painted by clipping a gradient to the glyphs, which
-   forced-colors mode discards — leaving transparent text and no visible number.
-   Fall back to a solid glyph there. */
-@media (forced-colors: active) {
-  .flow-numeral {
-    -webkit-text-fill-color: currentColor;
-    color: CanvasText;
-  }
-}
-
 /* Section reveal (JS adds .in when scrolled into view). */
 @keyframes rise {
   from {

@@ -31,22 +31,6 @@ import type { Sector } from "@/content/routes";
  *    non-optional in content/media.ts, so a captionless image cannot compile.
  */
 
-/**
- * 01 → 05, light to deep, so the colour itself carries the progression.
- *
- * Blue family only: globals.css reserves red for emphasis (record, alerts) and
- * sand for the avatar/AI accent, so neither is available as step decoration.
- * Both stops darken monotonically — sky < periwinkle < royal < royal-600 <
- * navy-700 < navy.
- */
-const STEP_GRADIENT = [
-  "from-sky to-royal",
-  "from-periwinkle to-royal-600",
-  "from-royal to-navy-700",
-  "from-royal-600 to-navy",
-  "from-navy-700 to-navy",
-] as const;
-
 function Step({
   step,
   index,
@@ -68,9 +52,7 @@ function Step({
             <span className="sr-only">Step {step.n}</span>
             <span
               aria-hidden
-              className={`flow-numeral block select-none bg-gradient-to-br ${
-                STEP_GRADIENT[index] ?? STEP_GRADIENT[STEP_GRADIENT.length - 1]
-              } bg-clip-text text-[72px] font-bold leading-none tracking-tight text-transparent drop-shadow-[0_6px_18px_rgba(10,89,235,0.18)] sm:text-[96px]`}
+              className="block select-none text-[72px] font-bold leading-none tracking-tight text-royal sm:text-[96px]"
             >
               {step.n}
             </span>

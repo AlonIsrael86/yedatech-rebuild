@@ -28,9 +28,16 @@ import { SOLUTIONS, INDUSTRIES, PRODUCTS, type RouteEntry } from "@/content/rout
  * because there were none to remove.
  *
  * The panel below then goes further: it is always in the DOM and hidden with the
- * `hidden` attribute rather than conditionally mounted, so all of routes.ts is
- * now statically linked from the header. The header goes from 0 crawlable links
- * to every route — a net gain in internal linking, not a loss.
+ * `hidden` attribute rather than conditionally mounted, so its links are in the
+ * prerendered HTML whether or not anyone opens it. Header links go from 0 to 18.
+ *
+ * EIGHTEEN, NOT ALL 22. An earlier version of this comment claimed the header
+ * statically links all of routes.ts; the build disproves it. `visible()` below
+ * filters by the active sector, and the server always renders DEFAULT_SECTOR, so
+ * the three `sector: "education"` routes are absent from the prerendered header.
+ * That filter is deliberate — the point of the tabs is that the other sector's
+ * pages are not the visitor's business. Nothing is orphaned by it: the Footer
+ * lists all 22 unfiltered, which is where the crawl guarantee actually lives.
  *
  * The human cost is real and worth naming: nav behind a hamburger on a 1440px
  * screen is less discoverable than a visible bar. It is softened by the panel
@@ -126,17 +133,39 @@ export function Header() {
           conditionally changed the header's height from 76px to 64px the moment
           you scrolled, so the whole page jumped under you. */}
       <Container className="pt-3">
+        {/* The gap and the pill's inset both tighten below `sm`, and the
+            wordmark drops a size. That is not cosmetic — it is where the room
+            for the sector tabs comes from. Budget at 360px in the at-rest dark
+            state, which is the tighter of the two: 320px of container, less
+            24px of pill inset, less a 65px wordmark and a 40px button, less the
+            gaps, leaves about 175px. The tabs need 164px at `tight`. At `px-6`,
+            `gap-4` and `h-7` the same sum comes to 124px and the row wraps. */}
         <div
-          className={`flex h-16 items-center justify-between gap-4 transition-all duration-300 ${
+          className={`flex h-16 items-center justify-between gap-2 transition-all duration-300 sm:gap-4 ${
             dark
-              ? "rounded-[var(--radius-pill)] bg-white/[0.07] px-6 ring-1 ring-inset ring-white/15 backdrop-blur-md"
+              ? "rounded-[var(--radius-pill)] bg-white/[0.07] px-3 ring-1 ring-inset ring-white/15 backdrop-blur-md sm:px-6"
               : ""
           }`}
         >
-        <div className="flex items-center gap-3">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
           <Link href="/" aria-label={UI.homeAriaLabel} className="shrink-0">
-            <Wordmark className={`h-7 w-auto ${dark ? "text-white" : "text-navy"}`} />
+            <Wordmark
+              className={`h-6 w-auto sm:h-7 ${dark ? "text-white" : "text-navy"}`}
+            />
           </Link>
+
+          {/* Sector switching used to live only in the desktop bar and inside
+              the hamburger drawer, so on a phone the site's single most
+              important control was one tap out of reach. It sits in the row
+              now, next to the wordmark.
+
+              Hidden below 360px. At 320px the tabs still do not fit beside a
+              wordmark and a button, and a wrapped header is worse than reaching
+              for the menu; the drawer is unaffected at that width. 360 is the
+              Figma mobile width, so nothing the design targets loses them. */}
+          <div className="hidden min-[360px]:block lg:hidden">
+            <SectorTabs size="tight" />
+          </div>
           {/* The design puts the number in the bar. It is a real line, so it
               dials rather than decorating.
 
@@ -171,7 +200,19 @@ export function Header() {
               onClick={() =>
                 setOpenGroup((v) => (v === g.id ? null : g.id))
               }
-              onMouseEnter={() => setOpenGroup(g.id)}
+              /* Hover-open only for an actual mouse.
+                 This was `onMouseEnter`, and it made the whole desktop nav
+                 unreachable by tap: a touch device fires the compatibility
+                 mouseenter first, which opened the group, and then the click
+                 landed and toggled it straight back shut. The panel flickered
+                 and nothing opened — on a Surface, a touch laptop or an iPad in
+                 landscape, where these triggers are the only nav because the
+                 hamburger is `lg:hidden`.
+                 With pointerType gated, a tap skips the open and the click does
+                 it instead; a mouse behaves exactly as before. */
+              onPointerEnter={(e) => {
+                if (e.pointerType === "mouse") setOpenGroup(g.id);
+              }}
               aria-expanded={openGroup === g.id}
               aria-controls={`nav-${g.id}`}
               className={`inline-flex items-center gap-1 text-[16px] transition-colors ${
@@ -191,9 +232,11 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+          {/* Desktop keeps its copy here beside the CTA; below `lg` the tabs are
+              in the left-hand group next to the wordmark instead. */}
           <div className="hidden lg:block">
-            <SectorTabs compact />
+            <SectorTabs size="compact" />
           </div>
           <div className="hidden sm:block">
             <DemoButton variant="primary" size="sm">
@@ -241,14 +284,23 @@ export function Header() {
                  Desktop shows the one group you pressed; the hamburger shows
                  all three stacked. */
               hidden={!mobileOpen && openGroup !== g.id}
+              /* Carries the name the heading below used to give it, since that
+                 heading is gone on desktop. */
+              aria-label={g.label}
               className="not-last:mb-6 lg:not-last:mb-0"
             >
-              <p className="text-[13px] font-bold uppercase tracking-wide text-navy">
+              {/* Drawer only. On desktop this panel is opened BY a control
+                  labelled "Solutions", so heading it "SOLUTIONS" said the same
+                  word twice a few pixels apart. In the drawer all three groups
+                  stack at once and the headings are the only thing separating
+                  them, so there they stay. */}
+              <p className="text-[13px] font-bold uppercase tracking-wide text-navy lg:hidden">
                 {g.label}
               </p>
               {/* The group spreads across the columns on its own rather than
-                  sitting in one narrow strip with two empty ones beside it. */}
-              <ul className="mt-2 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
+                  sitting in one narrow strip with two empty ones beside it.
+                  `mt-2` clears the heading, so it goes where the heading does. */}
+              <ul className="mt-2 grid gap-x-8 sm:grid-cols-2 lg:mt-0 lg:grid-cols-3">
                 {visible(g.routes).map((r) => (
                   <li key={r.path}>
                     <Link
@@ -269,10 +321,16 @@ export function Header() {
             </div>
           ))}
 
-          {/* Below sm the tabs and the CTA have no room in the bar, so they
-              live here instead. */}
+          {/* Below sm the CTA has no room in the bar, so it lives here. */}
           <div className="mt-6 flex flex-col items-center gap-4 border-t border-line-soft pt-6 lg:hidden">
-            <SectorTabs />
+            {/* The tabs used to be here unconditionally, which is why switching
+                sector on a phone meant opening the menu first. They are in the
+                bar now, so this copy is only the fallback for the one band where
+                they do not fit there — under 360px. Rendering both would put the
+                same control on screen twice. */}
+            <div className="hidden max-[359px]:block">
+              <SectorTabs />
+            </div>
             <DemoButton variant="primary" className="w-full sm:w-auto">
               {HERO_CTA.primary}
             </DemoButton>

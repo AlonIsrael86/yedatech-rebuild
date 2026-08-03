@@ -134,12 +134,13 @@ export function Header() {
           you scrolled, so the whole page jumped under you. */}
       <Container className="pt-3">
         {/* The gap and the pill's inset both tighten below `sm`, and the
-            wordmark drops a size. That is not cosmetic — it is where the room
-            for the sector tabs comes from. Budget at 360px in the at-rest dark
-            state, which is the tighter of the two: 320px of container, less
+            wordmark drops a size. Not cosmetic — it is where the room for the
+            sector tabs comes from, and it is what puts the words/glyph
+            changeover at 442px rather than 30px higher. Budget at 360px in the
+            at-rest dark state, the tighter of the two: 320px of container, less
             24px of pill inset, less a 65px wordmark and a 40px button, less the
-            gaps, leaves about 175px. The tabs need 164px at `tight`. At `px-6`,
-            `gap-4` and `h-7` the same sum comes to 124px and the row wraps. */}
+            gaps, leaves about 175px for a 92px glyph pill. At `px-6`, `gap-4`
+            and `h-7` the same sum comes to 124px. */}
         <div
           className={`flex h-16 items-center justify-between gap-2 transition-all duration-300 sm:gap-4 ${
             dark
@@ -154,30 +155,6 @@ export function Header() {
             />
           </Link>
 
-          {/* Sector switching used to live only in the desktop bar and inside
-              the hamburger drawer, so on a phone the site's single most
-              important control was one tap out of reach. It sits in the row
-              now, next to the wordmark.
-
-              Full-size words from 442px up — where the 249px pill clears the
-              hamburger — and each sector's glyph below that, at the same control
-              size. An earlier pass shrank the type to 12px across the whole
-              range instead, including widths with 100px of room going spare.
-
-              No width gate on the wrapper any more: the glyph pill is 92px, so
-              it fits inside the 135px available even at 320px. That is why the
-              drawer no longer needs a fallback copy. */}
-          {/* `shrink-0` is load-bearing. Without it flex treated the pill as the
-              slack in the row: at 640px, where the phone and the CTA appear, the
-              left group overran and the tabs were quietly compressed from 252px
-              to 160px with their labels spilling past the pill. The row's
-              scrollWidth check passed the whole time, because the shrink is what
-              absorbed the overflow. Nothing here may compress — if the row runs
-              out of room it must be visible, and the fix must be to drop an
-              element rather than to squash a control. */}
-          <div className="shrink-0 lg:hidden">
-            <SectorTabs size="compact" swapWordsForIcons />
-          </div>
           {/* The design puts the number in the bar. It is a real line, so it
               dials rather than decorating.
 
@@ -251,10 +228,36 @@ export function Header() {
         </nav>
 
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-          {/* Desktop keeps its copy here beside the CTA; below `lg` the tabs are
-              in the left-hand group next to the wordmark instead. */}
           <div className="hidden lg:block">
             <SectorTabs size="compact" />
+          </div>
+
+          {/* Sector switching used to live only in the desktop bar and inside
+              the hamburger drawer, so on a phone the site's single most
+              important control was one tap out of reach. It is in the row now,
+              on the right with the hamburger — below `sm` the CTA is hidden, so
+              in mobile proper the two sit directly against each other. From
+              640px the CTA comes back between them; the tabs stay right-hand
+              side, which is what was asked for.
+
+              Full-size words from 442px up — where the 252px pill still clears
+              the container — and each sector's glyph below that, at the same
+              control size. An earlier pass shrank the type to 12px across the
+              whole range instead, including widths with 100px going spare.
+
+              No width gate on the wrapper: the glyph pill is 92px and fits at
+              320px, which is why the drawer needs no fallback copy.
+
+              `shrink-0` is load-bearing. Without it flex treated the pill as the
+              row's slack: at 640px, where the phone and the CTA appeared, the
+              group overran and the tabs were quietly compressed from 252px to
+              160px with their labels spilling past the edge. The row's
+              scrollWidth check passed the whole time, because the shrink was
+              what absorbed the overflow. Nothing here may compress — an overflow
+              has to be visible, and the fix has to be dropping an element rather
+              than squashing a control. */}
+          <div className="shrink-0 lg:hidden">
+            <SectorTabs size="compact" swapWordsForIcons />
           </div>
           <div className="hidden sm:block">
             <DemoButton variant="primary" size="sm">

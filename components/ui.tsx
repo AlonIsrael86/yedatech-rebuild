@@ -24,14 +24,6 @@ export function Container({
   );
 }
 
-export function Eyebrow({ children }: { children: ReactNode }) {
-  return (
-    <span className="inline-flex items-center rounded-[var(--radius-pill)] bg-royal-50 px-3 py-1 text-[13px] font-semibold tracking-[0.01em] text-royal ring-1 ring-inset ring-royal-100">
-      {children}
-    </span>
-  );
-}
-
 /* ── GlowCard ─────────────────────────────────────────────────────────────
    The elevation primitive. `tone` picks how far off the page it sits;
    `glass` adds the backdrop blur used on surfaces that overlap imagery. */
@@ -129,12 +121,11 @@ export function BentoTile({
 }
 
 /* ── SectionShell ─────────────────────────────────────────────────────────
-   One place that owns vertical rhythm and the eyebrow/title/lede stack, so
-   spacing stops being hand-tuned in every section component. */
+   One place that owns vertical rhythm and the title/lede stack, so spacing
+   stops being hand-tuned in every section component. */
 
 export function SectionShell({
   id,
-  eyebrow,
   title,
   lede,
   align = "center",
@@ -143,7 +134,6 @@ export function SectionShell({
   className = "",
 }: {
   id?: string;
-  eyebrow?: string;
   title?: string;
   lede?: string;
   align?: "center" | "start";
@@ -168,9 +158,8 @@ export function SectionShell({
               align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl"
             }
           >
-            {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
             <h2
-              className={`mt-4 text-3xl font-bold leading-[1.15] sm:text-4xl ${
+              className={`text-3xl font-bold leading-[1.15] sm:text-4xl ${
                 onNavy ? "text-white" : "text-navy"
               }`}
             >

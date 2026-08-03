@@ -35,7 +35,6 @@ export function CapabilityBento({ sector }: { sector: Sector }) {
     <SectionShell
       id="platform"
       ground="canvas"
-      eyebrow={b.eyebrow}
       title={b.title}
       lede={b.lede}
     >
@@ -147,10 +146,7 @@ export function Production() {
       <Container className="relative">
         <Reveal>
           <div className="max-w-2xl">
-            <span className="inline-flex items-center rounded-[var(--radius-pill)] bg-white/10 px-3 py-1 text-[13px] font-semibold text-sky ring-1 ring-inset ring-white/15">
-              {PRODUCTION.eyebrow}
-            </span>
-            <h2 className="mt-4 text-3xl font-bold leading-[1.15] sm:text-4xl">
+            <h2 className="text-3xl font-bold leading-[1.15] sm:text-4xl">
               {PRODUCTION.title}
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-white/70">

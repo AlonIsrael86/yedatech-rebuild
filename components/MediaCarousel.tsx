@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 import { ChevronLeft, ChevronRight, ImageIcon } from "lucide-react";
-import { Container, Eyebrow } from "@/components/ui";
+import { Container } from "@/components/ui";
 import type { Gallery, Shot } from "@/content/media";
 
 /**
@@ -212,8 +212,14 @@ export function MediaCarousel({ gallery }: { gallery: Gallery }) {
       <Container>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div className="max-w-2xl">
-            <Eyebrow>{gallery.title}</Eyebrow>
-            <p className="mt-3 text-lg leading-relaxed text-slate">
+            {/* A real heading, not the pill this used to be. It was the only
+                thing naming the section, so dropping the eyebrow treatment
+                had to promote it rather than delete it — and the section had
+                no heading element at all until now. */}
+            <h2 className="text-3xl font-bold leading-[1.15] text-navy sm:text-4xl">
+              {gallery.title}
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-slate">
               {gallery.subtitle}
             </p>
           </div>

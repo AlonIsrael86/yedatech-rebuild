@@ -43,29 +43,23 @@ export function Hero({ sector }: { sector: Sector }) {
 
       <Container className="relative grid items-center gap-14 py-16 lg:grid-cols-[1.02fr_1fr] lg:py-24">
         <div>
-          <motion.span
-            {...rise(0)}
-            className="inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-royal-50 px-3.5 py-1.5 text-[13px] font-semibold text-royal ring-1 ring-inset ring-royal-100"
-          >
-            <span className="size-1.5 rounded-full bg-royal" aria-hidden />
-            {copy.eyebrow}
-          </motion.span>
-
+          {/* The h1 leads. The pill that used to sit above it is gone, so the
+              stagger starts here rather than 70ms in. */}
           <motion.h1
-            {...rise(0.07)}
-            className="mt-6 text-balance text-4xl font-bold leading-[1.08] text-navy sm:text-5xl lg:text-[3.5rem]"
+            {...rise(0)}
+            className="text-balance text-4xl font-bold leading-[1.08] text-navy sm:text-5xl lg:text-[3.5rem]"
           >
             {copy.title}
           </motion.h1>
 
           <motion.p
-            {...rise(0.14)}
+            {...rise(0.07)}
             className="mt-6 max-w-xl text-lg leading-relaxed text-slate"
           >
             {copy.subtitle}
           </motion.p>
 
-          <motion.div {...rise(0.21)} className="mt-9 flex flex-wrap gap-3">
+          <motion.div {...rise(0.14)} className="mt-9 flex flex-wrap gap-3">
             <DemoButton variant="primary" withArrow>
               {HERO_CTA.primary}
             </DemoButton>
@@ -75,7 +69,7 @@ export function Hero({ sector }: { sector: Sector }) {
           </motion.div>
 
           <motion.ul
-            {...rise(0.28)}
+            {...rise(0.21)}
             className="mt-9 grid gap-x-6 gap-y-2.5 sm:grid-cols-2"
           >
             {copy.chips.map((c) => (

@@ -49,13 +49,11 @@ export const SECTORS: { key: Sector; tab: string; aria: string }[] = [
 export const DEFAULT_SECTOR: Sector = "organizations";
 
 export const HERO: BySector<{
-  eyebrow: string;
   title: string;
   subtitle: string;
   chips: readonly string[];
 }> = {
   organizations: {
-    eyebrow: "Organizational learning and knowledge management",
     title: "One platform for everything your organization needs to teach",
     subtitle:
       "Yeda builds the training plan and the learning materials from the documents you already have — then delivers them to employees, suppliers and customers, and shows you what actually landed.",
@@ -67,7 +65,6 @@ export const HERO: BySector<{
     ],
   },
   education: {
-    eyebrow: "Learning management for institutions",
     title: "One platform for teaching, examining and certifying students",
     subtitle:
       "Yeda gives universities, colleges and schools a single system for courses, students, examination and certification — with interactive modules built from the material lecturers already have.",
@@ -284,7 +281,6 @@ export const CAPABILITIES: BySector<{
    handoff is explicit that those are Alexey's to define. `attach` labels
    where the agent will bind, without pretending it already does. */
 export const PRESENTER = {
-  eyebrow: "Learning agents",
   title: "Guided from both sides of the screen",
   lede: "Yeda's learning agents sit alongside the interface, guiding a learner through the platform and answering from the material the organization already has.",
   attach: "Agent attaches here",
@@ -301,13 +297,11 @@ export const PRESENTER = {
    supporting capabilities sit beside it. The lead tile is content ingestion —
    the capability Alexey described at length and every written brief omitted. */
 export const BENTO: BySector<{
-  eyebrow: string;
   title: string;
   lede: string;
   tiles: readonly { key: string; span: 2 | 3 | 4 | 6 }[];
 }> = {
   organizations: {
-    eyebrow: "The platform",
     title: "Everything the organization needs to teach, in one system",
     lede: "Start from the documents you already have. Finish with people who can demonstrably do the job.",
     tiles: [
@@ -321,7 +315,6 @@ export const BENTO: BySector<{
     ],
   },
   education: {
-    eyebrow: "The platform",
     title: "Everything an institution needs to teach and examine",
     lede: "Course delivery, interactive material and certification, managed centrally rather than across separate tools.",
     tiles: [
@@ -338,7 +331,6 @@ export const BENTO: BySector<{
 
 /* ── Yeda Labs — content production ──────────────────────────────────── */
 export const PRODUCTION = {
-  eyebrow: "Yeda Labs — the production studio",
   title: "From an idea to a finished course",
   subtitle:
     "Yeda's production team builds the content with you — from learning design through to interactive modules ready to launch.",
@@ -379,13 +371,11 @@ export const PRODUCTION = {
    `shot` keys index FLOW_SHOTS in content/media.ts. The media is shared between
    sectors; only the words change, which is the two-registers rule Alexey set. */
 export const FLOW: BySector<{
-  eyebrow: string;
   title: string;
   lede: string;
   steps: readonly { n: string; shot: string; title: string; body: string }[];
 }> = {
   organizations: {
-    eyebrow: "How it works",
     title: "From the documents you already have to people who can do the job",
     lede: "Five steps, one platform. Nothing here needs a separate authoring tool, a separate video editor or a separate reporting stack.",
     steps: [
@@ -422,7 +412,6 @@ export const FLOW: BySector<{
     ],
   },
   education: {
-    eyebrow: "How it works",
     title: "From the material lecturers already have to students who can show what they know",
     lede: "Five steps, one platform. Course structure, materials, examination and results stop living in four different systems.",
     steps: [

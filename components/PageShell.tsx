@@ -169,7 +169,6 @@ export function PageShell({ route }: { route: RouteEntry }) {
         <SectionShell
           ground="canvas"
           align="start"
-          eyebrow="Capabilities"
           title="What this includes"
           lede="Every capability below is part of the same platform."
         >

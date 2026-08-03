@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Container, Eyebrow } from "@/components/ui";
+import { Container } from "@/components/ui";
 import { Reveal } from "@/components/Reveal";
 import { DemoButton } from "@/components/DemoButton";
 import { PRESENTER } from "@/content/site";
@@ -67,8 +67,7 @@ export function PresenterStage() {
       <Container>
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">
-            <Eyebrow>{PRESENTER.eyebrow}</Eyebrow>
-            <h2 className="mt-4 text-3xl font-bold leading-[1.15] text-navy sm:text-4xl">
+            <h2 className="text-3xl font-bold leading-[1.15] text-navy sm:text-4xl">
               {PRESENTER.title}
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-slate">

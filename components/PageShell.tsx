@@ -155,8 +155,13 @@ export function PageShell({ route }: { route: RouteEntry }) {
               <DemoButton variant="primary" withArrow>
                 {HERO_CTA.primary}
               </DemoButton>
+              {/* Carries the sector across the navigation. `?sector=` is read
+                  by SectorProvider on load and wins over localStorage, so the
+                  homepage opens on the same register this page is written in —
+                  and the anchor then resolves inside the panel that is visible
+                  rather than the one behind display:none. */}
               <Button
-                href="/#platform"
+                href={`/?sector=${flowSector}#platform-${flowSector}`}
                 variant="secondary"
                 className="bg-white/10 text-white ring-white/20 hover:bg-white/15"
               >

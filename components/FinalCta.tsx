@@ -20,7 +20,13 @@ export function FinalCta({ sector }: { sector?: Sector }) {
     : FINAL_CTA.subtitle;
 
   return (
-    <section id="contact" className="bg-white py-16 sm:py-24">
+    /* Sector-scoped on the homepage, where both panels render and a shared id
+       would resolve into the hidden one. Inner pages render a single FinalCta
+       with no sector, so they keep the plain `#contact`. */
+    <section
+      id={sector ? `contact-${sector}` : "contact"}
+      className="bg-white py-16 sm:py-24"
+    >
       <Container>
         <Reveal>
           <div className="relative">

@@ -33,7 +33,7 @@ export function CapabilityBento({ sector }: { sector: Sector }) {
   const b = BENTO[sector];
   return (
     <SectionShell
-      id="platform"
+      id={`platform-${sector}`}
       ground="canvas"
       title={b.title}
       lede={b.lede}
@@ -84,7 +84,7 @@ export function CapabilityBento({ sector }: { sector: Sector }) {
 export function Audiences({ sector }: { sector: Sector }) {
   const a = AUDIENCES[sector];
   return (
-    <SectionShell id="solutions" title={a.title} lede={a.subtitle}>
+    <SectionShell id={`solutions-${sector}`} title={a.title} lede={a.subtitle}>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {a.items.map((item, i) => (
           <Reveal key={item.key} delay={i * 0.06}>

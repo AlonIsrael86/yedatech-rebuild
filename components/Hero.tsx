@@ -30,7 +30,12 @@ export function Hero({ sector }: { sector: Sector }) {
         };
 
   return (
-    <section id="top" className="relative overflow-hidden bg-white">
+    /* Anchor ids are sector-scoped. The homepage renders BOTH sector panels and
+       hides one with display:none, so a shared id appeared twice and the browser
+       resolved it to the first match — which, on the Education tab, is inside
+       the hidden panel. scrollIntoView on a display:none element does nothing,
+       which is exactly why "See the platform" did nothing there. */
+    <section id={`top-${sector}`} className="relative overflow-hidden bg-white">
       {/* Ambient brand light rather than a solid navy block. */}
       <div
         aria-hidden
@@ -63,7 +68,7 @@ export function Hero({ sector }: { sector: Sector }) {
             <DemoButton variant="primary" withArrow>
               {HERO_CTA.primary}
             </DemoButton>
-            <Button href="#platform" variant="secondary">
+            <Button href={`#platform-${sector}`} variant="secondary">
               {HERO_CTA.secondary}
             </Button>
           </motion.div>

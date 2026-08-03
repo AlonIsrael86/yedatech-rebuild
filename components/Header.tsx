@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, Phone, X } from "lucide-react";
+import { ChevronDown, Menu, Phone, X } from "lucide-react";
 import { Container } from "@/components/ui";
 import { DemoButton } from "@/components/DemoButton";
 import { Wordmark } from "@/components/Brand";
@@ -12,8 +12,13 @@ import { CONTACT, HERO_CTA, UI } from "@/content/site";
 import { SOLUTIONS, INDUSTRIES, PRODUCTS, type RouteEntry } from "@/content/routes";
 
 /**
- * ONE NAV FOR EVERY WIDTH, as Figma "Home page 1.4" has it — logo, phone,
- * sector tabs, hamburger. No desktop mega-menu.
+ * Logo, phone, Solutions / Industries / Products, sector tabs, CTA. Below `lg`
+ * the triggers collapse into a hamburger, as Figma "Home page 1.4" has it.
+ *
+ * ONE PANEL, NOT ONE PER GROUP. Every trigger opens the same full-width sheet
+ * attached directly beneath the bar, showing all three groups at once. The
+ * previous mega-menu revealed one group per hover, so seeing the whole site
+ * meant three separate hovers and the panel height jumped each time.
  *
  * WHY THIS IS NOT AN SEO LOSS, WHICH IS THE OBVIOUS OBJECTION.
  * The mega-menu used to mount its links only on hover (`{openGroup ? … }`), so
@@ -83,15 +88,47 @@ export function Header() {
             <Wordmark className="h-7 w-auto text-navy" />
           </Link>
           {/* The design puts the number in the bar. It is a real line, so it
-              dials rather than decorating. */}
+              dials rather than decorating.
+
+              Visible wherever it fits, hidden in the one band where it does
+              not. At `lg` the row becomes logo + phone + three triggers + tabs
+              + CTA, which measured at roughly zero slack — the CTA sat on the
+              container edge. So the phone drops out from 1024 and returns at
+              1280. Below `sm` it stays hidden, matching the design's mobile
+              header, where the number lives in the footer instead. */}
           <a
             href={CONTACT.phoneHref}
-            className="hidden items-center gap-1.5 text-[15px] font-semibold text-navy transition-colors hover:text-royal sm:inline-flex"
+            className="hidden items-center gap-1.5 text-[15px] font-semibold text-navy transition-colors hover:text-royal sm:inline-flex lg:hidden xl:inline-flex"
           >
             <Phone className="size-4" aria-hidden />
             {CONTACT.phone}
           </a>
         </div>
+
+        {/* Desktop triggers. One panel, not one per group — clicking any of
+            them opens the same full-width sheet below the bar, so every route
+            is visible at once instead of one group per hover. */}
+        <nav
+          className="hidden items-center gap-6 lg:flex"
+          aria-label={UI.primaryNav}
+        >
+          {GROUPS.map((g) => (
+            <button
+              key={g.id}
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-expanded={open}
+              aria-controls="site-nav"
+              className="inline-flex items-center gap-1 text-[16px] text-ink-soft transition-colors hover:text-royal"
+            >
+              {g.label}
+              <ChevronDown
+                className={`size-4 transition-transform ${open ? "rotate-180" : ""}`}
+                aria-hidden
+              />
+            </button>
+          ))}
+        </nav>
 
         <div className="flex items-center gap-3">
           <div className="hidden lg:block">
@@ -102,10 +139,11 @@ export function Header() {
               {HERO_CTA.primary}
             </DemoButton>
           </div>
+          {/* Below lg the triggers are gone, so the hamburger is the only way in. */}
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="inline-flex size-10 items-center justify-center rounded-[12px] text-navy ring-1 ring-inset ring-line"
+            className="inline-flex size-10 items-center justify-center rounded-[12px] text-navy ring-1 ring-inset ring-line lg:hidden"
             aria-label={open ? UI.closeMenu : UI.openMenu}
             aria-expanded={open}
             aria-controls="site-nav"

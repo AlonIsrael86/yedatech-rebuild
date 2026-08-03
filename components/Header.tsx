@@ -159,25 +159,43 @@ export function Header() {
               important control was one tap out of reach. It sits in the row
               now, next to the wordmark.
 
-              Hidden below 360px. At 320px the tabs still do not fit beside a
-              wordmark and a button, and a wrapped header is worse than reaching
-              for the menu; the drawer is unaffected at that width. 360 is the
-              Figma mobile width, so nothing the design targets loses them. */}
-          <div className="hidden min-[360px]:block lg:hidden">
-            <SectorTabs size="tight" />
+              Full-size words from 442px up — where the 249px pill clears the
+              hamburger — and each sector's glyph below that, at the same control
+              size. An earlier pass shrank the type to 12px across the whole
+              range instead, including widths with 100px of room going spare.
+
+              No width gate on the wrapper any more: the glyph pill is 92px, so
+              it fits inside the 135px available even at 320px. That is why the
+              drawer no longer needs a fallback copy. */}
+          {/* `shrink-0` is load-bearing. Without it flex treated the pill as the
+              slack in the row: at 640px, where the phone and the CTA appear, the
+              left group overran and the tabs were quietly compressed from 252px
+              to 160px with their labels spilling past the pill. The row's
+              scrollWidth check passed the whole time, because the shrink is what
+              absorbed the overflow. Nothing here may compress — if the row runs
+              out of room it must be visible, and the fix must be to drop an
+              element rather than to squash a control. */}
+          <div className="shrink-0 lg:hidden">
+            <SectorTabs size="compact" swapWordsForIcons />
           </div>
           {/* The design puts the number in the bar. It is a real line, so it
               dials rather than decorating.
 
-              Visible wherever it fits, hidden in the one band where it does
-              not. At `lg` the row becomes logo + phone + three triggers + tabs
-              + CTA, which measured at roughly zero slack — the CTA sat on the
-              container edge. So the phone drops out from 1024 and returns at
-              1280. Below `sm` it stays hidden, matching the design's mobile
-              header, where the number lives in the footer instead. */}
+              Now `xl` and up only. It used to appear from 640px, drop out at
+              1024 where the nav triggers arrive, and return at 1280. That middle
+              band is no longer the only pressure point: the sector tabs are in
+              this row from 320px up, so from 640 — where the CTA also appears —
+              logo + tabs + phone + CTA + hamburger overran the container and the
+              tabs were the flex item that gave way.
+
+              Between the number and the site's primary mode switch, the switch
+              wins. The number is still one tap away in the footer, the closing
+              contact panel and every inner page's CTA, and it is a `tel:` link in
+              all of them. Below `sm` it was already hidden, matching the design's
+              mobile header. */}
           <a
             href={CONTACT.phoneHref}
-            className={`hidden items-center gap-1.5 text-[15px] font-semibold transition-colors sm:inline-flex lg:hidden xl:inline-flex ${
+            className={`hidden items-center gap-1.5 text-[15px] font-semibold transition-colors xl:inline-flex ${
               dark ? "text-white hover:text-sky" : "text-navy hover:text-royal"
             }`}
           >
@@ -321,16 +339,14 @@ export function Header() {
             </div>
           ))}
 
-          {/* Below sm the CTA has no room in the bar, so it lives here. */}
+          {/* Below sm the CTA has no room in the bar, so it lives here.
+
+              The sector tabs used to be here too, which is why switching sector
+              on a phone meant opening the menu first. They are in the bar at
+              every width now — glyphs where the words will not fit — so there is
+              no copy here at all. Two of the same control on one screen is worse
+              than one in the right place. */}
           <div className="mt-6 flex flex-col items-center gap-4 border-t border-line-soft pt-6 lg:hidden">
-            {/* The tabs used to be here unconditionally, which is why switching
-                sector on a phone meant opening the menu first. They are in the
-                bar now, so this copy is only the fallback for the one band where
-                they do not fit there — under 360px. Rendering both would put the
-                same control on screen twice. */}
-            <div className="hidden max-[359px]:block">
-              <SectorTabs />
-            </div>
             <DemoButton variant="primary" className="w-full sm:w-auto">
               {HERO_CTA.primary}
             </DemoButton>

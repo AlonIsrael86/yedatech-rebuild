@@ -29,11 +29,19 @@ export const CONTACT = {
 
 /* ── The two sectors ─────────────────────────────────────────────────────
    Alexey: "you can treat it as two platforms" — one for corporations, one
-   for teaching students. The tab switches the whole site. */
-export const SECTORS: { key: Sector; tab: string; aria: string }[] = [
+   for teaching students. The tab switches the whole site.
+
+   `icon` is used where the words will not fit: in the mobile header row the
+   249px text pill needs a 442px viewport, so below that the tabs carry the
+   glyph instead. NOT new associations — FAMILY already maps "Yeda Org" to
+   Building2 and "Yeda College" to GraduationCap, and both AUDIENCES blocks use
+   the same pair, so anyone who has scrolled the homepage has met them beside
+   their words. */
+export const SECTORS: { key: Sector; tab: string; icon: string; aria: string }[] = [
   {
     key: "organizations",
     tab: "Organizations",
+    icon: "Building2",
     aria: "Show the site for organizations and enterprises",
   },
   {
@@ -42,6 +50,7 @@ export const SECTORS: { key: Sector; tab: string; aria: string }[] = [
     // balance against "Organizations" and fit 375px without wrapping. The
     // Sector key stays `education`, so nothing downstream changes.
     tab: "Education",
+    icon: "GraduationCap",
     aria: "Show the site for universities, colleges and schools",
   },
 ];

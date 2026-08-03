@@ -19,8 +19,14 @@ import { PRESENTER_FIGURES, PRESENTER_SCREEN, type Shot } from "@/content/media"
  *  - Not ours: the characters. Alexey's widget/agent platform supplies them, so
  *    the figures are slots filled with Yeda's own published illustrations.
  *  - Deliberately absent: any play button, voice, or speaking behaviour. The
- *    handoff forbids inventing those. `PRESENTER.attach` marks where the agent
- *    will bind instead of faking that it already has.
+ *    handoff forbids inventing those, and that constraint still holds — a figure
+ *    here may only show what Yeda has actually published.
+ *
+ * The slots used to carry a small "Agent attaches here" badge marking where the
+ * real agent would bind. That was a note to us that shipped to visitors:
+ * engineering words under a finished-looking illustration, rendered twice above
+ * two unrelated captions. Removed on Victor's call. The slot is still a slot —
+ * it just no longer announces itself to people who cannot act on it.
  *
  * Hover leans the figure inward on desktop. Touch has no hover, so below `lg`
  * the effect is dropped rather than approximated and the grid stacks with the
@@ -50,10 +56,6 @@ function Figure({ shot, side }: { shot: Shot; side: "left" | "right" }) {
       <figcaption className="mt-5 text-[14px] leading-relaxed text-slate">
         {shot.caption}
       </figcaption>
-      <span className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-[var(--radius-pill)] bg-royal-50 px-2.5 py-1 text-[12px] font-semibold text-royal ring-1 ring-inset ring-royal-100">
-        <span className="size-1.5 rounded-full bg-royal" aria-hidden />
-        {PRESENTER.attach}
-      </span>
     </figure>
   );
 }

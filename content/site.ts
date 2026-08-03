@@ -278,12 +278,15 @@ export const CAPABILITIES: BySector<{
    widget/agent platform supplies the characters and we must not author them.
 
    Nothing here invents media, voice, play behaviour or a backend — the
-   handoff is explicit that those are Alexey's to define. `attach` labels
-   where the agent will bind, without pretending it already does. */
+   handoff is explicit that those are Alexey's to define, and that still holds.
+
+   There was an `attach: "Agent attaches here"` field labelling the bind point.
+   It was written for us and read by customers, so it went. Whether the agent
+   characters are still coming is a live question for Alexey — deleting the
+   label did not answer it. */
 export const PRESENTER = {
   title: "Guided from both sides of the screen",
   lede: "Yeda's learning agents sit alongside the interface, guiding a learner through the platform and answering from the material the organization already has.",
-  attach: "Agent attaches here",
   band: {
     title: "Innovation that brings measurable value",
     body: "The same platform that delivers the training reports on what it achieved.",

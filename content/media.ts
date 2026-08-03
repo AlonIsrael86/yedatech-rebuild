@@ -10,10 +10,15 @@
  *    left-to-right.
  *
  * SOURCES, in order of preference:
- *  1. `yedalms-io` — 18 images added 2026-08-03 from Yeda's own Hebrew site.
+ *  1. `figma` — the approved design file. The first export landed 2026-08-03
+ *     (`uploadMaterial`, Flow step 01) and is the only shot with a real
+ *     `figmaFrame`. Nine other `figma` slots are still empty and render as
+ *     labelled placeholders.
+ *  2. `yedalms-io` — 18 images added 2026-08-03 from Yeda's own Hebrew site.
  *     ~1250–1340px, a large upgrade on the 710px yedalabs.io screens.
- *  2. `yedalabs-io` / `yedalabs-ai` — Yeda's other published properties.
- *  3. `figma` — slots still waiting on an export; render as placeholders.
+ *     CAUTION: several carry Hebrew baked into the pixels — visible on an
+ *     English page, and flagged to Alexey rather than fixed here.
+ *  3. `yedalabs-io` / `yedalabs-ai` — Yeda's other published properties.
  *
  * ON THE "NO STOCK" RULE. Alexey's standard says "No stock, no iStock. Real
  * platform screens only", and he set that by overriding a written brief that
@@ -316,22 +321,50 @@ const liveSessionRecording = lms(
   "live-session",
 );
 
-/* ── Real platform screens (yedalabs.ai) ─────────────────────────────── */
+/* ── Figma ───────────────────────────────────────────────────────────────
+   THE FIRST APPROVED EXPORT. Every other shot here came off a published Yeda
+   site; this one came out of the Figma file Alexey pointed at, which is what
+   he asked for. It is also the first shot with a non-null `figmaFrame` — the
+   frame name is taken from the export filename, since Figma names exports
+   after the frame.
 
-const aiAnswersFromVideo: Shot = {
-  id: "ai-answers-from-video",
-  file: `${P}/yeda-ai-agent-answers-from-video.jpg`,
-  width: 2200,
-  height: 3800,
-  alt: "Yeda AI learning agent answering a learner question from video content",
+   Measured with sharp, not estimated: the Flow sizes each step's box from
+   width/height, so a wrong pair renders a visibly wrong shape.
+
+   NOTE FOR THE NEXT EXPORT: 832px wide is thin. The Flow asks for a 560px
+   slot, so a 2× display wants ~1120px and this will look slightly soft. A 2×
+   re-export of the same frame (1664×926) drops straight in — same ratio,
+   same filename. */
+
+const uploadMaterial: Shot = {
+  id: "content-upload-existing-material",
+  file: `${P}/yeda-content-upload-existing-material.png`,
+  width: 832,
+  height: 463,
+  alt: "A person uploading existing documents and files into Yeda from a laptop",
   caption:
-    "The AI agent answers a learner's question directly from the video — the same speech-to-text pipeline that turns an existing recording into a learning module.",
-  label: "Answers from the video",
+    "Existing files going in — the documents an organization already has, uploaded as they are.",
+  label: "Bring your material in",
   category: "flow",
   sector: "both",
-  source: "yedalabs-ai",
-  figmaFrame: null,
+  source: "figma",
+  figmaFrame: "bring-the-material-you-already-have",
 };
+
+/* ── Real platform screens (yedalabs.ai) ─────────────────────────────── */
+
+/* `aiAnswersFromVideo` (yeda-ai-agent-answers-from-video.jpg, 2200×3800) was
+   retired here. It was the image for Flow step 01, "Bring the material you
+   already have" — but it showed an AI answering a question from a video,
+   which is a different claim entirely. A mismatch that predates the
+   yedalms.io batch and survived the Phase B audit because that audit was
+   scoped to the shots it added.
+
+   Its 0.579 ratio was also the odd one out: steps 02–05 run 1.39–1.47, so
+   step 01 rendered far taller than the rest of the sequence.
+
+   The file is left in public/ unreferenced, as `contentLibrary` was — it is a
+   real Yeda screen and an inner page may want it. */
 
 const analyticsInsights: Shot = {
   id: "analytics-insights",
@@ -692,10 +725,15 @@ export const GALLERIES: Record<string, Gallery> = {
       conceptAssessment,
     ],
   },
-  /* aiAnswersFromVideo left out: every inner page also renders the numbered
-     Flow, which already carries it, and no page shows the same screen twice.
-     aiStudyPlan is left out too — mobileApp is the phone screen from inside
-     it, so the two cannot sit in one gallery. */
+  /* aiStudyPlan is left out — mobileApp is the phone screen from inside it, so
+     the two cannot sit in one gallery.
+
+     The AI-answers-from-video screen used to be excluded here too, because the
+     Flow carried it on every inner page and no page shows the same screen
+     twice. It no longer does — Flow step 01 now uses the Figma upload export —
+     so that screen is unreferenced and this is the gallery it would belong to.
+     Not added on spec: it would want a title and a caption written from the
+     image, and nobody has asked for it. */
   "ai-and-agents": {
     id: "ai-and-agents",
     title: "AI agents at work",
@@ -752,7 +790,10 @@ export const PRESENTER_SCREEN: Shot = lessonRecording;
  * Keyed by the step id used in FLOW in content/site.ts.
  */
 export const FLOW_SHOTS: Record<string, Shot> = {
-  ingest: aiAnswersFromVideo,
+  /* Was aiAnswersFromVideo, which showed an AI answering from a video above a
+     step about bringing your own material in. This is the first Figma export
+     and it shows exactly what the step describes. */
+  ingest: uploadMaterial,
   build: courseModules,
   shape: materialEditor,
   /*

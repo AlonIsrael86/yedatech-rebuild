@@ -144,7 +144,10 @@ export function DemoForm({
             aria-modal="true"
             aria-labelledby="demo-form-title"
             tabIndex={-1}
-            dir="rtl"
+            /* No dir here. This carried dir="rtl" from the Hebrew build, which
+               overrode the ltr on <html> and mis-built the modal three ways:
+               text ran right-to-left, the logical `end-4` put the close button
+               top-LEFT, and `text-start` right-aligned the option rows. */
             className="relative z-10 flex max-h-[92vh] w-full max-w-[440px] flex-col overflow-hidden rounded-t-3xl bg-white shadow-[var(--shadow-pop)] outline-none sm:rounded-3xl"
             initial={reduce ? {} : { y: 24, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -252,7 +255,6 @@ export function DemoForm({
                             {f.inputType === "textarea" ? (
                               <textarea
                                 value={val}
-                                dir="rtl"
                                 rows={3}
                                 onChange={(e) =>
                                   setAnswers((a) => ({ ...a, [f.name]: e.target.value }))
@@ -263,7 +265,10 @@ export function DemoForm({
                               <input
                                 type={f.inputType}
                                 value={val}
-                                dir={f.inputType === "email" || f.inputType === "tel" ? "ltr" : "rtl"}
+                                /* The email/tel special case is gone with the
+                                   dialog's rtl: it only existed to force those
+                                   two back to ltr inside an rtl container.
+                                   Everything now inherits ltr from <html>. */
                                 onChange={(e) =>
                                   setAnswers((a) => ({ ...a, [f.name]: e.target.value }))
                                 }
@@ -316,7 +321,8 @@ export function DemoForm({
                     className="inline-flex flex-1 items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-royal px-5 py-2.5 text-[16px] font-semibold text-white transition-colors hover:bg-royal-600"
                   >
                     {isLast ? UI.submit : UI.next}
-                    {!isLast ? <ArrowLeft className="size-[18px]" aria-hidden /> : null}
+                    {/* LTR: forward is rightward. Was ArrowLeft. */}
+                    {!isLast ? <ArrowRight className="size-[18px]" aria-hidden /> : null}
                   </button>
                   {step > 0 ? (
                     <button
@@ -324,7 +330,8 @@ export function DemoForm({
                       onClick={prev}
                       className="inline-flex items-center justify-center gap-1.5 rounded-[var(--radius-pill)] px-4 py-2.5 text-[16px] font-medium text-slate hover:text-navy"
                     >
-                      <ArrowRight className="size-[18px]" aria-hidden />
+                      {/* LTR: back is leftward. Was ArrowRight. */}
+                      <ArrowLeft className="size-[18px]" aria-hidden />
                       {UI.prev}
                     </button>
                   ) : null}

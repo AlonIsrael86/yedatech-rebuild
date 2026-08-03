@@ -118,7 +118,7 @@ export function AccessibilityMenu() {
           ref={panelRef}
           role="dialog"
           aria-label="Accessibility settings"
-          dir="rtl"
+          /* dir="rtl" removed — Hebrew-build leftover on an English page. */
           className="absolute bottom-14 left-0 w-64 rounded-[12px] border border-line bg-white p-3 shadow-[var(--shadow-pop)]"
         >
           <div className="mb-2 flex items-center justify-between">

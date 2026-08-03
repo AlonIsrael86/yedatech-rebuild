@@ -52,9 +52,22 @@ const GROUPS: { id: string; label: string; routes: readonly RouteEntry[] }[] = [
 ];
 
 export function Header() {
-  const [open, setOpen] = useState(false);
+  /*
+   * Two controls, so two pieces of state. They were one boolean, and that was
+   * the bug: every desktop trigger toggled it, so pressing "Solutions" rotated
+   * the Industries and Products chevrons too and opened a panel whose contents
+   * were the same whichever you pressed.
+   */
+  const [openGroup, setOpenGroup] = useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { sector } = useSector();
+
+  const anyOpen = mobileOpen || openGroup !== null;
+  const closeAll = () => {
+    setOpenGroup(null);
+    setMobileOpen(false);
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -65,7 +78,10 @@ export function Header() {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") {
+        setOpenGroup(null);
+        setMobileOpen(false);
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -91,10 +107,15 @@ export function Header() {
    * light bar. Opening the panel does the same, since the panel is a light
    * sheet and a dark bar sitting on it would read as two separate objects.
    */
-  const dark = !scrolled && !open;
+  const dark = !scrolled && !anyOpen;
 
   return (
     <header
+      /* Leaving the header closes a desktop group. Without it a panel opened by
+         click can only be dismissed by pressing the same trigger again — the
+         old mega-menu had this and I dropped it. Mobile is untouched: the
+         drawer should not vanish when a thumb drifts off it. */
+      onMouseLeave={() => setOpenGroup(null)}
       className={`sticky top-0 z-50 transition-colors duration-300 ${
         dark
           ? "bg-navy"
@@ -136,9 +157,9 @@ export function Header() {
           </a>
         </div>
 
-        {/* Desktop triggers. One panel, not one per group — clicking any of
-            them opens the same full-width sheet below the bar, so every route
-            is visible at once instead of one group per hover. */}
+        {/* Each trigger governs its own group and its own chevron, and points
+            aria-controls at the block it actually opens rather than the whole
+            sheet. */}
         <nav
           className="hidden items-center gap-6 lg:flex"
           aria-label={UI.primaryNav}
@@ -147,9 +168,12 @@ export function Header() {
             <button
               key={g.id}
               type="button"
-              onClick={() => setOpen((v) => !v)}
-              aria-expanded={open}
-              aria-controls="site-nav"
+              onClick={() =>
+                setOpenGroup((v) => (v === g.id ? null : g.id))
+              }
+              onMouseEnter={() => setOpenGroup(g.id)}
+              aria-expanded={openGroup === g.id}
+              aria-controls={`nav-${g.id}`}
               className={`inline-flex items-center gap-1 text-[16px] transition-colors ${
                 dark
                   ? "text-white/85 hover:text-white"
@@ -158,7 +182,9 @@ export function Header() {
             >
               {g.label}
               <ChevronDown
-                className={`size-4 transition-transform ${open ? "rotate-180" : ""}`}
+                className={`size-4 transition-transform ${
+                  openGroup === g.id ? "rotate-180" : ""
+                }`}
                 aria-hidden
               />
             </button>
@@ -177,15 +203,15 @@ export function Header() {
           {/* Below lg the triggers are gone, so the hamburger is the only way in. */}
           <button
             type="button"
-            onClick={() => setOpen((v) => !v)}
+            onClick={() => setMobileOpen((v) => !v)}
             className={`inline-flex size-10 items-center justify-center rounded-[12px] ring-1 ring-inset transition-colors lg:hidden ${
               dark ? "text-white ring-white/25" : "text-navy ring-line"
             }`}
-            aria-label={open ? UI.closeMenu : UI.openMenu}
-            aria-expanded={open}
+            aria-label={mobileOpen ? UI.closeMenu : UI.openMenu}
+            aria-expanded={mobileOpen}
             aria-controls="site-nav"
           >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+            {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
         </div>
         </div>
@@ -198,38 +224,50 @@ export function Header() {
       */}
       <nav
         id="site-nav"
-        hidden={!open}
+        hidden={!anyOpen}
         aria-label={UI.primaryNav}
         className="border-t border-line-soft bg-white shadow-[var(--shadow-ambient)]"
       >
         <Container className="py-6">
-          <div className="grid gap-x-8 gap-y-6 lg:grid-cols-3">
-            {GROUPS.map((g) => (
-              <div key={g.id}>
-                <p className="text-[13px] font-bold uppercase tracking-wide text-navy">
-                  {g.label}
-                </p>
-                <ul className="mt-2">
-                  {visible(g.routes).map((r) => (
-                    <li key={r.path}>
-                      <Link
-                        href={r.path}
-                        onClick={() => setOpen(false)}
-                        className="block rounded-[12px] px-3 py-2.5 transition-colors hover:bg-royal-50"
-                      >
-                        <span className="block text-[15px] font-semibold text-navy">
-                          {r.label}
-                        </span>
-                        <span className="mt-0.5 block text-[14px] leading-snug text-slate">
-                          {r.description}
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+          {GROUPS.map((g) => (
+            <div
+              key={g.id}
+              id={`nav-${g.id}`}
+              /* Hidden, never unmounted. The header's links are in the static
+                 HTML only because of this — render just the open group and the
+                 count goes straight back to zero, which is the whole reason
+                 this structure exists.
+
+                 Desktop shows the one group you pressed; the hamburger shows
+                 all three stacked. */
+              hidden={!mobileOpen && openGroup !== g.id}
+              className="not-last:mb-6 lg:not-last:mb-0"
+            >
+              <p className="text-[13px] font-bold uppercase tracking-wide text-navy">
+                {g.label}
+              </p>
+              {/* The group spreads across the columns on its own rather than
+                  sitting in one narrow strip with two empty ones beside it. */}
+              <ul className="mt-2 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
+                {visible(g.routes).map((r) => (
+                  <li key={r.path}>
+                    <Link
+                      href={r.path}
+                      onClick={closeAll}
+                      className="block rounded-[12px] px-3 py-2.5 transition-colors hover:bg-royal-50"
+                    >
+                      <span className="block text-[15px] font-semibold text-navy">
+                        {r.label}
+                      </span>
+                      <span className="mt-0.5 block text-[14px] leading-snug text-slate">
+                        {r.description}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
 
           {/* Below sm the tabs and the CTA have no room in the bar, so they
               live here instead. */}

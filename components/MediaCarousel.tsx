@@ -57,16 +57,28 @@ const CATEGORY_LABEL: Record<Shot["category"], string> = {
   concept: "Concept",
 };
 
+/*
+ * The placeholder names the SLOT, not just its category.
+ *
+ * It used to render only CATEGORY_LABEL, which made any two pending slots
+ * sharing a category pixel-identical — the employee portal and the admin
+ * dashboard are both "Dashboard", sat in the same panel, and read as a
+ * duplicated slide even though their captions differ. Naming the slot means
+ * every future pending slot is distinguishable by construction.
+ */
 function Placeholder({ shot }: { shot: Shot }) {
   return (
     <div className="grid h-full w-full place-items-center bg-gradient-to-tl from-sky/50 to-royal-50">
       <div className="px-5 text-center">
-        <ImageIcon className="mx-auto size-7 text-royal/45" aria-hidden />
-        <p className="mt-2 text-[13px] font-semibold text-royal/80">
+        <ImageIcon className="mx-auto size-6 text-royal/45" aria-hidden />
+        <p className="mt-2 text-[11px] font-medium uppercase tracking-wide text-royal/55">
           {CATEGORY_LABEL[shot.category]}
         </p>
+        <p className="mt-0.5 text-[14px] font-semibold leading-snug text-royal/85">
+          {shot.label ?? CATEGORY_LABEL[shot.category]}
+        </p>
         <p className="mt-1 text-[12px] leading-snug text-slate">
-          Awaiting approved Figma frame
+          Awaiting approved frame
         </p>
       </div>
     </div>

@@ -71,6 +71,12 @@ export type Shot = {
   alt: string;
   /** The explanation Alexey requires on every image. Never empty. */
   caption: string;
+  /**
+   * Short name shown ON a placeholder card. Required in practice for `file:
+   * null` slots: without it the card falls back to the category, and two
+   * pending slots sharing a category render as identical slides.
+   */
+  label?: string;
   category: ShotCategory;
   sector: Sector | "both";
   source: ShotSource;
@@ -436,19 +442,11 @@ const videoEditing: Shot = {
   figmaFrame: null,
 };
 
-const contentLibrary: Shot = {
-  id: "content-library",
-  file: `${P}/yeda-content-library-videos-folders.png`,
-  width: 710,
-  height: 490,
-  alt: "Yeda content library of learning videos organised into folders",
-  caption:
-    "The library — every finished lesson and folder in one searchable place, ready to be assigned to an audience.",
-  category: "dashboard",
-  sector: "both",
-  source: "yedalabs-io",
-  figmaFrame: null,
-};
+/* `contentLibrary` (yeda-content-library-videos-folders.png, 710×490) was
+   retired here. It showed a foldered video library, which `videoLibrary` from
+   yedalms.io now does at 1314×893 — keeping both put the same idea in the Flow
+   and the carousel on one page. The file is left in public/ unreferenced in
+   case it is wanted for an inner page. */
 
 /* ── Still awaiting a real screen ────────────────────────────────────────
    Only the capabilities with no yedalms.io equivalent are left as slots. Each
@@ -457,6 +455,8 @@ const contentLibrary: Shot = {
 
 const pending = (
   id: string,
+  /** Named on the card. Two slots in one panel must never share a label. */
+  label: string,
   alt: string,
   caption: string,
   category: ShotCategory,
@@ -470,6 +470,7 @@ const pending = (
   height,
   alt,
   caption,
+  label,
   category,
   sector,
   source: "figma",
@@ -478,6 +479,7 @@ const pending = (
 
 const employeePortal = pending(
   "organizations-employee-training-portal",
+  "Employee portal",
   "Yeda organizational learning portal showing an employee's assigned training",
   "Each employee's own portal — what has been assigned, what is due and what is already done.",
   "dashboard",
@@ -486,6 +488,7 @@ const employeePortal = pending(
 
 const courseCatalogue = pending(
   "course-catalogue-browse-and-enrol",
+  "Course catalogue",
   "Yeda course catalogue with search, browse and self-enrolment",
   "The catalogue — learners find a course and enrol themselves, which is what stops administrators becoming the bottleneck.",
   "dashboard",
@@ -493,6 +496,7 @@ const courseCatalogue = pending(
 
 const learningPathSchedule = pending(
   "learning-path-training-programme-schedule",
+  "Learning path",
   "Yeda learning path and training programme schedule over time",
   "A programme laid out over time rather than as a single course — the difference between assigning training and running it.",
   "flow",
@@ -500,6 +504,7 @@ const learningPathSchedule = pending(
 
 const avatarModule = pending(
   "avatar-learning-module-presenter-and-slides",
+  "Avatar presenter",
   "Yeda avatar-based learning module with a digital presenter beside the slides",
   "An avatar module — a digital presenter delivers the material, so a course does not need a studio booking to exist.",
   "avatar-module",
@@ -507,6 +512,7 @@ const avatarModule = pending(
 
 const simulationModule = pending(
   "online-simulation-practice-module",
+  "Simulation",
   "Yeda online simulation module being worked through by a learner",
   "A simulation being worked through — practising the task itself rather than reading about it.",
   "html-module",
@@ -514,6 +520,7 @@ const simulationModule = pending(
 
 const aiAgentScreenWatch = pending(
   "ai-agent-software-training-screen-watch",
+  "Screen-watching agent",
   "Yeda AI agent training a user on software by watching the screen",
   "The agent watches the screen and guides someone through another program — software training that happens inside the software.",
   "ai-agent",
@@ -521,6 +528,7 @@ const aiAgentScreenWatch = pending(
 
 const adminDashboard = pending(
   "admin-dashboard-courses-learners-overview",
+  "Admin dashboard",
   "Yeda administrator dashboard with courses, learners and completion rates",
   "The administrator's home — courses, learners and completion at a glance, which is the view that answers 'is this working'.",
   "dashboard",
@@ -528,6 +536,7 @@ const adminDashboard = pending(
 
 const assignToDepartment = pending(
   "assign-training-to-department-cohort",
+  "Assign to a cohort",
   "Yeda assignment of a training programme to a department or cohort",
   "Assigning a programme to a whole department or cohort and notifying them — the step that turns content into training.",
   "settings",
@@ -535,6 +544,7 @@ const assignToDepartment = pending(
 
 const publicApiReference = pending(
   "public-api-developer-reference",
+  "Public API",
   "Yeda public API developer reference documentation",
   "The public API — the platform is addressable by other systems, not only by its own interface.",
   "integrations",
@@ -542,6 +552,7 @@ const publicApiReference = pending(
 
 const insuranceProgramme = pending(
   "insurance-industry-training-programme",
+  "Insurance training",
   "Yeda insurance industry training and certification programme",
   "An insurance training programme — a regulated industry where certification is the point.",
   "industry",
@@ -568,9 +579,8 @@ export const GALLERIES: Record<string, Gallery> = {
       interactiveVideoQuestion,
       examResults,
       aiStudyPlan,
-      analyticsViewing,
+      subtitlesTranslation,
       integrationsDiagram,
-      mobileApp,
     ],
   },
   "organizations-platform": {
@@ -578,6 +588,10 @@ export const GALLERIES: Record<string, Gallery> = {
     title: "The platform, for organizations",
     subtitle:
       "Employee, supplier and customer training managed from one place — browse left to right.",
+    /* videoLibrary and analyticsViewing moved to the Flow — they were showing
+       the same idea twice on one page. aiAnswerSources and mobileApp dropped:
+       all three AI composites share a framing, and mobileApp's phone screen is
+       the one already inside aiStudyPlan. */
     shots: [
       whiteLabelOrg,
       rolesPermissions,
@@ -588,15 +602,11 @@ export const GALLERIES: Record<string, Gallery> = {
       coursePlayerQuiz,
       examResults,
       recordingStudio,
-      videoLibrary,
       subtitlesTranslation,
       aiStudyPlan,
-      aiAnswerSources,
       liveSessionRecording,
-      analyticsViewing,
       integrationsDiagram,
       publicApiReference,
-      mobileApp,
       interactiveModule,
       adminDashboard,
     ],
@@ -605,24 +615,24 @@ export const GALLERIES: Record<string, Gallery> = {
     id: "education-platform",
     title: "The platform, for institutions",
     subtitle: "Students, courses, examination and certification in one system — browse left to right.",
+    /* studentCoursePlayer and interactiveVideoQuestion are different screens
+       but share a presenter video, so they are kept far apart rather than
+       adjacent. aiStudyPlan and mobileApp dropped here — see the note on the
+       organizations gallery. */
     shots: [
       studentCoursePlayer,
       courseProgress,
       courseCatalogue,
       learningPathSchedule,
       whiteLabelPortal,
-      interactiveVideoQuestion,
+      avatarModule,
       examResults,
       recordingStudio,
-      videoLibrary,
       subtitlesTranslation,
       aiAnswerSources,
-      aiStudyPlan,
       liveSessionRecording,
-      analyticsViewing,
-      avatarModule,
       simulationModule,
-      mobileApp,
+      interactiveVideoQuestion,
       videoEditing,
     ],
   },
@@ -638,23 +648,23 @@ export const GALLERIES: Record<string, Gallery> = {
       interactiveVideoQuestion,
       interactiveModule,
       subtitlesTranslation,
-      videoLibrary,
       conceptAssessment,
     ],
   },
-  /* aiAnswersFromVideo and analyticsInsights deliberately left out: every inner
-     page also renders the numbered Flow, which already carries both, and no
-     page should show the same screen twice. */
+  /* aiAnswersFromVideo left out: every inner page also renders the numbered
+     Flow, which already carries it, and no page shows the same screen twice.
+     aiStudyPlan is left out too — mobileApp is the phone screen from inside
+     it, so the two cannot sit in one gallery. */
   "ai-and-agents": {
     id: "ai-and-agents",
     title: "AI agents at work",
     subtitle:
       "Answering from source material, and training people on software by watching the screen.",
     shots: [
-      aiStudyPlan,
       aiAnswerSources,
       aiAgentScreenWatch,
-      subtitlesTranslation,
+      mobileApp,
+      analyticsInsights,
       conceptKnowledge,
       avatarModule,
     ],
@@ -704,8 +714,15 @@ export const FLOW_SHOTS: Record<string, Shot> = {
   ingest: aiAnswersFromVideo,
   build: courseModules,
   shape: materialEditor,
-  publish: contentLibrary,
-  measure: analyticsInsights,
+  /*
+   * publish and measure moved off the 710×490 yedalabs.io screens onto the
+   * yedalms.io ones, which are roughly double the resolution. This also
+   * removes a duplicate: the carousel was showing a video library and an
+   * analytics screen a few sections below the Flow doing the same, on the same
+   * page. Both are now here only.
+   */
+  publish: videoLibrary,
+  measure: analyticsViewing,
 };
 
 export const getGallery = (id?: string): Gallery | null =>

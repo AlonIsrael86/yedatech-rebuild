@@ -74,18 +74,47 @@ export function Header() {
   const visible = (routes: readonly RouteEntry[]) =>
     routes.filter((r) => r.sector === "both" || r.sector === sector);
 
+  /*
+   * At rest the bar is the design's floating pill — #0c1b69, which is navy with
+   * about 5% white over it, so `bg-white/[0.07]` over navy reproduces it.
+   *
+   * The header itself takes `bg-navy` rather than going transparent. A sticky
+   * element occupies space rather than overlaying, so a transparent header sat
+   * on the page's white body above the hero and the white pill text vanished
+   * into it. Painting the header navy makes it continuous with the hero
+   * beneath, which looks the same as the design's overlay without needing the
+   * hero to slide under a fixed bar.
+   *
+   * It can only be dark because every page opens on a dark hero: the homepage
+   * after this change, and every PageShell route already. Once you scroll off
+   * that hero the pill would be white-on-white, so it hands over to the solid
+   * light bar. Opening the panel does the same, since the panel is a light
+   * sheet and a dark bar sitting on it would read as two separate objects.
+   */
+  const dark = !scrolled && !open;
+
   return (
     <header
-      className={`sticky top-0 z-50 bg-white/85 backdrop-blur-md transition-shadow duration-300 ${
-        scrolled
-          ? "border-b border-line-soft shadow-[0_8px_28px_rgba(0,15,97,0.08)]"
-          : "border-b border-transparent"
+      className={`sticky top-0 z-50 transition-colors duration-300 ${
+        dark
+          ? "bg-navy"
+          : "border-b border-line-soft bg-white/85 shadow-[0_8px_28px_rgba(0,15,97,0.08)] backdrop-blur-md"
       }`}
     >
-      <Container className="flex h-16 items-center justify-between gap-4">
+      {/* `pt-3` in BOTH states. Only the pill needs the inset, but applying it
+          conditionally changed the header's height from 76px to 64px the moment
+          you scrolled, so the whole page jumped under you. */}
+      <Container className="pt-3">
+        <div
+          className={`flex h-16 items-center justify-between gap-4 transition-all duration-300 ${
+            dark
+              ? "rounded-[var(--radius-pill)] bg-white/[0.07] px-6 ring-1 ring-inset ring-white/15 backdrop-blur-md"
+              : ""
+          }`}
+        >
         <div className="flex items-center gap-3">
           <Link href="/" aria-label={UI.homeAriaLabel} className="shrink-0">
-            <Wordmark className="h-7 w-auto text-navy" />
+            <Wordmark className={`h-7 w-auto ${dark ? "text-white" : "text-navy"}`} />
           </Link>
           {/* The design puts the number in the bar. It is a real line, so it
               dials rather than decorating.
@@ -98,7 +127,9 @@ export function Header() {
               header, where the number lives in the footer instead. */}
           <a
             href={CONTACT.phoneHref}
-            className="hidden items-center gap-1.5 text-[15px] font-semibold text-navy transition-colors hover:text-royal sm:inline-flex lg:hidden xl:inline-flex"
+            className={`hidden items-center gap-1.5 text-[15px] font-semibold transition-colors sm:inline-flex lg:hidden xl:inline-flex ${
+              dark ? "text-white hover:text-sky" : "text-navy hover:text-royal"
+            }`}
           >
             <Phone className="size-4" aria-hidden />
             {CONTACT.phone}
@@ -119,7 +150,11 @@ export function Header() {
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
               aria-controls="site-nav"
-              className="inline-flex items-center gap-1 text-[16px] text-ink-soft transition-colors hover:text-royal"
+              className={`inline-flex items-center gap-1 text-[16px] transition-colors ${
+                dark
+                  ? "text-white/85 hover:text-white"
+                  : "text-ink-soft hover:text-royal"
+              }`}
             >
               {g.label}
               <ChevronDown
@@ -143,13 +178,16 @@ export function Header() {
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="inline-flex size-10 items-center justify-center rounded-[12px] text-navy ring-1 ring-inset ring-line lg:hidden"
+            className={`inline-flex size-10 items-center justify-center rounded-[12px] ring-1 ring-inset transition-colors lg:hidden ${
+              dark ? "text-white ring-white/25" : "text-navy ring-line"
+            }`}
             aria-label={open ? UI.closeMenu : UI.openMenu}
             aria-expanded={open}
             aria-controls="site-nav"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
+        </div>
         </div>
       </Container>
 

@@ -119,7 +119,9 @@ export function AccessibilityMenu() {
           role="dialog"
           aria-label="Accessibility settings"
           /* dir="rtl" removed — Hebrew-build leftover on an English page. */
-          className="absolute bottom-14 left-0 w-64 rounded-[12px] border border-line bg-white p-3 shadow-[var(--shadow-pop)]"
+          /* Anchored right, following the widget stack's move to the right
+             gutter — anchored left it would open off the side of the screen. */
+          className="absolute bottom-14 right-0 w-64 rounded-[12px] border border-line bg-white p-3 shadow-[var(--shadow-pop)]"
         >
           <div className="mb-2 flex items-center justify-between">
             <span className="text-[15px] font-bold text-navy">Accessibility</span>

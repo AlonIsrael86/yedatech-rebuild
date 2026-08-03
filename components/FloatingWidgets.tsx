@@ -22,7 +22,12 @@ function WhatsAppIcon({ className = "" }: { className?: string }) {
 
 export function FloatingWidgets() {
   return (
-    <div className="fixed bottom-4 left-4 z-40 flex flex-col items-center gap-2.5 print:hidden">
+    /* Bottom-RIGHT. On the left these sat directly on top of the content: the
+       page is LTR so every heading and list starts at the left edge, and at
+       390px the TikTok button covered a hero chip outright. The dark hero made
+       it unmistakable — three bright circles over the h1. Nothing on this site
+       is right-aligned, so the right gutter is empty at every width. */
+    <div className="fixed bottom-4 right-4 z-40 flex flex-col items-center gap-2.5 print:hidden">
       {/* Social — placeholder destinations (#) until real links are provided */}
       <a
         href="#"

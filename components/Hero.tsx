@@ -35,14 +35,20 @@ export function Hero({ sector }: { sector: Sector }) {
        resolved it to the first match — which, on the Education tab, is inside
        the hidden panel. scrollIntoView on a display:none element does nothing,
        which is exactly why "See the platform" did nothing there. */
-    <section id={`top-${sector}`} className="relative overflow-hidden bg-white">
-      {/* Ambient brand light rather than a solid navy block. */}
+    <section
+      id={`top-${sector}`}
+      className="relative overflow-hidden bg-navy text-white"
+    >
+      {/* Sampled from Figma "Home page 1.4": the ground is flat #000f61 —
+          already our `navy` token — lifting to #03278d in the bottom-left
+          corner and nowhere else. That reads as roughly 32% royal at the
+          brightest point, so one radial from the lower left. */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(900px 460px at 70% -12%, rgba(10,89,235,0.16), transparent 62%), radial-gradient(620px 380px at 0% 8%, rgba(196,216,253,0.42), transparent 60%)",
+            "radial-gradient(820px 560px at 4% 100%, rgba(10,89,235,0.45), transparent 65%)",
         }}
       />
 
@@ -52,14 +58,14 @@ export function Hero({ sector }: { sector: Sector }) {
               stagger starts here rather than 70ms in. */}
           <motion.h1
             {...rise(0)}
-            className="text-balance text-4xl font-bold leading-[1.08] text-navy sm:text-5xl lg:text-[3.5rem]"
+            className="text-balance text-4xl font-bold leading-[1.08] sm:text-5xl lg:text-[3.5rem]"
           >
             {copy.title}
           </motion.h1>
 
           <motion.p
             {...rise(0.07)}
-            className="mt-6 max-w-xl text-lg leading-relaxed text-slate"
+            className="mt-6 max-w-xl text-lg leading-relaxed text-white/75"
           >
             {copy.subtitle}
           </motion.p>
@@ -68,7 +74,13 @@ export function Hero({ sector }: { sector: Sector }) {
             <DemoButton variant="primary" withArrow>
               {HERO_CTA.primary}
             </DemoButton>
-            <Button href={`#platform-${sector}`} variant="secondary">
+            {/* Same dark-ground treatment PageShell already uses for the
+                secondary button on its navy hero. */}
+            <Button
+              href={`#platform-${sector}`}
+              variant="secondary"
+              className="bg-white/10 text-white ring-white/20 hover:bg-white/15 hover:ring-white/30"
+            >
               {HERO_CTA.secondary}
             </Button>
           </motion.div>
@@ -78,8 +90,8 @@ export function Hero({ sector }: { sector: Sector }) {
             className="mt-9 grid gap-x-6 gap-y-2.5 sm:grid-cols-2"
           >
             {copy.chips.map((c) => (
-              <li key={c} className="flex items-start gap-2 text-[15px] text-ink-soft">
-                <Check className="mt-0.5 size-4 shrink-0 text-royal" aria-hidden />
+              <li key={c} className="flex items-start gap-2 text-[15px] text-white/80">
+                <Check className="mt-0.5 size-4 shrink-0 text-sky" aria-hidden />
                 {c}
               </li>
             ))}
@@ -105,7 +117,15 @@ export function Hero({ sector }: { sector: Sector }) {
                 "radial-gradient(closest-side, rgba(10,89,235,0.20), transparent 78%)",
             }}
           />
-          <div className="overflow-hidden rounded-[var(--radius-media)] bg-white/70 p-2 shadow-[var(--shadow-hero)] ring-1 ring-inset ring-white/60 backdrop-blur-xl">
+          {/* A light card, as the design floats over its hero photo. Tried a
+              translucent frame first and it failed for a reason specific to
+              this asset: the screenshot is itself a dark navy slide, so on a
+              navy ground with a 10% frame the whole thing sank into the
+              background. It needs a light card to read at all.
+
+              Which is another argument for replacing this image. It is the
+              first thing anyone sees, it is Hebrew, and it is dark-on-dark. */}
+          <div className="overflow-hidden rounded-[var(--radius-media)] bg-white/90 p-2 shadow-[var(--shadow-hero)] ring-1 ring-inset ring-white/40 backdrop-blur-xl">
             <div className="relative aspect-[1191/678] w-full overflow-hidden rounded-[16px] ring-1 ring-line-soft">
               <Image
                 src="/media/platform/yeda-interactive-module-drag-and-drop.png"
@@ -117,7 +137,7 @@ export function Hero({ sector }: { sector: Sector }) {
               />
             </div>
           </div>
-          <figcaption className="mt-4 text-[14px] leading-relaxed text-slate">
+          <figcaption className="mt-4 text-[14px] leading-relaxed text-white/70">
             An interactive module with practice built into the learning unit —
             not bolted on afterwards.
           </figcaption>

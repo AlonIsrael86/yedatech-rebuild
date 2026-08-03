@@ -51,6 +51,7 @@ const CATEGORY_LABEL: Record<Shot["category"], string> = {
   "ai-agent": "AI agent",
   "live-session": "Live session",
   integrations: "Integrations",
+  localization: "Languages",
   industry: "Industry",
   mobile: "Mobile",
   concept: "Concept",

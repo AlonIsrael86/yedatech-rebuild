@@ -59,9 +59,19 @@ export function Header() {
       onMouseLeave={() => setOpenGroup(null)}
     >
       <Container className="flex h-16 items-center justify-between gap-4">
-        <Link href="/" aria-label={UI.homeAriaLabel} className="shrink-0">
-          <Wordmark className="h-7 w-auto text-navy" />
-        </Link>
+        {/* Sector choice sits at the START of the bar — it is context you set
+            before reading anything else, and it keeps the two royal pills at
+            opposite ends of the header instead of touching. It stays inside
+            the sticky bar so the switch is still reachable after scrolling,
+            which a *global* switch has to be. */}
+        <div className="flex items-center gap-3">
+          <Link href="/" aria-label={UI.homeAriaLabel} className="shrink-0">
+            <Wordmark className="h-7 w-auto text-navy" />
+          </Link>
+          <div className="hidden lg:block">
+            <SectorTabs compact />
+          </div>
+        </div>
 
         <nav className="hidden items-center gap-6 lg:flex" aria-label={UI.primaryNav}>
           {GROUPS.map((g) => (
@@ -88,12 +98,8 @@ export function Header() {
           </Link>
         </nav>
 
-        <div className="hidden items-center gap-4 lg:flex">
-          <SectorTabs />
-          {/* Outline, not primary: the active sector tab beside it is already
-              a filled royal pill with the same glow, and two of them competed.
-              The hero and FinalCta still carry a filled primary CTA. */}
-          <DemoButton variant="outline" size="sm">
+        <div className="hidden lg:block">
+          <DemoButton variant="primary" size="sm">
             {HERO_CTA.primary}
           </DemoButton>
         </div>

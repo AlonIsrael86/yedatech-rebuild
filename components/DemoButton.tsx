@@ -19,7 +19,7 @@ export function DemoButton({
   withArrow = false,
 }: {
   children: ReactNode;
-  variant?: "primary" | "secondary" | "outline";
+  variant?: "primary" | "secondary";
   size?: "sm" | "md";
   className?: string;
   withArrow?: boolean;
@@ -37,21 +37,6 @@ export function DemoButton({
       "bg-royal text-white shadow-[0_8px_24px_rgba(10,89,235,0.35)] hover:bg-royal-600 hover:shadow-[0_14px_30px_-12px_rgba(10,89,235,0.5)]",
     secondary:
       "bg-white text-navy ring-1 ring-inset ring-line hover:bg-royal-50 hover:ring-royal-100",
-    /*
-     * For the sticky header, where this button sits beside SectorTabs.
-     *
-     * The active sector tab is `bg-royal text-white` with the same
-     * 0 8px 24px royal glow as `primary` — byte-identical. Two filled royal
-     * pills side by side gave no clue which one is a state toggle and which
-     * is an action. Outline keeps the CTA obviously clickable and obviously
-     * brand, while letting the one filled pill in that corner mean "this is
-     * the sector you are looking at".
-     *
-     * Not `secondary`: that rings in `line`, the same grey as an INACTIVE
-     * tab, which would make the CTA read as a third tab.
-     */
-    outline:
-      "bg-white text-royal ring-1 ring-inset ring-royal-100 hover:bg-royal-50 hover:ring-royal",
   }[variant];
 
   return (

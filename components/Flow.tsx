@@ -50,9 +50,15 @@ function Step({
         <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
           <div className={flip ? "lg:order-2" : ""}>
             <span className="sr-only">Step {step.n}</span>
+            {/* Pale, not solid royal. Figma "Home page 1.4" draws these numerals
+                as background texture behind the step, sampled at #d7e4fc — the
+                nearest token is `sky` (#c4d8fd). At full royal they competed
+                with the heading beneath them for the same attention. Decorative
+                and aria-hidden either way; the announced number is the sr-only
+                span above. */}
             <span
               aria-hidden
-              className="block select-none text-[72px] font-bold leading-none tracking-tight text-royal sm:text-[96px]"
+              className="block select-none text-[72px] font-bold leading-none tracking-tight text-sky sm:text-[96px]"
             >
               {step.n}
             </span>

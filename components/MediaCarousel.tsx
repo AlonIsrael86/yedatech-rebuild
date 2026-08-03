@@ -5,6 +5,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 import { ChevronLeft, ChevronRight, ImageIcon } from "lucide-react";
 import { Container } from "@/components/ui";
+import { DemoButton } from "@/components/DemoButton";
+import { HERO_CTA } from "@/content/site";
 import type { Gallery, Shot } from "@/content/media";
 
 /**
@@ -273,6 +275,15 @@ export function MediaCarousel({ gallery }: { gallery: Gallery }) {
         {/* trailing spacer so the last caption clears the viewport edge */}
         <div aria-hidden className="w-1 shrink-0" />
       </div>
+
+      {/* Figma "Home page 1.4" closes this section with a centred CTA. The
+          section used to end on the last slide, so a reader who browsed the
+          whole platform had nowhere to go from here. */}
+      <Container className="mt-10 flex justify-center">
+        <DemoButton variant="primary" withArrow>
+          {HERO_CTA.primary}
+        </DemoButton>
+      </Container>
     </section>
   );
 }

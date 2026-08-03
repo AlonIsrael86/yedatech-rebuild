@@ -90,7 +90,10 @@ export function Header() {
 
         <div className="hidden items-center gap-4 lg:flex">
           <SectorTabs />
-          <DemoButton variant="primary" size="sm">
+          {/* Outline, not primary: the active sector tab beside it is already
+              a filled royal pill with the same glow, and two of them competed.
+              The hero and FinalCta still carry a filled primary CTA. */}
+          <DemoButton variant="outline" size="sm">
             {HERO_CTA.primary}
           </DemoButton>
         </div>

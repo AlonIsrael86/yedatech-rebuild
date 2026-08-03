@@ -111,6 +111,15 @@ export type Shot = {
    * Which surface to draw is the component's call, not this file's.
    */
   needsSurface?: true;
+  /**
+   * The asset draws its own frame — a rounded card with a shadow, on a
+   * transparent surround — so a renderer must not put it inside another one.
+   *
+   * Read by the Hero only. The carousel keeps wrapping everything in its own
+   * card; at a 262px slide height that reads as one frame rather than two, and
+   * changing it is not part of what this flag was added for.
+   */
+  selfFramed?: true;
 };
 
 export type Gallery = {
@@ -273,6 +282,10 @@ const whiteLabelOrg = lms(
   "organizations",
 );
 
+/* ENGLISH. Victor supplied fo_2_en, the same shot with the interface in English,
+   and it replaced the Hebrew file in place — same id, same 1278×882 — so the
+   carousel picked up the upgrade for free and there is one file rather than two
+   near-identical ones. The first of the six Hebrew screens to be swapped. */
 const implementation = lms(
   "yeda-organizations-implementation-and-rollout",
   "Rollout tracker",
@@ -390,6 +403,144 @@ const figureMan: PresenterFigure = {
   height: 652,
   alt: "Illustration of a man gesturing toward the platform interface",
   figmaFrame: "men",
+};
+
+/* ── Hero slides, Figma 2026-08-03 ───────────────────────────────────────
+   Six per sector. Victor exported twelve frames; SIX of them turned out to be
+   pixel-identical to assets already on the page (mean abs diff 0.00 on a 64px
+   greyscale compare) and a seventh was the English version of one. So only the
+   consts below are new — the rest of each hero list reuses the existing shot
+   rather than shipping the same bytes under a second name.
+
+   That means five pictures appear twice on the homepage: once in the hero, once
+   in the carousel or Flow §05. Victor was shown the comparison and accepted the
+   repetition, so this is a decision, not an oversight.
+
+   Dimensions measured with sharp after copying, never taken from the export
+   dialog — the hero derives its frame from them.
+
+   The two 3840px ones are different in kind from the rest: flat, opaque,
+   full-page English screenshots rather than cut-out cards, so they are the only
+   two here without `selfFramed`. */
+
+const heroOrgOverview: Shot = {
+  id: "hero-organizations-training-overview",
+  file: `${P}/yeda-hero-organizations-training-overview.png`,
+  width: 1170,
+  height: 697,
+  alt: "A person working through a course on a laptop, with playback, certification and reporting shown alongside",
+  caption:
+    "A course being taken on a laptop, with the playback, the certificate at the end and the completion reporting drawn alongside it.",
+  label: "Training in one place",
+  category: "concept",
+  sector: "organizations",
+  source: "figma",
+  figmaFrame: "fc_hero",
+  selfFramed: true,
+};
+
+/* CARRIES THIRD-PARTY MARKS: the Zoom wordmark, the Microsoft Teams logo and
+   the Google Meet logo as three badges, plus small Google and Microsoft glyphs
+   in the calendar toolbar.
+
+   The standing rule is that no third-party mark reaches this repo — which is
+   public — without Alexey. Victor took the call to ship it on 2026-08-03,
+   knowing that. It is nominative use rather than endorsement (the site already
+   claims meeting-platform sync as a capability), but it is still his override of
+   a written constraint, and Alexey has been sent the clearance request. If the
+   answer comes back no, remove this const and the file; nothing else depends on
+   it. */
+const meetingPlatformSync: Shot = {
+  id: "meeting-platform-sync",
+  file: `${P}/yeda-meeting-platform-sync-zoom-teams-meet.png`,
+  width: 1341,
+  height: 876,
+  alt: "A live online session beside a scheduling calendar that syncs with Zoom, Microsoft Teams and Google Meet",
+  caption:
+    "A live session scheduled in the platform and mirrored into the meeting tools an organization already runs.",
+  label: "Live sessions and calendars",
+  category: "live-session",
+  sector: "organizations",
+  source: "figma",
+  figmaFrame: "fo_6",
+  selfFramed: true,
+};
+
+const studentsTogether: Shot = {
+  id: "students-learning-together",
+  file: `${P}/yeda-students-learning-together-laptop.png`,
+  width: 1278,
+  height: 870,
+  alt: "Three students working through a course together on one laptop",
+  caption:
+    "Three students on one course, with the session recording and the written material beside it.",
+  label: "Studying together",
+  category: "concept",
+  sector: "education",
+  source: "figma",
+  figmaFrame: "fo_9",
+  selfFramed: true,
+};
+
+/* A near-twin of `learningAnalytics` (mean abs diff 10.72) but a different
+   screen — this one adds the engagement curve and the participant totals. Kept
+   apart from it: this is the education hero, that one is not in the education
+   gallery. */
+const engagementAnalytics: Shot = {
+  id: "education-engagement-analytics",
+  file: `${P}/yeda-education-engagement-analytics-dashboard.png`,
+  width: 1254,
+  height: 822,
+  alt: "Yeda analytics showing viewing rates, an engagement curve and per-question answer statistics",
+  caption:
+    "Where attention holds and where it drops, next to the success rate on each question and the class average.",
+  label: "Engagement and drop-off",
+  category: "analytics",
+  sector: "education",
+  source: "figma",
+  figmaFrame: "ha_5",
+  selfFramed: true,
+};
+
+/* ENGLISH, and the only shot here with a named person: the sidebar shows a
+   photo and the legible name "Noam Rosenberg". Victor cleared it on 2026-08-03
+   as a placeholder in Alexey's own mock, consistent with the ~30px dashboard
+   avatar he cleared earlier and unlike fo_11, which was rejected for carrying a
+   national ID, phone and address. Flagged here so whoever swaps these assets
+   later knows it is in the pixels. Alexey has been asked to confirm.
+
+   Opaque and full-page, so no `selfFramed` — the Hero gives it a card. */
+const courseRoadmap: Shot = {
+  id: "education-course-roadmap",
+  file: `${P}/yeda-education-course-roadmap-progress.png`,
+  width: 3840,
+  height: 2642,
+  alt: "A student's course roadmap with completed, current and locked lessons beside a progress summary",
+  caption:
+    "The whole course as a path — what is finished, what is open now and what unlocks next, with the progress summary beside it.",
+  label: "Course roadmap",
+  category: "flow",
+  sector: "education",
+  source: "figma",
+  figmaFrame: "Road Map",
+};
+
+/* ENGLISH. Small Google and Outlook glyphs in the "Sync with" control — the
+   same override as `meetingPlatformSync` above, and covered by the same request
+   to Alexey. Opaque and full-page, so no `selfFramed`. */
+const educationSchedule: Shot = {
+  id: "education-schedule-week",
+  file: `${P}/yeda-education-schedule-week-view.png`,
+  width: 3840,
+  height: 2160,
+  alt: "A week of classroom lessons, online lessons, exams and one-to-one sessions in the Yeda schedule",
+  caption:
+    "One week of classroom lessons, online lessons, exams and one-to-one sessions, with the option to mirror it into Google or Outlook.",
+  label: "Weekly schedule",
+  category: "dashboard",
+  sector: "education",
+  source: "figma",
+  figmaFrame: "Schedule",
 };
 
 const uploadMaterial: Shot = {
@@ -892,6 +1043,46 @@ export const FLOW_SHOTS: Record<string, Shot> = {
   measure: analyticsViewing,
 };
 
+/**
+ * The hero slider — six slides per sector.
+ *
+ * ORDER MATTERS TWICE OVER.
+ *
+ * The first entry is the one the Hero loads eagerly, so it is the LCP candidate
+ * for its panel. It is also the first thing anyone sees, which is why both lists
+ * open on a language-neutral picture and put the English screens next: of the
+ * twelve frames, only two are English and two carry no text at all. Leading on a
+ * Hebrew screenshot would have been the worst available choice on an English
+ * site, even with Victor's ruling that Hebrew screens may ship.
+ *
+ * The copy does NOT change between slides. `HERO[sector]` keeps one title,
+ * subtitle and chip set; only the picture rotates. Victor supplied images and no
+ * copy, and inventing six headlines per sector is not on the table — so the
+ * slider carries exactly what exists. Each slide is a full `Shot` with its own
+ * caption, so per-slide headlines can be added later without restructuring.
+ *
+ * Five of these twelve also appear in the carousel or Flow §05. See the note on
+ * the hero-slide consts above: measured, shown to Victor, accepted.
+ */
+export const HERO_SLIDES: Record<Sector, readonly Shot[]> = {
+  organizations: [
+    heroOrgOverview, // no text, language-neutral
+    implementation, // English
+    whiteLabelOrg,
+    rolesPermissions,
+    meetingPlatformSync,
+    analyticsViewing,
+  ],
+  education: [
+    studentsTogether, // no text, language-neutral
+    courseRoadmap, // English
+    educationSchedule, // English
+    coursePlayerQuiz,
+    aiStudyPlan,
+    engagementAnalytics,
+  ],
+};
+
 /*
  * Two slides in one gallery must never share a title.
  *
@@ -905,15 +1096,27 @@ export const FLOW_SHOTS: Record<string, Shot> = {
  * moment a new shot gets added, and it can never take a deployed page down.
  */
 if (process.env.NODE_ENV === "development") {
-  for (const gallery of Object.values(GALLERIES)) {
+  /* Every list a reader pages through, not just GALLERIES. The hero slider is
+     six slides deep per sector and was invisible to this guard until it was
+     added here — same failure mode, same consequence: two slides that look like
+     the same slide. */
+  const lists: { id: string; shots: readonly Shot[] }[] = [
+    ...Object.values(GALLERIES).map((g) => ({ id: `gallery "${g.id}"`, shots: g.shots })),
+    ...Object.entries(HERO_SLIDES).map(([sector, shots]) => ({
+      id: `hero slider "${sector}"`,
+      shots,
+    })),
+  ];
+
+  for (const list of lists) {
     const seen = new Map<string, string>();
-    for (const shot of gallery.shots) {
+    for (const shot of list.shots) {
       const previous = seen.get(shot.label);
       if (previous) {
         throw new Error(
-          `Gallery "${gallery.id}" shows the title "${shot.label}" twice ` +
+          `The ${list.id} shows the title "${shot.label}" twice ` +
             `(${previous}, ${shot.id}). Slide titles must be unique within a ` +
-            `gallery — they are what tells two slides apart. If the ids match, ` +
+            `list — they are what tells two slides apart. If the ids match, ` +
             `the same shot is listed twice.`,
         );
       }

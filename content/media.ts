@@ -336,6 +336,47 @@ const liveSessionRecording = lms(
    re-export of the same frame (1664×926) drops straight in — same ratio,
    same filename. */
 
+/* The two presenter characters, exported at 2× on request (312×652 for a
+   210px slot). These are the figures the design actually draws — the concept
+   SVGs that stood in for them showed a person beside a bar chart and a person
+   in front of video tiles, which is why both had to be recaptioned earlier.
+
+   THEY ALSO SETTLE A QUESTION THE CODE HAS BEEN DODGING. Alon's brief says
+   woman-left / man-right; the SVG paths could not tell us which illustration
+   was which, so PRESENTER_FIGURES was keyed by position and said so. These are
+   named by the designer and their gestures confirm it: the woman's arm extends
+   right, the man's extends left, so each points inward from her or his side. */
+
+/**
+ * NOT a `Shot`, deliberately. `Shot.caption` is non-optional because Alexey
+ * requires every *content* image to explain itself — but the design gives these
+ * two no caption, and inventing one would be writing copy about decorative art.
+ * That is how the concept SVGs ended up captioned as things they did not show.
+ */
+export type PresenterFigure = {
+  file: string;
+  width: number;
+  height: number;
+  alt: string;
+  figmaFrame: string;
+};
+
+const figureWoman: PresenterFigure = {
+  file: `${P}/yeda-presenter-figure-woman.png`,
+  width: 312,
+  height: 652,
+  alt: "Illustration of a woman gesturing toward the platform interface",
+  figmaFrame: "Woman",
+};
+
+const figureMan: PresenterFigure = {
+  file: `${P}/yeda-presenter-figure-man.png`,
+  width: 312,
+  height: 652,
+  alt: "Illustration of a man gesturing toward the platform interface",
+  figmaFrame: "men",
+};
+
 const uploadMaterial: Shot = {
   id: "content-upload-existing-material",
   file: `${P}/yeda-content-upload-existing-material.png`,
@@ -600,13 +641,33 @@ const aiAgentScreenWatch = pending(
   "ai-agent",
 );
 
-const adminDashboard = pending(
-  "admin-dashboard-courses-learners-overview",
-  "Admin dashboard",
-  "Yeda administrator dashboard with courses, learners and completion rates",
-  "The administrator's home — courses, learners and completion at a glance, which is the view that answers 'is this working'.",
-  "dashboard",
-);
+/* FILLED from Figma, 2026-08-03 — the first pending slot to get a real screen.
+   Was blocked on lms_11, which showed the same thing but carried an Excel logo.
+
+   The alt and caption are written from the image, not carried over from the
+   placeholder. The old ones promised "courses, learners and completion at a
+   glance"; the screen shows exam counts and pass rates, and completion appears
+   nowhere on it.
+
+   Two things knowingly shipped: the screen is Hebrew (the sixth such image —
+   flagged to Alexey, not hidden), and it carries a ~30px avatar photo in the
+   corner. Victor cleared the avatar: it is Alexey's own design asset with no
+   identifying text beside it, unlike fo_11, which was rejected for carrying a
+   national ID, phone, date of birth and address. */
+const adminDashboard: Shot = {
+  id: "admin-dashboard-courses-learners-overview",
+  file: `${P}/yeda-admin-dashboard-exam-results.png`,
+  width: 1210,
+  height: 720,
+  alt: "Yeda administrator dashboard showing exam counts, student numbers and pass-rate charts",
+  caption:
+    "The administrator's home — how many exams and questions are in play, how many people sat them, and what proportion passed.",
+  label: "Admin dashboard",
+  category: "dashboard",
+  sector: "both",
+  source: "figma",
+  figmaFrame: "dashboard",
+};
 
 const assignToDepartment = pending(
   "assign-training-to-department-cohort",
@@ -764,16 +825,18 @@ export const GALLERIES: Record<string, Gallery> = {
 };
 
 /**
- * Presenter composition figures — keyed by POSITION, not by gender.
+ * Presenter composition figures — woman left, man right, as Alon's brief asks.
  *
- * Alon's brief says woman-left / man-right, but these are vector illustrations
- * and the SVG paths do not tell us which is which. Keying by position means
- * swapping them is a one-line change once Alexey confirms, and means we are not
- * asserting something we cannot verify.
+ * This used to be keyed by position with an explicit note that we could not tell
+ * which illustration was which, because the stand-in concept SVGs gave us
+ * nothing to go on. The Figma exports settle it: the designer named them, and
+ * the drawings agree — the woman's arm extends right, the man's extends left,
+ * so each gestures inward toward the interface between them. The composition
+ * only reads correctly this way round.
  */
-export const PRESENTER_FIGURES: { left: Shot; right: Shot } = {
-  left: conceptAuthoring,
-  right: conceptKnowledge,
+export const PRESENTER_FIGURES: { left: PresenterFigure; right: PresenterFigure } = {
+  left: figureWoman,
+  right: figureMan,
 };
 
 /**

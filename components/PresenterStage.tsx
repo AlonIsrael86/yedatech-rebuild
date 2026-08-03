@@ -3,7 +3,11 @@ import { Container } from "@/components/ui";
 import { Reveal } from "@/components/Reveal";
 import { DemoButton } from "@/components/DemoButton";
 import { PRESENTER } from "@/content/site";
-import { PRESENTER_FIGURES, PRESENTER_SCREEN, type Shot } from "@/content/media";
+import {
+  PRESENTER_FIGURES,
+  PRESENTER_SCREEN,
+  type PresenterFigure,
+} from "@/content/media";
 
 /**
  * The woman-left / man-right composition around the product interface, required
@@ -16,24 +20,28 @@ import { PRESENTER_FIGURES, PRESENTER_SCREEN, type Shot } from "@/content/media"
  *
  * WHAT IS OURS AND WHAT IS NOT
  *  - Ours: the composition, the responsive behaviour, the mobile fallback.
- *  - Not ours: the characters. Alexey's widget/agent platform supplies them, so
- *    the figures are slots filled with Yeda's own published illustrations.
  *  - Deliberately absent: any play button, voice, or speaking behaviour. The
- *    handoff forbids inventing those, and that constraint still holds — a figure
- *    here may only show what Yeda has actually published.
+ *    handoff forbids inventing those, and that constraint still holds.
  *
- * The slots used to carry a small "Agent attaches here" badge marking where the
- * real agent would bind. That was a note to us that shipped to visitors:
- * engineering words under a finished-looking illustration, rendered twice above
- * two unrelated captions. Removed on Victor's call. The slot is still a slot —
- * it just no longer announces itself to people who cannot act on it.
+ * The figures are now the real ones, exported from Figma at 2×. They stood in
+ * as concept SVGs — a person beside a bar chart and a person in front of video
+ * tiles — for as long as nobody had the design. Those had captions written for
+ * them; these do not, because the design gives them none and they are decorative
+ * art. Captioning decorative art is exactly how the stand-ins ended up
+ * describing things they did not show.
  *
  * Hover leans the figure inward on desktop. Touch has no hover, so below `lg`
  * the effect is dropped rather than approximated and the grid stacks with the
  * interface first.
  */
 
-function Figure({ shot, side }: { shot: Shot; side: "left" | "right" }) {
+function Figure({
+  figure,
+  side,
+}: {
+  figure: PresenterFigure;
+  side: "left" | "right";
+}) {
   // Lean toward the centre: the left figure tilts right, the right one left.
   const lean =
     side === "left"
@@ -41,22 +49,17 @@ function Figure({ shot, side }: { shot: Shot; side: "left" | "right" }) {
       : "lg:group-hover:-translate-x-1.5 lg:group-hover:rotate-1";
 
   return (
-    <figure
-      className={`group relative flex h-full flex-col rounded-[var(--radius-card)] bg-white p-6 shadow-[var(--shadow-lift)] ring-1 ring-inset ring-line-soft transition-shadow duration-300 lg:row-span-2 lg:hover:shadow-[var(--shadow-hero)]`}
+    <div
+      className={`group relative flex h-full flex-col justify-end rounded-[var(--radius-card)] bg-white p-6 shadow-[var(--shadow-lift)] ring-1 ring-inset ring-line-soft transition-shadow duration-300 lg:row-span-2 lg:hover:shadow-[var(--shadow-hero)]`}
     >
-      <div className="relative mx-auto flex w-full flex-1 items-end justify-center">
-        <Image
-          src={shot.file as string}
-          alt={shot.alt}
-          width={shot.width}
-          height={shot.height}
-          className={`h-auto w-full max-w-[210px] object-contain transition-transform duration-300 motion-reduce:transform-none ${lean}`}
-        />
-      </div>
-      <figcaption className="mt-5 text-[14px] leading-relaxed text-slate">
-        {shot.caption}
-      </figcaption>
-    </figure>
+      <Image
+        src={figure.file}
+        alt={figure.alt}
+        width={figure.width}
+        height={figure.height}
+        className={`mx-auto h-auto w-full max-w-[210px] object-contain transition-transform duration-300 motion-reduce:transform-none ${lean}`}
+      />
+    </div>
   );
 }
 
@@ -83,7 +86,7 @@ export function PresenterStage() {
         <Reveal delay={0.08}>
           <div className="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)_minmax(0,1fr)] lg:gap-6">
             <div className="order-2 lg:order-1">
-              <Figure shot={left} side="left" />
+              <Figure figure={left} side="left" />
             </div>
 
             <figure className="order-1 col-span-2 lg:order-2 lg:col-span-1">
@@ -107,7 +110,7 @@ export function PresenterStage() {
             </figure>
 
             <div className="order-3">
-              <Figure shot={right} side="right" />
+              <Figure figure={right} side="right" />
             </div>
           </div>
         </Reveal>

@@ -72,8 +72,22 @@ function Step({
 
           <figure className={flip ? "lg:order-1" : ""}>
             <div className="overflow-hidden rounded-[var(--radius-media)] bg-white p-2 shadow-[var(--shadow-lift)] ring-1 ring-inset ring-line-soft">
+              {/*
+               * The frame is the same on every step. What differs is whether the
+               * asset brings its own ground: the yedalms.io shots carry a pale
+               * plate in the pixels (sampled mid-panel: rgb(197,217,253)), while
+               * step 01 is a Figma cut-out whose ground is rgba(0,0,0,0). On the
+               * card's white that read as no plate at all and the man floated.
+               *
+               * `sky` is #c4d8fd — one unit per channel off the baked plate — so
+               * supplying it here matches the neighbours rather than approximating
+               * them. `Shot.needsSurface` says which assets need it; the choice of
+               * surface is this component's.
+               */}
               <div
-                className="relative w-full overflow-hidden rounded-[14px]"
+                className={`relative w-full overflow-hidden rounded-[14px] ${
+                  shot.needsSurface ? "bg-sky" : ""
+                }`}
                 style={{ aspectRatio: `${shot.width} / ${shot.height}` }}
               >
                 <Image
@@ -81,7 +95,16 @@ function Step({
                   alt={shot.alt}
                   fill
                   sizes="(max-width: 1024px) 92vw, 560px"
-                  className="object-cover object-top"
+                  /* `contain` for a cut-out. The box's ratio is derived from the
+                     shot's own dimensions so the two agree today, but under
+                     `cover` a sub-pixel rounding difference crops the top of the
+                     figure's head; `contain` letterboxes onto a plate that is now
+                     the right colour, which costs nothing. */
+                  className={
+                    shot.needsSurface
+                      ? "object-contain object-bottom"
+                      : "object-cover object-top"
+                  }
                 />
               </div>
             </div>

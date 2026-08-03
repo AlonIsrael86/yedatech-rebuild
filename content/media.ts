@@ -96,6 +96,21 @@ export type Shot = {
   source: ShotSource;
   /** Filled once Alexey names the approved frames. */
   figmaFrame: string | null;
+  /**
+   * The asset carries no background of its own, so whatever renders it has to
+   * supply a surface or the subject floats on the page.
+   *
+   * This is a measured property of the file, not a styling preference — hence it
+   * lives here with `width`/`height` rather than in a component. Verified with
+   * sharp: every pixel outside the subject is `rgba(0,0,0,0)`.
+   *
+   * The yedalms.io composites deliberately do NOT set it. They also report
+   * `hasAlpha`, but only because their pale plate has rounded corners — sample
+   * the middle of one and you get rgb(197,217,253). Their surface is baked in.
+   *
+   * Which surface to draw is the component's call, not this file's.
+   */
+  needsSurface?: true;
 };
 
 export type Gallery = {
@@ -390,6 +405,10 @@ const uploadMaterial: Shot = {
   sector: "both",
   source: "figma",
   figmaFrame: "bring-the-material-you-already-have",
+  /* A cut-out with a fully transparent ground, unlike the yedalms.io shots
+     around it in the Flow, which carry their pale plate in the pixels. Without a
+     surface behind it the man floated on the section. */
+  needsSurface: true,
 };
 
 /* ── Real platform screens (yedalabs.ai) ─────────────────────────────── */

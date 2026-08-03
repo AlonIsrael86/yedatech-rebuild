@@ -72,11 +72,20 @@ export type Shot = {
   /** The explanation Alexey requires on every image. Never empty. */
   caption: string;
   /**
-   * Short name shown ON a placeholder card. Required in practice for `file:
-   * null` slots: without it the card falls back to the category, and two
-   * pending slots sharing a category render as identical slides.
+   * The slide's own title — what this screen IS, in two or three words. Shown
+   * as the bold lead-in on the caption, and on the face of a pending card.
+   *
+   * Required, and required for a reason. The caption used to lead with
+   * `category`, and there are only 15 categories across 16- and 14-slide
+   * panels, so titles repeated by construction: three slides headed "Settings"
+   * in the organizations panel, two adjacent ones headed "Integrations". They
+   * read as duplicated slides. A per-slide title cannot collide by accident,
+   * and making it non-optional means a new shot cannot be added without one.
+   *
+   * Uniqueness *within a gallery* is what actually matters, and the type cannot
+   * enforce that — see the dev-only guard at the bottom of this file.
    */
-  label?: string;
+  label: string;
   category: ShotCategory;
   sector: Sector | "both";
   source: ShotSource;
@@ -100,6 +109,8 @@ const P = "/media/platform";
 
 const lms = (
   id: string,
+  /** The slide title. Must be unique inside every gallery that holds it. */
+  label: string,
   width: number,
   height: number,
   alt: string,
@@ -113,6 +124,7 @@ const lms = (
   height,
   alt,
   caption,
+  label,
   category,
   sector,
   source: "yedalms-io",
@@ -121,6 +133,7 @@ const lms = (
 
 const coursePlayerQuiz = lms(
   "yeda-course-player-lesson-and-quiz",
+  "Course player",
   1314,
   894,
   "Yeda course player with the lesson list and a multiple-choice question open",
@@ -130,6 +143,7 @@ const coursePlayerQuiz = lms(
 
 const examResults = lms(
   "yeda-assessment-exam-results-and-score",
+  "Exam results",
   1314,
   894,
   "Yeda exam results screen showing a pass, an 80 percent score and per-section marks",
@@ -139,6 +153,7 @@ const examResults = lms(
 
 const recordingStudio = lms(
   "yeda-lesson-recording-presentation-studio",
+  "Recording studio",
   1158,
   649,
   "Yeda recording studio with slide thumbnails, presenter camera and recording controls",
@@ -148,6 +163,7 @@ const recordingStudio = lms(
 
 const studentCoursePlayer = lms(
   "yeda-education-student-course-player",
+  "Student course page",
   1314,
   867,
   "Yeda student course page with lesson video, syllabus and a lesson rating prompt",
@@ -158,6 +174,7 @@ const studentCoursePlayer = lms(
 
 const interactiveVideoQuestion = lms(
   "yeda-interactive-video-embedded-question",
+  "Question inside the video",
   1314,
   858,
   "Yeda interactive video with an open question embedded at a timestamp and answer analysis",
@@ -167,6 +184,7 @@ const interactiveVideoQuestion = lms(
 
 const subtitlesTranslation = lms(
   "yeda-automatic-subtitles-and-translation",
+  "Subtitles and translation",
   1230,
   774,
   "Yeda video player showing automatic subtitles and an English, Spanish, Italian and French language switcher",
@@ -176,6 +194,7 @@ const subtitlesTranslation = lms(
 
 const aiStudyPlan = lms(
   "yeda-ai-learning-assistant-study-plan",
+  "AI study plan",
   1314,
   876,
   "Yeda AI learning assistant building a personalised study plan on desktop and mobile",
@@ -185,6 +204,7 @@ const aiStudyPlan = lms(
 
 const mobileApp = lms(
   "yeda-mobile-learning-app-on-phone",
+  "Mobile app",
   1254,
   870,
   "Yeda mobile learning app showing course progress, average grade and today's schedule",
@@ -194,6 +214,7 @@ const mobileApp = lms(
 
 const aiAnswerSources = lms(
   "yeda-ai-assistant-answer-with-sources",
+  "Answers with sources",
   1254,
   846,
   "Yeda AI assistant answering a learner question and linking to the source material",
@@ -203,6 +224,7 @@ const aiAnswerSources = lms(
 
 const whiteLabelPortal = lms(
   "yeda-white-label-branded-learning-portal",
+  "Branded portal",
   1255,
   846,
   "Yeda learning portal with a placeholder marking where a customer's own logo is applied",
@@ -212,6 +234,7 @@ const whiteLabelPortal = lms(
 
 const videoLibrary = lms(
   "yeda-video-content-library-and-storage",
+  "Video library",
   1314,
   893,
   "Yeda video content library with folders, thumbnails and durations",
@@ -221,6 +244,7 @@ const videoLibrary = lms(
 
 const whiteLabelOrg = lms(
   "yeda-organizations-white-label-branding",
+  "Logo and colours",
   1314,
   882,
   "Yeda white-label branding controls showing a logo slot and a colour picker",
@@ -231,6 +255,7 @@ const whiteLabelOrg = lms(
 
 const implementation = lms(
   "yeda-organizations-implementation-and-rollout",
+  "Rollout tracker",
   1278,
   882,
   "Yeda implementation progress tracker for an organisational rollout",
@@ -241,6 +266,7 @@ const implementation = lms(
 
 const rolesPermissions = lms(
   "yeda-organizations-roles-and-permissions",
+  "Roles and permissions",
   1278,
   894,
   "Yeda permission matrix showing what HR, managers and employees can each access",
@@ -251,6 +277,7 @@ const rolesPermissions = lms(
 
 const analyticsViewing = lms(
   "yeda-learning-analytics-viewing-data",
+  "Viewing and question data",
   1314,
   943,
   "Yeda analytics showing completion and repeat-viewing rates beside per-question success rates",
@@ -260,6 +287,7 @@ const analyticsViewing = lms(
 
 const integrationsDiagram = lms(
   "yeda-integrations-crm-hr-erp-api",
+  "Integration map",
   1266,
   858,
   "Yeda integration map connecting to CRM, HR, ERP, attendance systems and a public API",
@@ -269,6 +297,7 @@ const integrationsDiagram = lms(
 
 const courseProgress = lms(
   "yeda-education-course-progress-tracking",
+  "Course progress",
   1314,
   894,
   "Yeda course progress card showing percentage complete, units finished and last activity",
@@ -279,6 +308,7 @@ const courseProgress = lms(
 
 const liveSessionRecording = lms(
   "yeda-live-session-recording",
+  "Recorded live session",
   1254,
   837,
   "Yeda live session being recorded with a participant grid and a recording timer",
@@ -296,6 +326,7 @@ const aiAnswersFromVideo: Shot = {
   alt: "Yeda AI learning agent answering a learner question from video content",
   caption:
     "The AI agent answers a learner's question directly from the video — the same speech-to-text pipeline that turns an existing recording into a learning module.",
+  label: "Answers from the video",
   category: "flow",
   sector: "both",
   source: "yedalabs-ai",
@@ -310,6 +341,7 @@ const analyticsInsights: Shot = {
   alt: "Yeda learning analytics panel showing learner questions and insights",
   caption:
     "Insights surface what learners actually asked and where they got stuck, so a programme can be corrected on evidence rather than guesswork.",
+  label: "Learner questions",
   category: "analytics",
   sector: "both",
   source: "yedalabs-ai",
@@ -324,6 +356,7 @@ const interactiveModule: Shot = {
   alt: "Yeda interactive HTML learning module with a drag-and-drop exercise",
   caption:
     "An interactive HTML module with a drag-and-drop exercise — practice sits inside the learning unit rather than after it.",
+  label: "Drag-and-drop exercise",
   category: "html-module",
   sector: "both",
   source: "yedalabs-ai",
@@ -336,7 +369,8 @@ const conceptAuthoring: Shot = {
   width: 426,
   height: 623,
   alt: "Illustration of a person in front of a wall of lesson and video tiles",
-  caption: "Building the course — lessons and recordings lined up before they go out.",
+  caption: "Lessons and recordings lined up before they go out.",
+  label: "Building the course",
   category: "concept",
   sector: "both",
   source: "yedalabs-ai",
@@ -349,7 +383,8 @@ const conceptDelivery: Shot = {
   width: 346,
   height: 187,
   alt: "Yeda learning delivery concept illustration",
-  caption: "Delivery — publishing the programme to the people who need it.",
+  caption: "Publishing the programme to the people who need it.",
+  label: "Getting it out",
   category: "concept",
   sector: "both",
   source: "yedalabs-ai",
@@ -362,7 +397,8 @@ const conceptAssessment: Shot = {
   width: 426,
   height: 187,
   alt: "Yeda assessment and certification concept illustration",
-  caption: "Assessment — testing, scoring and certifying what was learned.",
+  caption: "Scoring and certifying what was learned.",
+  label: "Testing and certifying",
   category: "concept",
   sector: "both",
   source: "yedalabs-ai",
@@ -375,7 +411,8 @@ const conceptKnowledge: Shot = {
   width: 426,
   height: 623,
   alt: "Illustration of a person beside a rising bar chart of learning results",
-  caption: "Seeing it land — results coming back once people have taken the training.",
+  caption: "Results coming back once people have taken the training.",
+  label: "Seeing it land",
   category: "concept",
   sector: "both",
   source: "yedalabs-ai",
@@ -394,6 +431,7 @@ const courseModules: Shot = {
   alt: "Yeda course modules and syllabus builder with AI syllabus regeneration",
   caption:
     "The course structure, module by module — lessons can be edited, generated, or the whole syllabus rebuilt, then published straight into the LMS.",
+  label: "Syllabus builder",
   category: "flow",
   sector: "both",
   source: "yedalabs-io",
@@ -407,7 +445,8 @@ const materialEditor: Shot = {
   height: 490,
   alt: "Yeda learning material editor with slides, text, images and shapes",
   caption:
-    "The material editor — slides, text, imagery and annotation in one place, with the recording controls sitting alongside them.",
+    "Slides, text, imagery and annotation in one place, with the recording controls sitting alongside them.",
+  label: "Slide editor",
   category: "settings",
   sector: "both",
   source: "yedalabs-io",
@@ -421,7 +460,8 @@ const lessonRecording: Shot = {
   height: 490,
   alt: "Yeda lesson recording studio with the presenter on camera, the slide, a mobile preview and the record control",
   caption:
-    "The recording studio — presenter, slide and a live mobile preview of the same lesson, lined up before the record button is pressed.",
+    "Presenter, slide and a live mobile preview of the same lesson, lined up before the record button is pressed.",
+  label: "Presenter studio",
   category: "live-session",
   sector: "both",
   source: "yedalabs-io",
@@ -436,6 +476,7 @@ const videoEditing: Shot = {
   alt: "Yeda video editing timeline for trimming a recorded lesson",
   caption:
     "Editing the recording on a timeline — trimming and sequencing happen inside the platform, not in a separate tool.",
+  label: "Editing timeline",
   category: "flow",
   sector: "both",
   source: "yedalabs-io",
@@ -455,7 +496,7 @@ const videoEditing: Shot = {
 
 const pending = (
   id: string,
-  /** Named on the card. Two slots in one panel must never share a label. */
+  /** The slide title. Also printed on the card, since there is no picture. */
   label: string,
   alt: string,
   caption: string,
@@ -724,6 +765,36 @@ export const FLOW_SHOTS: Record<string, Shot> = {
   publish: videoLibrary,
   measure: analyticsViewing,
 };
+
+/*
+ * Two slides in one gallery must never share a title.
+ *
+ * `label` being required stops a slide having no title; it cannot stop two
+ * having the SAME one, and that is the failure Victor actually saw — the
+ * caption used to lead with `category`, which repeats across a 16-slide panel
+ * by construction. Nothing automated caught it: counts, file existence and
+ * dimensions were all green while three slides in a row read "Settings".
+ *
+ * Dev-only. It throws loudly the moment `npm run dev` starts, which is the
+ * moment a new shot gets added, and it can never take a deployed page down.
+ */
+if (process.env.NODE_ENV === "development") {
+  for (const gallery of Object.values(GALLERIES)) {
+    const seen = new Map<string, string>();
+    for (const shot of gallery.shots) {
+      const previous = seen.get(shot.label);
+      if (previous) {
+        throw new Error(
+          `Gallery "${gallery.id}" shows the title "${shot.label}" twice ` +
+            `(${previous}, ${shot.id}). Slide titles must be unique within a ` +
+            `gallery — they are what tells two slides apart. If the ids match, ` +
+            `the same shot is listed twice.`,
+        );
+      }
+      seen.set(shot.label, shot.id);
+    }
+  }
+}
 
 export const getGallery = (id?: string): Gallery | null =>
   id ? (GALLERIES[id] ?? null) : null;

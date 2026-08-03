@@ -37,45 +37,28 @@ import type { Gallery, Shot } from "@/content/media";
  * Slots with `file: null` are awaiting an approved Figma frame and render a
  * labelled placeholder at the correct aspect ratio, so composition can be
  * judged now and the real asset dropped in without reflow.
+ *
+ * EVERY SLIDE IS TITLED BY WHAT IT SHOWS, not by its category. The caption used
+ * to lead with the category, and 15 categories across a 16-slide panel repeat
+ * by construction — three slides headed "Settings", two adjacent ones headed
+ * "Integrations". They read as duplicated slides. `Shot.label` is required in
+ * content/media.ts precisely so this cannot come back, and a dev-only guard
+ * there catches two slides in one gallery sharing a title.
  */
 
-const CATEGORY_LABEL: Record<Shot["category"], string> = {
-  dashboard: "Dashboard",
-  analytics: "Analytics",
-  flow: "Flow",
-  settings: "Settings",
-  "avatar-module": "Avatar module",
-  "html-module": "Interactive module",
-  assessment: "Assessment",
-  knowledge: "Knowledge",
-  "ai-agent": "AI agent",
-  "live-session": "Live session",
-  integrations: "Integrations",
-  localization: "Languages",
-  industry: "Industry",
-  mobile: "Mobile",
-  concept: "Concept",
-};
-
 /*
- * The placeholder names the SLOT, not just its category.
- *
- * It used to render only CATEGORY_LABEL, which made any two pending slots
- * sharing a category pixel-identical — the employee portal and the admin
- * dashboard are both "Dashboard", sat in the same panel, and read as a
- * duplicated slide even though their captions differ. Naming the slot means
- * every future pending slot is distinguishable by construction.
+ * The pending card carries its title on its face, because it has no picture to
+ * be told apart by. Its category is deliberately NOT printed here — the title
+ * sits immediately below the card in the caption, so a category line above it
+ * put the same idea on one card twice.
  */
 function Placeholder({ shot }: { shot: Shot }) {
   return (
     <div className="grid h-full w-full place-items-center bg-gradient-to-tl from-sky/50 to-royal-50">
       <div className="px-5 text-center">
         <ImageIcon className="mx-auto size-6 text-royal/45" aria-hidden />
-        <p className="mt-2 text-[11px] font-medium uppercase tracking-wide text-royal/55">
-          {CATEGORY_LABEL[shot.category]}
-        </p>
-        <p className="mt-0.5 text-[14px] font-semibold leading-snug text-royal/85">
-          {shot.label ?? CATEGORY_LABEL[shot.category]}
+        <p className="mt-2 text-[14px] font-semibold leading-snug text-royal/85">
+          {shot.label}
         </p>
         <p className="mt-1 text-[12px] leading-snug text-slate">
           Awaiting approved frame
@@ -126,9 +109,7 @@ function Slide({ shot }: { shot: Shot }) {
         </div>
       </div>
       <figcaption className="mt-3 text-[15px] leading-relaxed text-slate">
-        <span className="font-semibold text-navy">
-          {CATEGORY_LABEL[shot.category]}.
-        </span>{" "}
+        <span className="font-semibold text-navy">{shot.label}.</span>{" "}
         {shot.caption}
       </figcaption>
     </figure>

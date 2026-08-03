@@ -527,20 +527,11 @@ const materialEditor: Shot = {
   figmaFrame: null,
 };
 
-const lessonRecording: Shot = {
-  id: "lesson-recording",
-  file: `${P}/yeda-lesson-recording-presenter-studio.png`,
-  width: 710,
-  height: 490,
-  alt: "Yeda lesson recording studio with the presenter on camera, the slide, a mobile preview and the record control",
-  caption:
-    "Presenter, slide and a live mobile preview of the same lesson, lined up before the record button is pressed.",
-  label: "Presenter studio",
-  category: "live-session",
-  sector: "both",
-  source: "yedalabs-io",
-  figmaFrame: null,
-};
+/* `lessonRecording` was here — yeda-lesson-recording-presenter-studio.png, the
+   centre screen of the old presenter composition. Retired when the figures
+   moved to the carousel; see the note where PRESENTER_SCREEN used to be
+   exported for why it is not simply folded into a gallery instead. The file
+   stays in public/ unreferenced. */
 
 const videoEditing: Shot = {
   id: "video-editing",
@@ -839,11 +830,23 @@ export const PRESENTER_FIGURES: { left: PresenterFigure; right: PresenterFigure 
   right: figureMan,
 };
 
-/**
- * The product interface that sits between them — the recording studio, where a
- * real presenter already appears beside the slide.
- */
-export const PRESENTER_SCREEN: Shot = lessonRecording;
+/* PRESENTER_SCREEN is gone, and `lessonRecording` with it.
+ *
+ * The figures used to flank one static screenshot; they now flank the platform
+ * carousel, which is where Figma "Home page 1.4" §4 puts them, so there is no
+ * single centre screen any more.
+ *
+ * `lessonRecording` is NOT being folded into the galleries to save it. It is
+ * `yeda-lesson-recording-presenter-studio.png` — the presenter on camera beside
+ * the slide, with the record control — and both galleries already carry
+ * `recordingStudio`, which is `yeda-lesson-recording-presentation-studio.png`:
+ * the same studio, the same camera, the same controls, at a higher resolution.
+ * Putting both on one track is the thing the gallery notes above already refuse
+ * to do with the AI composites.
+ *
+ * So the const is deleted and the file stays in public/ unreferenced, following
+ * `contentLibrary` and `aiAnswersFromVideo`. Nothing is lost that is not
+ * already on the page. */
 
 /**
  * The five steps of the product flow, in order. Shared between both sectors —

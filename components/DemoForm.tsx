@@ -5,18 +5,15 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { X, ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { DEMO_FORM, CONTACT } from "@/content/site";
 import { Wordmark } from "@/components/Brand";
+import { emailOk, firstIncompleteStep, type DemoAnswers } from "@/lib/demo";
 
 const STEPS = DEMO_FORM.steps;
 const UI = DEMO_FORM.ui;
 
-type Answers = {
-  role?: string;
-  interest?: string;
-  name?: string;
-  email?: string;
-  phone?: string;
-  note?: string;
-};
+/* The shape and the email rule moved to lib/demo.ts when ContactSection began
+   collecting the same answers on the page. Sending stays here — the modal is
+   the only thing that submits. */
+type Answers = DemoAnswers;
 
 function buildMailto(a: Answers): string {
   const lines = [
@@ -34,13 +31,15 @@ function buildMailto(a: Answers): string {
   return `mailto:${CONTACT.email}?${params.toString()}`;
 }
 
-const emailOk = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
-
 export function DemoForm({
   isOpen,
+  prefill,
   onClose,
 }: {
   isOpen: boolean;
+  /** Whatever the inline contact section already collected. `{}` from every
+      DemoButton, which is why the wizard still opens empty on step 1 there. */
+  prefill: DemoAnswers;
   onClose: () => void;
 }) {
   const reduce = useReducedMotion();
@@ -52,18 +51,23 @@ export function DemoForm({
   const total = STEPS.length;
   const current = STEPS[step];
 
-  // Reset to a clean state whenever the dialog is (re)opened.
+  // Reset whenever the dialog is (re)opened — to the prefill if the page
+  // handed one over, otherwise to nothing.
   //
   // Adjusted during render rather than in an effect — React's documented
   // "adjusting state when a prop changes" pattern. Doing it in an effect
   // renders the stale form once before clearing it, and trips
   // react-hooks/set-state-in-effect.
+  //
+  // The opening step follows the prefill: a fully answered inline form lands
+  // on the contact step for one review, a partial one lands on the first
+  // question still outstanding, and an empty open() lands on step 0.
   const [wasOpen, setWasOpen] = useState(isOpen);
   if (isOpen !== wasOpen) {
     setWasOpen(isOpen);
     if (isOpen) {
-      setStep(0);
-      setAnswers({});
+      setStep(firstIncompleteStep(prefill));
+      setAnswers(prefill);
       setSubmitted(false);
       setShowErrors(false);
     }
@@ -233,7 +237,13 @@ export function DemoForm({
                         );
                       })}
                       {showErrors && !stepValid ? (
-                        <p className="pt-1 text-[14px] text-error">{UI.pickOne}</p>
+                        /* `err`, not `error`. The token in globals.css is
+                           --color-err, so every text-error/border-error here
+                           generated no CSS at all and the whole validation
+                           layer of this dialog was invisible: no red border on
+                           a bad field, no red on the messages, no red asterisk
+                           on the required ones. */
+                        <p className="pt-1 text-[14px] text-err">{UI.pickOne}</p>
                       ) : null}
                     </div>
                   ) : (
@@ -249,7 +259,7 @@ export function DemoForm({
                             <span className="mb-1 block text-[14px] font-medium text-ink-soft">
                               {f.label}
                               {f.required ? (
-                                <span className="text-error"> *</span>
+                                <span className="text-err"> *</span>
                               ) : null}
                             </span>
                             {f.inputType === "textarea" ? (
@@ -273,16 +283,16 @@ export function DemoForm({
                                   setAnswers((a) => ({ ...a, [f.name]: e.target.value }))
                                 }
                                 className={`w-full rounded-[8px] border bg-white px-3 py-2.5 text-[16px] text-navy outline-none focus:border-royal ${
-                                  emailBad || missing ? "border-error" : "border-line"
+                                  emailBad || missing ? "border-err" : "border-line"
                                 }`}
                               />
                             )}
                             {missing ? (
-                              <span className="mt-1 block text-[13px] text-error">
+                              <span className="mt-1 block text-[13px] text-err">
                                 {UI.required}
                               </span>
                             ) : emailBad ? (
-                              <span className="mt-1 block text-[13px] text-error">
+                              <span className="mt-1 block text-[13px] text-err">
                                 {UI.invalidEmail}
                               </span>
                             ) : null}

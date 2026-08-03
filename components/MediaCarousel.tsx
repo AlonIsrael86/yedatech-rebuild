@@ -5,9 +5,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 import { ChevronLeft, ChevronRight, ImageIcon } from "lucide-react";
 import { Container } from "@/components/ui";
-import { DemoButton } from "@/components/DemoButton";
-import { HERO_CTA } from "@/content/site";
-import type { Gallery, Shot } from "@/content/media";
+import { PRESENTER_FIGURES } from "@/content/media";
+import type { Gallery, PresenterFigure, Shot } from "@/content/media";
+import type { Sector } from "@/content/routes";
 
 /**
  * Alexey: there should be many MORE images, spanning more categories than just
@@ -46,7 +46,52 @@ import type { Gallery, Shot } from "@/content/media";
  * "Integrations". They read as duplicated slides. `Shot.label` is required in
  * content/media.ts precisely so this cannot come back, and a dev-only guard
  * there catches two slides in one gallery sharing a title.
+ *
+ * THE FIGURES CAME HERE FROM PresenterStage. Figma "Home page 1.4" §4 draws one
+ * product screen with the woman and the man flanking it and arrows at the
+ * sides; we had that composition in a separate section wrapped around a static
+ * screenshot, and this track sitting somewhere else entirely. The composition
+ * is the design's, the track is Alexey's — the design puts a single image
+ * behind three dots, and he asked for the opposite ("many more pictures, each
+ * with its explanation"), so the layout is adopted and the set is kept.
+ *
+ * The figures cost horizontal room, which is the one thing this section spends.
+ * They are therefore `xl`-and-up only, capped narrow, and below that the layout
+ * is unchanged: full-bleed track, figures beneath it side by side.
  */
+
+/*
+ * Decorative, and captioned by nothing on purpose — the design gives them no
+ * caption and they illustrate nothing specific. The concept SVGs that preceded
+ * them had captions written for them, which is exactly how the site ended up
+ * describing pictures that did not show what the words claimed.
+ */
+function Figure({
+  figure,
+  side,
+}: {
+  figure: PresenterFigure;
+  side: "left" | "right";
+}) {
+  // Lean toward the centre: the left figure tilts right, the right one left.
+  const lean =
+    side === "left"
+      ? "xl:group-hover:translate-x-1.5 xl:group-hover:-rotate-1"
+      : "xl:group-hover:-translate-x-1.5 xl:group-hover:rotate-1";
+
+  return (
+    <div className="group flex h-full items-end justify-center">
+      <Image
+        src={figure.file}
+        alt={figure.alt}
+        width={figure.width}
+        height={figure.height}
+        sizes="150px"
+        className={`h-auto w-full max-w-[150px] object-contain transition-transform duration-300 motion-reduce:transform-none ${lean}`}
+      />
+    </div>
+  );
+}
 
 /*
  * The pending card carries its title on its face, because it has no picture to
@@ -126,7 +171,21 @@ function slideStarts(el: HTMLElement): number[] {
   );
 }
 
-export function MediaCarousel({ gallery }: { gallery: Gallery }) {
+export function MediaCarousel({
+  gallery,
+  sector,
+}: {
+  gallery: Gallery;
+  /**
+   * Present only on the homepage, and it carries two things: the anchor has to
+   * be sector-scoped because both panels render, and the flanking figures are
+   * that page's §4 composition. The 21 inner pages render this component as a
+   * plain gallery — a pair of decorative people either side of, say, the
+   * integrations tour would be composition borrowed from a section that page
+   * does not have.
+   */
+  sector?: Sector;
+}) {
   const trackRef = useRef<HTMLDivElement>(null);
   const frame = useRef(0);
   const [atStart, setAtStart] = useState(true);
@@ -138,11 +197,22 @@ export function MediaCarousel({ gallery }: { gallery: Gallery }) {
   const sync = useCallback(() => {
     const el = trackRef.current;
     if (!el) return;
-    setAtStart(el.scrollLeft <= 4);
+    const starts = slideStarts(el);
+
+    /*
+     * "At the start" is the FIRST SLIDE'S offset, not zero.
+     *
+     * The track is padded (px-5, sm:px-8) and snaps mandatorily, so the browser
+     * parks it on the first snap point — which sits one padding-width in.
+     * Measured at 390px: scrollLeft rests at 20, never 0. Comparing against
+     * zero therefore reported "not at the start" the moment the page loaded,
+     * and the Previous arrow was live before anyone had paged anywhere. Only
+     * xl and up escaped it, because there the padding is 0.
+     */
+    setAtStart(el.scrollLeft <= (starts[0] ?? 0) + 4);
     setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 4);
 
     // Last slide whose left edge has reached the viewport edge.
-    const starts = slideStarts(el);
     let cur = 0;
     for (let i = 0; i < starts.length; i++) {
       if (starts[i] <= el.scrollLeft + 8) cur = i;
@@ -207,83 +277,134 @@ export function MediaCarousel({ gallery }: { gallery: Gallery }) {
   };
 
   const arrow =
-    "grid size-10 place-items-center rounded-full bg-white text-navy shadow-[var(--shadow-ambient)] ring-1 ring-inset ring-line-soft transition-all hover:bg-royal-50 hover:shadow-[var(--shadow-lift)] disabled:opacity-35";
+    "absolute z-10 grid size-10 place-items-center rounded-full bg-white text-navy shadow-[var(--shadow-lift)] ring-1 ring-inset ring-line-soft transition-all hover:bg-royal-50 disabled:opacity-0 disabled:pointer-events-none";
+  /* Vertically centred on the picture band, not on the whole card: the card
+     adds 0.5rem of padding above an image that is exactly --slide-h tall, and
+     the caption below would otherwise drag the arrows down past it. */
+  const arrowY = "top-[calc(0.5rem+var(--slide-h)/2)] -translate-y-1/2";
+
+  const { left: figureLeft, right: figureRight } = PRESENTER_FIGURES;
 
   return (
-    <section className="bg-white py-16 sm:py-20">
+    /* Sector-scoped, because this section renders once per sector and the
+       inactive copy is only hidden with display:none — a bare id resolves to
+       whichever copy comes first in the document, which may be the hidden one.
+       The old unscoped `#agents` on PresenterStage is retired; nothing linked
+       to it. */
+    <section
+      id={sector ? `agents-${sector}` : undefined}
+      className="bg-white py-16 sm:py-20"
+    >
       <Container>
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div className="max-w-2xl">
-            {/* A real heading, not the pill this used to be. It was the only
-                thing naming the section, so dropping the eyebrow treatment
-                had to promote it rather than delete it — and the section had
-                no heading element at all until now. */}
-            <h2 className="text-3xl font-bold leading-[1.15] text-navy sm:text-4xl">
-              {gallery.title}
-            </h2>
-            <p className="mt-4 text-lg leading-relaxed text-slate">
-              {gallery.subtitle}
-            </p>
-          </div>
-          <div className="flex items-center gap-3">
-            {/* Announced politely: the count changes on every page, and a
-                terse "3 / 18" read out mid-scroll is noise, not help. */}
-            <p
-              aria-live="polite"
-              aria-atomic
-              className="text-[15px] font-semibold tabular-nums text-slate"
-            >
-              <span className="text-navy">{index + 1}</span> / {total}
-            </p>
-            <div className="flex gap-2">
-              <button
-                type="button"
-                onClick={() => page(-1)}
-                disabled={atStart}
-                aria-label="Previous image"
-                className={arrow}
-              >
-                <ChevronLeft className="size-5" aria-hidden />
-              </button>
-              <button
-                type="button"
-                onClick={() => page(1)}
-                disabled={atEnd}
-                aria-label="Next image"
-                className={arrow}
-              >
-                <ChevronRight className="size-5" aria-hidden />
-              </button>
-            </div>
-          </div>
+        {/* Centred on the homepage, left-ragged on inner pages. The stage below
+            is symmetric there — figure, track, figure — and a left-aligned
+            heading over it produced three different left edges: the figure in
+            the gutter, the heading at the container, the track inset past both.
+            Inner pages have no figures and no such problem. */}
+        <div className={sector ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
+          {/* A real heading, not the pill this used to be. It was the only
+              thing naming the section, so dropping the eyebrow treatment
+              had to promote it rather than delete it — and the section had
+              no heading element at all until now. */}
+          <h2 className="text-3xl font-bold leading-[1.15] text-navy sm:text-4xl">
+            {gallery.title}
+          </h2>
+          <p className="mt-4 text-lg leading-relaxed text-slate">
+            {gallery.subtitle}
+          </p>
         </div>
       </Container>
 
-      {/* Full-bleed track so slides run to the edge, but the page itself never
-          scrolls horizontally. */}
-      <div
-        ref={trackRef}
-        tabIndex={0}
-        role="group"
-        onKeyDown={onKeyDown}
-        aria-label={`${gallery.title} — ${total} images, scrollable gallery`}
-        className="mt-8 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-5 pb-2 [--slide-h:150px] focus-visible:outline-2 focus-visible:outline-offset-4 sm:px-8 sm:[--slide-h:200px] lg:[--slide-h:262px] [scrollbar-width:thin]"
-      >
-        {gallery.shots.map((shot) => (
-          <Slide key={`${gallery.id}-${shot.id}`} shot={shot} />
-        ))}
-        {/* trailing spacer so the last caption clears the viewport edge */}
-        <div aria-hidden className="w-1 shrink-0" />
-      </div>
+      {/* The design's composition. At `xl` the figures take a narrow column on
+          each side and the track runs between them; below that they drop under
+          the track, side by side, and the track goes back to full bleed.
 
-      {/* Figma "Home page 1.4" closes this section with a centred CTA. The
-          section used to end on the last slide, so a reader who browsed the
-          whole platform had nowhere to go from here. */}
-      <Container className="mt-10 flex justify-center">
-        <DemoButton variant="primary" withArrow>
-          {HERO_CTA.primary}
-        </DemoButton>
-      </Container>
+          --slide-h lives here rather than on the track so the arrows can read
+          it — they are positioned against the picture band's height. */}
+      <div
+        /* grid-cols-1 is load-bearing, not tidying. An implicit grid column is
+           sized to max-content, and the track is a flex row of 16 slides — so
+           without an explicit minmax(0,1fr) column the column grew to fit all
+           of them, the track stopped overflowing, and it silently stopped
+           scrolling at every width below xl. */
+        className={`mt-8 grid grid-cols-1 gap-4 [--slide-h:150px] sm:[--slide-h:200px] lg:[--slide-h:262px] ${
+          sector
+            ? "xl:grid-cols-[minmax(0,150px)_minmax(0,1fr)_minmax(0,150px)] xl:items-end xl:gap-6 xl:px-8"
+            : ""
+        }`}
+      >
+        {/* The figures exist to flank something. Below xl there is nothing to
+            flank — the track goes full-bleed edge to edge — so rather than
+            stack them underneath it they are not rendered at all. Measured at
+            390px they were 313px tall side by side: two thirds of a phone
+            screen given to decoration that had lost its job. */}
+        {sector ? (
+          <div className="hidden xl:block">
+            <Figure figure={figureLeft} side="left" />
+          </div>
+        ) : null}
+
+        <div className="relative min-w-0">
+          {/* Full-bleed below xl so slides run to the edge, but the page itself
+              never scrolls horizontally. */}
+          <div
+            ref={trackRef}
+            tabIndex={0}
+            role="group"
+            onKeyDown={onKeyDown}
+            aria-label={`${gallery.title} — ${total} images, scrollable gallery`}
+            className="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-5 pb-2 focus-visible:outline-2 focus-visible:outline-offset-4 sm:px-8 xl:px-0 [scrollbar-width:thin]"
+          >
+            {gallery.shots.map((shot) => (
+              <Slide key={`${gallery.id}-${shot.id}`} shot={shot} />
+            ))}
+            {/* trailing spacer so the last caption clears the viewport edge */}
+            <div aria-hidden className="w-1 shrink-0" />
+          </div>
+
+          {/* Arrows at the track's edges, as the design draws them. They sit
+              over the slides, so they fade out entirely at the ends rather than
+              dimming — a 35%-opacity disc parked on top of a screenshot reads
+              as an artefact, not as a disabled control. */}
+          <button
+            type="button"
+            onClick={() => page(-1)}
+            disabled={atStart}
+            aria-label="Previous image"
+            className={`${arrow} ${arrowY} left-2 sm:left-4 xl:-left-5`}
+          >
+            <ChevronLeft className="size-5" aria-hidden />
+          </button>
+          <button
+            type="button"
+            onClick={() => page(1)}
+            disabled={atEnd}
+            aria-label="Next image"
+            className={`${arrow} ${arrowY} right-2 sm:right-4 xl:-right-5`}
+          >
+            <ChevronRight className="size-5" aria-hidden />
+          </button>
+
+          {/* Where the design puts three dots. A counter instead, because the
+              whole point of this set is that it is much larger than three —
+              dots would either lie about the size or produce sixteen of them.
+              Announced politely: the number changes on every page, and a terse
+              "3 / 16" read out mid-scroll is noise, not help. */}
+          <p
+            aria-live="polite"
+            aria-atomic
+            className="mt-4 text-center text-[15px] font-semibold tabular-nums text-slate"
+          >
+            <span className="text-navy">{index + 1}</span> / {total}
+          </p>
+        </div>
+
+        {sector ? (
+          <div className="hidden xl:block">
+            <Figure figure={figureRight} side="right" />
+          </div>
+        ) : null}
+      </div>
     </section>
   );
 }

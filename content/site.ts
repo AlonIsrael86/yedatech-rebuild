@@ -271,27 +271,27 @@ export const CAPABILITIES: BySector<{
   },
 };
 
-/* ── Presenter composition ───────────────────────────────────────────────
-   Alon's message 4 and the handoff both require the woman-left / man-right
-   arrangement around the product interface. The COMPOSITION and the
-   interaction are ours to build; the FIGURES are slots, because Alexey's
-   widget/agent platform supplies the characters and we must not author them.
+/* ── Value band ──────────────────────────────────────────────────────────
+   The full-width gradient band that closes the product story.
 
-   Nothing here invents media, voice, play behaviour or a backend — the
-   handoff is explicit that those are Alexey's to define, and that still holds.
+   This was `PRESENTER`, and it carried two more fields: a title, "Guided from
+   both sides of the screen", and a lede claiming Yeda's learning agents sit
+   alongside the interface and answer from the organization's own material.
 
-   There was an `attach: "Agent attaches here"` field labelling the bind point.
-   It was written for us and read by customers, so it went. Whether the agent
-   characters are still coming is a live question for Alexey — deleting the
-   label did not answer it. */
-export const PRESENTER = {
-  title: "Guided from both sides of the screen",
-  lede: "Yeda's learning agents sit alongside the interface, guiding a learner through the platform and answering from the material the organization already has.",
-  band: {
-    title: "Innovation that brings measurable value",
-    body: "The same platform that delivers the training reports on what it achieved.",
-    cta: "Book a demo",
-  },
+   Both are gone with the presenter section. Alon's message 4 required the
+   woman-left / man-right arrangement around the product interface, and that
+   arrangement survives — it moved into MediaCarousel, which is where Figma
+   "Home page 1.4" §4 draws it. The copy did not move with it, because the
+   merged section already has a heading that describes what is on the screen,
+   and because the agent characters themselves remain an open question for
+   Alexey. An unanswered question should not be phrased as a shipped feature.
+
+   Nothing here invents media, voice, play behaviour or a backend — the handoff
+   is explicit that those are Alexey's to define, and that still holds. */
+export const VALUE_BAND = {
+  title: "Innovation that brings measurable value",
+  body: "The same platform that delivers the training reports on what it achieved.",
+  cta: "Book a demo",
 } as const;
 
 /* ── Capability bento ────────────────────────────────────────────────────
@@ -518,6 +518,10 @@ export const DEMO_FORM = {
     required: "This field is required",
     invalidEmail: "That email address is not valid",
     pickOne: "Choose one option",
+    /* The inline contact section asks the same two questions as selects rather
+       than radio lists, so it needs an empty first option. Chrome will happily
+       show the first real option as if it were chosen otherwise. */
+    selectPlaceholder: "Select an option",
   },
   success: {
     title: "Thank you",

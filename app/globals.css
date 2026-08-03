@@ -38,6 +38,10 @@
   --color-ok: #16a34a;
   --color-warn: #f4a723;
   --color-err: #d01e25;
+  /* The same alert red lifted for dark grounds. #d01e25 on navy measures
+     3.1:1 — below AA for body text — so the contact panel's validation
+     messages would have been unreadable in the one place they matter. */
+  --color-err-soft: #ff8a90;
 
   /* Type */
   --font-sans: var(--font-rubik), "Segoe UI", system-ui, sans-serif;
@@ -68,6 +72,13 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /*
+     * The header is sticky and 76px tall (pt-3 + h-16), so every in-page anchor
+     * landed with its heading tucked underneath it — "See the platform" in the
+     * hero arrived at a section whose title was already hidden. 5.5rem clears
+     * the bar with a little air above the heading.
+     */
+    scroll-padding-top: 5.5rem;
   }
   body {
     background: var(--color-surface);

@@ -42,7 +42,10 @@ export function DemoButton({
   return (
     <button
       type="button"
-      onClick={open}
+      /* Wrapped, not passed by reference. `open` now takes an optional prefill,
+         and `onClick={open}` would hand it React's click event as that
+         argument — the modal would open seeded with a MouseEvent. */
+      onClick={() => open()}
       className={`${base} ${sizes} ${styles} ${className}`}
     >
       {children}

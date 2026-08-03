@@ -9,9 +9,9 @@ import {
 } from "@/components/Sections";
 import { Flow } from "@/components/Flow";
 import { MediaCarousel } from "@/components/MediaCarousel";
-import { PresenterStage } from "@/components/PresenterStage";
+import { ValueBand } from "@/components/ValueBand";
 import { LogoStrip } from "@/components/LogoStrip";
-import { FinalCta } from "@/components/FinalCta";
+import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
 import { SectorPanel } from "@/components/SectorProvider";
 import { UI } from "@/content/site";
@@ -26,15 +26,24 @@ export const metadata: Metadata = {
  * Sector-varying sections render once per sector and CSS reveals the active
  * one — a crawler receives both, and switching tabs never navigates.
  *
- * SIX of the nine sections now change with the tab: Hero, CapabilityBento,
- * Audiences, Flow, MediaCarousel and FinalCta. It used to be three, all of them
- * above the fold, which is why clicking a tab lower down the page looked like
- * it did nothing. The cross-fade that makes the change legible lives in
- * globals.css, keyed off data-sector-switched.
+ * SIX of the nine sections change with the tab: Hero, CapabilityBento,
+ * Audiences, MediaCarousel, Flow and the contact section. It used to be three,
+ * all of them above the fold, which is why clicking a tab lower down the page
+ * looked like it did nothing. The cross-fade that makes the change legible
+ * lives in globals.css, keyed off data-sector-switched.
  *
- * The carousel now points at the per-sector galleries that already existed in
- * content/media.ts — the employee portal for organizations, the student view
- * for institutions — rather than one shared gallery.
+ * The carousel points at the per-sector galleries in content/media.ts — the
+ * employee portal for organizations, the student view for institutions —
+ * rather than one shared gallery.
+ *
+ * ORDER FOLLOWS FIGMA "Home page 1.4": hero, then the product carousel with
+ * the two figures flanking it (§4), then the numbered steps (§5), then the
+ * inline contact form (§6) and the footer (§7). Flow used to run before the
+ * carousel, which had the steps explaining a product nobody had been shown
+ * yet. §3, the brand-card row, is deliberately absent — Victor closed it.
+ *
+ * ValueBand is the one shared block in the middle. It renders once rather than
+ * per sector, so its copy appears a single time in the HTML.
  *
  * Not mounted yet: client logos. LogoStrip is mounted but returns null until
  * Alexey approves the twelve organizations in content/clients.ts.
@@ -64,17 +73,20 @@ export default function Home() {
           </SectorPanel>
         ))}
 
-        {/* Shared: the composition reads the same for both sectors, so it is
-            rendered once between the two sector blocks rather than duplicated. */}
-        <PresenterStage />
-
         {SECTOR_KEYS.map((sector) => (
           <SectorPanel key={`mid-${sector}`} sector={sector}>
             <Audiences sector={sector} />
+            <MediaCarousel
+              gallery={GALLERIES[SECTOR_GALLERY[sector]]}
+              sector={sector}
+            />
             <Flow sector={sector} />
-            <MediaCarousel gallery={GALLERIES[SECTOR_GALLERY[sector]]} />
           </SectorPanel>
         ))}
+
+        {/* Shared: reads the same for both sectors, so it is rendered once
+            between the sector blocks rather than duplicated into each. */}
+        <ValueBand />
 
         <LogoStrip />
         <Production />
@@ -82,7 +94,7 @@ export default function Home() {
 
         {SECTOR_KEYS.map((sector) => (
           <SectorPanel key={`cta-${sector}`} sector={sector}>
-            <FinalCta sector={sector} />
+            <ContactSection sector={sector} />
           </SectorPanel>
         ))}
       </main>

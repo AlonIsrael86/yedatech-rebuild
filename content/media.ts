@@ -297,16 +297,42 @@ const implementation = lms(
   "organizations",
 );
 
-const rolesPermissions = lms(
-  "yeda-organizations-roles-and-permissions",
-  "Roles and permissions",
-  1278,
-  894,
-  "Yeda permission matrix showing what HR, managers and employees can each access",
-  "Who can see what, by role — HR, managers and employees get different views of the same system.",
-  "settings",
-  "organizations",
-);
+/* REPLACED 2026-08-05. This was a stock photograph of a woman presenting to
+   applauding colleagues, with a three-row Hebrew permissions table composited
+   into the corner — a picture of people standing in for a capability. It is now
+   the real screen, in English, from Alexey's Figma via the colleague's
+   yeda-ui-page set. alt and caption are rewritten from the image; the old ones
+   described the photograph and its invented HR/manager/employee rows.
+   One file, three consumers: hero organizations #4, `organizations-platform`
+   and `integrations-and-live`. All three are captioned about permissions.
+
+   DE-BRANDED, and this is the one thing to check if these ever get re-cut.
+   The source frame carries a "Juno OPS" wordmark and the account
+   `admin@juno.ops`, both confined to the left sidebar. The crop at x=802 of
+   3840 removes the whole sidebar and with it both marks — verified by scanning
+   the written file for the badge red and finding 0 pixels, against 9602 in the
+   source, so the detector is known to work.
+
+   The assumption underneath: that Juno OPS is a fictional demo tenant in the
+   Figma, not a separate product. The colleague files these under "admin user
+   experience" for Yeda and the mobile cuts of the same screens carry no logo at
+   all, which points that way, but he has not confirmed it. If it turns out to
+   be a real separate product this asset comes out — cropping the logo would be
+   hiding the problem, not fixing it. Victor took the call to ship. */
+const rolesPermissions: Shot = {
+  id: "organizations-roles-and-permissions",
+  file: `${P}/yeda-organizations-roles-and-permissions.png`,
+  width: 1200,
+  height: 853,
+  alt: "A Yeda role open for editing, with each permission listed separately and switched on or off",
+  caption:
+    "A role opened up — every permission named and described one by one, switched on or off individually, and counted per area before the change is published.",
+  label: "Roles and permissions",
+  category: "settings",
+  sector: "organizations",
+  source: "figma",
+  figmaFrame: "admin-roles",
+};
 
 const analyticsViewing = lms(
   "yeda-learning-analytics-viewing-data",
@@ -328,16 +354,32 @@ const integrationsDiagram = lms(
   "integrations",
 );
 
-const courseProgress = lms(
-  "yeda-education-course-progress-tracking",
-  "Course progress",
-  1314,
-  894,
-  "Yeda course progress card showing percentage complete, units finished and last activity",
-  "Progress through a course at a glance — how far in, how many units left, and when the student was last active.",
-  "analytics",
-  "education",
-);
+/* REPLACED 2026-08-05, same filename. This was four people at a laptop with a
+   small Hebrew card and a "Your Logo" marker pasted over it; it is now the
+   learner's own course list, in English, from the yeda-ui-page set.
+
+   The caption barely changed because the old one already described this screen
+   rather than the photograph it sat on — "how far in, how many units left, and
+   when the student was last active" is now literally what is on the picture
+   (50%, Units 8/120, last activity 2 days ago).
+
+   TWO cards, not the colleague's one. His crop is a 2.575 strip, and the
+   carousel derives slide width from this ratio — it came out ~70% wider than
+   every neighbour and broke the row. 1.709 sits in family with the rest. */
+const courseProgress: Shot = {
+  id: "education-course-progress-tracking",
+  file: `${P}/yeda-education-course-progress-tracking.png`,
+  width: 1200,
+  height: 702,
+  alt: "A Yeda learner's course list showing percentage complete, units finished and last activity",
+  caption:
+    "Progress through a course at a glance — how far in, how many units are left, when the student was last active, and the lesson the Continue button drops them back into.",
+  label: "Course progress",
+  category: "analytics",
+  sector: "education",
+  source: "figma",
+  figmaFrame: "learner-courses",
+};
 
 const liveSessionRecording = lms(
   "yeda-live-session-recording",
@@ -466,20 +508,34 @@ const meetingPlatformSync: Shot = {
   selfFramed: true,
 };
 
-const studentsTogether: Shot = {
-  id: "students-learning-together",
-  file: `${P}/yeda-students-learning-together-laptop.png`,
-  width: 1278,
-  height: 870,
-  alt: "Three students working through a course together on one laptop",
+/* Opens the education hero. Replaced `studentsTogether` on 2026-08-05 — a stock
+   photograph of three students at a laptop, which showed the audience rather
+   than the product. This shows the thing they would actually be looking at.
+
+   The file it replaced is left in public/ unreferenced, as `PRESENTER_SCREEN`
+   was: retiring a const and deleting an asset are separate decisions, and this
+   commit only makes the first.
+
+   Cut at 2020px, not the colleague's 2160. His line keeps a last row reading
+   "Teacher(s): Anna Weber" — a named person, which Victor's "clean screens
+   only" ruling excludes. Losing it costs the star rating and the video length;
+   the lesson list, the player, the description and the attachment all survive.
+
+   Opaque and white-grounded, so NO `selfFramed` — it needs the Hero's card or
+   it meets the navy with a bare edge. */
+const coursePageLessons: Shot = {
+  id: "education-course-page-lessons",
+  file: `${P}/yeda-education-course-page-lessons-and-video.png`,
+  width: 1200,
+  height: 631,
+  alt: "A Yeda course page with the section and lesson list beside the lesson's video and its attached material",
   caption:
-    "Three students on one course, with the session recording and the written material beside it.",
-  label: "Studying together",
-  category: "concept",
+    "One lesson open, with the course's sections and lessons listed beside it — what is done, what is playing, and the material attached to it.",
+  label: "Inside a course",
+  category: "flow",
   sector: "education",
   source: "figma",
-  figmaFrame: "fo_9",
-  selfFramed: true,
+  figmaFrame: "learner-player",
 };
 
 /* A near-twin of `learningAnalytics` (mean abs diff 10.72) but a different
@@ -502,19 +558,26 @@ const engagementAnalytics: Shot = {
   selfFramed: true,
 };
 
-/* ENGLISH, and the only shot here with a named person: the sidebar shows a
-   photo and the legible name "Noam Rosenberg". Victor cleared it on 2026-08-03
-   as a placeholder in Alexey's own mock, consistent with the ~30px dashboard
-   avatar he cleared earlier and unlike fo_11, which was rejected for carrying a
-   national ID, phone and address. Flagged here so whoever swaps these assets
-   later knows it is in the pixels. Alexey has been asked to confirm.
+/* ENGLISH. Re-cut 2026-08-05 from the colleague's yeda-ui-page set, which ships
+   the 2x Figma source for this same frame.
+
+   THE NAMED PERSON IS GONE. This used to be the full 3840×2642 page, whose
+   bottom-left sidebar carried a photo and the legible name "Noam Rosenberg" —
+   shipped on Victor's clearance and queued as a question for Alexey. The cut at
+   2484px lands 24px above the first ink of that profile row (measured, not
+   guessed), so the name is no longer in the pixels and the question is closed by
+   deletion rather than by clearance.
+
+   The crop is ours, not the colleague's: his ends at 2.041 and loses sections 4
+   and 5. Ours keeps the whole path, Start to Finish, and at 1.546 it very nearly
+   fills the hero's 3:2 frame instead of letterboxing inside it.
 
    Opaque and full-page, so no `selfFramed` — the Hero gives it a card. */
 const courseRoadmap: Shot = {
   id: "education-course-roadmap",
   file: `${P}/yeda-education-course-roadmap-progress.png`,
-  width: 3840,
-  height: 2642,
+  width: 1200,
+  height: 776,
   alt: "A student's course roadmap with completed, current and locked lessons beside a progress summary",
   caption:
     "The whole course as a path — what is finished, what is open now and what unlocks next, with the progress summary beside it.",
@@ -527,12 +590,17 @@ const courseRoadmap: Shot = {
 
 /* ENGLISH. Small Google and Outlook glyphs in the "Sync with" control — the
    same override as `meetingPlatformSync` above, and covered by the same request
-   to Alexey. Opaque and full-page, so no `selfFramed`. */
+   to Alexey. Opaque and full-page, so no `selfFramed`.
+
+   Downscaled 2026-08-05, 3840 -> 1200. Same pixels, one sixth the width: this
+   was a full-page design being rendered into a 535px slot, where none of it was
+   legible. Derived from the shipping file itself rather than re-exported, so
+   the content provably cannot have changed. */
 const educationSchedule: Shot = {
   id: "education-schedule-week",
   file: `${P}/yeda-education-schedule-week-view.png`,
-  width: 3840,
-  height: 2160,
+  width: 1200,
+  height: 675,
   alt: "A week of classroom lessons, online lessons, exams and one-to-one sessions in the Yeda schedule",
   caption:
     "One week of classroom lessons, online lessons, exams and one-to-one sessions, with the option to mirror it into Google or Outlook.",
@@ -830,13 +898,33 @@ const adminDashboard: Shot = {
   figmaFrame: "dashboard",
 };
 
-const assignToDepartment = pending(
-  "assign-training-to-department-cohort",
-  "Assign to a cohort",
-  "Yeda assignment of a training programme to a department or cohort",
-  "Assigning a programme to a whole department or cohort and notifying them — the step that turns content into training.",
-  "settings",
-);
+/* FILLED 2026-08-05 — the second pending slot to get a real screen, and the
+   reason the placeholder count drops by one.
+
+   It replaces `assignToDepartment`, whose placeholder promised "assigning a
+   programme to a whole department or cohort AND NOTIFYING THEM". No screen in
+   the set shows assignment, so the label, alt and caption are rewritten to the
+   half this picture does show: the rule that fires the notification. Promising
+   assignment over a picture of an automation canvas would be the placeholder
+   lying rather than admitting it was empty.
+
+   DE-BRANDED on the same crop and the same assumption as `rolesPermissions` —
+   see the long note there. Verified: 9602 badge pixels in the source, 0 in the
+   written file. */
+const roleAutomation: Shot = {
+  id: "role-automation-and-notifications",
+  file: `${P}/yeda-role-automation-and-notifications.png`,
+  width: 1200,
+  height: 853,
+  alt: "A Yeda automation branching on a new user's role and ending in a notification",
+  caption:
+    "A rule drawn out: someone registers, the branch follows the role they were given, and after a set wait the notification goes out on its own.",
+  label: "Automations and rules",
+  category: "settings",
+  sector: "organizations",
+  source: "figma",
+  figmaFrame: "admin-workflows",
+};
 
 const publicApiReference = pending(
   "public-api-developer-reference",
@@ -894,7 +982,7 @@ export const GALLERIES: Record<string, Gallery> = {
       implementation,
       employeePortal,
       insuranceProgramme,
-      assignToDepartment,
+      roleAutomation,
       coursePlayerQuiz,
       examResults,
       recordingStudio,
@@ -1049,11 +1137,14 @@ export const FLOW_SHOTS: Record<string, Shot> = {
  * ORDER MATTERS TWICE OVER.
  *
  * The first entry is the one the Hero loads eagerly, so it is the LCP candidate
- * for its panel. It is also the first thing anyone sees, which is why both lists
- * open on a language-neutral picture and put the English screens next: of the
- * twelve frames, only two are English and two carry no text at all. Leading on a
- * Hebrew screenshot would have been the worst available choice on an English
+ * for its panel. It is also the first thing anyone sees, and the rule is that it
+ * must not be a Hebrew screenshot — the worst available choice on an English
  * site, even with Victor's ruling that Hebrew screens may ship.
+ *
+ * That rule used to be satisfied by opening on a picture with no text in it at
+ * all. Education no longer has to: since 2026-08-05 its first three slides are
+ * real English screens, so it opens on one. Organizations still opens on the
+ * language-neutral composite, because it has no English screen to lead with.
  *
  * The copy does NOT change between slides. `HERO[sector]` keeps one title,
  * subtitle and chip set; only the picture rotates. Victor supplied images and no
@@ -1074,7 +1165,7 @@ export const HERO_SLIDES: Record<Sector, readonly Shot[]> = {
     analyticsViewing,
   ],
   education: [
-    studentsTogether, // no text, language-neutral
+    coursePageLessons, // English
     courseRoadmap, // English
     educationSchedule, // English
     coursePlayerQuiz,

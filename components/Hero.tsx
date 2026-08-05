@@ -117,6 +117,12 @@ function HeroSlider({ slides }: { slides: readonly Shot[] }) {
                         src={shot.file as string}
                         alt={shot.alt}
                         fill
+                        /* Same eager rule as the branch above, and it has to be
+                           on BOTH. It used to live only there because every
+                           first slide happened to be self-framed; the moment
+                           education opened on a flat screenshot instead, its
+                           LCP image silently went lazy. */
+                        priority={index === 0}
                         sizes="(max-width: 1024px) 92vw, 560px"
                         className="object-contain"
                       />

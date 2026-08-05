@@ -261,15 +261,13 @@ const whiteLabelPortal = lms(
   "settings",
 );
 
-const videoLibrary = lms(
-  "yeda-video-content-library-and-storage",
-  "Video library",
-  1314,
-  893,
-  "Yeda video content library with folders, thumbnails and durations",
-  "Every recording in one library, foldered and searchable, ready to be assigned rather than hunted for in a drive.",
-  "dashboard",
-);
+/* `videoLibrary` (yeda-video-content-library-and-storage.png, 1314×893) was
+   retired here on 2026-08-06. It held Flow step 04 and nothing else, and step 04
+   is now Victor's members-and-roles screen. The two show different halves of the
+   same sentence — the step says finished lessons "land in one library, then go
+   out ... by role, department or cohort", and the new picture is the second
+   half. Choosing between them was his call, not a tidy-up. File left in public/
+   unreferenced. */
 
 const whiteLabelOrg = lms(
   "yeda-organizations-white-label-branding",
@@ -611,23 +609,34 @@ const educationSchedule: Shot = {
   figmaFrame: "Schedule",
 };
 
+/* ── The numbered flow, 2026-08-06 ───────────────────────────────────────
+   The five images below are Victor's own choice, delivered named for the five
+   steps. That is the process from here on: he picks the picture, the page is
+   fitted around it. Everything here is read off the file — alt, caption, label
+   and the dimensions, which come from sharp rather than an export dialog.
+
+   Four of the five are 16:9, which ends a long-standing defect: step 01 used to
+   be a 1.80 cut-out against neighbours at 1.39–1.47 and rendered a 292px plate
+   where the rest were 362px. Step 05 is now the odd ratio at 1.35.
+
+   None of them needs `needsSurface`. They report an alpha channel, but it is
+   0.01% of the pixels and it is only the 14px rounded corners — the ground is
+   baked in, as it is on the yedalms.io composites. At the rendered 560px those
+   corners fall inside the container's own 14px clip. */
+
 const uploadMaterial: Shot = {
-  id: "content-upload-existing-material",
-  file: `${P}/yeda-content-upload-existing-material.png`,
-  width: 832,
-  height: 463,
-  alt: "A person uploading existing documents and files into Yeda from a laptop",
+  id: "choose-materials-for-a-module",
+  file: `${P}/yeda-choose-materials-for-a-module.png`,
+  width: 1200,
+  height: 675,
+  alt: "The Yeda module wizard on its first step, offering stored videos, document upload and a written outline",
   caption:
-    "Existing files going in — the documents an organization already has, uploaded as they are.",
-  label: "Bring your material in",
+    "The first step of building a module: videos already in storage, documents uploaded exactly as they are, or an outline typed straight in — one of the three, or all of them together.",
+  label: "Choosing the material",
   category: "flow",
   sector: "both",
   source: "figma",
-  figmaFrame: "bring-the-material-you-already-have",
-  /* A cut-out with a fully transparent ground, unlike the yedalms.io shots
-     around it in the Flow, which carry their pale plate in the pixels. Without a
-     surface behind it the man floated on the section. */
-  needsSurface: true,
+  figmaFrame: "01-bring-the-material-you-already-have",
 };
 
 /* ── Real platform screens (yedalabs.ai) ─────────────────────────────── */
@@ -708,34 +717,38 @@ const interactiveModule: Shot = {
    710×490 and Hebrew. Smaller than the yedalms.io set above, so they now sit
    behind it rather than carrying the galleries. */
 
+/* Steps 02 and 03 were the last two 710×490 Hebrew screens in the Flow. Their
+   files stay in public/ unreferenced, as retired assets on this project always
+   do — see `contentLibrary` and `lessonRecording`. */
+
 const courseModules: Shot = {
-  id: "course-modules",
-  file: `${P}/yeda-course-modules-syllabus-builder.png`,
-  width: 710,
-  height: 490,
-  alt: "Yeda course modules and syllabus builder with AI syllabus regeneration",
+  id: "module-builder-pages-and-lesson",
+  file: `${P}/yeda-module-builder-pages-and-lesson.png`,
+  width: 1200,
+  height: 675,
+  alt: "The Yeda module builder with the page list beside a written-out lesson, ready to publish",
   caption:
-    "The course structure, module by module — lessons can be edited, generated, or the whole syllabus rebuilt, then published straight into the LMS.",
-  label: "Syllabus builder",
+    "What came back, open for review — the module's pages listed down one side and one of them written out in full, with its introduction and what the lesson will cover.",
+  label: "The module Yeda built",
   category: "flow",
   sector: "both",
-  source: "yedalabs-io",
-  figmaFrame: null,
+  source: "figma",
+  figmaFrame: "02-yeda-builds-the-plan-and-the-modules",
 };
 
 const materialEditor: Shot = {
-  id: "material-editor",
-  file: `${P}/yeda-learning-material-slide-editor.png`,
-  width: 710,
-  height: 490,
-  alt: "Yeda learning material editor with slides, text, images and shapes",
+  id: "slide-editor-templates-and-recording",
+  file: `${P}/yeda-slide-editor-templates-and-recording.png`,
+  width: 1200,
+  height: 675,
+  alt: "The Yeda slide editor with the layout picker open and the presenter's camera ready to record",
   caption:
-    "Slides, text, imagery and annotation in one place, with the recording controls sitting alongside them.",
-  label: "Slide editor",
-  category: "settings",
+    "The same material, reshaped — a layout chosen for the slide, text, photos, icons and practice forms down the side, and the presenter's camera ready to record against it.",
+  label: "Editing and recording",
+  category: "flow",
   sector: "both",
-  source: "yedalabs-io",
-  figmaFrame: null,
+  source: "figma",
+  figmaFrame: "03-shape-it-the-way-your-organization-works",
 };
 
 /* `lessonRecording` was here — yeda-lesson-recording-presenter-studio.png, the
@@ -760,10 +773,11 @@ const videoEditing: Shot = {
 };
 
 /* `contentLibrary` (yeda-content-library-videos-folders.png, 710×490) was
-   retired here. It showed a foldered video library, which `videoLibrary` from
-   yedalms.io now does at 1314×893 — keeping both put the same idea in the Flow
-   and the carousel on one page. The file is left in public/ unreferenced in
-   case it is wanted for an inner page. */
+   retired here. It showed a foldered video library, duplicating `videoLibrary`
+   at 1314×893 — the same idea in the Flow and the carousel on one page. Both
+   are gone now: `videoLibrary` was itself retired on 2026-08-06 when step 04
+   took Victor's members screen, so no foldered library is on the page at all.
+   Both files are left in public/ unreferenced in case an inner page wants one. */
 
 /* ── Still awaiting a real screen ────────────────────────────────────────
    Only the capabilities with no yedalms.io equivalent are left as slots. Each
@@ -946,7 +960,9 @@ export const GALLERIES: Record<string, Gallery> = {
     subtitle:
       "Employee, supplier and customer training managed from one place — browse left to right.",
     /* videoLibrary and analyticsViewing moved to the Flow — they were showing
-       the same idea twice on one page. aiAnswerSources and mobileApp dropped:
+       the same idea twice on one page. (videoLibrary has since been retired
+       outright; analyticsViewing now lives in the organizations hero.)
+       aiAnswerSources and mobileApp dropped:
        all three AI composites share a framing, and mobileApp's phone screen is
        the one already inside aiStudyPlan. */
     shots: [
@@ -1081,6 +1097,72 @@ export const PRESENTER_FIGURES: { left: PresenterFigure; right: PresenterFigure 
  * `contentLibrary` and `aiAnswersFromVideo`. Nothing is lost that is not
  * already on the page. */
 
+/* DE-BRANDED, and the one thing to check if this is ever re-cut. The delivered
+   file carries the `Juno OPS` lockup top-left and `admin@juno.ops` bottom-left,
+   both inside a sidebar whose right border measures at x=250. The crop takes
+   everything left of x=251, which removes both marks and nothing else — verified
+   by scanning the written file for the badge red and finding 0 pixels against
+   747 in the source, so the detector is known to work. It is the same treatment
+   `rolesPermissions` and `roleAutomation` got, and the same open question sits
+   under it: whether Juno OPS is a fictional demo tenant in Alexey's Figma or a
+   separate product. Seva has not answered. Victor took the call to ship it
+   cropped.
+
+   The bottom is cut at the row separator below Clara Martinez (y=511) rather
+   than at a 16:9 line, because 16:9 landed mid-row and sliced a name in half;
+   41px of empty background came off the right instead, which brings it back to
+   1.777 with nothing lost — the rightmost ink is at x=892.
+
+   What stays: demo people with avatars, names and @example.com addresses — the
+   RFC 2606 reserved domain, so synthetic — and two named institutions. Demo
+   data inside a product UI, but a reader could take them for customers, which
+   is in the note to Alexey. */
+const memberRolesAssignments: Shot = {
+  id: "organization-members-roles-and-assignments",
+  file: `${P}/yeda-organization-members-roles-and-assignments.png`,
+  width: 908,
+  height: 511,
+  alt: "A Yeda organization's member list showing each person's assignments, status, and the role they hold on each site",
+  caption:
+    "Who it reached, and as what — the people in an organization with the training assigned to each of them, whether they are active or still invited, and the role they hold on every site.",
+  label: "Members and roles",
+  category: "settings",
+  sector: "both",
+  source: "figma",
+  figmaFrame: "04-publish-it-to-the-people-who-need-it",
+};
+
+/* KNOWINGLY SHIPPED AGAINST ITS OWN STEP. Step 05 promises "completion, drop-off
+   and the success rate on every question". This screen reports on the learning
+   assistant instead — conversations, messages, engagement, one average grade —
+   and `analyticsViewing`, which it replaces in the Flow, does show all three of
+   the things the step names. Victor chose this picture and chose to leave the
+   step's wording alone, so the caption below describes the screen honestly and
+   the sentence beside it on the page is about different measures.
+
+   `analyticsViewing` is deliberately NOT repointed: it carries one caption for
+   both of its consumers, so editing it in place would have moved Organizations
+   hero slide 6 as well, and hero slides are parked pending Victor's decision.
+   The Flow changes; the hero does not.
+
+   Two flaws in the source, both Alexey's UI rather than ours, both in the note
+   to him: "Assistent" is misspelled twice, and the date filter reads Jul 2024
+   while the chart axis runs Apr–Jun. */
+const assistantAnalytics: Shot = {
+  id: "ai-assistant-usage-dashboard",
+  file: `${P}/yeda-ai-assistant-usage-dashboard.png`,
+  width: 1200,
+  height: 888,
+  alt: "A Yeda dashboard reporting on the learning assistant — conversations started, messages, engagement rate and average grade",
+  caption:
+    "The reporting side: how many conversations the learning assistant held, how many messages went back and forth, what share of people stayed active, and the average grade beside them.",
+  label: "Assistant reporting",
+  category: "analytics",
+  sector: "both",
+  source: "figma",
+  figmaFrame: "05-see-what-actually-landed",
+};
+
 /**
  * The five steps of the product flow, in order. Shared between both sectors —
  * only the words change per sector, so the browser fetches each file once even
@@ -1089,21 +1171,13 @@ export const PRESENTER_FIGURES: { left: PresenterFigure; right: PresenterFigure 
  * Keyed by the step id used in FLOW in content/site.ts.
  */
 export const FLOW_SHOTS: Record<string, Shot> = {
-  /* Was aiAnswersFromVideo, which showed an AI answering from a video above a
-     step about bringing your own material in. This is the first Figma export
-     and it shows exactly what the step describes. */
+  /* All five are Victor's chosen images as of 2026-08-06, delivered named for
+     the steps they belong to, so the mapping below is his and not inferred. */
   ingest: uploadMaterial,
   build: courseModules,
   shape: materialEditor,
-  /*
-   * publish and measure moved off the 710×490 yedalabs.io screens onto the
-   * yedalms.io ones, which are roughly double the resolution. This also
-   * removes a duplicate: the carousel was showing a video library and an
-   * analytics screen a few sections below the Flow doing the same, on the same
-   * page. Both are now here only.
-   */
-  publish: videoLibrary,
-  measure: analyticsViewing,
+  publish: memberRolesAssignments,
+  measure: assistantAnalytics,
 };
 
 /**

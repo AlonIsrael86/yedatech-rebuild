@@ -675,61 +675,34 @@ const interactiveModule: Shot = {
   figmaFrame: null,
 };
 
-const conceptAuthoring: Shot = {
-  id: "concept-authoring",
-  file: `${P}/yeda-learning-concept-authoring.svg`,
-  width: 426,
-  height: 623,
-  alt: "Illustration of a person in front of a wall of lesson and video tiles",
-  caption: "Lessons and recordings lined up before they go out.",
-  label: "Building the course",
-  category: "concept",
-  sector: "both",
-  source: "yedalabs-ai",
-  figmaFrame: null,
-};
+/* ── The four concept illustrations, retired 2026-08-05 ──────────────────
+   `conceptAuthoring`, `conceptDelivery`, `conceptAssessment` and
+   `conceptKnowledge` were flat drawings — "Building the course", "Getting it
+   out", "Testing and certifying", "Seeing it land" — carried over from
+   yedalabs.ai. Their `source` said so: `yedalabs-ai`, not `figma`. They were
+   never Yeda screens and never depicted a Yeda capability.
 
-const conceptDelivery: Shot = {
-  id: "concept-delivery",
-  file: `${P}/yeda-learning-concept-delivery.svg`,
-  width: 346,
-  height: 187,
-  alt: "Yeda learning delivery concept illustration",
-  caption: "Publishing the programme to the people who need it.",
-  label: "Getting it out",
-  category: "concept",
-  sector: "both",
-  source: "yedalabs-ai",
-  figmaFrame: null,
-};
+   They sat in three inner-page galleries, each next to real screenshots, which
+   is where a generic drawing reads as a placeholder rather than as evidence.
+   Their captions say the quiet part: "Lessons and recordings lined up before
+   they go out" describes an idea, not a product.
 
-const conceptAssessment: Shot = {
-  id: "concept-assessment",
-  file: `${P}/yeda-learning-concept-assessment.svg`,
-  width: 426,
-  height: 187,
-  alt: "Yeda assessment and certification concept illustration",
-  caption: "Scoring and certifying what was learned.",
-  label: "Testing and certifying",
-  category: "concept",
-  sector: "both",
-  source: "yedalabs-ai",
-  figmaFrame: null,
-};
+   NOT reused as replacements for the six remaining stock photographs, which is
+   what was first proposed. Those photographs are weak, but each one actually
+   contains the thing its caption promises — `whiteLabelOrg` has a real logo slot
+   and colour picker composited in, `implementation` has a rollout tracker,
+   `integrationsDiagram` has the CRM/HR/ERP map. None of these four drawings
+   shows any of that, so the swap would have traded a photograph that supports
+   its caption for a drawing that does not. They also draw people themselves, so
+   it would not even have removed the photography objection — only re-rendered
+   it.
 
-const conceptKnowledge: Shot = {
-  id: "concept-knowledge",
-  file: `${P}/yeda-learning-concept-knowledge.svg`,
-  width: 426,
-  height: 623,
-  alt: "Illustration of a person beside a rising bar chart of learning results",
-  caption: "Results coming back once people have taken the training.",
-  label: "Seeing it land",
-  category: "concept",
-  sector: "both",
-  source: "yedalabs-ai",
-  figmaFrame: null,
-};
+   The four .svg files stay in public/ unreferenced, as `PRESENTER_SCREEN` and
+   `studentsTogether` did: retiring a const and deleting an asset are separate
+   decisions and this commit makes only the first.
+
+   `PRESENTER_FIGURES` (figureWoman / figureMan) is deliberately NOT touched —
+   Alon briefed that flanking pair and MediaCarousel composes around it. */
 
 /* ── Real platform screens (yedalabs.io) ─────────────────────────────────
    710×490 and Hebrew. Smaller than the yedalms.io set above, so they now sit
@@ -1025,14 +998,18 @@ export const GALLERIES: Record<string, Gallery> = {
     title: "Building a learning module",
     subtitle:
       "From existing material to a finished interactive unit — read the flow left to right.",
+    /* Reordered when the two concept drawings came out. They were this gallery's
+       first and last slides, so removing them left it opening mid-process and
+       ENDING ON SUBTITLES — while the subtitle promises it ends on "a finished
+       interactive unit". The order now walks record -> edit -> subtitle -> embed
+       questions -> the finished module, so the last slide is the thing the
+       sentence says it will be. */
     shots: [
-      conceptAuthoring,
       recordingStudio,
       videoEditing,
+      subtitlesTranslation,
       interactiveVideoQuestion,
       interactiveModule,
-      subtitlesTranslation,
-      conceptAssessment,
     ],
   },
   /* aiStudyPlan is left out — mobileApp is the phone screen from inside it, so
@@ -1054,7 +1031,6 @@ export const GALLERIES: Record<string, Gallery> = {
       aiAgentScreenWatch,
       mobileApp,
       analyticsInsights,
-      conceptKnowledge,
       avatarModule,
     ],
   },
@@ -1068,7 +1044,6 @@ export const GALLERIES: Record<string, Gallery> = {
       liveSessionRecording,
       publicApiReference,
       rolesPermissions,
-      conceptDelivery,
     ],
   },
 };

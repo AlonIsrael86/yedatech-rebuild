@@ -1,17 +1,42 @@
 "use client";
 
+import { usePathname, useRouter } from "next/navigation";
 import { Building2, GraduationCap } from "lucide-react";
 import { useSector } from "@/components/SectorProvider";
 import { SECTORS } from "@/content/site";
 
 /**
- * The tab pair Alexey asked for. Switching does not navigate — it flips the
- * data-sector attribute and CSS reveals the other set of panels.
+ * The tab pair Alexey asked for.
+ *
+ * ON THE HOMEPAGE it does not navigate: it flips the data-sector attribute and
+ * CSS reveals the other set of panels. That is Alexey's requirement — the tab
+ * switches the whole site "without changing the page" — and it must stay.
+ *
+ * ANYWHERE ELSE it goes to the homepage, because there was nothing for it to
+ * switch. `PageShell` renders one route for one sector, so an inner page
+ * contains ZERO `[data-sector-panel]` elements and the display:none rule in
+ * globals.css has nothing to act on. Clicking Education on
+ * /solutions/employee-training/ used to repaint the tab and rewrite the menu
+ * from 20 links to 11 while leaving the reader on the same organizations copy,
+ * same h1, same URL. Victor asked for the homepage instead, from every inner
+ * page — including the six whose sector is "both", so the rule has no
+ * per-page exceptions a visitor would have to guess at.
+ *
+ * WHY THE STORE WRITE, NOT A QUERY STRING. `/?sector=education` looks like the
+ * obvious href and it does not work: `readSector()` returns early from a
+ * module-level cache that is already populated once the app has booted, so
+ * client-side routing never reads the query. Verified — a fresh load of
+ * /?sector=education lands in education, a client-side navigation to the same
+ * URL lands in organizations. So setSector() has to run here, and the route
+ * carries no state.
+ *
+ * ROLE FOLLOWS BEHAVIOUR. A tablist promises a tabpanel relationship, which
+ * only exists on the homepage. Off it, this is a pair of buttons that navigate,
+ * so they are announced that way — aria-current rather than aria-selected.
  *
  * Laid out as a 2-column grid rather than an inline flex row, so both tabs are
  * exactly the same width regardless of label length ("Organizations" is a lot
- * longer than "Education"). Still a real tablist, so keyboard and
- * screen-reader users get the same affordance.
+ * longer than "Education").
  */
 const SIZES = {
   md: "px-4 py-2 text-[15px]",
@@ -74,12 +99,26 @@ export function SectorTabs({
   swapWordsForIcons?: boolean;
 }) {
   const { sector, setSector } = useSector();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  /* The homepage is the only route that renders both sector panels, so it is the
+     only one where switching can happen in place. Compared with the trailing
+     slash stripped because every route in content/routes.ts carries one. */
+  const onHomepage = (pathname ?? "/").replace(/\/+$/, "") === "";
 
   const cell = swapWordsForIcons ? NARROW.cell : SIZES[size];
 
+  const choose = (key: (typeof SECTORS)[number]["key"]) => {
+    /* Write first, navigate second: the homepage reads the store as it mounts,
+       so the order is what makes it arrive in the chosen sector. */
+    setSector(key);
+    if (!onHomepage) router.push("/");
+  };
+
   return (
     <div
-      role="tablist"
+      role={onHomepage ? "tablist" : undefined}
       aria-label="Choose your sector"
       className={`inline-grid grid-cols-2 gap-1 rounded-[var(--radius-pill)] bg-canvas p-1 ring-1 ring-inset ring-line ${className}`}
     >
@@ -90,14 +129,15 @@ export function SectorTabs({
           <button
             key={s.key}
             type="button"
-            role="tab"
-            aria-selected={active}
+            role={onHomepage ? "tab" : undefined}
+            aria-selected={onHomepage ? active : undefined}
+            aria-current={!onHomepage && active ? "true" : undefined}
             /* The accessible name is the same sentence in both modes, so the
                glyph is never an unlabelled control. `title` gives the short
                name somewhere to live for anyone who can hover. */
             aria-label={s.aria}
             title={s.tab}
-            onClick={() => setSector(s.key)}
+            onClick={() => choose(s.key)}
             className={`w-full rounded-[var(--radius-pill)] ${cell} text-center font-semibold whitespace-nowrap transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 ${
               active
                 ? "bg-royal text-white shadow-[0_8px_24px_rgba(10,89,235,0.35)]"

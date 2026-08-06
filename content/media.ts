@@ -880,14 +880,37 @@ const publicApiReference = pending(
       and the question of whether Juno OPS is Alexey's demo tenant or a separate
       product is still unanswered by Seva. Victor took the call to ship. */
 
+/* UPDATED 2026-08-06 — Victor replaced the source. It was the Dashboard's
+   General tab (a users pie, new sign-ups, forum threads) at 1200×675; it is now
+   the Exams tab, 1346×1600 portrait, and a much stronger screen: totals, the
+   split between successful and failed attempts, and the mark bands the people
+   who passed fall into.
+
+   CUT AT y=635 OF 1600, AND THIS ONE IS NOT OPTIONAL. Below that line the page
+   carries "The most problematic question" and "The most problematic wrong
+   answer", and both are filled with Lorem ipsum — eight blocks of it, plus
+   "Exam: Lorem ipsum dolor" twice in the card headers. No placeholder copy is
+   the oldest rule on this project. The cut lands in the page-background gap
+   under the two donut cards, so nothing is sliced: verified, the last five rows
+   of the written file are background with no card edge in them.
+
+   The bottom of the source also holds two period charts worth having. They are
+   NOT spliced in — removing the Lorem ipsum band and joining the halves would
+   compose a screen that has never existed. If those charts are wanted, they
+   want their own slide from their own export.
+
+   alt, caption and the filename are all rewritten: the old ones described the
+   General tab, and the file was called ...users-and-activity, which this is
+   not. Portrait source, landscape crop — 2.120 makes it the widest slide in
+   either track, just past the roadmap's 2.041. */
 const orgAdminHome: Shot = {
   id: "organizations-admin-dashboard",
-  file: `${P}/yeda-organizations-admin-dashboard-users-and-activity.png`,
+  file: `${P}/yeda-organizations-admin-dashboard-exam-statistics.png`,
   width: 1200,
-  height: 675,
-  alt: "The Yeda administrator dashboard showing user totals, new sign-ups and course forum activity",
+  height: 566,
+  alt: "The Yeda administrator dashboard on its exams tab, showing exam and question totals beside the pass rate and the spread of marks",
   caption:
-    "The administrator's home — how many people are on the platform and how many of them are active, how many joined this month, and how much discussion the courses are generating.",
+    "The administrator's home — how many exams and questions are in play, what share of attempts succeeded, and how the people who passed are spread across the mark bands.",
   label: "Admin dashboard",
   category: "dashboard",
   sector: "organizations",

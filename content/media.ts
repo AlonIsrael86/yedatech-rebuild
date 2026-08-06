@@ -901,13 +901,21 @@ const publicApiReference = pending(
 
    alt, caption and the filename are all rewritten: the old ones described the
    General tab, and the file was called ...users-and-activity, which this is
-   not. Portrait source, landscape crop — 2.120 makes it the widest slide in
-   either track, just past the roadmap's 2.041. */
+   not.
+
+   NAVIGATION RAIL CROPPED OFF at x=200, on Victor's instruction — "crop the
+   photo so that only the dashboard can be seen". The rail is white and the
+   content area's ground is pale blue-grey, so the boundary measures exactly:
+   white through x=199, page background from x=200. Two consequences. The ratio
+   improves — 1.805 rather than 2.120, which puts it in the middle of the track
+   instead of making it the widest slide in it. And the yeda wordmark goes with
+   the rail, so this is no longer the one carousel image carrying Yeda's own
+   branding. Only the dashboard is left, which is what was asked for. */
 const orgAdminHome: Shot = {
   id: "organizations-admin-dashboard",
   file: `${P}/yeda-organizations-admin-dashboard-exam-statistics.png`,
-  width: 1200,
-  height: 566,
+  width: 1146,
+  height: 635,
   alt: "The Yeda administrator dashboard on its exams tab, showing exam and question totals beside the pass rate and the spread of marks",
   caption:
     "The administrator's home — how many exams and questions are in play, what share of attempts succeeded, and how the people who passed are spread across the mark bands.",

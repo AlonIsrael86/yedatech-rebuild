@@ -1085,16 +1085,26 @@ export const GALLERIES: Record<string, Gallery> = {
        became seven, and the three grey placeholders in the old list are gone
        with it — nothing here is waiting on a screen that does not exist.
 
-       The order is the job in the order an administrator does it: see the
-       platform, then one person and their access, then what each role may do,
-       then what runs by itself, then the pages learners land on, then the
-       branding of those pages, then the record of every change. It opens on
-       the dashboard because it is the only screen in the set carrying real
-       Yeda branding and needing no redaction at all. */
+       ORDER IS A LEFT-TO-RIGHT PROGRESSION, not a grouping. The subtitle says
+       "browse left to right" and the track reads that way, so each slide should
+       follow from the one before it:
+
+         see the platform → define what a role may do → give people those roles
+         → let the rest run by itself → build the pages learners land on →
+         brand them → keep the record of every change
+
+       Corrected 2026-08-06: `orgUserAccess` sat at position 2, ahead of
+       `rolesPermissions`. Assigning somebody a role before the roles exist is
+       backwards, and it was the one step that broke the chain. Defining comes
+       first, assigning second.
+
+       It opens on the dashboard because that is where an administrator opens,
+       and because it is the only screen in the set with real Yeda branding and
+       no redaction at all. */
     shots: [
       orgAdminHome,
-      orgUserAccess,
       rolesPermissions,
+      orgUserAccess,
       roleAutomation,
       orgSiteBuilder,
       orgThemeEditor,
@@ -1108,27 +1118,35 @@ export const GALLERIES: Record<string, Gallery> = {
     /* REPLACED WHOLESALE 2026-08-06 with Victor's chosen set. Fourteen slides
        became nine, and the four grey placeholders are gone.
 
-       The order follows a learner rather than an administrator: the course as
-       a whole, then one lesson inside it, then the assistant that reshapes it,
-       then how it is going, the exam, the week, the teacher, the learner
-       themselves, and finally getting in. Sign-in is last on purpose — it is
-       the weakest frame in the set and it says nothing about learning.
+       ORDER IS A LEFT-TO-RIGHT PROGRESSION — a learner's term, in the order
+       they live it, so each slide follows from the one before:
 
-       Slides 1, 2 and 6 are the same three consts the education hero opens
+         get in → see the course and where you are in it → open a lesson →
+         let the assistant reshape it → sit the exam → see how it went, lesson
+         by lesson → look at the week ahead → ask the teacher → your own page
+
+       Corrected 2026-08-06, twice over. `courseStatistics` sat ahead of
+       `examQuestion`, which put the result before the thing being measured.
+       And `learnerSignIn` was parked last for being the weakest frame — true,
+       but it is where a learner starts, and a progression that opens mid-course
+       and ends at the login box is not a progression. Sequence beats picking
+       the prettiest opener.
+
+       Slides 2, 3 and 7 are the same three consts the education hero opens
        with, so those pictures appear twice on the homepage. Victor was shown
        that and chose to leave the hero untouched. Reusing the consts rather
        than adding second crops of the same screens at least makes the repeat
        exact instead of nearly-but-not-quite. */
     shots: [
+      learnerSignIn,
       courseRoadmap,
       coursePageLessons,
       assistantStudyPlan,
-      courseStatistics,
       examQuestion,
+      courseStatistics,
       educationSchedule,
       courseMessages,
       learnerProfile,
-      learnerSignIn,
     ],
   },
   authoring: {

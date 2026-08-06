@@ -190,16 +190,16 @@ const recordingStudio = lms(
   "flow",
 );
 
-const studentCoursePlayer = lms(
-  "yeda-education-student-course-player",
-  "Student course page",
-  1314,
-  867,
-  "Yeda student course page with lesson video, syllabus and a lesson rating prompt",
-  "What a student actually opens: the lesson, where it sits in the syllabus, and a prompt asking whether it was any good.",
-  "dashboard",
-  "education",
-);
+/* RETIRED 2026-08-06 with the carousel replacement, along with `whiteLabelOrg`,
+   `implementation`, `analyticsViewing`, `courseProgress`, `heroOrgOverview`,
+   `meetingPlatformSync`, `adminDashboard` and five placeholder slots. All of
+   them held slots in the two platform galleries or the organizations hero, and
+   both were replaced outright by Victor's chosen set. Every file stays in
+   public/ unreferenced, as retired assets on this project always do.
+
+   `studentCoursePlayer` was here — yeda-education-student-course-player.png,
+   1314×867, the student's own course page. `coursePageLessons` is the same
+   idea from Alexey's Figma, in English, and it is carousel slide 2. */
 
 const interactiveVideoQuestion = lms(
   "yeda-interactive-video-embedded-question",
@@ -269,31 +269,18 @@ const whiteLabelPortal = lms(
    half. Choosing between them was his call, not a tidy-up. File left in public/
    unreferenced. */
 
-const whiteLabelOrg = lms(
-  "yeda-organizations-white-label-branding",
-  "Logo and colours",
-  1314,
-  882,
-  "Yeda white-label branding controls showing a logo slot and a colour picker",
-  "Branding is configuration, not a rebuild — a logo slot and a colour picker, set once.",
-  "settings",
-  "organizations",
-);
+/* RETIRED 2026-08-06, both of them, with the carousel replacement.
 
-/* ENGLISH. Victor supplied fo_2_en, the same shot with the interface in English,
-   and it replaced the Hebrew file in place — same id, same 1278×882 — so the
-   carousel picked up the upgrade for free and there is one file rather than two
-   near-identical ones. The first of the six Hebrew screens to be swapped. */
-const implementation = lms(
-  "yeda-organizations-implementation-and-rollout",
-  "Rollout tracker",
-  1278,
-  882,
-  "Yeda implementation progress tracker for an organisational rollout",
-  "Rollout is run as a tracked project with a named contact at every stage, rather than handing over a login and hoping.",
-  "flow",
-  "organizations",
-);
+   `whiteLabelOrg` — yeda-organizations-white-label-branding.png, 1314×882, a
+   logo slot and a colour picker. `orgThemeEditor` is the same capability from
+   Alexey's Figma and goes considerably further: the preset, the typeface and
+   the radius, with the components they produce rendered beside them.
+
+   `implementation` — yeda-organizations-implementation-and-rollout.png,
+   1278×882, the rollout tracker. This was the fo_2_en English swap, the first
+   of the six Hebrew screens Victor replaced; nothing in his new set covers
+   rollout, so this capability is no longer pictured anywhere. Worth knowing
+   rather than discovering later. */
 
 /* REPLACED 2026-08-05. This was a stock photograph of a woman presenting to
    applauding colleagues, with a three-row Hebrew permissions table composited
@@ -332,15 +319,14 @@ const rolesPermissions: Shot = {
   figmaFrame: "admin-roles",
 };
 
-const analyticsViewing = lms(
-  "yeda-learning-analytics-viewing-data",
-  "Viewing and question data",
-  1314,
-  943,
-  "Yeda analytics showing completion and repeat-viewing rates beside per-question success rates",
-  "Completion and repeat-viewing beside the success rate on each question — enough to tell a hard question from a badly explained one.",
-  "analytics",
-);
+/* RETIRED 2026-08-06. `analyticsViewing` —
+   yeda-learning-analytics-viewing-data.png, 1314×943 — held Flow step 05 until
+   yesterday and organizations hero slide 6 until today, and both moved. It is
+   the only screen the project ever had showing completion, repeat-viewing and
+   per-question success together, which is precisely what Flow step 05 still
+   promises in words. Nothing pictures that claim now. Flagged, not fixed:
+   Victor chose the assistant dashboard for step 05 knowing the mismatch, and
+   dropping the organizations hero list is what removed the second use. */
 
 const integrationsDiagram = lms(
   "yeda-integrations-crm-hr-erp-api",
@@ -364,20 +350,11 @@ const integrationsDiagram = lms(
    TWO cards, not the colleague's one. His crop is a 2.575 strip, and the
    carousel derives slide width from this ratio — it came out ~70% wider than
    every neighbour and broke the row. 1.709 sits in family with the rest. */
-const courseProgress: Shot = {
-  id: "education-course-progress-tracking",
-  file: `${P}/yeda-education-course-progress-tracking.png`,
-  width: 1200,
-  height: 702,
-  alt: "A Yeda learner's course list showing percentage complete, units finished and last activity",
-  caption:
-    "Progress through a course at a glance — how far in, how many units are left, when the student was last active, and the lesson the Continue button drops them back into.",
-  label: "Course progress",
-  category: "analytics",
-  sector: "education",
-  source: "figma",
-  figmaFrame: "learner-courses",
-};
+/* RETIRED 2026-08-06. `courseProgress` —
+   yeda-education-course-progress-tracking.png, 1200×702, the learner's course
+   list with percentage complete and last activity. `courseStatistics` from
+   Victor's set covers the same ground per lesson rather than per course, and is
+   carousel slide 4. */
 
 const liveSessionRecording = lms(
   "yeda-live-session-recording",
@@ -463,48 +440,28 @@ const figureMan: PresenterFigure = {
    full-page English screenshots rather than cut-out cards, so they are the only
    two here without `selfFramed`. */
 
-const heroOrgOverview: Shot = {
-  id: "hero-organizations-training-overview",
-  file: `${P}/yeda-hero-organizations-training-overview.png`,
-  width: 1170,
-  height: 697,
-  alt: "A person working through a course on a laptop, with playback, certification and reporting shown alongside",
-  caption:
-    "A course being taken on a laptop, with the playback, the certificate at the end and the completion reporting drawn alongside it.",
-  label: "Training in one place",
-  category: "concept",
-  sector: "organizations",
-  source: "figma",
-  figmaFrame: "fc_hero",
-  selfFramed: true,
-};
+/* RETIRED 2026-08-06 with the organizations hero list. `heroOrgOverview` —
+   yeda-hero-organizations-training-overview.png, 1170×697 — was that hero's
+   opening slide, and the only image on the homepage with no real product in it:
+   a person at a laptop with playback, a certificate and reporting drawn around
+   them. It was the most-seen picture on the site. It is now in no list. */
 
-/* CARRIES THIRD-PARTY MARKS: the Zoom wordmark, the Microsoft Teams logo and
-   the Google Meet logo as three badges, plus small Google and Microsoft glyphs
-   in the calendar toolbar.
+/* RETIRED 2026-08-06 with the organizations hero list, and this one closes an
+   open exposure rather than merely tidying up.
 
-   The standing rule is that no third-party mark reaches this repo — which is
-   public — without Alexey. Victor took the call to ship it on 2026-08-03,
-   knowing that. It is nominative use rather than endorsement (the site already
-   claims meeting-platform sync as a capability), but it is still his override of
-   a written constraint, and Alexey has been sent the clearance request. If the
-   answer comes back no, remove this const and the file; nothing else depends on
-   it. */
-const meetingPlatformSync: Shot = {
-  id: "meeting-platform-sync",
-  file: `${P}/yeda-meeting-platform-sync-zoom-teams-meet.png`,
-  width: 1341,
-  height: 876,
-  alt: "A live online session beside a scheduling calendar that syncs with Zoom, Microsoft Teams and Google Meet",
-  caption:
-    "A live session scheduled in the platform and mirrored into the meeting tools an organization already runs.",
-  label: "Live sessions and calendars",
-  category: "live-session",
-  sector: "organizations",
-  source: "figma",
-  figmaFrame: "fo_6",
-  selfFramed: true,
-};
+   `meetingPlatformSync` — yeda-meeting-platform-sync-zoom-teams-meet.png,
+   1341×876 — carried the Zoom wordmark, the Microsoft Teams logo and the Google
+   Meet logo as three badges, plus Google and Microsoft glyphs in its calendar
+   toolbar. The standing rule is that no third-party mark reaches this public
+   repo without Alexey; Victor overrode it knowingly on 2026-08-03 and the
+   clearance request has been sitting with Alexey since. Nothing renders it now,
+   so the answer no longer gates anything. The file stays in public/
+   unreferenced — if the clearance comes back yes it can go straight back into a
+   list; if it comes back no, delete the file too.
+
+   Note `learner-schedule`, which IS still on the page as `educationSchedule`,
+   carries small Google and Outlook glyphs in its "Sync with" control. Victor
+   cleared those separately. This retirement does not cover them. */
 
 /* Opens the education hero. Replaced `studentsTogether` on 2026-08-05 — a stock
    photograph of three students at a laptop, which showed the audience rather
@@ -808,31 +765,20 @@ const pending = (
   figmaFrame: null,
 });
 
-const employeePortal = pending(
-  "organizations-employee-training-portal",
-  "Employee portal",
-  "Yeda organizational learning portal showing an employee's assigned training",
-  "Each employee's own portal — what has been assigned, what is due and what is already done.",
-  "dashboard",
-  "organizations",
-);
+/* RETIRED 2026-08-06. `employeePortal`, `courseCatalogue` and
+   `learningPathSchedule` were three of the seven grey cards on the homepage.
+   Replacing both platform galleries took every placeholder off it — the
+   homepage now shows only real screens, which is what Alexey asked for in the
+   first place.
 
-const courseCatalogue = pending(
-  "course-catalogue-browse-and-enrol",
-  "Course catalogue",
-  "Yeda course catalogue with search, browse and self-enrolment",
-  "The catalogue — learners find a course and enrol themselves, which is what stops administrators becoming the bottleneck.",
-  "dashboard",
-);
+   None of the three is covered by Victor's set, so those capabilities are no
+   longer pictured: an employee's own assigned-training portal, self-enrolment
+   from a catalogue, and a programme laid out over time. If a screen for any of
+   them turns up, this is the shape it goes back in as.
 
-const learningPathSchedule = pending(
-  "learning-path-training-programme-schedule",
-  "Learning path",
-  "Yeda learning path and training programme schedule over time",
-  "A programme laid out over time rather than as a single course — the difference between assigning training and running it.",
-  "flow",
-);
-
+   `avatarModule`, `aiAgentScreenWatch` and `simulationModule` are the other
+   three. The first two survive below because `ai-and-agents` still holds them
+   on the AI inner pages, which this change does not touch. */
 const avatarModule = pending(
   "avatar-learning-module-presenter-and-slides",
   "Avatar presenter",
@@ -841,13 +787,9 @@ const avatarModule = pending(
   "avatar-module",
 );
 
-const simulationModule = pending(
-  "online-simulation-practice-module",
-  "Simulation",
-  "Yeda online simulation module being worked through by a learner",
-  "A simulation being worked through — practising the task itself rather than reading about it.",
-  "html-module",
-);
+/* RETIRED 2026-08-06 with the other placeholders. `simulationModule` promised a
+   simulation being worked through — practising the task rather than reading
+   about it. Nothing in Victor's set shows one. */
 
 const aiAgentScreenWatch = pending(
   "ai-agent-software-training-screen-watch",
@@ -857,33 +799,12 @@ const aiAgentScreenWatch = pending(
   "ai-agent",
 );
 
-/* FILLED from Figma, 2026-08-03 — the first pending slot to get a real screen.
-   Was blocked on lms_11, which showed the same thing but carried an Excel logo.
-
-   The alt and caption are written from the image, not carried over from the
-   placeholder. The old ones promised "courses, learners and completion at a
-   glance"; the screen shows exam counts and pass rates, and completion appears
-   nowhere on it.
-
-   Two things knowingly shipped: the screen is Hebrew (the sixth such image —
-   flagged to Alexey, not hidden), and it carries a ~30px avatar photo in the
-   corner. Victor cleared the avatar: it is Alexey's own design asset with no
-   identifying text beside it, unlike fo_11, which was rejected for carrying a
-   national ID, phone, date of birth and address. */
-const adminDashboard: Shot = {
-  id: "admin-dashboard-courses-learners-overview",
-  file: `${P}/yeda-admin-dashboard-exam-results.png`,
-  width: 1210,
-  height: 720,
-  alt: "Yeda administrator dashboard showing exam counts, student numbers and pass-rate charts",
-  caption:
-    "The administrator's home — how many exams and questions are in play, how many people sat them, and what proportion passed.",
-  label: "Admin dashboard",
-  category: "dashboard",
-  sector: "both",
-  source: "figma",
-  figmaFrame: "dashboard",
-};
+/* RETIRED 2026-08-06. `adminDashboard` —
+   yeda-admin-dashboard-exam-results.png, 1210×720 — was the exam-counts and
+   pass-rate dashboard, and it was the LAST Hebrew screen on the homepage. It
+   also carried the ~30px avatar Victor cleared in August. `orgAdminHome` from
+   his new set is the same kind of screen in English, so the homepage now has no
+   Hebrew in its pixels at all. */
 
 /* FILLED 2026-08-05 — the second pending slot to get a real screen, and the
    reason the placeholder count drops by one.
@@ -921,14 +842,215 @@ const publicApiReference = pending(
   "integrations",
 );
 
-const insuranceProgramme = pending(
-  "insurance-industry-training-programme",
-  "Insurance training",
-  "Yeda insurance industry training and certification programme",
-  "An insurance training programme — a regulated industry where certification is the point.",
-  "industry",
-  "organizations",
-);
+/* RETIRED 2026-08-06, the last of the seven placeholders. `insuranceProgramme`
+   was the only industry-specific card on the homepage. The industry pages
+   themselves are unaffected — they never rendered it. */
+
+/* ── The carousel set, 2026-08-06 ────────────────────────────────────────
+   Victor's chosen files, from `_figma_ref/media-carousel/`. They replace both
+   platform galleries outright — the yedalms.io screens and every grey
+   placeholder are gone from the homepage.
+
+   SIX OF HIS SEVENTEEN ARE NOT HERE, and not because they were rejected.
+   `admin-roles`, `admin-workflows`, `learner-roadmap`, `learner-player`,
+   `learner-schedule` and `admin-members` are screens this repo ALREADY ships,
+   cut from the 3840px sources at equal or better resolution — 1200×853 against
+   949×675 for the two admin ones, and pixel-for-pixel the same crop. The
+   galleries below reuse those consts rather than adding a second, smaller file
+   of the same screen. `admin-members` is Flow step 04 and stays there only.
+
+   DE-BRANDED. Five of the admin screens carried the `Juno OPS` lockup and
+   `admin@juno.ops` in a sidebar whose border measures at x=250; the crop takes
+   everything left of x=251. Verified on every written file by scanning for the
+   badge red: 747 in each source, 0 in each output.
+
+   REDACTED BY BLUR, on Victor's instruction, where a crop could not reach:
+    - `learner-profile` — the email/location/phone row and the CV thumbnail.
+      The source carries a live-domain Gmail address and a phone number that is
+      not a reserved fictional pattern, beside a face. Same category as the
+      profile screen rejected in July. The name and face stay.
+    - `admin-user` — the email, the phone and the Employee ID.
+    - `admin-builder` — the Juno wordmark in the preview header and the word
+      "Juno" opening the paragraph beneath it. Measured, not eyeballed: the
+      paragraph's ink starts at x=473 and the first inter-word gap is 496-498,
+      so the box stops at 499 and "helps" survives intact. A looser box ate it
+      and the line read "ps educators and teams…".
+      Worth being honest about what that blur is doing: unlike the other two it
+      conceals another product's identity rather than removing personal data,
+      and the question of whether Juno OPS is Alexey's demo tenant or a separate
+      product is still unanswered by Seva. Victor took the call to ship. */
+
+const orgAdminHome: Shot = {
+  id: "organizations-admin-dashboard",
+  file: `${P}/yeda-organizations-admin-dashboard-users-and-activity.png`,
+  width: 1200,
+  height: 675,
+  alt: "The Yeda administrator dashboard showing user totals, new sign-ups and course forum activity",
+  caption:
+    "The administrator's home — how many people are on the platform and how many of them are active, how many joined this month, and how much discussion the courses are generating.",
+  label: "Admin dashboard",
+  category: "dashboard",
+  sector: "organizations",
+  source: "figma",
+  figmaFrame: "admin-dashboard",
+};
+
+const orgUserAccess: Shot = {
+  id: "organizations-user-profiles-and-access",
+  file: `${P}/yeda-organizations-user-profiles-and-access.png`,
+  width: 949,
+  height: 656,
+  alt: "One person's Yeda record, holding a separate profile and level of access for each organization they belong to",
+  caption:
+    "One person, several organizations — each with its own profile and its own access, so somebody can administer one site and study on another without a second account.",
+  label: "One person, many roles",
+  category: "settings",
+  sector: "organizations",
+  source: "figma",
+  figmaFrame: "admin-user",
+};
+
+const orgSiteBuilder: Shot = {
+  id: "organizations-learning-site-page-builder",
+  file: `${P}/yeda-organizations-learning-site-page-builder.png`,
+  width: 1138,
+  height: 675,
+  alt: "The Yeda page builder editing a learning site's landing page, with typography, layout and colour controls beside a live preview",
+  caption:
+    "The page learners arrive at, built in the platform — fonts, spacing, radius and colour on one side, the result updating on the other, published when it is ready.",
+  label: "Page builder",
+  category: "settings",
+  sector: "organizations",
+  source: "figma",
+  figmaFrame: "admin-builder",
+};
+
+const orgThemeEditor: Shot = {
+  id: "organizations-white-label-theme-editor",
+  file: `${P}/yeda-organizations-white-label-theme-editor.png`,
+  width: 949,
+  height: 675,
+  alt: "The Yeda theme editor showing a preset, fonts and corner radius beside a live preview of the buttons, tabs, inputs and dialogs they produce",
+  caption:
+    "Branding as configuration — pick the preset, the typeface and the shape once, and every button, tab, field and dialog across the platform follows.",
+  label: "Theme and branding",
+  category: "settings",
+  sector: "organizations",
+  source: "figma",
+  figmaFrame: "admin-themes",
+};
+
+const orgAuditLog: Shot = {
+  id: "organizations-admin-audit-log",
+  file: `${P}/yeda-organizations-admin-audit-log.png`,
+  width: 949,
+  height: 675,
+  alt: "The Yeda audit log listing role changes by action, target, organization, who made them and whether they succeeded",
+  caption:
+    "Every change on the record — what was done, to which role, in which organization, by whom, and whether it went through or was blocked.",
+  label: "Audit log",
+  category: "settings",
+  sector: "organizations",
+  source: "figma",
+  figmaFrame: "admin-audit",
+};
+
+/* The strongest single image in the set, and the only one Victor supplied
+   separately rather than in the batch. "Powered by yeda" sits bottom-left; the
+   tenant logo top-left reads "IPSUM", which is white-label placeholder branding
+   — noted for Alexey, not something a crop can fix without losing the panel. */
+const assistantStudyPlan: Shot = {
+  id: "ai-learning-assistant-personal-study-plan",
+  file: `${P}/yeda-ai-learning-assistant-personal-study-plan.png`,
+  width: 1200,
+  height: 723,
+  alt: "The Yeda learning assistant proposing a study plan, building it from the course material, and rebuilding it when the learner rejects a topic",
+  caption:
+    "The assistant offers a study plan, builds it out of the course material, and when the learner says they do not want the fourth topic it rewrites the plan rather than arguing.",
+  label: "Study plan on request",
+  category: "ai-agent",
+  sector: "both",
+  source: "figma",
+  figmaFrame: "Chat",
+};
+
+const courseStatistics: Shot = {
+  id: "education-course-statistics-per-lesson",
+  file: `${P}/yeda-education-course-statistics-per-lesson.png`,
+  width: 1200,
+  height: 645,
+  alt: "Yeda course statistics listing each lesson with its type, percentage progress and time spent",
+  caption:
+    "A course opened up lesson by lesson — what kind of thing each one is, how far through it people are, and how long it actually took them.",
+  label: "Course statistics",
+  category: "analytics",
+  sector: "education",
+  source: "figma",
+  figmaFrame: "learner-progress",
+};
+
+/* Trimmed at y=625 of 675 to drop the account name in the sidebar foot. Same
+   treatment as `courseMessages` below, and the same reason: a demo person's
+   name is not something to publish just because it came with the screen. */
+const examQuestion: Shot = {
+  id: "education-online-exam-question",
+  file: `${P}/yeda-education-online-exam-question.png`,
+  width: 1200,
+  height: 625,
+  alt: "A Yeda exam in progress — question two of ten, four options, and the time remaining",
+  caption:
+    "An exam mid-flow, with every question reachable, the time left in view, and nothing submitted until the learner says so.",
+  label: "Exam in progress",
+  category: "assessment",
+  sector: "education",
+  source: "figma",
+  figmaFrame: "learner-exam",
+};
+
+const courseMessages: Shot = {
+  id: "education-course-messages-and-teacher-inbox",
+  file: `${P}/yeda-education-course-messages-and-teacher-inbox.png`,
+  width: 1200,
+  height: 600,
+  alt: "A Yeda course inbox with messages from teachers and course staff, and one thread open with its attachment",
+  caption:
+    "The conversation around a course, kept with the course — teachers, coordinators and the platform itself in one inbox, with the material attached where it was promised.",
+  label: "Messages",
+  category: "dashboard",
+  sector: "education",
+  source: "figma",
+  figmaFrame: "learner-messages",
+};
+
+const learnerProfile: Shot = {
+  id: "education-learner-profile",
+  file: `${P}/yeda-education-learner-profile.png`,
+  width: 1200,
+  height: 637,
+  alt: "A Yeda learner's own profile page with their picture, their background and their attached CV",
+  caption:
+    "The learner's own page — who they are and what they are working towards, with a CV attached, so a cohort is made of people rather than user IDs.",
+  label: "Learner profile",
+  category: "dashboard",
+  sector: "education",
+  source: "figma",
+  figmaFrame: "learner-profile",
+};
+
+const learnerSignIn: Shot = {
+  id: "education-learner-sign-in",
+  file: `${P}/yeda-education-learner-sign-in.png`,
+  width: 1200,
+  height: 675,
+  alt: "The Yeda LMS sign-in screen, with email and password or a single-click Google or Facebook sign-in",
+  caption:
+    "Getting in — an email and a password, or the account a learner already has, so the first step of a course is not a support ticket.",
+  label: "Signing in",
+  category: "settings",
+  sector: "education",
+  source: "figma",
+  figmaFrame: "learner-signin",
+};
 
 /* ── Galleries ───────────────────────────────────────────────────────────
    Each homepage gallery OPENS with its sector-only screens, so the first thing
@@ -959,54 +1081,54 @@ export const GALLERIES: Record<string, Gallery> = {
     title: "The platform, for organizations",
     subtitle:
       "Employee, supplier and customer training managed from one place — browse left to right.",
-    /* videoLibrary and analyticsViewing moved to the Flow — they were showing
-       the same idea twice on one page. (videoLibrary has since been retired
-       outright; analyticsViewing now lives in the organizations hero.)
-       aiAnswerSources and mobileApp dropped:
-       all three AI composites share a framing, and mobileApp's phone screen is
-       the one already inside aiStudyPlan. */
+    /* REPLACED WHOLESALE 2026-08-06 with Victor's chosen set. Sixteen slides
+       became seven, and the three grey placeholders in the old list are gone
+       with it — nothing here is waiting on a screen that does not exist.
+
+       The order is the job in the order an administrator does it: see the
+       platform, then one person and their access, then what each role may do,
+       then what runs by itself, then the pages learners land on, then the
+       branding of those pages, then the record of every change. It opens on
+       the dashboard because it is the only screen in the set carrying real
+       Yeda branding and needing no redaction at all. */
     shots: [
-      whiteLabelOrg,
+      orgAdminHome,
+      orgUserAccess,
       rolesPermissions,
-      implementation,
-      employeePortal,
-      insuranceProgramme,
       roleAutomation,
-      coursePlayerQuiz,
-      examResults,
-      recordingStudio,
-      subtitlesTranslation,
-      aiStudyPlan,
-      liveSessionRecording,
-      integrationsDiagram,
-      publicApiReference,
-      interactiveModule,
-      adminDashboard,
+      orgSiteBuilder,
+      orgThemeEditor,
+      orgAuditLog,
     ],
   },
   "education-platform": {
     id: "education-platform",
     title: "The platform, for institutions",
     subtitle: "Students, courses, examination and certification in one system — browse left to right.",
-    /* studentCoursePlayer and interactiveVideoQuestion are different screens
-       but share a presenter video, so they are kept far apart rather than
-       adjacent. aiStudyPlan and mobileApp dropped here — see the note on the
-       organizations gallery. */
+    /* REPLACED WHOLESALE 2026-08-06 with Victor's chosen set. Fourteen slides
+       became nine, and the four grey placeholders are gone.
+
+       The order follows a learner rather than an administrator: the course as
+       a whole, then one lesson inside it, then the assistant that reshapes it,
+       then how it is going, the exam, the week, the teacher, the learner
+       themselves, and finally getting in. Sign-in is last on purpose — it is
+       the weakest frame in the set and it says nothing about learning.
+
+       Slides 1, 2 and 6 are the same three consts the education hero opens
+       with, so those pictures appear twice on the homepage. Victor was shown
+       that and chose to leave the hero untouched. Reusing the consts rather
+       than adding second crops of the same screens at least makes the repeat
+       exact instead of nearly-but-not-quite. */
     shots: [
-      studentCoursePlayer,
-      courseProgress,
-      courseCatalogue,
-      learningPathSchedule,
-      whiteLabelPortal,
-      avatarModule,
-      examResults,
-      recordingStudio,
-      subtitlesTranslation,
-      aiAnswerSources,
-      liveSessionRecording,
-      simulationModule,
-      interactiveVideoQuestion,
-      videoEditing,
+      courseRoadmap,
+      coursePageLessons,
+      assistantStudyPlan,
+      courseStatistics,
+      examQuestion,
+      educationSchedule,
+      courseMessages,
+      learnerProfile,
+      learnerSignIn,
     ],
   },
   authoring: {
@@ -1204,23 +1326,36 @@ export const FLOW_SHOTS: Record<string, Shot> = {
  * Five of these twelve also appear in the carousel or Flow §05. See the note on
  * the hero-slide consts above: measured, shown to Victor, accepted.
  */
+/*
+ * ONE SLIDER, BOTH SECTORS, as of 2026-08-06.
+ *
+ * Victor dropped the organizations list — "drop the organizations hero carousel
+ * entirely, leave only education hero carousel" — and asked for the education
+ * one in its place. The per-sector heading, subtitle and chips are untouched;
+ * only the picture column is shared. Same array object, so the browser fetches
+ * each file once even though both panels render server-side.
+ *
+ * Flagged once and then left alone: an organizations visitor now sees
+ * student-facing screens in the hero.
+ *
+ * Two things went with the organizations list, both worth having gone.
+ * `meetingPlatformSync` was the only asset on the site carrying the Zoom,
+ * Teams and Google Meet trademarks — shipped on Victor's override with a
+ * clearance request still sitting with Alexey, and now moot. `heroOrgOverview`
+ * was the stock composite, the one hero image with no real product in it.
+ */
+const EDUCATION_HERO: readonly Shot[] = [
+  coursePageLessons, // English
+  courseRoadmap, // English
+  educationSchedule, // English
+  coursePlayerQuiz,
+  aiStudyPlan,
+  engagementAnalytics,
+];
+
 export const HERO_SLIDES: Record<Sector, readonly Shot[]> = {
-  organizations: [
-    heroOrgOverview, // no text, language-neutral
-    implementation, // English
-    whiteLabelOrg,
-    rolesPermissions,
-    meetingPlatformSync,
-    analyticsViewing,
-  ],
-  education: [
-    coursePageLessons, // English
-    courseRoadmap, // English
-    educationSchedule, // English
-    coursePlayerQuiz,
-    aiStudyPlan,
-    engagementAnalytics,
-  ],
+  organizations: EDUCATION_HERO,
+  education: EDUCATION_HERO,
 };
 
 /*

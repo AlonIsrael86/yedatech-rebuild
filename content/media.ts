@@ -906,15 +906,25 @@ const publicApiReference = pending(
    NAVIGATION RAIL CROPPED OFF at x=200, on Victor's instruction — "crop the
    photo so that only the dashboard can be seen". The rail is white and the
    content area's ground is pale blue-grey, so the boundary measures exactly:
-   white through x=199, page background from x=200. Two consequences. The ratio
-   improves — 1.805 rather than 2.120, which puts it in the middle of the track
-   instead of making it the widest slide in it. And the yeda wordmark goes with
+   white through x=199, page background from x=200. The yeda wordmark went with
    the rail, so this is no longer the one carousel image carrying Yeda's own
-   branding. Only the dashboard is left, which is what was asked for. */
+   branding.
+
+   RIGHT EDGE PULLED IN TO CENTRE IT, second pass. The source is a 1346px-wide
+   window whose content does not fill it: ink runs x 251..1103, leaving a 51px
+   left margin against 242px of dead space on the right, so the dashboard sat
+   visibly off to one side. Cutting at 1155 — the right edge of the ink plus the
+   same 51px — balances it. Measured on the written file afterwards: 51px each
+   side.
+
+   955×635, ratio 1.504. It has now been three ratios in one day — 2.120 with
+   the rail and the dead space, 1.805 with the rail gone, 1.504 centred — and
+   the last is the best fit for the track, sitting between the roles editor at
+   1.407 and the roadmap at 1.546. */
 const orgAdminHome: Shot = {
   id: "organizations-admin-dashboard",
   file: `${P}/yeda-organizations-admin-dashboard-exam-statistics.png`,
-  width: 1146,
+  width: 955,
   height: 635,
   alt: "The Yeda administrator dashboard on its exams tab, showing exam and question totals beside the pass rate and the spread of marks",
   caption:

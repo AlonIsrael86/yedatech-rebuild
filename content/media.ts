@@ -1078,11 +1078,36 @@ const learnerProfile: Shot = {
   figmaFrame: "learner-profile",
 };
 
+/* ZOOMED 2026-08-06. The source is a 1200×675 window holding a 414×407 card
+   dead centre, so 35% of the frame's width was the screen and the rest was
+   white. At the desktop slide height the card rendered 161×158 — the weakest
+   frame in either track.
+
+   The crop is the card's bounding box (x 393..806, y 134..540) with 20px above
+   and below, widened symmetrically about its centre until the ratio reaches
+   1.400. Card margins land at 107 left and 105 right, one pixel off perfect
+   from rounding.
+
+   WHY 1.400 AND NOT TIGHTER. Slide width is derived from the ratio while the
+   height is fixed (`calc(var(--slide-h) * w / h)`, MediaCarousel.tsx:130), so
+   the card's rendered size is set almost entirely by the vertical crop. A tight
+   462×455 crop renders the card 238×234; this one renders it 243×239 — no
+   gain — and would make the slide 266px wide against a track whose narrowest is
+   368px. At 1.400 the slide is 367px, the same width as the organizations roles
+   editor.
+
+   No resize: the card's 414px are all the pixels there will ever be, and
+   resampling would only soften them. Density falls from 2.6× to 1.7× as pure
+   arithmetic — zooming without new pixels costs exactly that, under any crop.
+
+   The card holds the Google and Facebook sign-in buttons, so this makes two
+   third-party marks 1.5× more prominent. It adds no new mark; it is in the
+   Alexey brief with the rest of the logo items. */
 const learnerSignIn: Shot = {
   id: "education-learner-sign-in",
   file: `${P}/yeda-education-learner-sign-in.png`,
-  width: 1200,
-  height: 675,
+  width: 626,
+  height: 447,
   alt: "The Yeda LMS sign-in screen, with email and password or a single-click Google or Facebook sign-in",
   caption:
     "Getting in — an email and a password, or the account a learner already has, so the first step of a course is not a support ticket.",

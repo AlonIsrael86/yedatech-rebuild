@@ -1088,13 +1088,18 @@ const learnerProfile: Shot = {
    1.400. Card margins land at 107 left and 105 right, one pixel off perfect
    from rounding.
 
-   WHY 1.400 AND NOT TIGHTER. Slide width is derived from the ratio while the
-   height is fixed (`calc(var(--slide-h) * w / h)`, MediaCarousel.tsx:130), so
-   the card's rendered size is set almost entirely by the vertical crop. A tight
-   462×455 crop renders the card 238×234; this one renders it 243×239 — no
-   gain — and would make the slide 266px wide against a track whose narrowest is
-   368px. At 1.400 the slide is 367px, the same width as the organizations roles
-   editor.
+   WHY 1.400 AND NOT TIGHTER. Written when slide width was derived from the
+   ratio against a fixed height, so the card's rendered size was set almost
+   entirely by the vertical crop: a tight 462×455 crop rendered the card 238×234
+   against this one's 243×239 — no gain — and would have made the slide 266px
+   wide in a track whose narrowest was 368px.
+
+   That sizing model is gone (MediaCarousel now fixes the WIDTH and draws every
+   slide in one band ratio), so the argument no longer holds — but the crop is
+   still the right one, for a plainer reason. 1.400 is the narrowest frame in
+   the education set and the band is drawn at the set's median, 1.860, so this
+   is the slide that sits furthest from it. Cropping tighter would only widen
+   the white margins either side of it.
 
    No resize: the card's 414px are all the pixels there will ever be, and
    resampling would only soften them. Density falls from 2.6× to 1.7× as pure

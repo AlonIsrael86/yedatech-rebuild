@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { KeyboardEvent as ReactKeyboardEvent } from "react";
+import type { CSSProperties, KeyboardEvent as ReactKeyboardEvent } from "react";
 import { ChevronLeft, ChevronRight, ImageIcon } from "lucide-react";
 import { Container } from "@/components/ui";
 import { PRESENTER_FIGURES } from "@/content/media";
@@ -25,16 +25,39 @@ import type { Sector } from "@/content/routes";
  * So:
  *  - Slides sit at 420px, as they always did.
  *  - The arrows page by exactly one slide rather than nudging by a fixed
- *    number of pixels, and the position counter makes the size of the set
- *    visible — the whole point being that there are many images now.
+ *    number of pixels — one slide, not one page of three, so nothing ever jumps
+ *    past you unseen — and the position counter makes the size of the set
+ *    visible, the whole point being that there are many images now.
  *  - The caption is a real <figcaption>, not a tooltip, and `caption` is
  *    non-optional in content/media.ts so a slot cannot exist without one.
  *
- * UNIFORM HEIGHT, DERIVED WIDTH — not the other way round. This is not part of
- * the reverted enlargement; it is what lets a mixed-orientation set share one
- * track at all. A common width breaks the moment a portrait frame appears: the
- * phone frame is 720×1560, which even at 420px wide renders 910px tall beside a
- * 262px landscape card. Fixing the height instead gives a tidy band.
+ * UNIFORM WIDTH, DERIVED HEIGHT — and it used to be the other way round.
+ *
+ * Slides shared one fixed height and took their width from each shot's own
+ * ratio, so how many landed on screen was whatever the arithmetic produced:
+ * about 2.5 at 1440px, a different ragged fraction at every other width, and a
+ * half slide hanging off a phone. Nothing scaled with the viewport, which is
+ * what Victor meant by "doesn't look like a responsive one".
+ *
+ * Height-first existed for exactly one reason: a 720×1560 PORTRAIT PHONE FRAME
+ * in the set, which at any shared width renders 910px tall beside a 262px
+ * landscape card. That frame is gone. All 25 shots now run 1.351 to 2.000 —
+ * every one landscape — so the constraint that forced it no longer exists.
+ *
+ * Slides are now a fraction of the track: 1 up on a phone, 2 from `sm`, 3 from
+ * `lg`. The percentages resolve against the track's CONTENT box, so its
+ * px-5 / sm:px-8 padding is already subtracted and the count is exact.
+ *
+ * ONE FRAME RATIO PER GALLERY, and it is the median of that gallery's own
+ * shots — 1.407 for organizations, 1.860 for education. A uniform width with
+ * per-shot ratios would give every slide a different height and a ragged row,
+ * so the band needs a single ratio; taking it from the set keeps the letterbox
+ * bars small and follows the set if it changes.
+ *
+ * `object-contain`, NEVER `cover`. Every crop in content/media.ts was measured
+ * by hand — the admin dashboard was recentred twice — and cover would quietly
+ * cut into that work. Contain letterboxes instead, and the bars are white on a
+ * white card, so they are invisible.
  *
  * Slots with `file: null` are awaiting an approved Figma frame and render a
  * labelled placeholder at the correct aspect ratio, so composition can be
@@ -115,40 +138,38 @@ function Placeholder({ shot }: { shot: Shot }) {
   );
 }
 
-function Slide({ shot }: { shot: Shot }) {
-  /*
-   * Width is DERIVED from the shared --slide-h rather than left to intrinsic
-   * sizing, because intrinsic sizing gets it wrong here.
-   *
-   * A flex item with no width takes its max-content size, and the widest child
-   * of this figure is the caption, not the picture — so the card would end up
-   * sized by prose, with the image floating in dead space. Computing the width
-   * from the frame's own ratio also lets it be floored, so the 720×1560 phone
-   * frame (254px wide beside an 880px landscape one) still gets a caption
-   * column wide enough to read.
-   */
-  const media = `calc(var(--slide-h) * ${shot.width} / ${shot.height})`;
-
+function Slide({ shot, ratio }: { shot: Shot; ratio: number }) {
   return (
+    /*
+     * --slide-w is set once on the grid below and is the same for every slide,
+     * which is the whole point: the count per view is fixed rather than falling
+     * out of each frame's proportions. An explicit width is also still required
+     * for a different reason — a flex item with no width takes its max-content
+     * size, and the widest child of this figure is the caption, not the
+     * picture, so the card would be sized by prose.
+     */
     <figure
       data-slide
       className="group shrink-0 snap-start"
-      style={{ width: `max(260px, calc(${media} + 1rem))` }}
+      style={{ width: "var(--slide-w)" }}
     >
       <div className="overflow-hidden rounded-[var(--radius-media)] bg-white p-2 shadow-[var(--shadow-lift)] ring-1 ring-inset ring-line-soft transition-shadow duration-300 group-hover:shadow-[var(--shadow-hero)]">
-        {/* Uniform height across the track; width follows the frame's ratio.
-            mx-auto centres the narrow portrait frame inside its floored card. */}
+        {/* One band ratio for the whole gallery, so every slide in the row is
+            the same height and the captions start on one line. data-media is
+            how the arrows find that height — see `sync`. */}
         <div
-          className="relative mx-auto overflow-hidden rounded-[14px]"
-          style={{ height: "var(--slide-h)", width: media }}
+          data-media
+          className="relative w-full overflow-hidden rounded-[14px]"
+          style={{ aspectRatio: ratio }}
         >
           {shot.file ? (
             <Image
               src={shot.file}
               alt={shot.alt}
               fill
-              sizes="(max-width: 640px) 240px, (max-width: 1024px) 320px, 420px"
-              className="object-cover object-top"
+              /* Capped at 1600px the widest a slide ever gets is ~380px. */
+              sizes="(max-width: 639px) 92vw, (max-width: 1023px) 46vw, 400px"
+              className="object-contain"
             />
           ) : (
             <Placeholder shot={shot} />
@@ -161,6 +182,40 @@ function Slide({ shot }: { shot: Shot }) {
       </figcaption>
     </figure>
   );
+}
+
+/**
+ * The one aspect ratio the whole gallery's picture band is drawn at.
+ *
+ * The MEDIAN of the set rather than a site-wide constant. The two homepage
+ * galleries are genuinely differently shaped — organizations sits between 1.406
+ * and 1.686, education between 1.400 and 2.000 — and a single house ratio would
+ * have side-barred most of one of them. Median rather than mean so one outlier
+ * frame cannot drag the whole band off the shape of the set.
+ */
+function frameRatio(shots: readonly Shot[]): number {
+  const r = shots.map((s) => s.width / s.height).sort((a, b) => a - b);
+  return r[Math.floor(r.length / 2)] ?? 16 / 10;
+}
+
+/**
+ * How far into the track a snapped slide sits.
+ *
+ * Below `xl` the track is full-bleed and carries its own px-5 / sm:px-8, and
+ * scroll-snap aligns to the SNAPPORT — which, with no scroll-padding, is the
+ * padding box, i.e. the screen edge. So the browser parked the first slide
+ * flush against that edge with the left padding scrolled out of sight, and
+ * pulled the slide after it into view. Measured at 768px: slide 1 at 0..340,
+ * slide 2 at 364..704 fully visible, slide 3 poking in at 728. Two per view was
+ * the intent; three and a bit is what showed.
+ *
+ * `scroll-p-*` moves the snapport in to match the padding, so a snapped slide
+ * rests inside it and the count per view is the count that was asked for. Every
+ * scroll position is then offset by that padding, which is why it is read
+ * rather than assumed — it changes at two breakpoints and is 0 at `xl`.
+ */
+function scrollPad(el: HTMLElement): number {
+  return parseFloat(getComputedStyle(el).scrollPaddingLeft) || 0;
 }
 
 /** Slide start positions in the track's own scroll coordinates. */
@@ -191,31 +246,44 @@ export function MediaCarousel({
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
   const [index, setIndex] = useState(0);
+  /*
+   * The picture band's height in pixels, measured. The arrows are centred on
+   * it, and it used to be a constant the CSS already knew (--slide-h). It is
+   * now an aspect ratio of a percentage width, which CSS cannot hand back: a
+   * percentage in `top` resolves against the parent's HEIGHT, so there is no
+   * expression that reaches it. Measuring costs nothing here — `sync` already
+   * runs on every scroll frame and already reads rects.
+   */
+  const [bandH, setBandH] = useState(0);
 
   const total = gallery.shots.length;
+  const ratio = frameRatio(gallery.shots);
 
   const sync = useCallback(() => {
     const el = trackRef.current;
     if (!el) return;
     const starts = slideStarts(el);
+    const pad = scrollPad(el);
+
+    const band = el.querySelector<HTMLElement>("[data-media]");
+    if (band) setBandH(band.getBoundingClientRect().height);
 
     /*
-     * "At the start" is the FIRST SLIDE'S offset, not zero.
+     * "At the start" is the first slide's RESTING scroll position — its offset
+     * less the scroll padding. Not zero, and not the offset either.
      *
-     * The track is padded (px-5, sm:px-8) and snaps mandatorily, so the browser
-     * parks it on the first snap point — which sits one padding-width in.
-     * Measured at 390px: scrollLeft rests at 20, never 0. Comparing against
-     * zero therefore reported "not at the start" the moment the page loaded,
-     * and the Previous arrow was live before anyone had paged anywhere. Only
-     * xl and up escaped it, because there the padding is 0.
+     * Comparing against zero used to report "not at the start" the moment the
+     * page loaded, because the browser parks on the first snap point rather
+     * than at 0, so the Previous arrow was live before anyone had paged
+     * anywhere. Only xl escaped it, where the padding is 0.
      */
-    setAtStart(el.scrollLeft <= (starts[0] ?? 0) + 4);
+    setAtStart(el.scrollLeft <= (starts[0] ?? 0) - pad + 4);
     setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 4);
 
-    // Last slide whose left edge has reached the viewport edge.
+    // Last slide that has reached its resting position.
     let cur = 0;
     for (let i = 0; i < starts.length; i++) {
-      if (starts[i] <= el.scrollLeft + 8) cur = i;
+      if (starts[i] - pad <= el.scrollLeft + 8) cur = i;
     }
     setIndex(cur);
   }, []);
@@ -258,14 +326,20 @@ export function MediaCarousel({
     if (!el) return;
     const starts = slideStarts(el);
     if (!starts.length) return;
+    const pad = scrollPad(el);
 
+    /* Compared and scrolled to in RESTING coordinates — a slide's own offset
+       less the scroll padding. Scrolling to the raw offset would overshoot by
+       one padding width and the snap would drag it back, which reads as a
+       bounce. */
+    const rest = starts.map((x) => x - pad);
     const target =
       dir === 1
-        ? starts.find((s) => s > el.scrollLeft + 8)
-        : [...starts].reverse().find((s) => s < el.scrollLeft - 8);
+        ? rest.find((x) => x > el.scrollLeft + 8)
+        : [...rest].reverse().find((x) => x < el.scrollLeft - 8);
 
     el.scrollTo({
-      left: target ?? (dir === 1 ? el.scrollWidth : 0),
+      left: Math.max(0, target ?? (dir === 1 ? el.scrollWidth : 0)),
       behavior: "smooth",
     });
   }, []);
@@ -279,9 +353,12 @@ export function MediaCarousel({
   const arrow =
     "absolute z-10 grid size-10 place-items-center rounded-full bg-white text-navy shadow-[var(--shadow-lift)] ring-1 ring-inset ring-line-soft transition-all hover:bg-royal-50 disabled:opacity-0 disabled:pointer-events-none";
   /* Vertically centred on the picture band, not on the whole card: the card
-     adds 0.5rem of padding above an image that is exactly --slide-h tall, and
-     the caption below would otherwise drag the arrows down past it. */
-  const arrowY = "top-[calc(0.5rem+var(--slide-h)/2)] -translate-y-1/2";
+     adds 0.5rem of padding above the band, and the caption below would
+     otherwise drag the arrows down past it. Falls back to the middle of the
+     whole column until the first measurement lands. */
+  const arrowY: CSSProperties = bandH
+    ? { top: `calc(0.5rem + ${bandH / 2}px)` }
+    : { top: "50%" };
 
   const { left: figureLeft, right: figureRight } = PRESENTER_FIGURES;
 
@@ -319,17 +396,31 @@ export function MediaCarousel({
           each side and the track runs between them; below that they drop under
           the track, side by side, and the track goes back to full bleed.
 
-          --slide-h lives here rather than on the track so the arrows can read
-          it — they are positioned against the picture band's height. */}
+          --slide-w lives here rather than on the track because the figures'
+          columns are part of what is left over: it is a percentage, and it has
+          to resolve inside the track, which this grid sizes.
+
+          xl:px-8 IS UNCONDITIONAL, and used to be homepage-only. At `xl` the
+          track loses its own padding and the arrows sit 20px OUTSIDE it, so on
+          the 21 inner pages — which pass no sector and so got no padding — the
+          Next arrow hung 20px past the right edge and scrolled the whole
+          document sideways. Pre-existing, visible on the deployed build at
+          every width from 1280 to 1600; the homepage escaped it because the
+          figures' layout brought the padding with it.
+
+          CAPPED AT 1600px. Percentage slides grow without limit otherwise —
+          about 700px each on a 27-inch monitor, far larger than anything else
+          on the page. At the cap the organizations band lands at ~270px, which
+          is where the fixed 262px band sat before this. */}
       <div
         /* grid-cols-1 is load-bearing, not tidying. An implicit grid column is
            sized to max-content, and the track is a flex row of 16 slides — so
            without an explicit minmax(0,1fr) column the column grew to fit all
            of them, the track stopped overflowing, and it silently stopped
            scrolling at every width below xl. */
-        className={`mt-8 grid grid-cols-1 gap-4 [--slide-h:150px] sm:[--slide-h:200px] lg:[--slide-h:262px] ${
+        className={`mx-auto mt-8 grid max-w-[1600px] grid-cols-1 gap-4 [--slide-w:100%] sm:[--slide-w:calc((100%-2rem)/2)] lg:[--slide-w:calc((100%-4rem)/3)] xl:[--slide-w:calc((100%-3rem)/3)] xl:px-8 ${
           sector
-            ? "xl:grid-cols-[minmax(0,150px)_minmax(0,1fr)_minmax(0,150px)] xl:items-end xl:gap-6 xl:px-8"
+            ? "xl:grid-cols-[minmax(0,150px)_minmax(0,1fr)_minmax(0,150px)] xl:items-end xl:gap-6"
             : ""
         }`}
       >
@@ -353,10 +444,31 @@ export function MediaCarousel({
             role="group"
             onKeyDown={onKeyDown}
             aria-label={`${gallery.title} — ${total} images, scrollable gallery`}
-            className="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-5 pb-2 focus-visible:outline-2 focus-visible:outline-offset-4 sm:px-8 xl:px-0 [scrollbar-width:thin]"
+            /* Three things are tied together here, and all three have to move
+               as one:
+
+                 scroll-p-* mirrors px-* exactly — see scrollPad above. Without
+                 it the snapport is the screen edge and an extra slide is
+                 dragged into view at every width below xl.
+
+                 gap-* ALSO mirrors px-*, so that where one slide ends and the
+                 padding begins, the next slide starts exactly at the viewport
+                 edge. When the gap was narrower than the padding — 24 against
+                 32 — an 8px strip of the next slide stayed on screen, and at
+                 that width it was a strip of CAPTION: sliced letters at the
+                 edge, which reads as a rendering fault rather than as a hint
+                 that the track scrolls.
+
+                 --slide-w on the grid subtracts these same gaps. Change one,
+                 change all three. */
+            className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth scroll-p-5 px-5 pb-2 focus-visible:outline-2 focus-visible:outline-offset-4 sm:gap-8 sm:scroll-p-8 sm:px-8 xl:gap-6 xl:scroll-p-0 xl:px-0 [scrollbar-width:thin]"
           >
             {gallery.shots.map((shot) => (
-              <Slide key={`${gallery.id}-${shot.id}`} shot={shot} />
+              <Slide
+                key={`${gallery.id}-${shot.id}`}
+                shot={shot}
+                ratio={ratio}
+              />
             ))}
             {/* trailing spacer so the last caption clears the viewport edge */}
             <div aria-hidden className="w-1 shrink-0" />
@@ -371,7 +483,8 @@ export function MediaCarousel({
             onClick={() => page(-1)}
             disabled={atStart}
             aria-label="Previous image"
-            className={`${arrow} ${arrowY} left-2 sm:left-4 xl:-left-5`}
+            style={arrowY}
+            className={`${arrow} left-2 -translate-y-1/2 sm:left-4 xl:-left-5`}
           >
             <ChevronLeft className="size-5" aria-hidden />
           </button>
@@ -380,7 +493,8 @@ export function MediaCarousel({
             onClick={() => page(1)}
             disabled={atEnd}
             aria-label="Next image"
-            className={`${arrow} ${arrowY} right-2 sm:right-4 xl:-right-5`}
+            style={arrowY}
+            className={`${arrow} right-2 -translate-y-1/2 sm:right-4 xl:-right-5`}
           >
             <ChevronRight className="size-5" aria-hidden />
           </button>

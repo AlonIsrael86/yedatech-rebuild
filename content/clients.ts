@@ -97,7 +97,9 @@ export const CLIENT_LOGOS: readonly ClientLogo[] = [
   { slug: "april", name: "April", file: `${C}/april.png`, width: 164, height: 71, sector: "organizations" },
 ];
 
-export const CLIENTS_INTRO = "Learning teams already building on Yeda";
+/* CLIENTS_INTRO was here — the small-caps eyebrow above the strip. Removed on
+   2026-08-24 at Victor's request; the section carries an aria-label instead so
+   it is still a named region. Nothing else consumed it. */
 
 /** The logos for one sector, in order. */
 export const logosFor = (sector: Sector) =>

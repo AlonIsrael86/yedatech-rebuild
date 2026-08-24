@@ -1,6 +1,5 @@
 import Image from "next/image";
-import { Container } from "@/components/ui";
-import { CLIENTS_INTRO, clientsReady, logosFor } from "@/content/clients";
+import { clientsReady, logosFor } from "@/content/clients";
 import type { Sector } from "@/content/routes";
 
 /**
@@ -42,14 +41,16 @@ export function LogoStrip({ sector }: { sector: Sector }) {
   const shown = logosFor(sector);
 
   return (
-    <section className="border-y border-line-soft bg-white py-10">
-      <Container>
-        <p className="text-center text-[14px] font-semibold uppercase tracking-wide text-slate">
-          {CLIENTS_INTRO}
-        </p>
-      </Container>
-
-      <div className="relative mt-7 overflow-hidden">
+    /* The eyebrow that sat here — CLIENTS_INTRO, "Learning teams already
+       building on Yeda" — is gone at Victor's request. It carried the section's
+       only accessible name, so `aria-label` takes that job: a bare row of 22
+       marks is announced as a labelled region rather than an anonymous list.
+       Invisible, and it keeps the alt text on each logo doing what it should. */
+    <section
+      aria-label="Yeda clients"
+      className="border-y border-line-soft bg-white py-10"
+    >
+      <div className="relative overflow-hidden">
         {/* Soft edges so logos fade out rather than being clipped mid-mark. */}
         <div
           aria-hidden

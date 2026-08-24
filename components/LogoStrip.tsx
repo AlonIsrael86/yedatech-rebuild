@@ -27,7 +27,9 @@ import type { Sector } from "@/content/routes";
  *    (INT) to 8.47 (Elevation); on `w-auto` that is a 26px logo sitting beside
  *    a 271px one. A fixed box gives every client the same slot, which is the
  *    point of a customer strip, and the widest wordmarks simply sit shorter
- *    inside it;
+ *    inside it. The box is 160x44, up from 132x36 — the ratio is held at ~3.65
+ *    so nothing reflows inside it, and globals.css lengthens the loop to match
+ *    the longer track;
  *  - the track holds the list twice and shifts by exactly -50%, so the loop is
  *    seamless with no visible jump;
  *  - the second pass is aria-hidden, so a screen reader hears each client once;
@@ -69,7 +71,7 @@ export function LogoStrip({ sector }: { sector: Sector }) {
                 alt={logo.name}
                 width={logo.width}
                 height={logo.height}
-                className="h-9 w-[132px] object-contain"
+                className="h-11 w-[160px] object-contain"
               />
             </li>
           ))}
@@ -89,7 +91,7 @@ export function LogoStrip({ sector }: { sector: Sector }) {
                 alt={logo.name}
                 width={logo.width}
                 height={logo.height}
-                className="h-9 w-[132px] object-contain"
+                className="h-11 w-[160px] object-contain"
               />
             </li>
           ))}

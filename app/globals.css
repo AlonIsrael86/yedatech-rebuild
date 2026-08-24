@@ -194,17 +194,28 @@ html[data-a11y-spacing] body {
  * The track holds the list twice and shifts by exactly half its width, so the
  * loop is seamless. Paused on hover, and effectively stopped under
  * prefers-reduced-motion by the duration override below.
+ *
+ * TRAVELS LEFT TO RIGHT, per Victor. That means starting at -50% and ending at
+ * 0 rather than the other way round: the track is offset by half its width on
+ * the first frame, which is invisible because the two halves are identical.
+ * `animation-direction: reverse` would look the same but reads as an
+ * afterthought against the keyframe it contradicts.
+ *
+ * 48s, not the old 42s. The logo boxes grew from 132px to 160px, so the track
+ * is ~14% longer; holding the duration would have sped the scroll up by the
+ * same amount as a side effect of a size change nobody asked to be faster.
+ * 42 x 1.143 keeps the pixels-per-second where it was.
  */
 @keyframes marquee {
   from {
-    transform: translateX(0);
+    transform: translateX(-50%);
   }
   to {
-    transform: translateX(-50%);
+    transform: translateX(0);
   }
 }
 .marquee-track {
-  animation: marquee 42s linear infinite;
+  animation: marquee 48s linear infinite;
 }
 .marquee-track:hover {
   animation-play-state: paused;

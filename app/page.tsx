@@ -69,6 +69,13 @@ export default function Home() {
         {SECTOR_KEYS.map((sector) => (
           <SectorPanel key={`top-${sector}`} sector={sector}>
             <Hero sector={sector} />
+            {/* Directly under the hero, per Victor. It is per sector because
+                yedalms.io groups its own customers into educational
+                institutions and companies, and that grouping maps onto our two
+                tabs — so Education shows colleges and Organizations shows
+                employers. It rides in the panel the hero already occupies
+                rather than adding a second one. */}
+            <LogoStrip sector={sector} />
             <CapabilityBento sector={sector} />
           </SectorPanel>
         ))}
@@ -87,16 +94,6 @@ export default function Home() {
         {/* Shared: reads the same for both sectors, so it is rendered once
             between the sector blocks rather than duplicated into each. */}
         <ValueBand />
-
-        {/* Per sector, unlike ValueBand above it. yedalms.io groups its own
-            customers into educational institutions and companies, and that
-            grouping maps onto our two tabs — so the Education panel shows
-            colleges and the Organizations panel shows employers. */}
-        {SECTOR_KEYS.map((sector) => (
-          <SectorPanel key={`logos-${sector}`} sector={sector}>
-            <LogoStrip sector={sector} />
-          </SectorPanel>
-        ))}
 
         <Production />
         <Family />

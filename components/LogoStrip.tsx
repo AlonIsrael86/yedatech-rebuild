@@ -16,6 +16,12 @@ import type { Sector } from "@/content/routes";
  * guard lives in the data layer, so mounting this component can never leak an
  * unapproved client name, and one flag takes every logo off the site.
  *
+ *  - IN FULL COLOUR. These were greyscale at 70% and coloured up on hover,
+ *    which is the usual way to keep a logo wall quiet. Victor asked for colour,
+ *    and it matters more here than it would lower down: the strip now sits
+ *    directly under the navy hero, where a row of grey marks read as washed
+ *    out rather than restrained. Hover no longer changes anything, so the
+ *    transition went with it.
  *  - ONE FIXED BOX PER LOGO, and `object-contain` fits the mark inside it.
  *    The marks are cropped to their own bounds, so their ratios run from 0.82
  *    (INT) to 8.47 (Elevation); on `w-auto` that is a 26px logo sitting beside
@@ -63,7 +69,7 @@ export function LogoStrip({ sector }: { sector: Sector }) {
                 alt={logo.name}
                 width={logo.width}
                 height={logo.height}
-                className="h-9 w-[132px] object-contain opacity-70 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0"
+                className="h-9 w-[132px] object-contain"
               />
             </li>
           ))}
@@ -83,7 +89,7 @@ export function LogoStrip({ sector }: { sector: Sector }) {
                 alt={logo.name}
                 width={logo.width}
                 height={logo.height}
-                className="h-9 w-[132px] object-contain opacity-70 grayscale"
+                className="h-9 w-[132px] object-contain"
               />
             </li>
           ))}

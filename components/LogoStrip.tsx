@@ -1,30 +1,37 @@
 import Image from "next/image";
 import { Container } from "@/components/ui";
-import { CLIENT_LOGOS, CLIENTS_INTRO, clientsReady } from "@/content/clients";
+import { CLIENTS_INTRO, clientsReady, logosFor } from "@/content/clients";
+import type { Sector } from "@/content/routes";
 
 /**
  * The rolling client-logo strip Alexey pointed at on yedalms.io — "логотипы,
  * которые катаются".
  *
- * Renders NOTHING until the logos are approved. See content/clients.ts for why:
- * these are real Yeda clients, but they are other companies' marks and showing
- * them on a new domain is Alexey's call. The guard lives in the data layer, so
- * mounting this component can never leak an unapproved client name.
+ * PER SECTOR, as of 2026-08-06. yedalms.io groups its own customers into
+ * educational institutions and companies, which maps onto our two tabs, so the
+ * Education panel shows colleges and the Organizations panel shows employers.
+ * `logosFor` owns that split; this component just renders what it is handed.
  *
- * When it is switched on:
+ * Renders NOTHING while the logos are unapproved — see content/clients.ts. The
+ * guard lives in the data layer, so mounting this component can never leak an
+ * unapproved client name, and one flag takes every logo off the site.
+ *
+ *  - ONE FIXED BOX PER LOGO, and `object-contain` fits the mark inside it.
+ *    The marks are cropped to their own bounds, so their ratios run from 0.82
+ *    (INT) to 8.47 (Elevation); on `w-auto` that is a 26px logo sitting beside
+ *    a 271px one. A fixed box gives every client the same slot, which is the
+ *    point of a customer strip, and the widest wordmarks simply sit shorter
+ *    inside it;
  *  - the track holds the list twice and shifts by exactly -50%, so the loop is
  *    seamless with no visible jump;
  *  - the second pass is aria-hidden, so a screen reader hears each client once;
  *  - `.marquee-track` in globals.css owns the animation, pauses it on hover,
  *    and is already covered by the global prefers-reduced-motion rule.
  */
-export function LogoStrip() {
-  if (!clientsReady()) return null;
+export function LogoStrip({ sector }: { sector: Sector }) {
+  if (!clientsReady(sector)) return null;
 
-  const shown = CLIENT_LOGOS.filter(
-    (c): c is typeof c & { file: string; name: string } =>
-      Boolean(c.file && c.name),
-  );
+  const shown = logosFor(sector);
 
   return (
     <section className="border-y border-line-soft bg-white py-10">
@@ -56,7 +63,7 @@ export function LogoStrip() {
                 alt={logo.name}
                 width={logo.width}
                 height={logo.height}
-                className="h-8 w-auto opacity-60 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0"
+                className="h-9 w-[132px] object-contain opacity-70 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0"
               />
             </li>
           ))}
@@ -76,7 +83,7 @@ export function LogoStrip() {
                 alt={logo.name}
                 width={logo.width}
                 height={logo.height}
-                className="h-8 w-auto opacity-60 grayscale"
+                className="h-9 w-[132px] object-contain opacity-70 grayscale"
               />
             </li>
           ))}

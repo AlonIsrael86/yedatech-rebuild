@@ -88,7 +88,16 @@ export default function Home() {
             between the sector blocks rather than duplicated into each. */}
         <ValueBand />
 
-        <LogoStrip />
+        {/* Per sector, unlike ValueBand above it. yedalms.io groups its own
+            customers into educational institutions and companies, and that
+            grouping maps onto our two tabs — so the Education panel shows
+            colleges and the Organizations panel shows employers. */}
+        {SECTOR_KEYS.map((sector) => (
+          <SectorPanel key={`logos-${sector}`} sector={sector}>
+            <LogoStrip sector={sector} />
+          </SectorPanel>
+        ))}
+
         <Production />
         <Family />
 

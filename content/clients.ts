@@ -10,12 +10,19 @@ import type { Sector } from "@/content/routes";
  * not in play. What it is: twenty-two other companies' trademarks, committed to
  * a PUBLIC repository and shown on a NEW domain as a customer wall.
  *
- * This file used to be gated behind `CLIENTS_APPROVED = false` pending Alexey.
- * Victor took the call on 2026-08-06 and it is on. Two earlier trademark
- * overrides (Zoom/Teams/Meet, Google/Outlook) were nominative use inside a
- * screenshot — a claim about integrations, not about who the customers are, so
- * this one is a bigger step and is in the Alexey brief as reversible: set
- * CLIENTS_APPROVED back to false and the strip disappears, no other change.
+ * APPROVED. This file was gated behind `CLIENTS_APPROVED = false` from the day
+ * it was written, because showing a client on a new domain is a commercial
+ * decision rather than a build one. The client approved it on 2026-08-06,
+ * relayed by Victor, and the flag is on. It is no longer an open item in the
+ * Alexey brief.
+ *
+ * That approval covers THESE LOGOS ONLY. The other third-party marks on the
+ * site are separate questions and still open on their own terms — the Juno OPS
+ * de-branding across the organizations carousel, and the Google and Facebook
+ * buttons inside the education sign-in slide.
+ *
+ * Still reversible in one edit: set CLIENTS_APPROVED back to false and every
+ * logo leaves the site, no other change needed.
  *
  * NAMES ARE READ OFF THE MARKS, NEVER OFF THE FILENAMES
  * ----------------------------------------------------

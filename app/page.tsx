@@ -11,6 +11,7 @@ import { Flow } from "@/components/Flow";
 import { MediaCarousel } from "@/components/MediaCarousel";
 import { ValueBand } from "@/components/ValueBand";
 import { LogoStrip } from "@/components/LogoStrip";
+import { Testimonials } from "@/components/Testimonials";
 import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
 import { SectorPanel } from "@/components/SectorProvider";
@@ -45,8 +46,10 @@ export const metadata: Metadata = {
  * ValueBand is the one shared block in the middle. It renders once rather than
  * per sector, so its copy appears a single time in the HTML.
  *
- * Not mounted yet: client logos. LogoStrip is mounted but returns null until
- * Alexey approves the twelve organizations in content/clients.ts.
+ * PROOF BOOKENDS THE PAGE: the client logos sit directly under the hero (who
+ * uses it), and the five customer quotes sit at the bottom (what they say about
+ * it), immediately before the contact form asks for something. Both are real
+ * and sourced; neither is invented.
  */
 const SECTOR_KEYS: Sector[] = ["organizations", "education"];
 
@@ -97,6 +100,13 @@ export default function Home() {
 
         <Production />
         <Family />
+
+        {/* Shared, rendered once, like ValueBand — the five quotes are not
+            split by tab. content/testimonials.ts carries the reasoning, along
+            with why nobody in them is named yet. Placed after the product
+            family and before the contact form: the last thing read before the
+            ask is somebody else saying it worked. */}
+        <Testimonials />
 
         {SECTOR_KEYS.map((sector) => (
           <SectorPanel key={`cta-${sector}`} sector={sector}>

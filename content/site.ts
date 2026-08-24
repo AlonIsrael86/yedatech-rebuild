@@ -15,7 +15,11 @@
  *  - Software training: the agent watches the screen.
  *  - Exactly two audiences, with genuinely different vocabulary. Education
  *    says "students"; organizations says "employees, suppliers, customers".
- *  - No creator / marketplace / course-resale positioning. No testimonials.
+ *  - No creator / marketplace / course-resale positioning.
+ *  - Testimonials: the blanket "no testimonials" here was about INVENTED ones.
+ *    Alexey and Seva supplied five real quotes on 2026-08-24; they live in
+ *    content/testimonials.ts, unedited, and nobody in them is named until that
+ *    client approves it.
  *  - No pricing until Alexey confirms figures from the current Yeda LMS offer.
  */
 

@@ -1,36 +1,39 @@
-# Deploys this repository to Vercel with the Vercel CLI.
+# Deploys the English homepage branch to Vercel with the Vercel CLI and points
+# yedatech-english.vercel.app at the result.
+#
+# Every push to english-homepage-v2 builds a PREVIEW deployment, then moves the
+# ALIAS_DOMAIN alias onto it. Nothing here deploys to production, so the Vercel
+# project's production domain (yedatech-rebuild.vercel.app, the Hebrew
+# checkpoint) is never touched.
 #
 # Vercel's own Git integration can only be connected by the repository owner,
-# so deployment runs here instead and pushes the build to a Vercel project
-# identified by the secrets below.
-#
-#   push to PRODUCTION_BRANCH -> production deployment
-#   push to any other branch  -> preview deployment (URL in the run summary)
+# which is why deployment runs here instead.
 #
 # Repository secrets (Settings -> Secrets and variables -> Actions):
 #   VERCEL_TOKEN       Vercel access token (Account Settings -> Tokens)
-#   VERCEL_ORG_ID      "orgId" from .vercel/project.json after `npx vercel link`
-#   VERCEL_PROJECT_ID  "projectId" from the same file
+#   VERCEL_ORG_ID      team ID of the Vercel project
+#   VERCEL_PROJECT_ID  project ID of the Vercel project
 #
 # Until all three exist, the deploy job is skipped with a warning.
 
-name: Deploy to Vercel
+name: Deploy English site to Vercel
 
 on:
   push:
-    branches: ["**"]
+    branches: [english-homepage-v2]
   workflow_dispatch:
 
-# Only the newest push on a branch deploys; an older run still going is cancelled.
+# Only the newest push deploys; an older run still going is cancelled.
 concurrency:
-  group: vercel-${{ github.ref }}
+  group: vercel-english
   cancel-in-progress: true
 
 permissions:
   contents: read
 
 env:
-  PRODUCTION_BRANCH: english-homepage-v2
+  ENGLISH_BRANCH: english-homepage-v2
+  ALIAS_DOMAIN: yedatech-english.vercel.app
 
 jobs:
   check:
@@ -54,7 +57,8 @@ jobs:
 
   deploy:
     needs: check
-    if: needs.check.outputs.ready == 'true'
+    # A manual run started from another branch must not take over the alias.
+    if: needs.check.outputs.ready == 'true' && github.ref_name == 'english-homepage-v2'
     runs-on: ubuntu-latest
     env:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
@@ -71,28 +75,26 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
-      - name: Choose environment
-        id: target
-        run: |
-          if [ "$GITHUB_REF_NAME" = "$PRODUCTION_BRANCH" ]; then
-            echo "environment=production" >> "$GITHUB_OUTPUT"
-            echo "prod_flag=--prod" >> "$GITHUB_OUTPUT"
-          else
-            echo "environment=preview" >> "$GITHUB_OUTPUT"
-            echo "prod_flag=" >> "$GITHUB_OUTPUT"
-          fi
-
       - name: Pull Vercel project settings
-        run: vercel pull --yes --environment=${{ steps.target.outputs.environment }} --token="$VERCEL_TOKEN"
+        run: vercel pull --yes --environment=preview --token="$VERCEL_TOKEN"
 
       - name: Build
-        run: vercel build ${{ steps.target.outputs.prod_flag }} --token="$VERCEL_TOKEN"
+        run: vercel build --token="$VERCEL_TOKEN"
 
-      - name: Deploy
+      - name: Deploy preview
+        id: deploy
         run: |
-          url=$(vercel deploy --prebuilt ${{ steps.target.outputs.prod_flag }} --token="$VERCEL_TOKEN")
+          url=$(vercel deploy --prebuilt --token="$VERCEL_TOKEN")
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Point the alias at the new deployment
+        env:
+          DEPLOYMENT_URL: ${{ steps.deploy.outputs.url }}
+        run: |
+          vercel alias set "$DEPLOYMENT_URL" "$ALIAS_DOMAIN" --token="$VERCEL_TOKEN"
           {
-            echo "### Vercel ${{ steps.target.outputs.environment }} deployment"
+            echo "### Deployed $ENGLISH_BRANCH"
             echo
-            echo "$url"
+            echo "- Live: https://$ALIAS_DOMAIN"
+            echo "- This deployment: $DEPLOYMENT_URL"
           } >> "$GITHUB_STEP_SUMMARY"

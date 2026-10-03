@@ -1,0 +1,98 @@
+# Deploys this repository to Vercel with the Vercel CLI.
+#
+# Vercel's own Git integration can only be connected by the repository owner,
+# so deployment runs here instead and pushes the build to a Vercel project
+# identified by the secrets below.
+#
+#   push to PRODUCTION_BRANCH -> production deployment
+#   push to any other branch  -> preview deployment (URL in the run summary)
+#
+# Repository secrets (Settings -> Secrets and variables -> Actions):
+#   VERCEL_TOKEN       Vercel access token (Account Settings -> Tokens)
+#   VERCEL_ORG_ID      "orgId" from .vercel/project.json after `npx vercel link`
+#   VERCEL_PROJECT_ID  "projectId" from the same file
+#
+# Until all three exist, the deploy job is skipped with a warning.
+
+name: Deploy to Vercel
+
+on:
+  push:
+    branches: ["**"]
+  workflow_dispatch:
+
+# Only the newest push on a branch deploys; an older run still going is cancelled.
+concurrency:
+  group: vercel-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  PRODUCTION_BRANCH: english-homepage-v2
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      ready: ${{ steps.secrets.outputs.ready }}
+    steps:
+      - name: Check Vercel secrets
+        id: secrets
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          if [ -n "$VERCEL_TOKEN" ] && [ -n "$VERCEL_ORG_ID" ] && [ -n "$VERCEL_PROJECT_ID" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::Vercel deploy skipped: add VERCEL_TOKEN, VERCEL_ORG_ID and VERCEL_PROJECT_ID as repository secrets."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  deploy:
+    needs: check
+    if: needs.check.outputs.ready == 'true'
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Choose environment
+        id: target
+        run: |
+          if [ "$GITHUB_REF_NAME" = "$PRODUCTION_BRANCH" ]; then
+            echo "environment=production" >> "$GITHUB_OUTPUT"
+            echo "prod_flag=--prod" >> "$GITHUB_OUTPUT"
+          else
+            echo "environment=preview" >> "$GITHUB_OUTPUT"
+            echo "prod_flag=" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Pull Vercel project settings
+        run: vercel pull --yes --environment=${{ steps.target.outputs.environment }} --token="$VERCEL_TOKEN"
+
+      - name: Build
+        run: vercel build ${{ steps.target.outputs.prod_flag }} --token="$VERCEL_TOKEN"
+
+      - name: Deploy
+        run: |
+          url=$(vercel deploy --prebuilt ${{ steps.target.outputs.prod_flag }} --token="$VERCEL_TOKEN")
+          {
+            echo "### Vercel ${{ steps.target.outputs.environment }} deployment"
+            echo
+            echo "$url"
+          } >> "$GITHUB_STEP_SUMMARY"
